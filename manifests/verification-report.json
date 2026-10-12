@@ -1,0 +1,98 @@
+{
+ "python": "3.13.9",
+ "checks_total": 14,
+ "checks_failed": [],
+ "checks": [
+  {
+   "check": "every manifest entry exists",
+   "passed": true,
+   "entries": 54728,
+   "missing": []
+  },
+  {
+   "check": "destination hashes equal the manifest",
+   "passed": true,
+   "mismatched": []
+  },
+  {
+   "check": "copy integrity: source SHA-256 equals destination SHA-256",
+   "passed": true,
+   "differing": [],
+   "not_applicable": [
+    "history/private/EdgeTTS-PitchFlowNet-all-refs.bundle"
+   ]
+  },
+  {
+   "check": "dataset rows and raw wavs",
+   "passed": true,
+   "rows": 13100,
+   "wavs": 13100,
+   "metadata_lines": 13100,
+   "cache_files": 39300
+  },
+  {
+   "check": "no duplicate utterance IDs or audio paths",
+   "passed": true
+  },
+  {
+   "check": "every path referenced by dataset.jsonl exists in the copy",
+   "passed": true,
+   "path_keys": [
+    "audio_f0_path",
+    "audio_norm_path",
+    "audio_path",
+    "audio_spec_path"
+   ],
+   "missing_per_key": {
+    "audio_f0_path": 0,
+    "audio_norm_path": 0,
+    "audio_path": 0,
+    "audio_spec_path": 0
+   }
+  },
+  {
+   "check": "dataset rows all present in metadata.csv",
+   "passed": true
+  },
+  {
+   "check": "reconstructed split 12,500 / 500 / 100 and disjoint",
+   "passed": true
+  },
+  {
+   "check": "reconstructed test split equals stored test_entries_500.jsonl in order",
+   "passed": true
+  },
+  {
+   "check": "best-epoch=1079-val_loss_mel=19.2943_per_sentence.csv: 500 rows aligned with the stored test sentences, means equal summary.json",
+   "passed": true,
+   "rows": 500,
+   "mean_wer": 0.08638256718707348,
+   "mean_utmos": 3.807000442504883,
+   "mean_rtf": 0.05680896202887641
+  },
+  {
+   "check": "best-epoch=773-val_loss_mel=20.2158_per_sentence.csv: 500 rows aligned with the stored test sentences, means equal summary.json",
+   "passed": true,
+   "rows": 500,
+   "mean_wer": 0.0917101940034002,
+   "mean_utmos": 3.3655758004188536,
+   "mean_rtf": 0.05591087851915026
+  },
+  {
+   "check": "ground-truth CSV: 500 rows in the stored test-sentence order",
+   "passed": true,
+   "rows": 500
+  },
+  {
+   "check": "no credential pattern in text files",
+   "passed": true,
+   "hits": []
+  },
+  {
+   "check": "text files containing machine paths (expected in local originals; Git tracks sanitized copies)",
+   "passed": true,
+   "count": 101
+  }
+ ],
+ "note": "Copy hashes show the copy equals the source today; they do not show which bytes a training process loaded."
+}

@@ -1,0 +1,75 @@
+{
+ "tool": "tools/check_tracked_package.py",
+ "run_utc": "2026-10-12T08:42:40+00:00",
+ "python": "3.13.9",
+ "git_head": "63976f8",
+ "files_checked": 592,
+ "checks": [
+  {
+   "check": "no datasets, checkpoints, audio, events, compiled files or private folders",
+   "result": "pass"
+  },
+  {
+   "check": "no file over 5000000 bytes",
+   "result": "pass"
+  },
+  {
+   "check": "no machine paths or host names in tracked text",
+   "result": "pass"
+  },
+  {
+   "check": "no e-mail addresses other than upstream authors",
+   "result": "pass"
+  },
+  {
+   "check": "no token-like strings",
+   "result": "pass"
+  },
+  {
+   "check": "every sanitized copy is mapped and matches its SHA-256",
+   "result": "pass"
+  },
+  {
+   "check": "originals match the map and re-sanitize to the tracked copy",
+   "result": "pass",
+   "detail": {
+    "originals_present": 105,
+    "mismatch": []
+   }
+  },
+  {
+   "check": "originals with machine paths are git-ignored",
+   "result": "pass"
+  },
+  {
+   "check": "recorded files tracked as-is keep their recorded SHA-256",
+   "result": "pass",
+   "detail": {
+    "changed": [],
+    "missing": [],
+    "entries": 2315
+   }
+  },
+  {
+   "check": "local-only and sanitized originals are not tracked",
+   "result": "pass"
+  },
+  {
+   "check": "JSON and JSONL files parse",
+   "result": "pass"
+  },
+  {
+   "check": "YAML files parse",
+   "result": "pass"
+  },
+  {
+   "check": ".gitattributes disables end-of-line conversion",
+   "result": "pass"
+  },
+  {
+   "check": "relative Markdown links in project documents resolve",
+   "result": "pass"
+  }
+ ],
+ "failed": []
+}

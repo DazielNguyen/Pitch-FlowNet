@@ -89,20 +89,20 @@ def main():
     # scans
     cred, paths = [], 0
     for p in ROOT.rglob("*"):
-        if p.is_file() and p.suffix in TEXT and p.stat().st_size < 50_000_000 and "datasets" not in p.parts:
+        if p.is_file() and p.suffix in TEXT and p.stat().st_size < 50_000_000 and "datasets" not in p.parts and ".git" not in p.parts:
             t = p.read_bytes().decode("utf-8", "ignore")
             if CRED.search(t):
                 cred.append(str(p.relative_to(ROOT)))
             if PATHS.search(t):
                 paths += 1
     check("no credential pattern in text files", not cred, hits=cred)
-    checks.append({"check": "text files containing machine paths (expected in originals; sanitized only in the transfer ZIP)",
+    checks.append({"check": "text files containing machine paths (expected in local originals; Git tracks sanitized copies)",
                    "passed": True, "count": paths})
     failed = [c["check"] for c in checks if not c["passed"]]
     rep = {"python": sys.version.split()[0], "checks_total": len(checks), "checks_failed": failed, "checks": checks,
            "note": "Copy hashes show the copy equals the source today; they do not show which bytes a training process loaded."}
     if a.output:
-        Path(a.output).write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
+        Path(a.output).write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(f"{len(checks)} checks, {len(failed)} failed")
     for f in failed:
         print("FAILED:", f)
