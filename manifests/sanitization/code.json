@@ -1,0 +1,532 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/01_Baseline_BigVgan_VITS2_FO.yaml",
+   "original_sha256": "3227b22b7cac7d4c07cbc14eb21d4b9ff5399ac7530e236942e825924e2a4927",
+   "original_bytes": 1155,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/01_Baseline_BigVgan_VITS2_FO.sanitized.yaml",
+   "sanitized_sha256": "f1c12902c4f7f777bf50b8bc40d7d4ac9d452a30916df733fc3a4cef6875702c",
+   "sanitized_bytes": 1160,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/02_Config_B_BigVGAN.yaml",
+   "original_sha256": "021b388454c3b52e447ca8543d9ec31e2f11e23fd4f6666112e7057945aadb37",
+   "original_bytes": 986,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/02_Config_B_BigVGAN.sanitized.yaml",
+   "sanitized_sha256": "ec769847d058dd98dca8634fcd297e86f022da492fcdc933e7c4d765764476a9",
+   "sanitized_bytes": 991,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/03_Config_C_VITS2.yaml",
+   "original_sha256": "43202a806f13ea7caf1bc12f25b401a3c3585b0f9fe9162e08f737dfc074a31d",
+   "original_bytes": 963,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/03_Config_C_VITS2.sanitized.yaml",
+   "sanitized_sha256": "097b4a75aad862d5ecfbdbaa010f51708ef730ca1b7c73d931f6152d29718ddd",
+   "sanitized_bytes": 968,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/04_Config_D_F0.yaml",
+   "original_sha256": "11ac31b1320fb4c2a10ce546b4a65d9b44bb6b39a56c0543899dd81d4c59c078",
+   "original_bytes": 970,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/04_Config_D_F0.sanitized.yaml",
+   "sanitized_sha256": "cc0686c70bea4779ecc3ee4fcf0167ec24cce973ca371cb6ddfd82f53b792a34",
+   "sanitized_bytes": 975,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/05_Config_E_BigVGAN_VITS2.yaml",
+   "original_sha256": "7adebc8718e959cbcfcb8929217c05fe40ac3ca4e3f8c0591a9bf03e107d2e35",
+   "original_bytes": 993,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/05_Config_E_BigVGAN_VITS2.sanitized.yaml",
+   "sanitized_sha256": "9cceb18796ae90be026cf4be37ad3f27e9754e74308316ded741b9f974dd77a6",
+   "sanitized_bytes": 998,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/06_Config_F_BigVGAN_F0.yaml",
+   "original_sha256": "b453904981f71413b38cbe1fc6b2b3c7bbccaa486e8e3f16a783b66301df1ef0",
+   "original_bytes": 1003,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/06_Config_F_BigVGAN_F0.sanitized.yaml",
+   "sanitized_sha256": "981a488abeb468232261aed808482ffd9492695c7968c6c34b09b77f0180bea8",
+   "sanitized_bytes": 1008,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/07_Config_G_VITS2_F0.yaml",
+   "original_sha256": "56451a2a5c446ca28f18628ca5a75762fe0a7c38549f9ad7150520dfea221550",
+   "original_bytes": 982,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/07_Config_G_VITS2_F0.sanitized.yaml",
+   "sanitized_sha256": "521c77ee86cc74d2141f2063c68d79f207f6451c3c4aa625b6f690caed6c5f72",
+   "sanitized_bytes": 987,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/baseline-vits.yaml",
+   "original_sha256": "5d1b665dcd295a850ff02626534be9c062855c2e5e45b67f43ebe8d8a98f4dc6",
+   "original_bytes": 1094,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/baseline-vits.sanitized.yaml",
+   "sanitized_sha256": "133fc197acebe84adc78544e0cf29edc7a0b11932a73b3ff980110ee236a6e12",
+   "sanitized_bytes": 1099,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/configs/piper-modern.yaml",
+   "original_sha256": "5cd7bf39cc4bdaac0dd61629ab36eb827080c5d0a32724815bffc1f47359a7e8",
+   "original_bytes": 1423,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/configs/piper-modern.sanitized.yaml",
+   "sanitized_sha256": "43d964523a1879d182cf11356b9c8ce5bffa7d85afb06806375420a81594324b",
+   "sanitized_bytes": 1428,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/compute_oracle_loss.py",
+   "original_sha256": "fbf292bd241e73fc83dbe55e57874087c6f72eacaf35b226c63e445d94d97df6",
+   "original_bytes": 4256,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/compute_oracle_loss.sanitized.py",
+   "sanitized_sha256": "a9a41baa19c07a484e9c21f38d1684ec43cb029d23dc91a723d050e673803e90",
+   "sanitized_bytes": 4266,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/extract_test_sentences.py",
+   "original_sha256": "57965e303aec7a08353217d535ece9fcab1c97be294729833db3ab984d0f9c68",
+   "original_bytes": 2116,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/extract_test_sentences.sanitized.py",
+   "sanitized_sha256": "54b25e8e84de23bc33336f786bf20e25c34a15365a18c8a1d4f0b4cdca4fe238",
+   "sanitized_bytes": 2131,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/gt_wer.py",
+   "original_sha256": "b5fa2adf0183d81566324419b6ae70f2b39d12d14ffb644c9200f40f57a39b7e",
+   "original_bytes": 2676,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/gt_wer.sanitized.py",
+   "sanitized_sha256": "1dacee7d3d4eeee0371357d10213dfe45bf990895e77b49f4cdf44a657ffdbc8",
+   "sanitized_bytes": 2686,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/measure_rtf.py",
+   "original_sha256": "0b366a0a5ebe758e0950a97ec8e24c1b583fff2a453e34d0d3e14880de21ffdb",
+   "original_bytes": 3001,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/measure_rtf.sanitized.py",
+   "sanitized_sha256": "d40319684cc99c3e4d44bebf3fa3fc743028449882eaf86263f09f1f53a43f54",
+   "sanitized_bytes": 3011,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/posterior_mean_test.py",
+   "original_sha256": "4c349bb026897e3f3f0e3921bd71beff1a41fcc64449fc8ec9853eab09b4b112",
+   "original_bytes": 4992,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/posterior_mean_test.sanitized.py",
+   "sanitized_sha256": "0f5c184f02458a48d611432b634d28ff68d76fcd21e13ee6f46a5f78d116dd02",
+   "sanitized_bytes": 5007,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/waveform_alignment_test.py",
+   "original_sha256": "b7c48400253b2a22e9cd0216df475c3fbbfd330861e85a80bafc80692adfc75d",
+   "original_bytes": 6684,
+   "sanitized": "code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/waveform_alignment_test.sanitized.py",
+   "sanitized_sha256": "94c91483703b48e0b6634b1fd342c6e269711c52c477723cadb313e9a4084d47",
+   "sanitized_bytes": 6699,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/current-source/home-dev-BanhmiTTS-port/scripts/launch_full_training.sh",
+   "original_sha256": "c8854b2b2e4c1571160f19a0e0f81743d0eacead5427b65bdbef3cad7282ead9",
+   "original_bytes": 2639,
+   "sanitized": "code/current-source/home-dev-BanhmiTTS-port/scripts/launch_full_training.sanitized.sh",
+   "sanitized_sha256": "7d9af6b62b162f63d13227231c2278f23cf36c5a369330eef4b15a6c4d6c546b",
+   "sanitized_bytes": 2644,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/home-dev-BanhmiTTS-port/scripts/resume_full_training.sh",
+   "original_sha256": "89c2b0a605313db9bebd9f3b8e0102ec42226beefa9cad42b8248147928eef1f",
+   "original_bytes": 2498,
+   "sanitized": "code/current-source/home-dev-BanhmiTTS-port/scripts/resume_full_training.sanitized.sh",
+   "sanitized_sha256": "52d51e406e5ce25536c9fb27897622a597bb351daaabcd23dfe03eb59113fde1",
+   "sanitized_bytes": 2503,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/compute_oracle_loss.py",
+   "original_sha256": "fbf292bd241e73fc83dbe55e57874087c6f72eacaf35b226c63e445d94d97df6",
+   "original_bytes": 4256,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/compute_oracle_loss.sanitized.py",
+   "sanitized_sha256": "a9a41baa19c07a484e9c21f38d1684ec43cb029d23dc91a723d050e673803e90",
+   "sanitized_bytes": 4266,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/extract_test_sentences.py",
+   "original_sha256": "57965e303aec7a08353217d535ece9fcab1c97be294729833db3ab984d0f9c68",
+   "original_bytes": 2116,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/extract_test_sentences.sanitized.py",
+   "sanitized_sha256": "54b25e8e84de23bc33336f786bf20e25c34a15365a18c8a1d4f0b4cdca4fe238",
+   "sanitized_bytes": 2131,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/gt_wer.py",
+   "original_sha256": "b5fa2adf0183d81566324419b6ae70f2b39d12d14ffb644c9200f40f57a39b7e",
+   "original_bytes": 2676,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/gt_wer.sanitized.py",
+   "sanitized_sha256": "1dacee7d3d4eeee0371357d10213dfe45bf990895e77b49f4cdf44a657ffdbc8",
+   "sanitized_bytes": 2686,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/measure_rtf.py",
+   "original_sha256": "0b366a0a5ebe758e0950a97ec8e24c1b583fff2a453e34d0d3e14880de21ffdb",
+   "original_bytes": 3001,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/measure_rtf.sanitized.py",
+   "sanitized_sha256": "d40319684cc99c3e4d44bebf3fa3fc743028449882eaf86263f09f1f53a43f54",
+   "sanitized_bytes": 3011,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/posterior_mean_test.py",
+   "original_sha256": "4c349bb026897e3f3f0e3921bd71beff1a41fcc64449fc8ec9853eab09b4b112",
+   "original_bytes": 4992,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/posterior_mean_test.sanitized.py",
+   "sanitized_sha256": "0f5c184f02458a48d611432b634d28ff68d76fcd21e13ee6f46a5f78d116dd02",
+   "sanitized_bytes": 5007,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/waveform_alignment_test.py",
+   "original_sha256": "b7c48400253b2a22e9cd0216df475c3fbbfd330861e85a80bafc80692adfc75d",
+   "original_bytes": 6684,
+   "sanitized": "code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/waveform_alignment_test.sanitized.py",
+   "sanitized_sha256": "94c91483703b48e0b6634b1fd342c6e269711c52c477723cadb313e9a4084d47",
+   "sanitized_bytes": 6699,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-6033be5/configs/baseline-vits.yaml",
+   "original_sha256": "e0f674fe55d14d11ff4938412c6d8c4a0b3bfd42483bf8bce5a4afd14b125a0a",
+   "original_bytes": 1701,
+   "sanitized": "code/historical-candidates/edgetts-6033be5/configs/baseline-vits.sanitized.yaml",
+   "sanitized_sha256": "66fcc472acc77466127fcb10fb19b44e1ebb656ef0e95752d2ec33946495e345",
+   "sanitized_bytes": 1706,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-6033be5/configs/piper-modern.yaml",
+   "original_sha256": "5cd7bf39cc4bdaac0dd61629ab36eb827080c5d0a32724815bffc1f47359a7e8",
+   "original_bytes": 1423,
+   "sanitized": "code/historical-candidates/edgetts-6033be5/configs/piper-modern.sanitized.yaml",
+   "sanitized_sha256": "43d964523a1879d182cf11356b9c8ce5bffa7d85afb06806375420a81594324b",
+   "sanitized_bytes": 1428,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-badf381/configs/01_Baseline_BigVgan_VITS2_FO.yaml",
+   "original_sha256": "3227b22b7cac7d4c07cbc14eb21d4b9ff5399ac7530e236942e825924e2a4927",
+   "original_bytes": 1155,
+   "sanitized": "code/historical-candidates/edgetts-badf381/configs/01_Baseline_BigVgan_VITS2_FO.sanitized.yaml",
+   "sanitized_sha256": "f1c12902c4f7f777bf50b8bc40d7d4ac9d452a30916df733fc3a4cef6875702c",
+   "sanitized_bytes": 1160,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-badf381/configs/baseline-vits.yaml",
+   "original_sha256": "5d1b665dcd295a850ff02626534be9c062855c2e5e45b67f43ebe8d8a98f4dc6",
+   "original_bytes": 1094,
+   "sanitized": "code/historical-candidates/edgetts-badf381/configs/baseline-vits.sanitized.yaml",
+   "sanitized_sha256": "133fc197acebe84adc78544e0cf29edc7a0b11932a73b3ff980110ee236a6e12",
+   "sanitized_bytes": 1099,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-badf381/configs/piper-modern.yaml",
+   "original_sha256": "5cd7bf39cc4bdaac0dd61629ab36eb827080c5d0a32724815bffc1f47359a7e8",
+   "original_bytes": 1423,
+   "sanitized": "code/historical-candidates/edgetts-badf381/configs/piper-modern.sanitized.yaml",
+   "sanitized_sha256": "43d964523a1879d182cf11356b9c8ce5bffa7d85afb06806375420a81594324b",
+   "sanitized_bytes": 1428,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "code/historical-candidates/edgetts-badf381/src/python/piper_train/extract_test_sentences.py",
+   "original_sha256": "57965e303aec7a08353217d535ece9fcab1c97be294729833db3ab984d0f9c68",
+   "original_bytes": 2116,
+   "sanitized": "code/historical-candidates/edgetts-badf381/src/python/piper_train/extract_test_sentences.sanitized.py",
+   "sanitized_sha256": "54b25e8e84de23bc33336f786bf20e25c34a15365a18c8a1d4f0b4cdca4fe238",
+   "sanitized_bytes": 2131,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/.wsl_ablation.sh",
+   "original_sha256": "114d51bc4d443b15ce291e3e83576054d8fc42bf6070fde4d9e9f10c6b2fe915",
+   "original_bytes": 5315,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/.wsl_ablation.sanitized.sh",
+   "sanitized_sha256": "a55d3e27fbdbc96aff50a0d214e6213bd29ce176efa1f84254a96b94d8f785f8",
+   "sanitized_bytes": 5343,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 16
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/.wsl_baseline.sh",
+   "original_sha256": "bc413c078958f3a189465364a2d0ff8c7d86c0012921e43b97fdc3fa35b07628",
+   "original_bytes": 867,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/.wsl_baseline.sanitized.sh",
+   "sanitized_sha256": "f4f35f94e7d6b610f7127289f5b19a3d7f7f6df8db6f0b0169178d8d94b0d259",
+   "sanitized_bytes": 840,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/.wsl_fix_train.sh",
+   "original_sha256": "04303b697df223977991f0d79154128c40e0ce58ddf614288b1c6ca39b03fe42",
+   "original_bytes": 629,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/.wsl_fix_train.sanitized.sh",
+   "sanitized_sha256": "d19562e0aec83d18e2118f33abc009e0054f0884a8742c1802085e834e6f0037",
+   "sanitized_bytes": 597,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 4
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/.wsl_run.sh",
+   "original_sha256": "b40bafb901c8ec8796a1e88f13103b6c4ce1e8b573ac3b84324bd0f6b64e7dd1",
+   "original_bytes": 944,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/.wsl_run.sanitized.sh",
+   "sanitized_sha256": "8b0c54fc272817c09defb7831150a9064d2cd70e6ea53f18b773871112ec1916",
+   "sanitized_bytes": 880,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 2,
+    "<WSL_DEV_HOME>": 8
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/.wsl_train.sh",
+   "original_sha256": "7477cb13a1f13688e6f29fb4548d6278ec9ab00466d9b58e2c5a5a5dadf4433b",
+   "original_bytes": 986,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/.wsl_train.sanitized.sh",
+   "sanitized_sha256": "5ab1d44537f6cb4e702513fd36edfa06cdbec2046b6052c12237d93299a87c92",
+   "sanitized_bytes": 964,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 6
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/6d0522b/measure_rtf.sh",
+   "original_sha256": "744dad744f9692f0a4d34903335b6f032d5848d743242b1434f795279261d60e",
+   "original_bytes": 762,
+   "sanitized": "code/historical-candidates/launch-scripts/6d0522b/measure_rtf.sanitized.sh",
+   "sanitized_sha256": "29e7d6f84069ed9327a8a313e65062d7e2f8ee4797ea9eccc9ce164ffa38c76a",
+   "sanitized_bytes": 735,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_fix_train.sh",
+   "original_sha256": "df63af0c6c08bfef659d06c68ba06aecc72b98839bdb491efe101b313aff1f48",
+   "original_bytes": 614,
+   "sanitized": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_fix_train.sanitized.sh",
+   "sanitized_sha256": "a03aaf25b7bf8b85bf1a7e573876a7c778fb25aab11128c6ab0ac51e6116d6b2",
+   "sanitized_bytes": 582,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 4
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_run.sh",
+   "original_sha256": "3109c9cdd264a1aac393c1b2adff1123eb524b8663054a053bb2868484706e7c",
+   "original_bytes": 929,
+   "sanitized": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_run.sanitized.sh",
+   "sanitized_sha256": "9cb127cf916cde5e5694af0863cbdbd30980094ca9249d549fd11bf146246166",
+   "sanitized_bytes": 865,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 2,
+    "<WSL_DEV_HOME>": 8
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_train.sh",
+   "original_sha256": "c6d403082f3eb377a1e44ee9d37a754b9baead788c88f8370974f3ce5eab84c3",
+   "original_bytes": 611,
+   "sanitized": "code/historical-candidates/launch-scripts/7ba86e2/.wsl_train.sanitized.sh",
+   "sanitized_sha256": "2b01ae616d3ae0e866e9b587c839ca7a388f5987cf5d5f510366cdb4ff0c975f",
+   "sanitized_bytes": 584,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/badf381/.wsl_baseline.sh",
+   "original_sha256": "2c3c7b7ed37d039061d4683d30c27e504985fd8eadac7ad3b72eff1246811e4f",
+   "original_bytes": 852,
+   "sanitized": "code/historical-candidates/launch-scripts/badf381/.wsl_baseline.sanitized.sh",
+   "sanitized_sha256": "bb725dae64a926ba1d0ce603f874b753aabb58b3d41a9cc2b000d492d12b4cf4",
+   "sanitized_bytes": 825,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/badf381/.wsl_train.sh",
+   "original_sha256": "7b34c195aa272d0b919542e2417a28aa3a7bfccac508422eedc01ec58dd8474c",
+   "original_bytes": 971,
+   "sanitized": "code/historical-candidates/launch-scripts/badf381/.wsl_train.sanitized.sh",
+   "sanitized_sha256": "8fea72aafcba3b4bd44efedafb90b3ee69fa2e4407f9dddd48d2ffcec681b07e",
+   "sanitized_bytes": 949,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 6
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/ef20d0b/.wsl_ablation.sh",
+   "original_sha256": "8d496c3a56787eb6c59c31511146691c0f738faa82db11c34ae62e2b105998ca",
+   "original_bytes": 5300,
+   "sanitized": "code/historical-candidates/launch-scripts/ef20d0b/.wsl_ablation.sanitized.sh",
+   "sanitized_sha256": "5158b342f2a35453c6e1806a76933e3c0cc1cf0b9ed44747e5c7360ae7122493",
+   "sanitized_bytes": 5328,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 16
+   }
+  },
+  {
+   "original": "code/historical-candidates/launch-scripts/ef20d0b/measure_rtf.sh",
+   "original_sha256": "1d6b5d60f72137144e4952d31527a08f1bc36715b7cc4eb42aa7e71c399c6e89",
+   "original_bytes": 747,
+   "sanitized": "code/historical-candidates/launch-scripts/ef20d0b/measure_rtf.sanitized.sh",
+   "sanitized_sha256": "934ea25d9ce40587ff51b778c8399cf03810cf560770b1f07f0ca35e537da585",
+   "sanitized_bytes": 720,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 5
+   }
+  }
+ ]
+}

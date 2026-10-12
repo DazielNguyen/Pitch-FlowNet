@@ -1,0 +1,27 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "evidence/derived/tensorboard_event_scan.json",
+   "original_sha256": "f21a7b78ecba3b3d8102840a5712d63d06b687b5f2e2b20d83d5b2590513e83a",
+   "original_bytes": 100991,
+   "sanitized": "evidence/derived/tensorboard_event_scan.sanitized.json",
+   "sanitized_sha256": "4f4104716dc2662bf72aca33c468c7305376c54f819c88e6d005fbbde7bd0f50",
+   "sanitized_bytes": 100981,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WORKSTATION>": 5
+   }
+  }
+ ]
+}

@@ -1,0 +1,270 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "runs/baseline/02_baseline_train.log",
+   "original_sha256": "a89ec4b29fdd0ed01a27a82703e46f98e8711fdf5546750db6c14461e5af2b6c",
+   "original_bytes": 295259,
+   "sanitized": "runs/baseline/02_baseline_train.sanitized.log",
+   "sanitized_sha256": "889b93cf341b2d89f9b6d99ebcaa10ae236a8a2325418fbdab577e0b3ef1c24f",
+   "sanitized_bytes": 306589,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2266
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/baseline_run.log",
+   "original_sha256": "872c96bb0501566f72d6fc2e7e67bc6ed3323a422795b43e8ca7845eaa7a0220",
+   "original_bytes": 14549,
+   "sanitized": "runs/candidates/home-dev-root/baseline_run.sanitized.log",
+   "sanitized_sha256": "132f234fdca3fc296160c550aed450e52062e12e4eb5931b81b7d3f49917bc85",
+   "sanitized_bytes": 14709,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 32
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/baseline_train.log",
+   "original_sha256": "e0b4daac7752f2197e52d4a98d3e011e7f35acecc457fdf45e98516f73337cda",
+   "original_bytes": 118596,
+   "sanitized": "runs/candidates/home-dev-root/baseline_train.sanitized.log",
+   "sanitized_sha256": "88f4e2058be1bf4cfe95458e72f6ef849e9b996fe1540db951b8fb3257970a9a",
+   "sanitized_bytes": 123151,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 911
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/bigvgan_train.log",
+   "original_sha256": "dc2602bcb6ff3055c3b80a46528359f616e003a27e09e83818a4dffe0e126d8a",
+   "original_bytes": 16919,
+   "sanitized": "runs/candidates/home-dev-root/bigvgan_train.sanitized.log",
+   "sanitized_sha256": "da32b7a7b282eafc1f32555f71a36b065201bbbaa4a9baac6434916ee3d228c4",
+   "sanitized_bytes": 17109,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 38
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/config_e_train.log",
+   "original_sha256": "571b0967955f0a8bcd690bfdd426ce31b2081b3016226ee1694b1ed50c5f0ee0",
+   "original_bytes": 169014,
+   "sanitized": "runs/candidates/home-dev-root/config_e_train.sanitized.log",
+   "sanitized_sha256": "929ed7b8f92a60238fd1f00a4a33e818c33d2221fdd41020ddde6108f1a1d75b",
+   "sanitized_bytes": 175019,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1201
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/config_h_ep773_train.log",
+   "original_sha256": "a7f1c7921b49d8cb3b20668df1439b7d2b73397bb40702f4193f8d5dc22afed8",
+   "original_bytes": 14968,
+   "sanitized": "runs/candidates/home-dev-root/config_h_ep773_train.sanitized.log",
+   "sanitized_sha256": "989e71a3917b68a2aa5dd7d655836cee7b0afd03bdf08467e9ee6c0202da7a3f",
+   "sanitized_bytes": 15128,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 32
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/eval_baseline.log",
+   "original_sha256": "4706b520b39da76227a5f4af4d4de085043aad2137209dbeca5ae654c2d34c42",
+   "original_bytes": 177755,
+   "sanitized": "runs/candidates/home-dev-root/eval_baseline.sanitized.log",
+   "sanitized_sha256": "d0c5cd821b17108bc4650b331ba787a7123533e388429f35740524b659ccb44a",
+   "sanitized_bytes": 177805,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 10
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/eval_f0_ablation_E_vs_H.log",
+   "original_sha256": "2b74c0824957de9a9e865350cd96a8b7017339e89e8519399898b618215c8e40",
+   "original_bytes": 348513,
+   "sanitized": "runs/candidates/home-dev-root/eval_f0_ablation_E_vs_H.sanitized.log",
+   "sanitized_sha256": "22e93950b73dbe089b2363cb266c102c4d29b99673a974599d37db143eea1d1c",
+   "sanitized_bytes": 348583,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 14
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/eval_f0_ablation_diag.txt",
+   "original_sha256": "fe1ca6c5a5042c12d8f6c5288b8ff43377b262f30503614590c3384d037564aa",
+   "original_bytes": 3623,
+   "sanitized": "runs/candidates/home-dev-root/eval_f0_ablation_diag.sanitized.txt",
+   "sanitized_sha256": "95036a4447568680c6f49162e55f91e3632280dcd2807667a92fca5c5e2c422c",
+   "sanitized_bytes": 3648,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/preprocess.log",
+   "original_sha256": "21c9ea2f865a9dba566a3780e4505d8b0d7c63c3c45755523c209c38ce42dca6",
+   "original_bytes": 1096,
+   "sanitized": "runs/candidates/home-dev-root/preprocess.sanitized.log",
+   "sanitized_sha256": "6c0150d1792256f8b7a101b209fc0d530ab77d8ce0a271e035557fe3d8e8152b",
+   "sanitized_bytes": 1106,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/ref_metrics.log",
+   "original_sha256": "cddff695c3575617cd930c431e4dfe3608fb5fbcab471059bc2c2551b61fe20a",
+   "original_bytes": 24293,
+   "sanitized": "runs/candidates/home-dev-root/ref_metrics.sanitized.log",
+   "sanitized_sha256": "c2d7e26cc7ccd75ce9de951ce73dcb1f420b59faadbc3c471d9b719d3c272c86",
+   "sanitized_bytes": 24308,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 3
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/ref_metrics2.log",
+   "original_sha256": "db49ae682636a5a3c4421b1a884d8508e1b5f86032efa3a507e0713299059b76",
+   "original_bytes": 181323,
+   "sanitized": "runs/candidates/home-dev-root/ref_metrics2.sanitized.log",
+   "sanitized_sha256": "de02848cc54b199908768594c3b0e73d45e773ca88616c019965f0220f469848",
+   "sanitized_bytes": 181343,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 4
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/run_eval100.sh",
+   "original_sha256": "3e0f112f7a279d0f15fe8237cce92e2028d4bd4f35b8a881845362c563a54b7e",
+   "original_bytes": 701,
+   "sanitized": "runs/candidates/home-dev-root/run_eval100.sanitized.sh",
+   "sanitized_sha256": "3ba00dc7f01bb853f41e32ef8cbb160e9306e29523c6fef681844ecc6291d8da",
+   "sanitized_bytes": 746,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 9
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/run_f0_ablation_eval.sh",
+   "original_sha256": "d10a1ea804f139da27e84626ce755f85e3987123f9aa5487e3dc828617ae475e",
+   "original_bytes": 985,
+   "sanitized": "runs/candidates/home-dev-root/run_f0_ablation_eval.sanitized.sh",
+   "sanitized_sha256": "9dda5ef03f276e5e50472a13dede0b636f82a1f85b03b88ac637058623d55372",
+   "sanitized_bytes": 1035,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 10
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/tensorboard.log",
+   "original_sha256": "751ae49dacc633a47f14ed04e5b98c723455d04e9ead9478b15b02f9a3c4ce6d",
+   "original_bytes": 806,
+   "sanitized": "runs/candidates/home-dev-root/tensorboard.sanitized.log",
+   "sanitized_sha256": "65fa0cc8cf5511f2771157978f35fae7cfbae21f792d4b4edf87d657202b8ebb",
+   "sanitized_bytes": 811,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/tensorboard_baseline.log",
+   "original_sha256": "00bda5ff53e4d32a0448730310b7f3e113e99c92060e01b72865b429794e9294",
+   "original_bytes": 954,
+   "sanitized": "runs/candidates/home-dev-root/tensorboard_baseline.sanitized.log",
+   "sanitized_sha256": "4117994c8a3243126afe53b72d8c9bac707a9917bb09aa61704aeb683a6f8af5",
+   "sanitized_bytes": 962,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2,
+    "<WORKSTATION>": 1
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/tensorboard_bigvgan.log",
+   "original_sha256": "691a663ad40d50ee57913fff2f266d5ee462a066cacf739aeabee7946f128e9c",
+   "original_bytes": 724,
+   "sanitized": "runs/candidates/home-dev-root/tensorboard_bigvgan.sanitized.log",
+   "sanitized_sha256": "ee673ac9c7d4a9d9550843b1a5aeff4323b1172fd28a196189f3df81daacb241",
+   "sanitized_bytes": 729,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/tensorboard_config_e.log",
+   "original_sha256": "f2fe2588c63852da1359c16d1ee8d029ec577780ecf00b2a2acbe850ba825f07",
+   "original_bytes": 685,
+   "sanitized": "runs/candidates/home-dev-root/tensorboard_config_e.sanitized.log",
+   "sanitized_sha256": "e909eb2bff782c060caa5decab718c339d727bfc8b0e46514193bc79b4909263",
+   "sanitized_bytes": 690,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "runs/candidates/home-dev-root/train_bigvgan.sh",
+   "original_sha256": "3c91dda239cad24ba3f529f10b98622c9b076df9cd7a5d45935eca6de1d620bb",
+   "original_bytes": 581,
+   "sanitized": "runs/candidates/home-dev-root/train_bigvgan.sanitized.sh",
+   "sanitized_sha256": "fe499f7da4d91a3436761bb0f7cf13d51faa947695840e39befbfb9de9261035",
+   "sanitized_bytes": 611,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 6
+   }
+  },
+  {
+   "original": "runs/full/01_Baseline_BigVgan_VITS2_FO_train.log",
+   "original_sha256": "a9f902a05c3ba144349ac8fe2a5a74455c1516ea3f10148db433c871597a2884",
+   "original_bytes": 137431,
+   "sanitized": "runs/full/01_Baseline_BigVgan_VITS2_FO_train.sanitized.log",
+   "sanitized_sha256": "08d97dd4c45de05a5d98b3bb239b227c9082be7d3db759af233ffd668b2f53d3",
+   "sanitized_bytes": 139622,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 5,
+    "<WSL_DEV_HOME>": 491,
+    "<WORKSTATION>": 2
+   }
+  },
+  {
+   "original": "runs/full/train_h.log",
+   "original_sha256": "469f53820badeace26898ee31a9efdf42c546f71d1e08721ccd8a3b05e5a3263",
+   "original_bytes": 352373,
+   "sanitized": "runs/full/train_h.sanitized.log",
+   "sanitized_sha256": "02abc1121262f5307beb9fe54ffcf45491e0e33d6e457d77eb3fd838482b6de5",
+   "sanitized_bytes": 364513,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2428
+   }
+  }
+ ]
+}

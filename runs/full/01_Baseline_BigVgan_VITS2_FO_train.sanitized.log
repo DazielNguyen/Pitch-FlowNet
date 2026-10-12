@@ -1,0 +1,860 @@
+--- syncing code ---
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint=None, default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+Using bfloat16 Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint=None, default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/model_summary/model_summary.py:242: Precision bf16-mixed is not supported by the model summary.  Estimated model size in MB will not be accurate. Using 32 bits instead.
+┏━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name        ┃ Type                         ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model_g     │ SynthesizerTrn               │ 25.2 M │ train │     0 │
+│ 1 │ model_d     │ MultiPeriodDiscriminator     │ 46.7 M │ train │     0 │
+│ 2 │ model_d_mrd │ MultiResolutionDiscriminator │  280 K │ train │     0 │
+│ 3 │ model_d_dur │ DurationDiscriminator        │  555 K │ train │     0 │
+└───┴─────────────┴──────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 72.8 M                                                        
+Non-trainable params: 0                                                         
+Total params: 72.8 M                                                            
+Total estimated model params size (MB): 291.163                                 
+Modules in train mode: 656                                                      
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/hparams.yaml
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 16. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_kl', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_fm', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_f0', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+warning: audio amplitude out of range, auto clipped.
+warning: audio amplitude out of range, auto clipped.
+warning: audio amplitude out of range, auto clipped.
+warning: audio amplitude out of range, auto clipped.
+warning: audio amplitude out of range, auto clipped.
+[rank1]:[W703 21:52:25.677612727 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W703 21:52:25.913092935 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [164832, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [156384, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 2. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=0-val_loss_mel=37.0785.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=0-step=782.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=1-val_loss_mel=36.6381.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=1-step=1564.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=2-val_loss_mel=33.0309.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=2-step=2346.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=3-step=3128.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=4-val_loss_mel=31.4194.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=4-step=3910.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=5-val_loss_mel=30.0722.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=5-step=4692.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=6-val_loss_mel=29.2171.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=6-step=5474.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=7-val_loss_mel=29.0380.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=7-step=6256.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=8-step=7038.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=9-val_loss_mel=28.4927.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=9-step=7820.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=10-step=8602.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=11-val_loss_mel=26.9772.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=11-step=9384.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=12-step=10166.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=13-val_loss_mel=25.7109.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=13-step=10948.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=14-val_loss_mel=25.5367.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=14-step=11730.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=15-val_loss_mel=25.2691.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=15-step=12512.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=16-step=13294.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=17-step=14076.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=18-step=14858.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=19-step=15640.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=20-val_loss_mel=23.9151.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=20-step=16422.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=21-step=17204.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=22-val_loss_mel=23.9123.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=22-step=17986.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=23-step=18768.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=24-val_loss_mel=23.5519.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=24-step=19550.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=25-step=20332.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=26-step=21114.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=27-step=21896.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=28-step=22678.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=29-step=23460.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=30-step=24242.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=31-step=25024.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/best-epoch=32-val_loss_mel=23.0800.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/epoch=32-step=25806.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank1]:     return _run_code(code, main_globals, None,
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 86, in _run_code
+[rank1]:     exec(code, run_globals)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 217, in <module>
+[rank1]:     main()
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 194, in main
+[rank1]:     trainer.fit(model, ckpt_path=args.resume_from_checkpoint)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+[rank1]:     call._call_and_handle_interrupt(
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+[rank1]:     return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 105, in launch
+[rank1]:     return function(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+[rank1]:     self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+[rank1]:     results = self._run_stage()
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1123, in _run_stage
+[rank1]:     self.fit_loop.run()
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 217, in run
+[rank1]:     self.advance()
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 469, in advance
+[rank1]:     self.epoch_loop.run(self._data_fetcher)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 153, in run
+[rank1]:     self.advance(data_fetcher)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 354, in advance
+[rank1]:     batch_output = self.manual_optimization.run(kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/manual.py", line 95, in run
+[rank1]:     self.advance(kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/manual.py", line 115, in advance
+[rank1]:     training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+[rank1]:     output = fn(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 390, in training_step
+[rank1]:     return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 641, in __call__
+[rank1]:     wrapper_output = wrapper_module(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1832, in forward
+[rank1]:     else self._run_ddp_forward(*inputs, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1657, in _run_ddp_forward
+[rank1]:     return self.module(*inputs, **kwargs)  # type: ignore[index]
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 634, in wrapped_forward
+[rank1]:     out = method(*_args, **_kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/lightning.py", line 242, in training_step
+[rank1]:     loss_gen_all, _loss_mel = self.training_step_g(batch)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/lightning.py", line 280, in training_step_g
+[rank1]:     ) = self.model_g(x, x_lengths, spec, spec_lengths, speaker_ids, f0=f0)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/models.py", line 1036, in forward
+[rank1]:     logw = self.dp(x, x_mask, g=g, reverse=True, noise_scale=1.0)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/models.py", line 114, in forward
+[rank1]:     z = flow(z, x_mask, g=x, reverse=reverse)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/modules.py", line 529, in forward
+[rank1]:     x1, logabsdet = piecewise_rational_quadratic_transform(
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 30, in piecewise_rational_quadratic_transform
+[rank1]:     outputs, logabsdet = spline_fn(
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 83, in unconstrained_rational_quadratic_spline
+[rank1]:     ) = rational_quadratic_spline(
+[rank1]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 174, in rational_quadratic_spline
+[rank1]:     assert (discriminant >= 0).all(), discriminant
+[rank1]: AssertionError: tensor([ 8.8854, 11.2948, 40.2620,  ...,  0.4818,  0.4818,  0.4818],
+[rank1]:        device='cuda:1', grad_fn=<SubBackward0>)
+[rank0]:[E704 01:39:41.471100328 ProcessGroupNCCL.cpp:757] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=331384, OpType=ALLREDUCE, NumelIn=839817, NumelOut=839817, Timeout(ms)=1800000) ran for 1800079 milliseconds before timing out.
+[rank0]:[E704 01:39:41.471399547 ProcessGroupNCCL.cpp:2395] [PG ID 0 PG GUID 0(default_pg) Rank 0]  failure detected by watchdog at work sequence id: 331384 PG status: last enqueued work: 331389, last completed work: 331383
+[rank0]:[E704 01:39:41.471583033 ProcessGroupNCCL.cpp:804] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank0]:[E704 01:39:41.471634944 ProcessGroupNCCL.cpp:2732] [PG ID 0 PG GUID 0(default_pg) Rank 0] First PG on this rank to signal dumping.
+[rank0]:[E704 01:39:41.592561397 ProcessGroupNCCL.cpp:1987] [PG ID 0 PG GUID 0(default_pg) Rank 0] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 331389, last completed NCCL work: 331383.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E704 01:39:41.592719005 ProcessGroupNCCL.cpp:1700] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank0]:[E704 01:40:41.471743042 ProcessGroupNCCL.cpp:818] [Rank 0] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank0]:[E704 01:40:41.471782304 ProcessGroupNCCL.cpp:832] [Rank 0] To avoid data inconsistency, we are taking the entire process down.
+[rank0]:[E704 01:40:41.472383539 ProcessGroupNCCL.cpp:2197] [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=331384, OpType=ALLREDUCE, NumelIn=839817, NumelOut=839817, Timeout(ms)=1800000) ran for 1800079 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:760 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7cf7a696afad in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2b1 (0x7cf6f7509611 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x14f1 (0x7cf6f75153b1 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x7cf6f7516847 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xecdb4 (0x7cf77c8ecdb4 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x7cf7a769caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x7cf7a7729c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=331384, OpType=ALLREDUCE, NumelIn=839817, NumelOut=839817, Timeout(ms)=1800000) ran for 1800079 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:760 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7cf7a696afad in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x2b1 (0x7cf6f7509611 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x14f1 (0x7cf6f75153b1 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0x157 (0x7cf6f7516847 in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xecdb4 (0x7cf77c8ecdb4 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #5: <unknown function> + 0x9caa4 (0x7cf7a769caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x129c6c (0x7cf7a7729c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2203 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7cf7a696afad in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x6915eb (0x7cf6f6c915eb in <WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0xecdb4 (0x7cf77c8ecdb4 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #3: <unknown function> + 0x9caa4 (0x7cf7a769caa4 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #4: <unknown function> + 0x129c6c (0x7cf7a7729c6c in /lib/x86_64-linux-gnu/libc.so.6)
+
+<WINDOWS_WORKSPACE>/EdgeTTS/.wsl_train.sh: line 26:  2184 Aborted                 (core dumped) python -m piper_train --dataset-dir <WSL_DEV_HOME>/data_preprocessed --default_root_dir <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO --accelerator gpu --devices 2 --strategy ddp_find_unused_parameters_true --precision bf16-mixed --batch-size 16 --num-val-examples 100 --num-test-examples 500 --max_epochs 1100 --checkpoint-epochs 1 --seed 1234 --use-bigvgan true --use-vits2 true --use-f0 true
+--- syncing code ---
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+Using bfloat16 Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+Restoring states from the checkpoint path at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_4/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_4/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/model_summary/model_summary.py:242: Precision bf16-mixed is not supported by the model summary.  Estimated model size in MB will not be accurate. Using 32 bits instead.
+┏━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name        ┃ Type                         ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model_g     │ SynthesizerTrn               │ 25.2 M │ train │     0 │
+│ 1 │ model_d     │ MultiPeriodDiscriminator     │ 46.7 M │ train │     0 │
+│ 2 │ model_d_mrd │ MultiResolutionDiscriminator │  280 K │ train │     0 │
+│ 3 │ model_d_dur │ DurationDiscriminator        │  555 K │ train │     0 │
+└───┴─────────────┴──────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 72.8 M                                                        
+Non-trainable params: 0                                                         
+Total params: 72.8 M                                                            
+Total estimated model params size (MB): 291.163                                 
+Modules in train mode: 656                                                      
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_4/hparams.yaml
+Restored all states from the checkpoint at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 16. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_kl', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_fm', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_f0', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+[rank1]:[W704 04:21:49.307000858 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W704 04:21:49.549943905 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [156384, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [164832, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WINDOWS_WORKSPACE>/EdgeTTS/.wsl_train.sh: line 29:  3073 Killed                  python -m piper_train --dataset-dir <WSL_DEV_HOME>/data_preprocessed --default_root_dir <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO --accelerator gpu --devices 2 --strategy ddp_find_unused_parameters_true --precision bf16-mixed --batch-size 16 --num-val-examples 100 --num-test-examples 500 --max_epochs 1100 --checkpoint-epochs 1 --seed 1234 --use-bigvgan true --use-vits2 true --use-f0 true --resume_from_checkpoint <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_1/checkpoints/last.ckpt
+--- syncing code ---
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+Using bfloat16 Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+Restoring states from the checkpoint path at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/model_summary/model_summary.py:242: Precision bf16-mixed is not supported by the model summary.  Estimated model size in MB will not be accurate. Using 32 bits instead.
+┏━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name        ┃ Type                         ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model_g     │ SynthesizerTrn               │ 25.2 M │ train │     0 │
+│ 1 │ model_d     │ MultiPeriodDiscriminator     │ 46.7 M │ train │     0 │
+│ 2 │ model_d_mrd │ MultiResolutionDiscriminator │  280 K │ train │     0 │
+│ 3 │ model_d_dur │ DurationDiscriminator        │  555 K │ train │     0 │
+└───┴─────────────┴──────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 72.8 M                                                        
+Non-trainable params: 0                                                         
+Total params: 72.8 M                                                            
+Total estimated model params size (MB): 291.163                                 
+Modules in train mode: 656                                                      
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/hparams.yaml
+Restored all states from the checkpoint at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 16. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_kl', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_fm', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_f0', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+[rank1]:[W704 04:25:01.342672393 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W704 04:25:01.619555223 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [164832, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [156384, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 2. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/best-epoch=33-val_loss_mel=22.9536.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/epoch=33-step=26588.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/epoch=34-step=27370.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/epoch=35-step=28152.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/epoch=36-step=28934.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+Epoch 37/1099 ━╸                  33/391 0:00:31 • 0:05:34 1.07it/s v_num: 5.000
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 217, in <module>
+[rank0]:     main()
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 194, in main
+[rank0]:     trainer.fit(model, ckpt_path=args.resume_from_checkpoint)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+[rank0]:     call._call_and_handle_interrupt(
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+[rank0]:     return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 105, in launch
+[rank0]:     return function(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+[rank0]:     self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+[rank0]:     results = self._run_stage()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1123, in _run_stage
+[rank0]:     self.fit_loop.run()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 217, in run
+[rank0]:     self.advance()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 469, in advance
+[rank0]:     self.epoch_loop.run(self._data_fetcher)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 153, in run
+[rank0]:     self.advance(data_fetcher)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 354, in advance
+[rank0]:     batch_output = self.manual_optimization.run(kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/manual.py", line 95, in run
+[rank0]:     self.advance(kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/manual.py", line 115, in advance
+[rank0]:     training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+[rank0]:     output = fn(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 390, in training_step
+[rank0]:     return self._forward_redirection(self.model, self.lightning_module, "training_step", *args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 641, in __call__
+[rank0]:     wrapper_output = wrapper_module(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1832, in forward
+[rank0]:     else self._run_ddp_forward(*inputs, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1657, in _run_ddp_forward
+[rank0]:     return self.module(*inputs, **kwargs)  # type: ignore[index]
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 634, in wrapped_forward
+[rank0]:     out = method(*_args, **_kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/lightning.py", line 242, in training_step
+[rank0]:     loss_gen_all, _loss_mel = self.training_step_g(batch)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/lightning.py", line 280, in training_step_g
+[rank0]:     ) = self.model_g(x, x_lengths, spec, spec_lengths, speaker_ids, f0=f0)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/models.py", line 1036, in forward
+[rank0]:     logw = self.dp(x, x_mask, g=g, reverse=True, noise_scale=1.0)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/models.py", line 114, in forward
+[rank0]:     z = flow(z, x_mask, g=x, reverse=reverse)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/modules.py", line 529, in forward
+[rank0]:     x1, logabsdet = piecewise_rational_quadratic_transform(
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 30, in piecewise_rational_quadratic_transform
+[rank0]:     outputs, logabsdet = spline_fn(
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 83, in unconstrained_rational_quadratic_spline
+[rank0]:     ) = rational_quadratic_spline(
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/vits/transforms.py", line 174, in rational_quadratic_spline
+[rank0]:     assert (discriminant >= 0).all(), discriminant
+[rank0]: AssertionError: tensor([91.0840, 49.9137, 19.7094,  ...,  0.4818,  0.4818,  0.4818],
+[rank0]:        device='cuda:0', grad_fn=<SubBackward0>)
+[rank1]:[E704 05:04:48.546151484 ProcessGroupNCCL.cpp:1987] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL's watchdog got stuck for 480 seconds without making progress in monitoring enqueued collectives. This typically indicates a NCCL/CUDA API (e.g., CudaEventDestroy) hang blocking the watchdog, and could be triggered by another thread holding the GIL inside a CUDA api (for example, CudaEventDestroy), or other deadlock-prone behaviors.If you suspect the watchdog is not actually stuck and a longer timeout would help, you can either increase the timeout (TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC) to a larger value or disable the heartbeat monitor (TORCH_NCCL_ENABLE_MONITORING=0).If either of aforementioned helps, feel free to file an issue to PyTorch about the short timeout or false positive abort; otherwise, please attempt to debug the hang. 
+[rank1]:[E704 05:04:48.546392628 ProcessGroupNCCL.cpp:1700] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+<WINDOWS_WORKSPACE>/EdgeTTS/.wsl_train.sh: line 29:  3731 Killed                  python -m piper_train --dataset-dir <WSL_DEV_HOME>/data_preprocessed --default_root_dir <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO --accelerator gpu --devices 2 --strategy ddp_find_unused_parameters_true --precision bf16-mixed --batch-size 16 --num-val-examples 100 --num-test-examples 500 --max_epochs 1100 --checkpoint-epochs 1 --seed 1234 --use-bigvgan true --use-vits2 true --use-f0 true --resume_from_checkpoint <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_3/checkpoints/last.ckpt
+--- syncing code ---
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, grad_clip=1.0, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+Using bfloat16 Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, grad_clip=1.0, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+Restoring states from the checkpoint path at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/model_summary/model_summary.py:242: Precision bf16-mixed is not supported by the model summary.  Estimated model size in MB will not be accurate. Using 32 bits instead.
+┏━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name        ┃ Type                         ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model_g     │ SynthesizerTrn               │ 25.2 M │ train │     0 │
+│ 1 │ model_d     │ MultiPeriodDiscriminator     │ 46.7 M │ train │     0 │
+│ 2 │ model_d_mrd │ MultiResolutionDiscriminator │  280 K │ train │     0 │
+│ 3 │ model_d_dur │ DurationDiscriminator        │  555 K │ train │     0 │
+└───┴─────────────┴──────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 72.8 M                                                        
+Non-trainable params: 0                                                         
+Total params: 72.8 M                                                            
+Total estimated model params size (MB): 291.163                                 
+Modules in train mode: 656                                                      
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/hparams.yaml
+Restored all states from the checkpoint at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 16. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_kl', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_fm', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_f0', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+[rank1]:[W704 05:06:53.610864914 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W704 05:06:53.898299632 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [156384, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [164832, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 2. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/best-epoch=37-val_loss_mel=23.1699.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/epoch=37-step=29716.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/best-epoch=38-val_loss_mel=22.5486.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/epoch=38-step=30498.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+<WINDOWS_WORKSPACE>/EdgeTTS/.wsl_train.sh: line 30:  4738 Killed                  python -m piper_train --dataset-dir <WSL_DEV_HOME>/data_preprocessed --default_root_dir <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO --accelerator gpu --devices 2 --strategy ddp_find_unused_parameters_true --precision bf16-mixed --batch-size 16 --num-val-examples 100 --num-test-examples 500 --max_epochs 1100 --checkpoint-epochs 1 --seed 1234 --use-bigvgan true --use-vits2 true --use-f0 true --grad-clip 1.0 --resume_from_checkpoint <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_5/checkpoints/last.ckpt
+--- syncing code ---
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, grad_clip=1.0, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+Using bfloat16 Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/2
+DEBUG:piper_train:Namespace(dataset_dir='<WSL_DEV_HOME>/data_preprocessed', checkpoint_epochs=1, quality='medium', resume_from_single_speaker_checkpoint=None, resume_from_checkpoint='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt', default_root_dir='<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO', accelerator='gpu', devices='2', strategy='ddp_find_unused_parameters_true', precision='bf16-mixed', max_epochs=1100, batch_size=16, num_workers=8, num_val_examples=100, num_test_examples=500, max_phoneme_ids=400, hidden_channels=192, inter_channels=192, filter_channels=768, n_layers=6, n_heads=2, grad_clip=1.0, use_bigvgan=True, use_vits2=True, use_f0=True, seed=1234)
+DEBUG:piper_train:Checkpoints will be saved every 1 epoch(s)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+DEBUG:vits.dataset:Loading dataset: <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/2
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 2 processes
+----------------------------------------------------------------------------------------------------
+
+Restoring states from the checkpoint path at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:566: The dirpath has changed from '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints' to '<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints', therefore `best_model_score`, `kth_best_model_path`, `kth_value`, `last_model_path` and `best_k_models` won't be reloaded. Only `best_model_path` will be reloaded.
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/model_summary/model_summary.py:242: Precision bf16-mixed is not supported by the model summary.  Estimated model size in MB will not be accurate. Using 32 bits instead.
+┏━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name        ┃ Type                         ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model_g     │ SynthesizerTrn               │ 25.2 M │ train │     0 │
+│ 1 │ model_d     │ MultiPeriodDiscriminator     │ 46.7 M │ train │     0 │
+│ 2 │ model_d_mrd │ MultiResolutionDiscriminator │  280 K │ train │     0 │
+│ 3 │ model_d_dur │ DurationDiscriminator        │  555 K │ train │     0 │
+└───┴─────────────┴──────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 72.8 M                                                        
+Non-trainable params: 0                                                         
+Total params: 72.8 M                                                            
+Total estimated model params size (MB): 291.163                                 
+Modules in train mode: 656                                                      
+Modules in eval mode: 0                                                         
+Total FLOPs: 0                                                                  
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/hparams.yaml
+Restored all states from the checkpoint at <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/functional.py:681: UserWarning: A window was not provided. A rectangular window will be applied,which is known to cause spectral leakage. Other windows such as torch.hann_window or torch.hamming_window are recommended to reduce spectral leakage.To suppress this warning and use a rectangular window, explicitly set `window=torch.ones(n_fft, device=<device>)`. (Triggered internally at /pytorch/aten/src/ATen/native/SpectralOps.cpp:835.)
+  return _VF.stft(  # type: ignore[attr-defined]
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 16. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_kl', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_gen_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_dur_gen', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_fm', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_f0', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_all', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_mrd', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('loss_disc_dur', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('val_loss_mel', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+[rank1]:[W704 05:30:00.645443909 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W704 05:30:00.899249212 reducer.cpp:1528] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [164832, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: The AccumulateGrad node's stream does not match the stream of the node that produced the incoming gradient. This may incur unnecessary synchronization and break CUDA graph capture if the AccumulateGrad node's stream is the default stream. This mismatch is caused by an AccumulateGrad node created prior to the current iteration being kept alive. This can happen if the autograd graph is still being kept alive by tensors such as the loss, or if you are using DDP, which will stash a reference to the node. To resolve the mismatch, delete all references to the autograd graph or ensure that DDP initialization is performed under the same stream as subsequent forwards. If the mismatch is intentional, you can use torch.autograd.graph.set_warn_on_accumulate_grad_stream_mismatch(False) to suppress this warning. (Triggered internally at /pytorch/torch/csrc/autograd/input_buffer.cpp:240.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/autograd/graph.py:882: UserWarning: Grad strides do not match bucket view strides. This may indicate grad was not created according to the gradient layout contract, or that the param's strides changed since DDP was constructed.  This is not an error, but may impair performance.
+grad.sizes() = [1, 9, 96], strides() = [156384, 96, 1]
+bucket_view.sizes() = [1, 9, 96], strides() = [864, 96, 1] (Triggered internally at /pytorch/torch/csrc/distributed/c10d/reducer.cpp:334.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 2. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/best-epoch=39-val_loss_mel=22.8031.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/epoch=39-step=31280.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/epoch=40-step=32062.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/epoch=41-step=32844.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/last.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/epoch=42-step=33626.ckpt
+DEBUG:fsspec.local:open file: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/checkpoints/last.ckpt
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_fabric/loggers/tensorboard.py", line 213, in log_metrics
+    self.experiment.add_scalar(k, v, step)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 386, in add_scalar
+Epoch 43/1099 ━━━━━━             137/391 0:02:18 • 0:04:52 0.87it/s v_num: 7.000
+    self._get_file_writer().add_summary(summary, global_step, walltime)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 116, in add_summary
+    self.add_event(event, global_step, walltime)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 100, in add_event
+    self.event_writer.add_event(event)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 117, in add_event
+    self._async_writer.write(event.SerializeToString())
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 178, in write
+    self._check_worker_status()
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+    raise exception
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 244, in run
+    self._run()
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 275, in _run
+    self._record_writer.write(data)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/record_writer.py", line 40, in write
+    self._writer.write(header + header_crc + data + footer_crc)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 775, in write
+    self.fs.append(self.filename, file_content, self.binary_mode)
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 167, in append
+    self._write(filename, file_content, "ab" if binary_mode else "a")
+  File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 171, in _write
+    with io.open(filename, mode, encoding=encoding) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b'<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/events.out.tfevents.1783117787.<WORKSTATION>.5513.0'
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+[rank0]:     return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 105, in launch
+[rank0]:     return function(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 630, in _fit_impl
+[rank0]:     self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+[rank0]:     results = self._run_stage()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1123, in _run_stage
+[rank0]:     self.fit_loop.run()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 217, in run
+[rank0]:     self.advance()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 469, in advance
+[rank0]:     self.epoch_loop.run(self._data_fetcher)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 153, in run
+[rank0]:     self.advance(data_fetcher)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 384, in advance
+[rank0]:     trainer._logger_connector.update_train_step_metrics()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py", line 173, in update_train_step_metrics
+[rank0]:     self.log_metrics(self.metrics["log"])
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py", line 127, in log_metrics
+[rank0]:     logger.log_metrics(metrics=scalar_metrics, step=step)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 42, in wrapped_fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_fabric/loggers/tensorboard.py", line 216, in log_metrics
+[rank0]:     raise ValueError(
+[rank0]: ValueError: 
+[rank0]:  you tried to log 1.294217586517334 which is currently not supported. Try a dict or a scalar/tensor.
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 217, in <module>
+[rank0]:     main()
+[rank0]:   File "<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/__main__.py", line 194, in main
+[rank0]:     trainer.fit(model, ckpt_path=args.resume_from_checkpoint)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 584, in fit
+[rank0]:     call._call_and_handle_interrupt(
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 69, in _call_and_handle_interrupt
+[rank0]:     _interrupt(trainer, exception)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 83, in _interrupt
+[rank0]:     logger.finalize("failed")
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 42, in wrapped_fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pytorch_lightning/loggers/tensorboard.py", line 227, in finalize
+[rank0]:     super().finalize(status)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_utilities/core/rank_zero.py", line 42, in wrapped_fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_fabric/loggers/tensorboard.py", line 301, in finalize
+[rank0]:     self.experiment.flush()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 1201, in flush
+[rank0]:     writer.flush()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 154, in flush
+[rank0]:     self.event_writer.flush()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 125, in flush
+[rank0]:     self._async_writer.flush()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 186, in flush
+[rank0]:     self._check_worker_status()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+[rank0]:     raise exception
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/lightning_fabric/loggers/tensorboard.py", line 213, in log_metrics
+[rank0]:     self.experiment.add_scalar(k, v, step)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 386, in add_scalar
+[rank0]:     self._get_file_writer().add_summary(summary, global_step, walltime)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 116, in add_summary
+[rank0]:     self.add_event(event, global_step, walltime)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/utils/tensorboard/writer.py", line 100, in add_event
+[rank0]:     self.event_writer.add_event(event)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 117, in add_event
+[rank0]:     self._async_writer.write(event.SerializeToString())
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 178, in write
+[rank0]:     self._check_worker_status()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 212, in _check_worker_status
+[rank0]:     raise exception
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+[rank0]:     self.run()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 244, in run
+[rank0]:     self._run()
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/event_file_writer.py", line 275, in _run
+[rank0]:     self._record_writer.write(data)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/summary/writer/record_writer.py", line 40, in write
+[rank0]:     self._writer.write(header + header_crc + data + footer_crc)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 775, in write
+[rank0]:     self.fs.append(self.filename, file_content, self.binary_mode)
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 167, in append
+[rank0]:     self._write(filename, file_content, "ab" if binary_mode else "a")
+[rank0]:   File "<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/tensorboard/compat/tensorflow_stub/io/gfile.py", line 171, in _write
+[rank0]:     with io.open(filename, mode, encoding=encoding) as f:
+[rank0]: FileNotFoundError: [Errno 2] No such file or directory: b'<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_7/events.out.tfevents.1783117787.<WORKSTATION>.5513.0'
+<WINDOWS_WORKSPACE>/EdgeTTS/.wsl_train.sh: line 30:  5513 Killed                  python -m piper_train --dataset-dir <WSL_DEV_HOME>/data_preprocessed --default_root_dir <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO --accelerator gpu --devices 2 --strategy ddp_find_unused_parameters_true --precision bf16-mixed --batch-size 16 --num-val-examples 100 --num-test-examples 500 --max_epochs 1100 --checkpoint-epochs 1 --seed 1234 --use-bigvgan true --use-vits2 true --use-f0 true --grad-clip 1.0 --resume_from_checkpoint <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_6/checkpoints/last.ckpt

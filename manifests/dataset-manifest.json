@@ -1,0 +1,57 @@
+{
+ "canonical_copies": {
+  "raw": {
+   "path": "datasets/raw/home-dev-data",
+   "origin": "wsl-dev:data",
+   "wavs": 13100,
+   "metadata_csv_sha256": "4f2822773979587fd8cd365534fd94b36e29ca966c29583bc117b26f545fcb26",
+   "classification": "DIRECT_ARTIFACT",
+   "rights": "LJ Speech 1.1, public domain (docs/data-rights-and-access.md)"
+  },
+  "processed": {
+   "path": "datasets/processed/data_preprocessed",
+   "origin": "wsl-dev:data_preprocessed",
+   "rows": 13100,
+   "dataset_jsonl_sha256": "3b93b9883e1ac98d951049c3dbd5e5130c06985baa1b70c60c75e431b29c7bdf",
+   "config_json_sha256": "6eeb898264813993e00f4a85d0a4fd44210bedfa64d976cf531584baa0993de7",
+   "cache_files_by_suffix": {
+    "spec.pt": 13100,
+    "pt": 13100,
+    "f0.pt": 13100
+   },
+   "row_path_keys": [
+    "audio_f0_path",
+    "audio_norm_path",
+    "audio_path",
+    "audio_spec_path"
+   ],
+   "note": "absolute <WSL_DEV_HOME> paths inside; F0 tensors live in the cache (no separate features folder)",
+   "classification": "DIRECT_ARTIFACT"
+  }
+ },
+ "used_by": {
+  "baseline": "hparams dataset <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl",
+  "full": "same path",
+  "exploratory runs": "same path"
+ },
+ "splits": {
+  "stored_test_entries": {
+   "path": "datasets/splits/test_entries_500.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029",
+   "classification": "RECONSTRUCTED (written 2026-07-10 by extract_test_sentences.py, seed 1234)"
+  },
+  "reconstructed": {
+   "path": "datasets/splits/reconstructed_split_seed1234.json",
+   "sizes": {
+    "train": 12500,
+    "test": 500,
+    "validation": 100
+   },
+   "pairwise_disjoint": true,
+   "test_equals_stored_test_entries_in_order": true,
+   "torch": "2.12.1+cu130",
+   "classification": "RECONSTRUCTED"
+  },
+  "membership_between_runs": "same: both runs read the same dataset path with seed 1234, 100 val / 500 test and max_phoneme_ids 400 (no row exceeds 399); their TensorBoard audio examples (first five test items) are identical. No run-time split file exists."
+ }
+}

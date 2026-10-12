@@ -1,0 +1,139 @@
+{
+ "baseline": {
+  "run_dir": "wsl-dev:02_Baseline_VanillaVITS",
+  "session": "version_0",
+  "classification": "identified",
+  "hparams": "configs/baseline/02_Baseline_VanillaVITS_version_0_hparams.yaml",
+  "flags": {
+   "use_bigvgan": false,
+   "use_vits2": false,
+   "use_f0": false
+  },
+  "resume_from_checkpoint": null,
+  "log": "runs/baseline/02_baseline_train.log",
+  "log_end": "`Trainer.fit` stopped: `max_epochs=1100` reached.",
+  "tensorboard": {
+   "event_file": "events.out.tfevents.1783615319.<WORKSTATION>.17117.0",
+   "bytes": 1808711792,
+   "hours_first_to_last": 77.26,
+   "val_points": 1100,
+   "val_first_step": 390,
+   "val_min": 19.905284881591797,
+   "audio_example_tags": [
+    "Arriving almost simultaneously were the President's follow-up car, the Vice President's automobile, and the Vice President's follow-up car.",
+    "In the event of war I would kill any American who put a uniform on in defense of the American government -- any American.",
+    "It also appears that Lee tried to tag along with his older brothers",
+    "These somewhat novel but undoubtedly indisputable propositions were backed up, not by sound arguments only, but by the letter of the law.",
+    "This must, in the first instance, be provided for them by green plants, and hence without chlorophyll-bearing plants,"
+   ]
+  },
+  "selected_checkpoint": {
+   "origin": "wsl-dev:02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "file": "best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "bytes": 845967744,
+   "sha256": "54d867192b673c5f493ee937db06ff3bba6a1c0192969131407e3a795245aac1",
+   "epoch": 773,
+   "global_step": 605268,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 0,
+    "duration_discriminator": 0,
+    "mrd": 0,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 36,
+    "decoder_resblocks": 153
+   },
+   "copied_to": "runs/baseline/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "run": "baseline"
+  },
+  "evaluation": "evaluation/eval_h_vs_baseline",
+  "component_finding": "36 Snake parameters inside decoder ResBlocks (no pre-upsampling or final Snake); no flow attention, duration discriminator, MRD or F0"
+ },
+ "full": {
+  "run_dir": "wsl-dev:01_Baseline_BigVgan_VITS2_FO",
+  "session": "version_2",
+  "classification": "identified",
+  "hparams": "configs/full/01_Baseline_BigVgan_VITS2_FO_version_2_hparams.yaml",
+  "flags": {
+   "use_bigvgan": true,
+   "use_vits2": true,
+   "use_f0": true
+  },
+  "resume_from_checkpoint": "version_0/last.ckpt (version_0 and version_1 no longer exist)",
+  "logs": [
+   "runs/full/01_Baseline_BigVgan_VITS2_FO_train.log (attempts to 2026-07-04: aborted/killed, resumes)",
+   "runs/full/train_h.log (from-scratch session -> RuntimeError -> resume -> resume -> max_epochs=1100 reached)"
+  ],
+  "tensorboard": {
+   "event_file": "events.out.tfevents.1783219978.<WORKSTATION>.8485.0",
+   "bytes": 1703040926,
+   "hours_first_to_last": 99.47,
+   "val_points": 1057,
+   "val_first_step": 17203,
+   "val_min": 19.08600425720215,
+   "audio_example_tags": [
+    "Arriving almost simultaneously were the President's follow-up car, the Vice President's automobile, and the Vice President's follow-up car.",
+    "In the event of war I would kill any American who put a uniform on in defense of the American government -- any American.",
+    "It also appears that Lee tried to tag along with his older brothers",
+    "These somewhat novel but undoubtedly indisputable propositions were backed up, not by sound arguments only, but by the letter of the law.",
+    "This must, in the first instance, be provided for them by green plants, and hence without chlorophyll-bearing plants,"
+   ]
+  },
+  "selected_checkpoint": {
+   "origin": "wsl-dev:01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "file": "best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "bytes": 874730405,
+   "sha256": "8e6eacface1105c329ada0ccbec4c7a5cce88e86ac08797092ab30c1698a4edf",
+   "epoch": 1079,
+   "global_step": 844560,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 17,
+    "f0_cond": 3,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": "runs/full/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "run": "full"
+  },
+  "evaluation": "evaluation/eval_h_vs_baseline"
+ },
+ "shared_recipe_from_hparams": {
+  "devices": 2,
+  "strategy": "ddp_find_unused_parameters_true",
+  "precision": "bf16-mixed",
+  "batch_size": 16,
+  "seed": 1234,
+  "grad_clip": 1.0,
+  "max_epochs": 1100,
+  "max_phoneme_ids": 400,
+  "num_workers": 8,
+  "learning_rate": 0.0002,
+  "betas": [
+   0.8,
+   0.99
+  ],
+  "eps": 1e-09,
+  "lr_decay": 0.999875,
+  "c_mel": 45,
+  "num_val_examples": 100,
+  "num_test_examples": 500,
+  "dataset": "<WSL_DEV_HOME>/data_preprocessed/dataset.jsonl"
+ },
+ "candidates_not_selected": {
+  "06_Config_E_BigVGAN_VITS2": "F0 ablation attempt (no F0), grad_clip 0.5, resumed from epoch 219, stopped at epoch 508; best 434",
+  "09_Config_H_Full_ep773": "full configuration with max_epochs 773; stopped after about 2 minutes, no checkpoint",
+  "baseline_run": "2026-07-03 start of a baseline (grad_clip null), about 6 minutes, no checkpoint",
+  "BanhmiTTS port full-config-h (2026-07-14)": "separate BanhmiTTS-framework implementation; not the evaluated pair"
+ },
+ "not_the_paper": [
+  "journal Parallel-IR / Sequential-IR (epochs 1386 / 1442)",
+  "HiFi-MobiNet baseline epoch 1489",
+  "Piper_no_VITS2_cpn (2026-10)",
+  "published Piper lj-medium checkpoint"
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "datasets/splits/reconstructed_split_seed1234.json",
+   "original_sha256": "b309d3c60ae6a9500ceafdb696b4663f92a41001eb3e850ee956a96f8252bd32",
+   "original_bytes": 2465412,
+   "sanitized": "datasets/splits/reconstructed_split_seed1234.sanitized.json",
+   "sanitized_sha256": "f56d097a023378114119e625f61cddfbec83e1620a782b36b458d0693df360eb",
+   "sanitized_bytes": 2530912,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 13100
+   }
+  },
+  {
+   "original": "datasets/splits/test_entries_500.jsonl",
+   "original_sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029",
+   "original_bytes": 120833,
+   "sanitized": "datasets/splits/test_entries_500.sanitized.jsonl",
+   "sanitized_sha256": "d3e9eb0b132a68d77c730ef03bfb1cbd9550e17d6d561a55e68f5a7c8b671e73",
+   "sanitized_bytes": 123333,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 500
+   }
+  }
+ ]
+}

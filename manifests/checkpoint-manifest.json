@@ -1,0 +1,195 @@
+{
+ "method": "SHA-256 and a static pickletools scan of data.pkl (no unpickling); tools/scan_checkpoints_static.py",
+ "selection": {
+  "baseline": "best-epoch=773-val_loss_mel=20.2158.ckpt (ModelCheckpoint monitor val_loss_mel, mode min, save_top_k 1 in candidate source)",
+  "full": "best-epoch=1079-val_loss_mel=19.2943.ckpt (same rule)",
+  "unresolved": "both are not the minimum of the logged rank-0 val_loss_mel series (baseline 19.9053 at epoch 996; full 19.0860 at epoch 641)"
+ },
+ "not_found": "full-model version_0/version_1 checkpoints; BanhmiTTS-port checkpoints catalogued below by path only",
+ "checkpoints": [
+  {
+   "origin": "wsl-dev:02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "file": "best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "bytes": 845967744,
+   "sha256": "54d867192b673c5f493ee937db06ff3bba6a1c0192969131407e3a795245aac1",
+   "epoch": 773,
+   "global_step": 605268,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 0,
+    "duration_discriminator": 0,
+    "mrd": 0,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 36,
+    "decoder_resblocks": 153
+   },
+   "copied_to": "runs/baseline/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "run": "baseline"
+  },
+  {
+   "origin": "wsl-dev:02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/epoch=1099-step=860200.ckpt",
+   "file": "epoch=1099-step=860200.ckpt",
+   "bytes": 845967744,
+   "sha256": "955ad62350002a9cce2b36f720f8acf02ae76404ae071f2bcad90b6de4ac43bf",
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 0,
+    "duration_discriminator": 0,
+    "mrd": 0,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 36,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "baseline"
+  },
+  {
+   "origin": "wsl-dev:02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/last.ckpt",
+   "file": "last.ckpt",
+   "bytes": 845967744,
+   "sha256": "955ad62350002a9cce2b36f720f8acf02ae76404ae071f2bcad90b6de4ac43bf",
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 0,
+    "duration_discriminator": 0,
+    "mrd": 0,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 36,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "baseline"
+  },
+  {
+   "origin": "wsl-dev:01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "file": "best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "bytes": 874730405,
+   "sha256": "8e6eacface1105c329ada0ccbec4c7a5cce88e86ac08797092ab30c1698a4edf",
+   "epoch": 1079,
+   "global_step": 844560,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 17,
+    "f0_cond": 3,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": "runs/full/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "run": "full"
+  },
+  {
+   "origin": "wsl-dev:01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/epoch=1099-step=860200.ckpt",
+   "file": "epoch=1099-step=860200.ckpt",
+   "bytes": 874730405,
+   "sha256": "3291b502069dc9bb5f64064aa636455156a211bde5fd836f92de1b6ac954e976",
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 17,
+    "f0_cond": 3,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "full"
+  },
+  {
+   "origin": "wsl-dev:01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/last.ckpt",
+   "file": "last.ckpt",
+   "bytes": 874730405,
+   "sha256": "3291b502069dc9bb5f64064aa636455156a211bde5fd836f92de1b6ac954e976",
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 17,
+    "f0_cond": 3,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "full"
+  },
+  {
+   "origin": "wsl-dev:06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/best-epoch=434-val_loss_mel=19.9303.ckpt",
+   "file": "best-epoch=434-val_loss_mel=19.9303.ckpt",
+   "bytes": 870559573,
+   "sha256": "444c4444a784bcd490f6c4d050bc277c85bb74453bb028144428ce7420f54c70",
+   "epoch": 434,
+   "global_step": 340170,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "exploratory:Config E"
+  },
+  {
+   "origin": "wsl-dev:06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/epoch=508-step=398038.ckpt",
+   "file": "epoch=508-step=398038.ckpt",
+   "bytes": 870559573,
+   "sha256": "0c354e49d65c05de513be51c5aa00af197ffd51fb8237e623945a9f5f0e1ccd8",
+   "epoch": 508,
+   "global_step": 398038,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "exploratory:Config E"
+  },
+  {
+   "origin": "wsl-dev:06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/last.ckpt",
+   "file": "last.ckpt",
+   "bytes": 870559573,
+   "sha256": "0c354e49d65c05de513be51c5aa00af197ffd51fb8237e623945a9f5f0e1ccd8",
+   "epoch": 508,
+   "global_step": 398038,
+   "pytorch_lightning_version": "2.6.5",
+   "module_name_groups": {
+    "flow_attention": 144,
+    "duration_discriminator": 33,
+    "mrd": 82,
+    "f0_predictor": 0,
+    "f0_cond": 0,
+    "snake_params_in_decoder": 44,
+    "decoder_resblocks": 153
+   },
+   "copied_to": null,
+   "run": "exploratory:Config E"
+  }
+ ],
+ "banhmitts_port_files_not_copied": [
+  "checkpoint-best-mel.pt",
+  "checkpoint-00148971.pt"
+ ]
+}

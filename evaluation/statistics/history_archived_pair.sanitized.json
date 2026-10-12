@@ -1,0 +1,128 @@
+{
+  "method": "Read existing CSV, JSON and manifest; no inference or training. Arithmetic means per utterance. SciPy default two-sided Wilcoxon signed-rank test, zero_method=wilcox, correction=False.",
+  "scipy_version": "1.15.3",
+  "sources": {
+    "<WSL_DEV_HOME>/eval_h_vs_baseline/summary.json": {
+      "sha256": "dcdf391944437585320d8f4952ae1fec05c009d1274a64a0a2cd05906ac4dd09",
+      "bytes": 1357
+    },
+    "<WSL_DEV_HOME>/eval_h_vs_baseline/best-epoch=773-val_loss_mel=20.2158_per_sentence.csv": {
+      "sha256": "018c8920068c2a721ebcf00cc69f8d021bd1755f6b2f56dc9e2c86074a4560d9",
+      "bytes": 94545
+    },
+    "<WSL_DEV_HOME>/eval_h_vs_baseline/best-epoch=1079-val_loss_mel=19.2943_per_sentence.csv": {
+      "sha256": "5434ffd887a3ca22571ab91944405cff5122ca64115086cba4d9ca59a383de70",
+      "bytes": 94305
+    },
+    "<WSL_DEV_HOME>/test_entries_500.jsonl": {
+      "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029",
+      "bytes": 120833
+    },
+    "<WSL_DEV_HOME>/test_sentences_500.txt": {
+      "sha256": "0059f7019963e5af7bababa91c378646682a892260bf80e8ecdf4853ac394262",
+      "bytes": 49788
+    }
+  },
+  "models": {
+    "baseline": {
+      "rows": 500,
+      "columns": [
+        "text",
+        "wer",
+        "utmos",
+        "infer_sec",
+        "audio_duration_sec",
+        "rtf"
+      ],
+      "unique_texts": 500,
+      "all_metrics_finite": true,
+      "means": {
+        "wer": 0.0917101940034002,
+        "utmos": 3.3655758004188536,
+        "rtf": 0.05591087851915026
+      },
+      "medians": {
+        "wer": 0.05263157894736842,
+        "utmos": 3.394486904144287,
+        "rtf": 0.0541883213428372
+      },
+      "mean_rtf_from_rounded_summary_is_same_to_1e_12": true,
+      "all_saved_summary_means_match_to_1e_12": true,
+      "rtf_identity_max_abs_error": 0.0,
+      "checkpoint_in_saved_summary": "<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt"
+    },
+    "full": {
+      "rows": 500,
+      "columns": [
+        "text",
+        "wer",
+        "utmos",
+        "infer_sec",
+        "audio_duration_sec",
+        "rtf"
+      ],
+      "unique_texts": 500,
+      "all_metrics_finite": true,
+      "means": {
+        "wer": 0.08638256718707348,
+        "utmos": 3.807000442504883,
+        "rtf": 0.05680896202887641
+      },
+      "medians": {
+        "wer": 0.047619047619047616,
+        "utmos": 3.8133777379989624,
+        "rtf": 0.05364344691436429
+      },
+      "mean_rtf_from_rounded_summary_is_same_to_1e_12": true,
+      "all_saved_summary_means_match_to_1e_12": true,
+      "rtf_identity_max_abs_error": 0.0,
+      "checkpoint_in_saved_summary": "<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt"
+    }
+  },
+  "pairing": {
+    "same_text_order": true,
+    "matching_unique_texts": 500,
+    "<WSL_DEV_HOME>/test_entries_500.jsonl": {
+      "rows": 500,
+      "matches_baseline_order": true,
+      "matches_full_order": true
+    },
+    "<WSL_DEV_HOME>/test_sentences_500.txt": {
+      "rows": 500,
+      "matches_baseline_order": true,
+      "matches_full_order": true
+    }
+  },
+  "paired_tests_recomputed": {
+    "wer": {
+      "statistic": 11273.0,
+      "pvalue": 0.11460369458190028,
+      "saved_statistic": 11273.0,
+      "saved_pvalue": 0.11460369458190028,
+      "same_saved_statistic": true,
+      "pvalue_relative_difference": 0.0,
+      "zero_difference_pairs": 274
+    },
+    "utmos": {
+      "statistic": 1597.0,
+      "pvalue": 1.6496717402855605e-79,
+      "saved_statistic": 1597.0,
+      "saved_pvalue": 1.6496717402855605e-79,
+      "same_saved_statistic": true,
+      "pvalue_relative_difference": 0.0,
+      "zero_difference_pairs": 0
+    }
+  },
+  "deltas_full_minus_baseline": {
+    "wer_percentage_points": -0.532762681632673,
+    "utmos": 0.4414246420860293,
+    "rtf_absolute": 0.0008980835097261511,
+    "rtf_relative_percent": 1.6062768704636632
+  },
+  "limits": [
+    "Same text order establishes the pairing of observed outputs; training/test leakage and split provenance require separate checks.",
+    "No hardware thread configuration, repeat-run timing protocol, waveform fidelity, ASR model version, or UTMOS model version is inferred from CSV alone.",
+    "Archived per-sentence values were not rescored from audio.",
+    "F0 data in summary.json remain null; any separate F0 report must be linked and checked separately."
+  ]
+}

@@ -1,0 +1,17 @@
+--- syncing code from Windows ---
+--- syncing dataset from Windows (this can take a while, 3.6GB) ---
+              0   0%    0.00kB/s    0:00:00 (xfr#0, to-chk=13100/13103)              0   0%    0.00kB/s    0:00:00 (xfr#0, to-chk=0/13103)    
+--- running preprocess ---
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/pyworld/__init__.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+INFO:preprocess:Single speaker dataset
+INFO:preprocess:Wrote dataset config
+INFO:preprocess:Processing 13100 utterance(s) with 16 worker(s)
+--- done ---
+total 25080
+drwxr-xr-x  3 dev dev     4096 Jul  1 18:39 .
+drwxr-x--- 15 dev dev     4096 Jul  1 18:39 ..
+drwxr-xr-x  3 dev dev     4096 Jul  1 18:27 cache
+-rw-r--r--  1 dev dev     7097 Jul  1 18:27 config.json
+-rw-r--r--  1 dev dev 25660426 Jul  1 19:02 dataset.jsonl
+13100 <WSL_DEV_HOME>/data_preprocessed/dataset.jsonl

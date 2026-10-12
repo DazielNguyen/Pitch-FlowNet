@@ -1,0 +1,14 @@
+{
+  "checkpoints": [
+    {
+      "checkpoint": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_10/checkpoints/last.ckpt",
+      "mean_wer": 0.08711360245954984,
+      "median_wer": 0.043478260869565216,
+      "mean_utmos": 3.6432070557276406,
+      "median_utmos": 3.673339009284973,
+      "mean_rtf": 0.0748994190191827,
+      "num_sentences": 300
+    }
+  ],
+  "paired_tests": []
+}

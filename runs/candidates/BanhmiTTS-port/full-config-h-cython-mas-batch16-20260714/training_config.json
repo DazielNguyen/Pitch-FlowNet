@@ -1,0 +1,189 @@
+{
+  "model": {
+    "text_encoder": {
+      "num_symbols": 52,
+      "latent_channels": 192,
+      "hidden_channels": 192,
+      "filter_channels": 768,
+      "num_heads": 2,
+      "num_layers": 6,
+      "kernel_size": 3,
+      "dropout": 0.1,
+      "relative_position_window": 4,
+      "padding_id": 0
+    },
+    "posterior_encoder": {
+      "input_channels": 513,
+      "latent_channels": 192,
+      "hidden_channels": 192,
+      "kernel_size": 5,
+      "dilation_rate": 1,
+      "num_layers": 16,
+      "dropout": 0.0,
+      "use_weight_norm": true
+    },
+    "flow": {
+      "channels": 192,
+      "hidden_channels": 192,
+      "filter_channels": 384,
+      "num_heads": 2,
+      "transformer_layers": 1,
+      "relative_position_window": 4,
+      "kernel_size": 5,
+      "dilation_rate": 1,
+      "wavenet_layers": 4,
+      "num_flows": 4,
+      "dropout": 0.0,
+      "mean_only": true,
+      "use_weight_norm": true
+    },
+    "predictor": {
+      "input_channels": 192,
+      "hidden_channels": 256,
+      "kernel_size": 3,
+      "num_layers": 2,
+      "dropout": 0.5,
+      "duration_type": "stochastic",
+      "duration_flows": 4,
+      "maximum_log_duration": 6.0,
+      "maximum_duration_frames": 500
+    },
+    "generator": {
+      "latent_channels": 192,
+      "initial_channels": 256,
+      "upsample_rates": [
+        8,
+        8,
+        4
+      ],
+      "upsample_kernel_sizes": [
+        16,
+        16,
+        8
+      ],
+      "amp_kernel_sizes": [
+        3,
+        5,
+        7
+      ],
+      "amp_dilations": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          12
+        ]
+      ],
+      "use_weight_norm": true,
+      "activation": "snake_beta",
+      "use_prosody_conditioning": true
+    },
+    "segment": {
+      "segment_frames": 32,
+      "hop_length": 256
+    },
+    "mas": {
+      "noise_enabled": true,
+      "noise_initial_scale": 0.01,
+      "noise_decay": 2e-06
+    },
+    "prosody_targets": {
+      "voiced_label_threshold": 0.5,
+      "validation_tolerance": 0.0001
+    },
+    "predictor_losses": {
+      "duration_weight": 1.0,
+      "pitch_weight": 1.0,
+      "voicing_weight": 1.0
+    },
+    "pitch_mean": 5.179737841257294,
+    "pitch_standard_deviation": 0.4306487467773365
+  },
+  "discriminator": {
+    "periods": [
+      2,
+      3,
+      5,
+      7,
+      11
+    ],
+    "resolutions": [
+      [
+        1024,
+        120,
+        600
+      ],
+      [
+        2048,
+        240,
+        1200
+      ],
+      [
+        512,
+        50,
+        240
+      ]
+    ],
+    "use_weight_norm": true,
+    "include_scale_discriminator": true,
+    "use_magnitude_spectrogram": true
+  },
+  "spectral_loss": {
+    "resolutions": [
+      [
+        1024,
+        256,
+        1024
+      ],
+      [
+        2048,
+        512,
+        2048
+      ],
+      [
+        512,
+        128,
+        512
+      ]
+    ],
+    "spectral_convergence_weight": 1.0,
+    "log_magnitude_weight": 1.0,
+    "epsilon": 1e-07
+  },
+  "mel_loss": {
+    "sample_rate": 22050,
+    "n_fft": 1024,
+    "hop_length": 256,
+    "win_length": 1024,
+    "n_mels": 80,
+    "fmin": 0.0,
+    "fmax": 8000.0,
+    "weight": 45.0
+  },
+  "optimization": {
+    "learning_rate": 0.0002,
+    "betas": [
+      0.8,
+      0.99
+    ],
+    "weight_decay": 0.01,
+    "epsilon": 1e-09,
+    "learning_rate_decay": 0.999875,
+    "generator_gradient_clip": 1.0,
+    "discriminator_gradient_clip": 1.0,
+    "use_mixed_precision": true,
+    "c_kl": 1.0,
+    "adversarial_weight": 1.0,
+    "feature_matching_weight": 1.0,
+    "spectral_weight": 0.0,
+    "prosody_teacher_forcing_start": 1.0,
+    "prosody_teacher_forcing_end": 0.0,
+    "prosody_teacher_forcing_steps": 100000
+  }
+}

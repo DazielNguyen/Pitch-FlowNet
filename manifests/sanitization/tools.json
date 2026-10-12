@@ -1,0 +1,29 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "tools/build_pitchflownet_record.py",
+   "original_sha256": "41b12a7c3ccf4aea130261501eb6a85214588efe200472241a8c67d5aa588d79",
+   "original_bytes": 18613,
+   "sanitized": "tools/build_pitchflownet_record.sanitized.py",
+   "sanitized_sha256": "45b0347531216469c5c1deef59cb06f2cfcd9ba5588ac313317eea7a674237f3",
+   "sanitized_bytes": 18595,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WSL_DEV_HOME>": 6,
+    "<WSL_PROJECT_HOME>": 1
+   }
+  }
+ ]
+}

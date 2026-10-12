@@ -1,0 +1,14 @@
+{
+  "checkpoints": [
+    {
+      "checkpoint": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_12/checkpoints/best-epoch=863-val_loss_mel=19.5701.ckpt",
+      "mean_wer": 0.08077936806602899,
+      "median_wer": 0.041666666666666664,
+      "mean_utmos": 3.6362395387519064,
+      "median_utmos": 3.6667253971099854,
+      "mean_rtf": 0.054849877948339176,
+      "num_sentences": 307
+    }
+  ],
+  "paired_tests": []
+}

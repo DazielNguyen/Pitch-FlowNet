@@ -1,0 +1,16 @@
+{
+  "checkpoints": [
+    {
+      "checkpoint": "<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+      "mean_wer": 0.08433102429964566,
+      "median_wer": 0.045454545454545456,
+      "mean_utmos": 3.824439591407776,
+      "median_utmos": 3.835071325302124,
+      "mean_rtf": 1.3375046352956916,
+      "f0_rmse": null,
+      "f0_corr": null,
+      "num_sentences": 500
+    }
+  ],
+  "paired_tests": []
+}

@@ -1,0 +1,689 @@
+[
+ {
+  "path": "02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+  "bytes": 845967744,
+  "sha256": "54d867192b673c5f493ee937db06ff3bba6a1c0192969131407e3a795245aac1",
+  "static_scan": {
+   "zip_members": 3293,
+   "epoch": 773,
+   "global_step": 605268,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1354,
+   "prefixes": [
+    "model_d",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 0,
+    "examples": []
+   },
+   "duration_discriminator": {
+    "count": 0,
+    "examples": []
+   },
+   "mrd": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 36,
+    "examples": [
+     "model_g.dec.resblocks.0.snakes.0.alpha",
+     "model_g.dec.resblocks.0.snakes.0.beta",
+     "model_g.dec.resblocks.0.snakes.1.alpha",
+     "model_g.dec.resblocks.0.snakes.1.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/epoch=1099-step=860200.ckpt",
+  "bytes": 845967744,
+  "sha256": "955ad62350002a9cce2b36f720f8acf02ae76404ae071f2bcad90b6de4ac43bf",
+  "static_scan": {
+   "zip_members": 3293,
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1354,
+   "prefixes": [
+    "model_d",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 0,
+    "examples": []
+   },
+   "duration_discriminator": {
+    "count": 0,
+    "examples": []
+   },
+   "mrd": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 36,
+    "examples": [
+     "model_g.dec.resblocks.0.snakes.0.alpha",
+     "model_g.dec.resblocks.0.snakes.0.beta",
+     "model_g.dec.resblocks.0.snakes.1.alpha",
+     "model_g.dec.resblocks.0.snakes.1.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/last.ckpt",
+  "bytes": 845967744,
+  "sha256": "955ad62350002a9cce2b36f720f8acf02ae76404ae071f2bcad90b6de4ac43bf",
+  "static_scan": {
+   "zip_members": 3293,
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1354,
+   "prefixes": [
+    "model_d",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 0,
+    "examples": []
+   },
+   "duration_discriminator": {
+    "count": 0,
+    "examples": []
+   },
+   "mrd": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 36,
+    "examples": [
+     "model_g.dec.resblocks.0.snakes.0.alpha",
+     "model_g.dec.resblocks.0.snakes.0.beta",
+     "model_g.dec.resblocks.0.snakes.1.alpha",
+     "model_g.dec.resblocks.0.snakes.1.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+  "bytes": 874730405,
+  "sha256": "8e6eacface1105c329ada0ccbec4c7a5cce88e86ac08797092ab30c1698a4edf",
+  "static_scan": {
+   "zip_members": 3960,
+   "epoch": 1079,
+   "global_step": 844560,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1646,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 17,
+    "examples": [
+     "model_g.f0_predictor",
+     "model_g.f0_predictor.conv_1",
+     "model_g.f0_predictor.conv_1.bias",
+     "model_g.f0_predictor.conv_1.weight"
+    ]
+   },
+   "f0_cond": {
+    "count": 3,
+    "examples": [
+     "model_g.dec.f0_cond",
+     "model_g.dec.f0_cond.bias",
+     "model_g.dec.f0_cond.weight"
+    ]
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/epoch=1099-step=860200.ckpt",
+  "bytes": 874730405,
+  "sha256": "3291b502069dc9bb5f64064aa636455156a211bde5fd836f92de1b6ac954e976",
+  "static_scan": {
+   "zip_members": 3960,
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1646,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 17,
+    "examples": [
+     "model_g.f0_predictor",
+     "model_g.f0_predictor.conv_1",
+     "model_g.f0_predictor.conv_1.bias",
+     "model_g.f0_predictor.conv_1.weight"
+    ]
+   },
+   "f0_cond": {
+    "count": 3,
+    "examples": [
+     "model_g.dec.f0_cond",
+     "model_g.dec.f0_cond.bias",
+     "model_g.dec.f0_cond.weight"
+    ]
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/last.ckpt",
+  "bytes": 874730405,
+  "sha256": "3291b502069dc9bb5f64064aa636455156a211bde5fd836f92de1b6ac954e976",
+  "static_scan": {
+   "zip_members": 3960,
+   "epoch": 1099,
+   "global_step": 860200,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1646,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 17,
+    "examples": [
+     "model_g.f0_predictor",
+     "model_g.f0_predictor.conv_1",
+     "model_g.f0_predictor.conv_1.bias",
+     "model_g.f0_predictor.conv_1.weight"
+    ]
+   },
+   "f0_cond": {
+    "count": 3,
+    "examples": [
+     "model_g.dec.f0_cond",
+     "model_g.dec.f0_cond.bias",
+     "model_g.dec.f0_cond.weight"
+    ]
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/best-epoch=434-val_loss_mel=19.9303.ckpt",
+  "bytes": 870559573,
+  "sha256": "444c4444a784bcd490f6c4d050bc277c85bb74453bb028144428ce7420f54c70",
+  "static_scan": {
+   "zip_members": 3912,
+   "epoch": 434,
+   "global_step": 340170,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1626,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/epoch=508-step=398038.ckpt",
+  "bytes": 870559573,
+  "sha256": "0c354e49d65c05de513be51c5aa00af197ffd51fb8237e623945a9f5f0e1ccd8",
+  "static_scan": {
+   "zip_members": 3912,
+   "epoch": 508,
+   "global_step": 398038,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1626,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ },
+ {
+  "path": "06_Config_E_BigVGAN_VITS2/lightning_logs/version_1/checkpoints/last.ckpt",
+  "bytes": 870559573,
+  "sha256": "0c354e49d65c05de513be51c5aa00af197ffd51fb8237e623945a9f5f0e1ccd8",
+  "static_scan": {
+   "zip_members": 3912,
+   "epoch": 508,
+   "global_step": 398038,
+   "pytorch-lightning_version": "2.6.5",
+   "top_level_keys": [
+    "state_dict",
+    "optimizer_states",
+    "lr_schedulers",
+    "hyper_parameters",
+    "callbacks",
+    "loops"
+   ],
+   "state_name_count": 1626,
+   "prefixes": [
+    "model_d",
+    "model_d_dur",
+    "model_d_mrd",
+    "model_g"
+   ],
+   "flow_attention": {
+    "count": 144,
+    "examples": [
+     "model_g.flow.flows.0.attn",
+     "model_g.flow.flows.0.attn.attn_layers",
+     "model_g.flow.flows.0.attn.attn_layers.0",
+     "model_g.flow.flows.0.attn.attn_layers.0.conv_k"
+    ]
+   },
+   "duration_discriminator": {
+    "count": 33,
+    "examples": [
+     "model_d_dur.conv_1",
+     "model_d_dur.conv_1.bias",
+     "model_d_dur.conv_1.weight",
+     "model_d_dur.conv_2"
+    ]
+   },
+   "mrd": {
+    "count": 82,
+    "examples": [
+     "model_d_mrd.discriminators",
+     "model_d_mrd.discriminators.0",
+     "model_d_mrd.discriminators.0.conv_post",
+     "model_d_mrd.discriminators.0.conv_post.bias"
+    ]
+   },
+   "f0_predictor": {
+    "count": 0,
+    "examples": []
+   },
+   "f0_cond": {
+    "count": 0,
+    "examples": []
+   },
+   "snake_params_in_decoder": {
+    "count": 44,
+    "examples": [
+     "model_g.dec.final_snake.alpha",
+     "model_g.dec.final_snake.beta",
+     "model_g.dec.pre_up_snakes.0.alpha",
+     "model_g.dec.pre_up_snakes.0.beta"
+    ]
+   },
+   "decoder_resblocks": {
+    "count": 153,
+    "examples": [
+     "model_g.dec.resblocks.0",
+     "model_g.dec.resblocks.0.convs",
+     "model_g.dec.resblocks.0.convs.0",
+     "model_g.dec.resblocks.0.convs.0.bias"
+    ]
+   }
+  }
+ }
+]

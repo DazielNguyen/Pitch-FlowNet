@@ -1,0 +1,75 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "configs/baseline/02_Baseline_VanillaVITS_version_0_hparams.yaml",
+   "original_sha256": "193381fa55748b70991580b3c861f0d998aa3f360dc505707118805dcd692c5e",
+   "original_bytes": 1524,
+   "sanitized": "configs/baseline/02_Baseline_VanillaVITS_version_0_hparams.sanitized.yaml",
+   "sanitized_sha256": "c26e0ed44ad69e26c0bcfa3824fc9d0c40939b62c857fd461f8a9bc08468ea84",
+   "sanitized_bytes": 1529,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "configs/exploratory/06_Config_E_BigVGAN_VITS2_version_1_hparams.yaml",
+   "original_sha256": "ac14c8d58aaa47aefc9b7b920fada5bde4f7a825080ee154d2e0feeab3e8e1b4",
+   "original_bytes": 1633,
+   "sanitized": "configs/exploratory/06_Config_E_BigVGAN_VITS2_version_1_hparams.sanitized.yaml",
+   "sanitized_sha256": "2a6d6e7dba9ce0220995a404cc2e04ac674aa2832e3a4c88f9cbaa5ac399a8b6",
+   "sanitized_bytes": 1643,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "configs/exploratory/09_Config_H_Full_ep773_version_0_hparams.yaml",
+   "original_sha256": "d655f7fa007d695811507e527538c7bcee7e2d8dfbb092adf619eebd28aa53b6",
+   "original_bytes": 1519,
+   "sanitized": "configs/exploratory/09_Config_H_Full_ep773_version_0_hparams.sanitized.yaml",
+   "sanitized_sha256": "455d9c316e8a8c78bf9c77f0e01d3de536a423c21ce7d7d1025bccf14df51fc3",
+   "sanitized_bytes": 1524,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "configs/exploratory/baseline_run_version_0_hparams.yaml",
+   "original_sha256": "cc68ccc73a0b705ed2201790a9de600836ff73bc932a115176fce7ec269e6267",
+   "original_bytes": 1600,
+   "sanitized": "configs/exploratory/baseline_run_version_0_hparams.sanitized.yaml",
+   "sanitized_sha256": "760385a16398f84efc3eed9bda27764eadfe591c4a7b529d6becb9bc6c2708d4",
+   "sanitized_bytes": 1605,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "configs/full/01_Baseline_BigVgan_VITS2_FO_version_2_hparams.yaml",
+   "original_sha256": "f23bb6dee3ecbff699b91db148a4e91437350e0ce6229829df69bfce5f2ebb03",
+   "original_bytes": 1607,
+   "sanitized": "configs/full/01_Baseline_BigVgan_VITS2_FO_version_2_hparams.sanitized.yaml",
+   "sanitized_sha256": "bb86da2d52fee27a79a863672f775f872309cd2f23581226c54c8251f8af7538",
+   "sanitized_bytes": 1617,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+  "checkpoints": [
+    {
+      "checkpoint": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_8/checkpoints/epoch=124-step=95750.ckpt",
+      "mean_wer": 0.233042867496649,
+      "median_wer": 0.13333333333333333,
+      "mean_utmos": 3.1516013145446777,
+      "median_utmos": 3.2029225826263428,
+      "mean_rtf": 0.07958848347838335,
+      "num_sentences": 7
+    },
+    {
+      "checkpoint": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_10/checkpoints/epoch=217-step=166988.ckpt",
+      "mean_wer": 0.16019655028637933,
+      "median_wer": 0.11538461538461539,
+      "mean_utmos": 3.4442111424037387,
+      "median_utmos": 3.3345344066619873,
+      "mean_rtf": 0.08442732969863509,
+      "num_sentences": 7
+    }
+  ],
+  "paired_tests": [
+    {
+      "checkpoint_a": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_8/checkpoints/epoch=124-step=95750.ckpt",
+      "checkpoint_b": "<WSL_DEV_HOME>/data_preprocessed/lightning_logs/version_10/checkpoints/epoch=217-step=166988.ckpt",
+      "wer_wilcoxon_stat": 5.0,
+      "wer_wilcoxon_p": 0.625,
+      "utmos_wilcoxon_stat": 3.0,
+      "utmos_wilcoxon_p": 0.078125
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+INFO:piper_train.compute_reference_metrics:Loading UTMOSv2 (CPU)
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/preprocessor_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/preprocessor_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 10996.50it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base "HTTP/1.1 200 OK"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/main "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/discussions?p=0 "HTTP/1.1 200 OK"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/refs%2Fpr%2F11 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors "HTTP/1.1 302 Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+Loaded checkpoint from <WSL_DEV_HOME>/.cache/utmosv2/models/fusion_stage3/fold0_s42_best_model.pth
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/utmosv2/_core/model/_common.py:290: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast():
+Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.28s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.28s/it]
+<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/compute_reference_metrics.py:90: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+  gt_utmos = float(utmos_model.predict(data=gt_audio, sr=args.sample_rate, device="cpu"))
+INFO:piper_train.compute_reference_metrics:[1/500] mcd=437.182  gt_utmos=3.849  :: It also appears that Lee tried to tag along with his older b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.compute_reference_metrics:[2/500] mcd=423.301  gt_utmos=3.666  :: This must, in the first instance, be provided for them by gr
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.compute_reference_metrics:[3/500] mcd=372.540  gt_utmos=4.133  :: Arriving almost simultaneously were the President's follow-u
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.compute_reference_metrics:[4/500] mcd=431.544  gt_utmos=3.941  :: These somewhat novel but undoubtedly indisputable propositio
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.compute_reference_metrics:[5/500] mcd=463.298  gt_utmos=4.172  :: In the event of war I would kill any American who put a unif
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.compute_reference_metrics:[6/500] mcd=417.727  gt_utmos=3.484  :: There is great danger it seems to me to arise from the const
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.compute_reference_metrics:[7/500] mcd=425.405  gt_utmos=3.989  :: There seems to be no reason why ordinary paper should not be
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]
+INFO:piper_train.compute_reference_metrics:[8/500] mcd=424.842  gt_utmos=3.520  :: I think he wanted both if he could have them. If he didn't, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.compute_reference_metrics:[9/500] mcd=363.305  gt_utmos=3.627  :: will be spent for actually creating new work and not for bui
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.compute_reference_metrics:[10/500] mcd=379.968  gt_utmos=3.937  :: in others both were supplied in ample quantities, the cost v
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.compute_reference_metrics:[11/500] mcd=415.216  gt_utmos=3.853  :: It was an obvious element in his decision to go to Russia an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+INFO:piper_train.compute_reference_metrics:[12/500] mcd=382.952  gt_utmos=3.860  :: Scoggins thought it was lighter.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it]
+INFO:piper_train.compute_reference_metrics:[13/500] mcd=389.948  gt_utmos=3.857  :: and not for the slight offense as it appeared on the record.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+INFO:piper_train.compute_reference_metrics:[14/500] mcd=344.107  gt_utmos=3.788  :: The Warren Commission Report. By The President's Commission 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.compute_reference_metrics:[15/500] mcd=401.262  gt_utmos=4.066  :: but the walls of Babylon have so long been used to supply br
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.compute_reference_metrics:[16/500] mcd=339.223  gt_utmos=3.654  :: which was neither bulletproof nor bullet resistant.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.08s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.08s/it]
+INFO:piper_train.compute_reference_metrics:[17/500] mcd=408.732  gt_utmos=3.803  :: should be a part of the whole scheme of the book.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.compute_reference_metrics:[18/500] mcd=450.284  gt_utmos=3.843  :: I am a building manager. Follow me, officer, and I will show
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.compute_reference_metrics:[19/500] mcd=423.827  gt_utmos=4.146  :: It is satisfactory to be able to record that some considerat
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.compute_reference_metrics:[20/500] mcd=412.490  gt_utmos=3.579  :: In each instance, liaison contacts should be developed to in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.compute_reference_metrics:[21/500] mcd=400.954  gt_utmos=3.928  :: The problem is aggravated by the necessity that the Service 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.compute_reference_metrics:[22/500] mcd=386.587  gt_utmos=3.989  :: The thieves took first-class tickets, handed their bags full
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.compute_reference_metrics:[23/500] mcd=359.492  gt_utmos=3.694  :: The adequacy of the intelligence system maintained by the Se
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.15s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.15s/it]
+INFO:piper_train.compute_reference_metrics:[24/500] mcd=419.377  gt_utmos=3.809  :: and without reference to or comparison with the documents in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.compute_reference_metrics:[25/500] mcd=399.219  gt_utmos=4.100  :: There was no penalty attached to drunkenness.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.compute_reference_metrics:[26/500] mcd=384.081  gt_utmos=3.910  :: The Babylonians, encamped without their walls, awaited his c
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]
+INFO:piper_train.compute_reference_metrics:[27/500] mcd=381.324  gt_utmos=3.779  :: was located about an inch (two point five centimeters) to th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.05s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.05s/it]
+INFO:piper_train.compute_reference_metrics:[28/500] mcd=351.698  gt_utmos=3.966  :: Following this, warrants were issued for their arrest,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.36s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.36s/it]
+INFO:piper_train.compute_reference_metrics:[29/500] mcd=401.788  gt_utmos=3.807  :: for none of the many building inscriptions from Nebuchadnezz
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.compute_reference_metrics:[30/500] mcd=423.403  gt_utmos=3.712  :: High up, where all might see it, the armless hand wrote the 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.compute_reference_metrics:[31/500] mcd=387.622  gt_utmos=3.564  :: The interview lasted about twenty to twenty-five minutes. In
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.compute_reference_metrics:[32/500] mcd=397.262  gt_utmos=4.056  :: and though the famous family of Aldus restored its technical
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.compute_reference_metrics:[33/500] mcd=437.229  gt_utmos=4.020  :: the Lord Steward of the Household, the steward and officers 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.compute_reference_metrics:[34/500] mcd=425.067  gt_utmos=4.069  :: The amount of exercise varied from one or two hours daily to
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.compute_reference_metrics:[35/500] mcd=398.730  gt_utmos=3.883  :: with Dallas scheduled as one of the stops.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+INFO:piper_train.compute_reference_metrics:[36/500] mcd=390.487  gt_utmos=4.068  :: At the New Prison, Clerkenwell, which had become the princip
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.compute_reference_metrics:[37/500] mcd=426.950  gt_utmos=3.591  :: Jeanne De Mohrenschildt said, quote,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]
+INFO:piper_train.compute_reference_metrics:[38/500] mcd=400.102  gt_utmos=3.716  :: Oswald was confronted with those facts at the beginning of t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+INFO:piper_train.compute_reference_metrics:[39/500] mcd=399.138  gt_utmos=3.948  :: The intervening space, which was filled with dirt probably t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.compute_reference_metrics:[40/500] mcd=342.587  gt_utmos=3.946  :: They drove there, and Robson on arrival did the honors of hi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.compute_reference_metrics:[41/500] mcd=423.935  gt_utmos=3.933  :: Here the tread-wheel was in use, there cellular cranks, or h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.compute_reference_metrics:[42/500] mcd=380.673  gt_utmos=3.980  :: Four men -- Warren Reynolds, Harold Russell, Pat Patterson, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.compute_reference_metrics:[43/500] mcd=418.637  gt_utmos=3.820  :: But Greenacre in his confession pretended that he and his in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.compute_reference_metrics:[44/500] mcd=394.524  gt_utmos=3.590  :: "I have no idea who the sheriffs will get to do the work aft
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.compute_reference_metrics:[45/500] mcd=421.321  gt_utmos=3.754  :: As the business of the Marshalsea Court declined, the number
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.compute_reference_metrics:[46/500] mcd=422.636  gt_utmos=4.086  :: Since the President was to be at the Trade Mart longer than 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+INFO:piper_train.compute_reference_metrics:[47/500] mcd=440.846  gt_utmos=3.630  :: commanded him (Cyrus) to go forth to his city Babylon, and h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.compute_reference_metrics:[48/500] mcd=336.652  gt_utmos=3.746  :: After entering the car, Frazier glanced over his shoulder an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.compute_reference_metrics:[49/500] mcd=437.796  gt_utmos=3.865  :: This would make him approximately ten, well, almost eleven y
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.compute_reference_metrics:[50/500] mcd=415.200  gt_utmos=3.731  :: The review of the latter period will evaluate his personal a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.compute_reference_metrics:[51/500] mcd=378.272  gt_utmos=3.719  :: In the midst of the noisy and blasphemous talk no one could 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.compute_reference_metrics:[52/500] mcd=396.893  gt_utmos=4.098  :: Baker stopped at the door of the lunchroom and commanded, qu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]

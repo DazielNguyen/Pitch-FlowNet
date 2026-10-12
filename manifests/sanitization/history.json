@@ -1,0 +1,149 @@
+{
+ "tool": "tools/sanitize_for_git.py",
+ "placeholders": {
+  "<WSL_DEV_HOME>": "home directory of the WSL account that ran training and evaluation",
+  "<WSL_PROJECT_HOME>": "home directory of a second WSL account on the same workstation",
+  "<WINDOWS_WORKSPACE>": "the Windows project workspace (FPT-Graduation-Project)",
+  "<WINDOWS_USER_HOME>": "the Windows user profile",
+  "<WINDOWS_WORKSPACE_SLUG>": "the Windows project workspace path flattened into one directory name",
+  "<WINDOWS_USER_SLUG>": "the Windows user profile path flattened into one directory name",
+  "<WORKSTATION>": "host name of the training workstation"
+ },
+ "note": "The original stays on the workstation (git-ignored, unchanged). The sanitized copy differs only by the placeholder replacements counted per file.",
+ "files": [
+  {
+   "original": "history/environment/edgetts-env-conda-list_2026-10-12.txt",
+   "original_sha256": "3e5b6e479faa6a1623f392fe3b4d208581adc8c4834ecb6938af00161be17cf3",
+   "original_bytes": 11582,
+   "sanitized": "history/environment/edgetts-env-conda-list_2026-10-12.sanitized.txt",
+   "sanitized_sha256": "87ae89566e24c8a4912826c8ab94778cdc67d762e0eaf67e3be2146c80d68565",
+   "sanitized_bytes": 11587,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "history/environment/system_2026-10-12.txt",
+   "original_sha256": "5d4ed346dce75326ed4952146682ed4ad8b676e67576eb77d114b8ce96e0fdf3",
+   "original_bytes": 397,
+   "sanitized": "history/environment/system_2026-10-12.sanitized.txt",
+   "sanitized_sha256": "4dee33ee9430f3e0b66fb5de251e66ccca423f47659abcbd9df12abeb83f4d10",
+   "sanitized_bytes": 395,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WORKSTATION>": 1
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/audit_question2_sources.py",
+   "original_sha256": "50c23f44b89837e9b92398eb688fbd3301eb56aab7f9f423353885ac0f47d439",
+   "original_bytes": 1520,
+   "sanitized": "history/prior-audits-2026-09-23/audit_question2_sources.sanitized.py",
+   "sanitized_sha256": "c55430ff1057c2b06fd3bc4c6be450732bfea38e2e28d1934727b49a731d7bff",
+   "sanitized_bytes": 1545,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 5
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/audit_question3.py",
+   "original_sha256": "410b4dd64c1fdf563d50abf543c9e7ba67da97faced7b907026c9c886a4d909f",
+   "original_bytes": 2504,
+   "sanitized": "history/prior-audits-2026-09-23/audit_question3.sanitized.py",
+   "sanitized_sha256": "27f5f1715049c5280bca235d415fac7b7d05e6fd7a3861b8f56144470b282c43",
+   "sanitized_bytes": 2509,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 1
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/audit_question6.py",
+   "original_sha256": "7a85d1e450b766f866e353d97fc36369ed3f21fdaa43472872feec7f7f399bcc",
+   "original_bytes": 1479,
+   "sanitized": "history/prior-audits-2026-09-23/audit_question6.sanitized.py",
+   "sanitized_sha256": "b78cc5a5a3c632d8af92f77e76b13dab7ee7e51dcbb509516b0020425238dbf5",
+   "sanitized_bytes": 1489,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/context_PitchFlowNet_2026-09-23.md",
+   "original_sha256": "8c690c6fcc197f4f1c94c50d19b98ff749ef718211ed5f2df158450256a68e8e",
+   "original_bytes": 16685,
+   "sanitized": "history/prior-audits-2026-09-23/context_PitchFlowNet_2026-09-23.sanitized.md",
+   "sanitized_sha256": "e1a39c2594347bae82f8bca8622ea2c577e4230ee00ed353b4ec3cec06d1e689",
+   "sanitized_bytes": 16682,
+   "encoding": "utf-8",
+   "replacements": {
+    "<WINDOWS_WORKSPACE>": 1,
+    "<WINDOWS_USER_HOME>": 9
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/pruning_checkpoint_metadata_2026-09-23.json",
+   "original_sha256": "849858726e9647f7003bf996412a10913f480d5169bc53396c78f26f286efbcd",
+   "original_bytes": 55010,
+   "sanitized": "history/prior-audits-2026-09-23/pruning_checkpoint_metadata_2026-09-23.sanitized.json",
+   "sanitized_sha256": "8a35f251538a91e9093971c9c90b6d4f405b284ae0e305977efc3abde4cb5285",
+   "sanitized_bytes": 56054,
+   "encoding": "utf-16",
+   "replacements": {
+    "<WSL_DEV_HOME>": 10,
+    "<WSL_PROJECT_HOME>": 118
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/question2_checkpoint_shapes_2026-09-23.json",
+   "original_sha256": "d5a3d1fc49c9c35678cbad5edf8823205e2fa51b5ab664202cbb0788f5fa0568",
+   "original_bytes": 501902,
+   "sanitized": "history/prior-audits-2026-09-23/question2_checkpoint_shapes_2026-09-23.sanitized.json",
+   "sanitized_sha256": "efa4c656846d8a1953087158159800289a5ef5a229995c386ca627233f108ba9",
+   "sanitized_bytes": 501922,
+   "encoding": "utf-16",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/question2_parameter_counts_2026-09-23.json",
+   "original_sha256": "1acf55fb9fe7d86977fb6edc7e9f46dbf95369c79278790ef95796f1dafbba6d",
+   "original_bytes": 38386,
+   "sanitized": "history/prior-audits-2026-09-23/question2_parameter_counts_2026-09-23.sanitized.json",
+   "sanitized_sha256": "05b4f2fcd5e03d995dac04cabbaaaa4a4b5c461a3d9117b14906cb03a6be20e9",
+   "sanitized_bytes": 38406,
+   "encoding": "utf-16",
+   "replacements": {
+    "<WSL_DEV_HOME>": 2
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/question2_sources_2026-09-23.json",
+   "original_sha256": "321a676f8b7a50a67c8bb2660a487ace8335d31c98bce786a19837a471c858b7",
+   "original_bytes": 200618,
+   "sanitized": "history/prior-audits-2026-09-23/question2_sources_2026-09-23.sanitized.json",
+   "sanitized_sha256": "5ab96fda75a350f4e08c7c6a92e31699b9241d851c9f5b4da61d0fa375b1f051",
+   "sanitized_bytes": 201008,
+   "encoding": "utf-16",
+   "replacements": {
+    "<WSL_DEV_HOME>": 39
+   }
+  },
+  {
+   "original": "history/prior-audits-2026-09-23/question3_audit_2026-09-23.json",
+   "original_sha256": "9559c36e7bd6665ac594da1c8fa8b61b1e3db83094590de1e1111ab8473a2ed9",
+   "original_bytes": 26422,
+   "sanitized": "history/prior-audits-2026-09-23/question3_audit_2026-09-23.sanitized.json",
+   "sanitized_sha256": "4cf721d07d51dac583d677b2d2f0637e4e7a1764eb3cfe9e47d067af95066c43",
+   "sanitized_bytes": 26622,
+   "encoding": "utf-16",
+   "replacements": {
+    "<WSL_DEV_HOME>": 20
+   }
+  }
+ ]
+}

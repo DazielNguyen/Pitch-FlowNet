@@ -1,0 +1,557 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Evaluating 500 GT utterances
+Loading Whisper-base.en (CPU)
+Loading UTMOSv2 (CPU)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 12563.86it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/whisper/transcribe.py:130: UserWarning: Performing inference on CPU when CUDA is available
+  warnings.warn("Performing inference on CPU when CUDA is available")
+Loaded checkpoint from <WSL_DEV_HOME>/.cache/utmosv2/models/fusion_stage3/fold0_s42_best_model.pth
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/utmosv2/_core/model/_common.py:290: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast():
+Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.20s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.20s/it]
+<WINDOWS_USER_HOME>/AppData/Local/Temp/claude/<WINDOWS_WORKSPACE_SLUG>/18f5b728-e92a-4cca-bf67-e93f55731469/scratchpad/gt_wer_utmos_500.py:75: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+  utt_utmos = float(utmos_model.predict(data=audio, sr=SAMPLE_RATE, device="cpu"))
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/whisper/transcribe.py:130: UserWarning: Performing inference on CPU when CUDA is available
+  warnings.warn("Performing inference on CPU when CUDA is available")
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+[ 20/500] mean WER=0.035 mean UTMOS=3.820
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+[ 40/500] mean WER=0.064 mean UTMOS=3.843
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+[ 60/500] mean WER=0.060 mean UTMOS=3.823
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.10s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.10s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+[ 80/500] mean WER=0.058 mean UTMOS=3.848
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+[100/500] mean WER=0.057 mean UTMOS=3.843
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.40s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.40s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.40s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+[120/500] mean WER=0.061 mean UTMOS=3.839
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.07s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.07s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.16s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.16s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+[140/500] mean WER=0.060 mean UTMOS=3.833
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.31s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.31s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+[160/500] mean WER=0.060 mean UTMOS=3.842
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+[180/500] mean WER=0.062 mean UTMOS=3.839
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.28s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.28s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+[200/500] mean WER=0.068 mean UTMOS=3.840
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.96s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.96s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+[220/500] mean WER=0.068 mean UTMOS=3.837
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+[240/500] mean WER=0.066 mean UTMOS=3.836
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.14s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.14s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+[260/500] mean WER=0.069 mean UTMOS=3.834
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.01s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.01s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+[280/500] mean WER=0.067 mean UTMOS=3.832
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+[300/500] mean WER=0.069 mean UTMOS=3.830
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+[320/500] mean WER=0.069 mean UTMOS=3.831
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+[340/500] mean WER=0.068 mean UTMOS=3.832
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.26s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.27s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+[360/500] mean WER=0.068 mean UTMOS=3.835
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.23s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.23s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.25s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.25s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+[380/500] mean WER=0.067 mean UTMOS=3.832
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+[400/500] mean WER=0.069 mean UTMOS=3.834
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.40s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.40s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+[420/500] mean WER=0.069 mean UTMOS=3.830
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.08s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+[440/500] mean WER=0.068 mean UTMOS=3.832
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+[460/500] mean WER=0.067 mean UTMOS=3.829
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+[480/500] mean WER=0.067 mean UTMOS=3.829
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.05s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.05s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+[500/500] mean WER=0.067 mean UTMOS=3.830
+=== SUMMARY (ground truth) ===
+GT mean WER    : 6.67%
+GT median WER  : 0.00%
+GT mean UTMOS  : 3.830
+GT median UTMOS: 3.837

@@ -1,0 +1,1065 @@
+INFO:piper_train.eval_harness:Loaded 500 sentences
+INFO:piper_train.eval_harness:Loading Whisper model: base.en (CPU)
+INFO:piper_train.eval_harness:Loading UTMOSv2 model (CPU)
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/preprocessor_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/preprocessor_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 13152.00it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base "HTTP/1.1 200 OK"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/main "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/discussions?p=0 "HTTP/1.1 200 OK"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/refs%2Fpr%2F11 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors "HTTP/1.1 302 Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:timm.models._builder:Loading pretrained weights from Hugging Face hub (timm/tf_efficientnetv2_s.in21k_ft_in1k)
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/timm/tf_efficientnetv2_s.in21k_ft_in1k/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+INFO:timm.models._hub:[timm/tf_efficientnetv2_s.in21k_ft_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+INFO:piper_train.eval_harness:Loading checkpoint: <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:144: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/whisper/transcribe.py:130: UserWarning: Performing inference on CPU when CUDA is available
+  warnings.warn("Performing inference on CPU when CUDA is available")
+Loaded checkpoint from <WSL_DEV_HOME>/.cache/utmosv2/models/fusion_stage3/fold0_s42_best_model.pth
+Removing weight norm...
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/utmosv2/_core/model/_common.py:290: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast():
+Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.21s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.21s/it]
+<WSL_DEV_HOME>/EdgeTTS/src/python/piper_train/eval_harness.py:251: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+  utmos_score = float(
+INFO:piper_train.eval_harness:[1/500] wer=0.000 utmos=3.848 rtf=0.100 :: It also appears that Lee tried to tag along with his older b
+<WSL_DEV_HOME>/miniconda3/envs/edgetts/lib/python3.10/site-packages/whisper/transcribe.py:130: UserWarning: Performing inference on CPU when CUDA is available
+  warnings.warn("Performing inference on CPU when CUDA is available")
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+INFO:piper_train.eval_harness:[2/500] wer=0.000 utmos=3.777 rtf=0.084 :: This must, in the first instance, be provided for them by gr
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+INFO:piper_train.eval_harness:[3/500] wer=0.050 utmos=3.936 rtf=0.067 :: Arriving almost simultaneously were the President's follow-u
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]
+INFO:piper_train.eval_harness:[4/500] wer=0.000 utmos=3.655 rtf=0.076 :: These somewhat novel but undoubtedly indisputable propositio
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]
+INFO:piper_train.eval_harness:[5/500] wer=0.000 utmos=3.924 rtf=0.062 :: In the event of war I would kill any American who put a unif
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+INFO:piper_train.eval_harness:[6/500] wer=0.000 utmos=3.888 rtf=0.056 :: There is great danger it seems to me to arise from the const
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.eval_harness:[7/500] wer=0.000 utmos=3.961 rtf=0.072 :: There seems to be no reason why ordinary paper should not be
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.03s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+INFO:piper_train.eval_harness:[8/500] wer=0.097 utmos=3.540 rtf=0.081 :: I think he wanted both if he could have them. If he didn't, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.eval_harness:[9/500] wer=0.000 utmos=3.348 rtf=0.068 :: will be spent for actually creating new work and not for bui
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+INFO:piper_train.eval_harness:[10/500] wer=0.105 utmos=3.873 rtf=0.080 :: in others both were supplied in ample quantities, the cost v
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[11/500] wer=0.000 utmos=3.402 rtf=0.070 :: It was an obvious element in his decision to go to Russia an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]
+INFO:piper_train.eval_harness:[12/500] wer=0.400 utmos=3.609 rtf=0.093 :: Scoggins thought it was lighter.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]
+INFO:piper_train.eval_harness:[13/500] wer=0.000 utmos=3.859 rtf=0.075 :: and not for the slight offense as it appeared on the record.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]
+INFO:piper_train.eval_harness:[14/500] wer=0.053 utmos=3.749 rtf=0.068 :: The Warren Commission Report. By The President's Commission 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+INFO:piper_train.eval_harness:[15/500] wer=0.080 utmos=3.908 rtf=0.083 :: but the walls of Babylon have so long been used to supply br
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[16/500] wer=0.000 utmos=3.875 rtf=0.079 :: which was neither bulletproof nor bullet resistant.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]
+INFO:piper_train.eval_harness:[17/500] wer=0.000 utmos=3.953 rtf=0.075 :: should be a part of the whole scheme of the book.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+INFO:piper_train.eval_harness:[18/500] wer=0.000 utmos=3.587 rtf=0.064 :: I am a building manager. Follow me, officer, and I will show
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+INFO:piper_train.eval_harness:[19/500] wer=0.000 utmos=3.741 rtf=0.077 :: It is satisfactory to be able to record that some considerat
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[20/500] wer=0.000 utmos=4.052 rtf=0.066 :: In each instance, liaison contacts should be developed to in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[21/500] wer=0.080 utmos=3.934 rtf=0.074 :: The problem is aggravated by the necessity that the Service 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[22/500] wer=0.091 utmos=4.139 rtf=0.061 :: The thieves took first-class tickets, handed their bags full
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+INFO:piper_train.eval_harness:[23/500] wer=0.000 utmos=4.141 rtf=0.078 :: The adequacy of the intelligence system maintained by the Se
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[24/500] wer=0.000 utmos=3.869 rtf=0.070 :: and without reference to or comparison with the documents in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[25/500] wer=0.000 utmos=3.645 rtf=0.077 :: There was no penalty attached to drunkenness.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]
+INFO:piper_train.eval_harness:[26/500] wer=0.444 utmos=3.658 rtf=0.085 :: The Babylonians, encamped without their walls, awaited his c
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+INFO:piper_train.eval_harness:[27/500] wer=0.158 utmos=3.870 rtf=0.054 :: was located about an inch (two point five centimeters) to th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.eval_harness:[28/500] wer=0.000 utmos=4.115 rtf=0.074 :: Following this, warrants were issued for their arrest,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[29/500] wer=0.000 utmos=3.943 rtf=0.080 :: for none of the many building inscriptions from Nebuchadnezz
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[30/500] wer=0.000 utmos=3.262 rtf=0.078 :: High up, where all might see it, the armless hand wrote the 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[31/500] wer=0.412 utmos=3.941 rtf=0.072 :: The interview lasted about twenty to twenty-five minutes. In
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[32/500] wer=0.071 utmos=4.177 rtf=0.069 :: and though the famous family of Aldus restored its technical
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[33/500] wer=0.250 utmos=3.854 rtf=0.055 :: the Lord Steward of the Household, the steward and officers 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[34/500] wer=0.000 utmos=3.860 rtf=0.062 :: The amount of exercise varied from one or two hours daily to
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[35/500] wer=0.000 utmos=3.877 rtf=0.066 :: with Dallas scheduled as one of the stops.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[36/500] wer=0.050 utmos=3.835 rtf=0.071 :: At the New Prison, Clerkenwell, which had become the princip
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[37/500] wer=0.600 utmos=3.962 rtf=0.102 :: Jeanne De Mohrenschildt said, quote,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[38/500] wer=0.000 utmos=4.063 rtf=0.066 :: Oswald was confronted with those facts at the beginning of t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[39/500] wer=0.000 utmos=3.865 rtf=0.067 :: The intervening space, which was filled with dirt probably t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[40/500] wer=0.105 utmos=3.682 rtf=0.069 :: They drove there, and Robson on arrival did the honors of hi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[41/500] wer=0.071 utmos=3.718 rtf=0.051 :: Here the tread-wheel was in use, there cellular cranks, or h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+INFO:piper_train.eval_harness:[42/500] wer=0.000 utmos=3.958 rtf=0.068 :: Four men -- Warren Reynolds, Harold Russell, Pat Patterson, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.eval_harness:[43/500] wer=0.190 utmos=3.741 rtf=0.073 :: But Greenacre in his confession pretended that he and his in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+INFO:piper_train.eval_harness:[44/500] wer=0.043 utmos=3.657 rtf=0.076 :: "I have no idea who the sheriffs will get to do the work aft
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[45/500] wer=0.143 utmos=3.719 rtf=0.063 :: As the business of the Marshalsea Court declined, the number
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+INFO:piper_train.eval_harness:[46/500] wer=0.069 utmos=3.957 rtf=0.068 :: Since the President was to be at the Trade Mart longer than 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+INFO:piper_train.eval_harness:[47/500] wer=0.000 utmos=3.665 rtf=0.064 :: commanded him (Cyrus) to go forth to his city Babylon, and h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[48/500] wer=0.000 utmos=3.810 rtf=0.062 :: After entering the car, Frazier glanced over his shoulder an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+INFO:piper_train.eval_harness:[49/500] wer=0.308 utmos=3.858 rtf=0.080 :: This would make him approximately ten, well, almost eleven y
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]
+INFO:piper_train.eval_harness:[50/500] wer=0.000 utmos=4.132 rtf=0.064 :: The review of the latter period will evaluate his personal a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+INFO:piper_train.eval_harness:[51/500] wer=0.000 utmos=3.769 rtf=0.078 :: In the midst of the noisy and blasphemous talk no one could 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[52/500] wer=0.000 utmos=3.704 rtf=0.077 :: Baker stopped at the door of the lunchroom and commanded, qu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[53/500] wer=0.000 utmos=3.881 rtf=0.078 :: and that a new system of prison discipline should be introdu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[54/500] wer=0.040 utmos=3.821 rtf=0.072 :: When a teenage boy ran toward the rear of the President's ca
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+INFO:piper_train.eval_harness:[55/500] wer=0.222 utmos=3.390 rtf=0.086 :: for not less a period than twenty-four years.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+INFO:piper_train.eval_harness:[56/500] wer=0.167 utmos=3.778 rtf=0.058 :: The route of the taxicab was retraced under the direction of
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[57/500] wer=0.294 utmos=3.737 rtf=0.080 :: That fact was made precisely clear in subsequent news storie
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+INFO:piper_train.eval_harness:[58/500] wer=0.111 utmos=3.162 rtf=0.069 :: I never believed I would find more material advantages at th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[59/500] wer=0.000 utmos=3.731 rtf=0.060 :: established that they had been previously loaded and ejected
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[60/500] wer=0.077 utmos=3.726 rtf=0.085 :: and powerful influence was exerted both here and abroad to o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+INFO:piper_train.eval_harness:[61/500] wer=0.000 utmos=3.669 rtf=0.071 :: There should be at least a full and fair trial given to thes
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]
+INFO:piper_train.eval_harness:[62/500] wer=0.000 utmos=3.965 rtf=0.076 :: Sokolow said that although Lee was, quote, presumably disint
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[63/500] wer=0.000 utmos=3.902 rtf=0.051 :: the diameter of which dwindles down to the limits of our pre
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[64/500] wer=0.235 utmos=3.857 rtf=0.064 :: The negative of that picture, Commission Exhibit Number one 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[65/500] wer=0.240 utmos=3.845 rtf=0.075 :: The road taken was via Manchester, where the servant said a 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[66/500] wer=0.059 utmos=3.845 rtf=0.070 :: The only witness to the conversation was Dallas Police Detec
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[67/500] wer=0.125 utmos=3.685 rtf=0.068 :: Moreover, Shaneyfelt testified that in his opinion the photo
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[68/500] wer=0.042 utmos=3.556 rtf=0.075 :: Ruth and Michael Paine both noticed the rolled-up blanket in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+INFO:piper_train.eval_harness:[69/500] wer=0.067 utmos=3.864 rtf=0.074 :: executive director of the Information Council of the America
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[70/500] wer=0.053 utmos=3.933 rtf=0.059 :: An agent was stationed at the entrance to stop anyone who wa
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[71/500] wer=0.000 utmos=3.845 rtf=0.090 :: exactly tallied with that of the deformed person "wanted" fo
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[72/500] wer=0.056 utmos=4.069 rtf=0.079 :: His family lived with Mrs. Paine, ostensibly because Oswald 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]
+INFO:piper_train.eval_harness:[73/500] wer=0.174 utmos=3.609 rtf=0.087 :: and his soul shot out so piercingly through the port-holes o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[74/500] wer=0.125 utmos=3.771 rtf=0.073 :: Throw a cloth over the bowl and set by for five or six hours
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+INFO:piper_train.eval_harness:[75/500] wer=0.053 utmos=3.735 rtf=0.058 :: They are absorbed by the circulating liquids and carried to 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[76/500] wer=0.250 utmos=3.704 rtf=0.052 :: five feet, ten inches, wearing light clothing, a light-color
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.17s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.17s/it]
+INFO:piper_train.eval_harness:[77/500] wer=0.077 utmos=3.991 rtf=0.074 :: Barbara Jeanette Davis testified that no one had shown her a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[78/500] wer=0.067 utmos=3.914 rtf=0.077 :: Oswald told his wife and Mrs. Paine that he was working as a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[79/500] wer=0.000 utmos=3.486 rtf=0.059 :: All were in ill health; almost all were in rags; almost all 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[80/500] wer=0.111 utmos=3.610 rtf=0.097 :: Changes introduced under pressure had been only skin deep.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[81/500] wer=0.074 utmos=3.540 rtf=0.069 :: The time actually required for Baker and Truly to reach the 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.09s/it]
+INFO:piper_train.eval_harness:[82/500] wer=0.182 utmos=3.844 rtf=0.075 :: To this end it was decided more than twenty years ago
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[83/500] wer=0.000 utmos=3.918 rtf=0.078 :: The eyewitnesses vary in their identification of the jacket.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[84/500] wer=0.040 utmos=4.013 rtf=0.069 :: possible delayed reaction to the shot, jostling with the cro
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.07s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.07s/it]
+INFO:piper_train.eval_harness:[85/500] wer=0.000 utmos=3.664 rtf=0.073 :: Leaving the city by the eastern gate, and passing a small vi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[86/500] wer=0.000 utmos=4.160 rtf=0.077 :: His past relationships with his wife had been stormy, howeve
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[87/500] wer=0.118 utmos=4.062 rtf=0.074 :: Private executions at their first introduction were not popu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[88/500] wer=0.000 utmos=4.121 rtf=0.067 :: must be referred immediately by the most expeditious means o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[89/500] wer=0.095 utmos=4.104 rtf=0.058 :: Other well-known examples among vertebrates are: Vestiges of
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.20s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.20s/it]
+INFO:piper_train.eval_harness:[90/500] wer=0.071 utmos=3.077 rtf=0.060 :: who was arrested in the very act, just as he had fired one s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+INFO:piper_train.eval_harness:[91/500] wer=0.062 utmos=3.477 rtf=0.070 :: for instance, were separately created, additional prongs wer
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:01<00:00,  1.98s/it]Predicting: 100%|██████████| 1/1 [00:01<00:00,  1.98s/it]
+INFO:piper_train.eval_harness:[92/500] wer=0.167 utmos=3.615 rtf=0.073 :: (four) carried the rifle into the Depository Building, conce
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+INFO:piper_train.eval_harness:[93/500] wer=0.059 utmos=3.321 rtf=0.047 :: it is obvious that we cannot continue to create governmental
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[94/500] wer=0.000 utmos=4.185 rtf=0.057 :: Speaking on a debate on prison matters, he declared that
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.31s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.31s/it]
+INFO:piper_train.eval_harness:[95/500] wer=0.150 utmos=4.231 rtf=0.055 :: He was also attended by the Rev. Mr. Springett and the indef
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[96/500] wer=0.000 utmos=3.852 rtf=0.073 :: It has turned itself into the traditional lever of a foreign
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+INFO:piper_train.eval_harness:[97/500] wer=0.056 utmos=3.693 rtf=0.073 :: He crept along the coast close in shore, looking for a quiet
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[98/500] wer=0.095 utmos=3.790 rtf=0.080 :: This committee animadverted strongly upon the system in forc
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[99/500] wer=0.250 utmos=3.552 rtf=0.055 :: Thornley said that he had made his remark only in the contex
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[100/500] wer=0.000 utmos=3.855 rtf=0.060 :: and none are more commendable than that which deprecates the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+INFO:piper_train.eval_harness:[101/500] wer=0.250 utmos=3.953 rtf=0.078 :: I ought also to confess the others: I mean my wife and my br
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[102/500] wer=0.000 utmos=4.029 rtf=0.072 :: signed by more than a thousand members of banking firms.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[103/500] wer=0.000 utmos=3.858 rtf=0.062 :: after which he went to New Zealand, and held an important po
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[104/500] wer=0.200 utmos=3.951 rtf=0.070 :: were meager or altogether absent.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[105/500] wer=0.133 utmos=4.177 rtf=0.074 :: Elm Street, the northernmost of the three, after intersectin
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]
+INFO:piper_train.eval_harness:[106/500] wer=0.133 utmos=3.909 rtf=0.068 :: The head of PRS testified that the Secret Service requested 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[107/500] wer=0.000 utmos=3.883 rtf=0.078 :: he would be asked at a press conference when he returned.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[108/500] wer=0.077 utmos=3.701 rtf=0.083 :: instead of handing it or the price of it back to the Caspars
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.13s/it]
+INFO:piper_train.eval_harness:[109/500] wer=0.069 utmos=3.819 rtf=0.070 :: and at their request two police officers were sent to Bermon
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[110/500] wer=0.000 utmos=3.940 rtf=0.066 :: and to experiment for a reasonable time with measures suitab
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[111/500] wer=0.111 utmos=3.705 rtf=0.079 :: Lee Harvey Oswald: Background and Possible Motives, Part fiv
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.12s/it]
+INFO:piper_train.eval_harness:[112/500] wer=0.125 utmos=3.551 rtf=0.057 :: Whaley testified that Oswald was wearing either the gray zip
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[113/500] wer=0.222 utmos=4.071 rtf=0.066 :: even though the thirty- five states with ninety-five percent
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[114/500] wer=0.053 utmos=3.781 rtf=0.061 :: From the moment of his reception he gave himself great airs,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[115/500] wer=0.000 utmos=3.863 rtf=0.076 :: nitrogen is obtained from simple salts and the nutritive pro
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[116/500] wer=0.000 utmos=3.957 rtf=0.094 :: The man wore a T-shirt beneath his outer shirt and he had no
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[117/500] wer=0.000 utmos=3.714 rtf=0.062 :: he fastened one end of the strap above mentioned to the hook
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[118/500] wer=0.000 utmos=3.720 rtf=0.083 :: The Commission emphasizes that it finds no causal connection
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[119/500] wer=0.000 utmos=4.017 rtf=0.077 :: where the apparatus for the punishment she was about to expe
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[120/500] wer=0.000 utmos=3.785 rtf=0.078 :: However, he felt that any disciplinary action might have giv
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]
+INFO:piper_train.eval_harness:[121/500] wer=0.000 utmos=3.761 rtf=0.060 :: Besides these, a number had the privilege of a "run on the k
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[122/500] wer=0.000 utmos=4.139 rtf=0.081 :: that the jails attached to corporate jurisdictions continue 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[123/500] wer=0.053 utmos=3.660 rtf=0.074 :: About two blocks later, a woman asked to get off to make a o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[124/500] wer=0.000 utmos=3.701 rtf=0.108 :: which caused her to look to her right.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+INFO:piper_train.eval_harness:[125/500] wer=0.000 utmos=3.659 rtf=0.069 :: in whose field the project falls, and also to notify another
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[126/500] wer=0.000 utmos=3.378 rtf=0.061 :: often in the form of granules embedded in the chlorophyll bo
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]
+INFO:piper_train.eval_harness:[127/500] wer=0.000 utmos=3.952 rtf=0.103 :: All organisms have the same need of reproduction.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+INFO:piper_train.eval_harness:[128/500] wer=0.000 utmos=3.555 rtf=0.060 :: in great part through the cooperation of American business b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[129/500] wer=0.312 utmos=3.644 rtf=0.084 :: an imputation which the Society indignantly and very justly 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[130/500] wer=0.000 utmos=3.625 rtf=0.090 :: There among the ruins they still live in the same kind of ho
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[131/500] wer=0.000 utmos=3.763 rtf=0.081 :: Roger D. Craig, a deputy sheriff of Dallas County,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[132/500] wer=0.074 utmos=4.187 rtf=0.066 :: and it was decidedly of opinion that in all short sentences 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[133/500] wer=0.000 utmos=4.089 rtf=0.118 :: The Presidential limousine.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[134/500] wer=0.120 utmos=3.489 rtf=0.069 :: Shortly thereafter, Johnny Brewer, who had come from the nea
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[135/500] wer=0.143 utmos=3.878 rtf=0.087 :: Forrester next traced the fugitives to Liverpool,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[136/500] wer=0.333 utmos=4.277 rtf=0.080 :: Chapter two. The Assassination: Part two.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[137/500] wer=0.182 utmos=3.817 rtf=0.079 :: Compared with those highly meritorious institutions Newgate 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[138/500] wer=0.053 utmos=4.036 rtf=0.070 :: in which he supported his report on the Bringuier incident w
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[139/500] wer=0.000 utmos=3.871 rtf=0.056 :: and it was on the entire absence of the latter that the defe
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.03s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.03s/it]
+INFO:piper_train.eval_harness:[140/500] wer=0.000 utmos=3.631 rtf=0.065 :: But the affair still remained a profound mystery. No light w
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+INFO:piper_train.eval_harness:[141/500] wer=0.059 utmos=3.685 rtf=0.085 :: Renewed recommendations to provide employment resulted in th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[142/500] wer=0.000 utmos=3.641 rtf=0.068 :: who preferred to risk his future reputation and liberty to t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[143/500] wer=0.000 utmos=4.066 rtf=0.073 :: The assistant called with the jewels on approbation at a hou
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[144/500] wer=0.043 utmos=3.561 rtf=0.075 :: It was not a standard type bag which could be obtained in a 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[145/500] wer=0.000 utmos=3.792 rtf=0.053 :: He could in the first place withhold the government grant in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[146/500] wer=0.100 utmos=3.796 rtf=0.079 :: indicating the possibility of an attempt against the person 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]
+INFO:piper_train.eval_harness:[147/500] wer=0.000 utmos=3.775 rtf=0.075 :: he was not actually planning to shoot Mr. Nixon at that time
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[148/500] wer=0.071 utmos=3.753 rtf=0.048 :: water which is lost by evaporation, especially from the leaf
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[149/500] wer=0.000 utmos=3.815 rtf=0.081 :: The approaching ceremony had evidently no terrors for these 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[150/500] wer=0.103 utmos=3.902 rtf=0.077 :: I discovered I left my cigarettes in my jacket pocket upstai
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[151/500] wer=0.000 utmos=3.883 rtf=0.086 :: Two of these photographs were taken from the rear of Walker'
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[152/500] wer=0.000 utmos=3.935 rtf=0.079 :: When asked if Oswald requested the note back she testified t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[153/500] wer=0.000 utmos=3.945 rtf=0.066 :: and surgical opinion stated that the stoppage of circulation
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[154/500] wer=0.500 utmos=3.964 rtf=0.081 :: At one:twenty-nine p.m. the police radio reported
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.eval_harness:[155/500] wer=0.190 utmos=3.619 rtf=0.075 :: Hill testified that Fritz told the detective to get a search
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.98s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.98s/it]
+INFO:piper_train.eval_harness:[156/500] wer=0.111 utmos=3.845 rtf=0.067 :: Lieutenant Day of the Dallas Police Department had "lifted" 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[157/500] wer=0.037 utmos=4.014 rtf=0.082 :: It was, however, proved that Howard was in needy circumstanc
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[158/500] wer=0.000 utmos=3.570 rtf=0.074 :: Our responsibility is to all of the people in this country.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[159/500] wer=0.167 utmos=3.768 rtf=0.071 :: were as yet but imperfectly understood, and such portions of
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[160/500] wer=0.105 utmos=3.974 rtf=0.064 :: Thus, amongst others, Thomas Blackburn had been committed on
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[161/500] wer=0.043 utmos=4.213 rtf=0.070 :: and which contributed in no small degree to the introduction
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[162/500] wer=0.000 utmos=3.556 rtf=0.069 :: Oswald had not filled any of the three orders.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[163/500] wer=0.000 utmos=3.977 rtf=0.079 :: Nor were the misdemeanants and bail prisoners any longer sep
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[164/500] wer=0.250 utmos=3.821 rtf=0.075 :: took Courvoisier into custody, and placed the two female ser
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[165/500] wer=0.000 utmos=3.994 rtf=0.068 :: It was here that the others engaged in their dismal office i
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[166/500] wer=0.000 utmos=3.551 rtf=0.071 :: But worse than the bankruptcy was the confession made by the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[167/500] wer=0.154 utmos=3.654 rtf=0.071 :: Referring to a rifle with a four-power telescope, Sergeant Z
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[168/500] wer=0.000 utmos=3.771 rtf=0.070 :: they must be considered to have ended the age of fine printi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[169/500] wer=0.056 utmos=3.865 rtf=0.051 :: an occasional prisoner or two committed by the Houses of Par
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[170/500] wer=0.000 utmos=3.380 rtf=0.058 :: that debtors who could afford the cabin and master's side we
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[171/500] wer=0.000 utmos=3.409 rtf=0.063 :: The latter testified that they, quote, were just together ag
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[172/500] wer=0.148 utmos=4.048 rtf=0.088 :: The next day Scoggins viewed a lineup of four persons and id
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[173/500] wer=0.400 utmos=4.130 rtf=0.076 :: This was penal servitude for life, Buncher's sentence being 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]
+INFO:piper_train.eval_harness:[174/500] wer=0.500 utmos=3.551 rtf=0.079 :: the whole about fifteen feet wide.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[175/500] wer=0.143 utmos=3.915 rtf=0.071 :: In eighteen thirty-two the dissection of bodies cut down fro
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+INFO:piper_train.eval_harness:[176/500] wer=0.000 utmos=4.341 rtf=0.063 :: It will no doubt occur to the reader that, on the theory of 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+INFO:piper_train.eval_harness:[177/500] wer=0.045 utmos=3.956 rtf=0.075 :: In many others there were no infirmaries, no places set apar
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[178/500] wer=0.000 utmos=3.999 rtf=0.058 :: Mrs. Oswald told another of her friends that Oswald was very
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[179/500] wer=0.000 utmos=3.849 rtf=0.075 :: in so far as under these circumstances the green plant
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.03s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.03s/it]
+INFO:piper_train.eval_harness:[180/500] wer=0.071 utmos=4.016 rtf=0.076 :: The sheriff arrived, attended by his officers, to receive th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.eval_harness:[181/500] wer=0.217 utmos=3.682 rtf=0.082 :: Agent Hosty was told by Mrs. M. F. Tobias, a former landlady
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+INFO:piper_train.eval_harness:[182/500] wer=0.000 utmos=3.485 rtf=0.063 :: When I commenced to review the situation with the problem sq
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[183/500] wer=0.000 utmos=3.986 rtf=0.078 :: the Commission has carefully considered the testimony of the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[184/500] wer=0.000 utmos=4.088 rtf=0.077 :: The Secretary of State's suggested scale of diet had seldom 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+INFO:piper_train.eval_harness:[185/500] wer=0.250 utmos=3.889 rtf=0.061 :: There was an epidemic of murder in the United Kingdom about 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[186/500] wer=0.176 utmos=3.798 rtf=0.050 :: Even Mr. Cope admitted that the committal of this class of p
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]
+INFO:piper_train.eval_harness:[187/500] wer=0.000 utmos=3.656 rtf=0.074 :: whose major wound fell within Dr. Shaw's area of specializat
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[188/500] wer=0.500 utmos=3.730 rtf=0.100 :: In one hundred jails,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[189/500] wer=0.077 utmos=4.259 rtf=0.064 :: and it was unsafe to fix this limit above twelve months, alt
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[190/500] wer=0.045 utmos=4.257 rtf=0.076 :: He was altogether against too liberal a diet; he disapproved
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+INFO:piper_train.eval_harness:[191/500] wer=0.062 utmos=3.888 rtf=0.089 :: The possibility of commitment was to be considered only if t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+INFO:piper_train.eval_harness:[192/500] wer=0.105 utmos=4.082 rtf=0.059 :: mainly through the exertions of a new governor, Mr. Brown, w
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[193/500] wer=0.148 utmos=3.729 rtf=0.076 :: That that could have been the man that I saw in the window i
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[194/500] wer=0.133 utmos=3.793 rtf=0.069 :: He told Mrs. Siegel that he would run away if sent to a boar
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[195/500] wer=0.000 utmos=3.719 rtf=0.080 :: was not used for the main portion of the downtown part of th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[196/500] wer=0.000 utmos=3.848 rtf=0.074 :: and what remained was divided into a master's and a common s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.11s/it]
+INFO:piper_train.eval_harness:[197/500] wer=0.444 utmos=3.951 rtf=0.075 :: The conversation on Monday, November eighteen, nineteen sixt
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[198/500] wer=0.000 utmos=3.870 rtf=0.056 :: where a fish curry and a brace of partridges were set before
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.21s/it]
+INFO:piper_train.eval_harness:[199/500] wer=0.400 utmos=3.440 rtf=0.070 :: Kerry Thornley, a marine associate,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[200/500] wer=0.000 utmos=3.585 rtf=0.055 :: that will refuse to amend the Constitution by the arbitrary 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+INFO:piper_train.eval_harness:[201/500] wer=0.000 utmos=3.981 rtf=0.073 :: These processes must take place everywhere in ordinary proto
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[202/500] wer=0.143 utmos=3.734 rtf=0.076 :: Besides those actually resident within the walls,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[203/500] wer=0.286 utmos=3.817 rtf=0.094 :: but he was subsequently again tried for bigamy, and sentence
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[204/500] wer=0.037 utmos=3.877 rtf=0.071 :: His excuse was that he had given the girl his promise that s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[205/500] wer=0.231 utmos=4.073 rtf=0.065 :: at which he realized one hundred fifty pounds within a coupl
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+INFO:piper_train.eval_harness:[206/500] wer=0.043 utmos=3.736 rtf=0.071 :: Dr. Carrico was in the emergency area, examining another pat
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[207/500] wer=0.000 utmos=3.861 rtf=0.054 :: The cloth above referred to belonged to the inner seam of hi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[208/500] wer=0.118 utmos=3.461 rtf=0.080 :: five of whom had been condemned the previous July, four in S
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+INFO:piper_train.eval_harness:[209/500] wer=0.000 utmos=4.154 rtf=0.098 :: There is nothing novel or radical about this idea.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.20s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.20s/it]
+INFO:piper_train.eval_harness:[210/500] wer=0.000 utmos=3.988 rtf=0.071 :: These two small cartons had been moved from a stack about th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]
+INFO:piper_train.eval_harness:[211/500] wer=0.238 utmos=4.018 rtf=0.054 :: testified that Commission Exhibit Number one sixty-two was t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.04s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.04s/it]
+INFO:piper_train.eval_harness:[212/500] wer=0.048 utmos=3.844 rtf=0.054 :: who would disregard the law and would decide specific cases 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.10s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.10s/it]
+INFO:piper_train.eval_harness:[213/500] wer=0.200 utmos=3.632 rtf=0.065 :: Hosty did nothing further in connection with the Oswald case
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]
+INFO:piper_train.eval_harness:[214/500] wer=0.000 utmos=3.771 rtf=0.057 :: and the prison allowance was still limited to bread and wate
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]
+INFO:piper_train.eval_harness:[215/500] wer=0.045 utmos=3.826 rtf=0.069 :: Baker said, quote, We simulated the shots and by the time we
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[216/500] wer=0.043 utmos=3.915 rtf=0.068 :: one of the members of the Russian community in Dallas with w
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[217/500] wer=0.333 utmos=3.667 rtf=0.094 :: we should antecedently expect, if the theory is true,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[218/500] wer=0.038 utmos=3.499 rtf=0.076 :: The minimum time required by Baker to park his motorcycle an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[219/500] wer=0.263 utmos=3.648 rtf=0.063 :: Hocker and the brother went to the spot, where the latter le
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[220/500] wer=0.167 utmos=3.621 rtf=0.067 :: as a marine radar technician and had displayed an arrogant a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[221/500] wer=0.000 utmos=4.020 rtf=0.056 :: and, according to Frazier, "relatively few" types of rifles 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.50s/it]
+INFO:piper_train.eval_harness:[222/500] wer=0.000 utmos=3.217 rtf=0.057 :: were known to be what Ferrari had worn when last seen.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.23s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.23s/it]
+INFO:piper_train.eval_harness:[223/500] wer=0.118 utmos=4.153 rtf=0.061 :: preparation in a special party could safeguard an independen
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[224/500] wer=0.150 utmos=3.706 rtf=0.070 :: You will find the mailbox in the post office which is locate
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[225/500] wer=0.000 utmos=3.737 rtf=0.072 :: The days were passed in idleness, debauchery, riotous quarre
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[226/500] wer=0.000 utmos=3.873 rtf=0.084 :: The Secret Service should not and does not plan to develop i
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[227/500] wer=0.000 utmos=3.761 rtf=0.075 :: Fundamentally, if in the future, America cannot trust the Co
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[228/500] wer=0.000 utmos=3.639 rtf=0.081 :: Share in the weekly allowance of meat might also be denied t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+INFO:piper_train.eval_harness:[229/500] wer=0.000 utmos=4.493 rtf=0.074 :: In evaluating data processing techniques of the Secret Servi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[230/500] wer=0.000 utmos=3.787 rtf=0.073 :: of descent discovered in the development of plant and animal
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]
+INFO:piper_train.eval_harness:[231/500] wer=0.000 utmos=4.075 rtf=0.066 :: The relation of skeleton and muscle in arthropods is exactly
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[232/500] wer=0.105 utmos=4.265 rtf=0.075 :: he also forged dividend receipts and got the dividends. He w
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[233/500] wer=0.000 utmos=4.113 rtf=0.077 :: While Marina Oswald tried to obtain permission to return to 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[234/500] wer=0.000 utmos=3.330 rtf=0.080 :: It is time to provide a smashing answer for those cynical me
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]
+INFO:piper_train.eval_harness:[235/500] wer=0.250 utmos=3.755 rtf=0.047 :: PRS instructed the White House mailroom, a source of much PR
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]
+INFO:piper_train.eval_harness:[236/500] wer=0.080 utmos=3.804 rtf=0.072 :: The fraudulent messenger, by the help of young Caspar, estab
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[237/500] wer=0.500 utmos=3.839 rtf=0.079 :: Advance preparations.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+INFO:piper_train.eval_harness:[238/500] wer=0.150 utmos=3.978 rtf=0.072 :: The prison allowances were eked out by the broken victuals g
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+INFO:piper_train.eval_harness:[239/500] wer=0.000 utmos=4.171 rtf=0.071 :: No provision whatever was made for the employment of prisone
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+INFO:piper_train.eval_harness:[240/500] wer=0.000 utmos=3.931 rtf=0.079 :: That Lord William Russell had committed suicide was at once 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[241/500] wer=0.000 utmos=3.726 rtf=0.068 :: Now when a year and seven months had passed, Darius and his 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[242/500] wer=0.000 utmos=3.746 rtf=0.071 :: Answer: No. I would have to wait until I had talked to Marin
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.51s/it]
+INFO:piper_train.eval_harness:[243/500] wer=0.111 utmos=4.026 rtf=0.073 :: and Mrs. Fry with her colleagues still labored assiduously i
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[244/500] wer=0.080 utmos=4.000 rtf=0.077 :: Latterly his ministrations to the condemned had been restric
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[245/500] wer=0.143 utmos=3.541 rtf=0.103 :: Meanwhile the captain, roused from his berth,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.39s/it]
+INFO:piper_train.eval_harness:[246/500] wer=0.000 utmos=3.980 rtf=0.068 :: Rufus W. Youngblood, special agent in charge of the Vice Pre
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[247/500] wer=0.150 utmos=3.740 rtf=0.068 :: Clause ninety-two, Schedule one of that act authorized the u
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[248/500] wer=0.217 utmos=3.801 rtf=0.072 :: At Halifax Forrester learnt that the men he wanted had gone 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[249/500] wer=0.000 utmos=3.819 rtf=0.070 :: with the headquarters of the Federal intelligence agencies, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[250/500] wer=0.000 utmos=3.710 rtf=0.080 :: none of these employees except Oswald left identifiable prin
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[251/500] wer=0.000 utmos=3.636 rtf=0.060 :: and when his mother failed to cooperate in any way with scho
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[252/500] wer=0.136 utmos=4.003 rtf=0.060 :: since there was limited, if any, opportunity for Oswald to h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[253/500] wer=0.067 utmos=3.982 rtf=0.070 :: The reports prepared by those present at these interviews ar
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[254/500] wer=0.143 utmos=3.935 rtf=0.068 :: Lee Oswald remained with his mother and Ekdahl, to whom he b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[255/500] wer=0.462 utmos=3.849 rtf=0.062 :: The 'Dryad' was got off, repaired, and her voyage renewed to
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[256/500] wer=0.000 utmos=3.647 rtf=0.060 :: Certain proposals made to amend the Federal Reserve Act dese
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.88s/it]
+INFO:piper_train.eval_harness:[257/500] wer=0.667 utmos=3.957 rtf=0.086 :: In six twenty-six Assurbanipal died,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[258/500] wer=0.400 utmos=3.747 rtf=0.070 :: he had printed a handbill headed in large letters, quote,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]
+INFO:piper_train.eval_harness:[259/500] wer=0.080 utmos=3.667 rtf=0.068 :: the streets all run in straight lines, not only those parall
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+INFO:piper_train.eval_harness:[260/500] wer=0.091 utmos=3.845 rtf=0.072 :: Sattler was a very excitable although not an ill-tempered ma
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[261/500] wer=0.000 utmos=3.377 rtf=0.047 :: They visited the wards after locking-up time, and saw with t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[262/500] wer=0.200 utmos=3.729 rtf=0.055 :: Suicides and executions were, however, always the most effec
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[263/500] wer=0.000 utmos=3.301 rtf=0.090 :: Oswald was, quote, very, very disagreeable and disappointed,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[264/500] wer=0.000 utmos=4.110 rtf=0.072 :: when asked said they would spare his life if he would naviga
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.45s/it]
+INFO:piper_train.eval_harness:[265/500] wer=0.000 utmos=4.354 rtf=0.082 :: were fixed over the fireplaces, and the prisoners had no lon
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.44s/it]
+INFO:piper_train.eval_harness:[266/500] wer=0.000 utmos=3.811 rtf=0.051 :: It had interviewed him twice shortly after his return to the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[267/500] wer=0.273 utmos=3.569 rtf=0.065 :: troops for whose loss thou wilt care little, a thousand men.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[268/500] wer=0.000 utmos=4.111 rtf=0.064 :: They were tried in March of the following year, Edward Wakef
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[269/500] wer=0.000 utmos=3.766 rtf=0.070 :: (two) the cartridge cases found near the scene of the shooti
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[270/500] wer=0.000 utmos=4.066 rtf=0.078 :: which offered peculiar chances of profit to an ingenious and
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.eval_harness:[271/500] wer=0.000 utmos=3.908 rtf=0.055 :: is consistent with the movements of the two elevators, which
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[272/500] wer=0.105 utmos=3.740 rtf=0.065 :: 'Now for you, my poor fellow mortals, who are about to suffe
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[273/500] wer=0.100 utmos=4.058 rtf=0.058 :: If there was no conspiracy which would help him escape, the 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[274/500] wer=0.000 utmos=4.021 rtf=0.063 :: The infirmary was enlarged, the admission of visitors limite
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[275/500] wer=0.133 utmos=4.247 rtf=0.070 :: Pending any such determination, however, this Commission is 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.19s/it]
+INFO:piper_train.eval_harness:[276/500] wer=0.000 utmos=4.069 rtf=0.069 :: However, to say that because one does not find sufficient ma
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+INFO:piper_train.eval_harness:[277/500] wer=0.000 utmos=3.488 rtf=0.060 :: About this time I find that the bodies of two murderers, Cle
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[278/500] wer=0.190 utmos=3.504 rtf=0.068 :: his attention was drawn early one morning to a man who leant
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[279/500] wer=0.056 utmos=3.955 rtf=0.069 :: with his head resting on his hands, looked up and observed c
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+INFO:piper_train.eval_harness:[280/500] wer=0.000 utmos=3.576 rtf=0.078 :: Russell confirmed this statement in a sworn affidavit for th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[281/500] wer=0.000 utmos=3.835 rtf=0.066 :: the testimony of the officers present indicates that he hand
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[282/500] wer=0.071 utmos=3.573 rtf=0.062 :: A further discovery was made in an osier bed near Cold Harbo
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[283/500] wer=0.143 utmos=3.642 rtf=0.066 :: owned and possessed the rifle used to kill President Kennedy
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[284/500] wer=0.000 utmos=3.860 rtf=0.073 :: Mrs. Kennedy had no recollection of climbing onto the back o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[285/500] wer=0.056 utmos=3.657 rtf=0.081 :: A weight of shot was bought and stowed in carpet bags ready 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.46s/it]
+INFO:piper_train.eval_harness:[286/500] wer=0.000 utmos=3.907 rtf=0.060 :: but as no similar variation occurred in the prisoner's appet
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[287/500] wer=0.308 utmos=3.770 rtf=0.071 :: Tippit must have heard the description of the suspect wanted
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[288/500] wer=0.286 utmos=3.787 rtf=0.066 :: How will thy disfigurement, thou simpleton, induce the enemy
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[289/500] wer=0.000 utmos=3.480 rtf=0.067 :: The woman where he lodged noticed that he was very restless 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[290/500] wer=0.000 utmos=3.597 rtf=0.091 :: Did England let nature take her course? No.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[291/500] wer=0.000 utmos=3.483 rtf=0.063 :: The sufferer was a porter on the London, Chatham, and Dover 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[292/500] wer=0.000 utmos=3.874 rtf=0.072 :: This increased when the officer, accompanied by two others, 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[293/500] wer=0.000 utmos=3.802 rtf=0.070 :: the Commission notes with approval several recent measures t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+INFO:piper_train.eval_harness:[294/500] wer=0.533 utmos=3.617 rtf=0.065 :: long narrow rooms -- one thirty-six feet, six twenty-three f
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[295/500] wer=0.000 utmos=3.988 rtf=0.061 :: The discussion below will describe the events known to the C
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[296/500] wer=0.000 utmos=4.169 rtf=0.100 :: From defection to return to Fort Worth.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[297/500] wer=0.000 utmos=4.022 rtf=0.074 :: as additional persons entitled to receive mail in the box. T
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[298/500] wer=0.750 utmos=3.761 rtf=0.089 :: In eighteen forty-four
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[299/500] wer=0.000 utmos=3.800 rtf=0.057 :: As he told the driver, quote, Let's get out of here; we are 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+INFO:piper_train.eval_harness:[300/500] wer=0.259 utmos=3.933 rtf=0.061 :: Last of all, the cabman swore that he had bought the very ha
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[301/500] wer=0.176 utmos=3.760 rtf=0.081 :: made an almost stationary target while he was aiming in, ver
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[302/500] wer=0.000 utmos=3.652 rtf=0.071 :: Robert A. Frazier, FBI expert in firearms identification and
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[303/500] wer=0.038 utmos=3.909 rtf=0.068 :: The probability of hitting the President a second time would
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[304/500] wer=0.062 utmos=4.150 rtf=0.059 :: The most noticeable of the improvements introduced was a bet
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[305/500] wer=0.056 utmos=3.467 rtf=0.059 :: Second, the adequacy of other advance preparations for the s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+INFO:piper_train.eval_harness:[306/500] wer=0.300 utmos=3.863 rtf=0.074 :: During his Presidency, Franklin D. Roosevelt made almost fou
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.98s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.98s/it]
+INFO:piper_train.eval_harness:[307/500] wer=0.000 utmos=3.790 rtf=0.074 :: not in the name of freedom or high ideals,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+INFO:piper_train.eval_harness:[308/500] wer=0.167 utmos=3.655 rtf=0.081 :: This seems to have decided Courvoisier,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[309/500] wer=0.083 utmos=3.795 rtf=0.042 :: she realizes that she is bound on the long journey across th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[310/500] wer=0.000 utmos=3.946 rtf=0.064 :: It is now time to review these actions as a whole to determi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[311/500] wer=0.111 utmos=3.630 rtf=0.058 :: According to McWatters, the Beckley bus was behind the Marsa
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[312/500] wer=0.231 utmos=3.937 rtf=0.078 :: thefts of bullion, bank-notes, specie, and gold-dust, planne
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[313/500] wer=0.000 utmos=3.990 rtf=0.066 :: The regulations provide further that, quote, violation or sl
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[314/500] wer=0.091 utmos=3.918 rtf=0.073 :: and it stated that Mrs. Turner had been stricken with paraly
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[315/500] wer=0.000 utmos=4.344 rtf=0.075 :: who was becoming quite a disciplinary problem for his mother
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[316/500] wer=0.333 utmos=3.986 rtf=0.061 :: At twelve:fifty-four p.m., Tippit reported that he was in th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[317/500] wer=0.000 utmos=3.697 rtf=0.064 :: The captain and crew, however, got safely to Jamaica, and so
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[318/500] wer=0.105 utmos=4.126 rtf=0.068 :: to an inference that the violation of the regulation had con
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.18s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.18s/it]
+INFO:piper_train.eval_harness:[319/500] wer=0.000 utmos=3.828 rtf=0.078 :: and which developed more completely and satisfactorily on th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]
+INFO:piper_train.eval_harness:[320/500] wer=0.000 utmos=3.898 rtf=0.066 :: reflect keen awareness of the necessity of communicating a m
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+INFO:piper_train.eval_harness:[321/500] wer=0.000 utmos=3.542 rtf=0.073 :: secondly, to bring to the decision of social and economic pr
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.22s/it]
+INFO:piper_train.eval_harness:[322/500] wer=0.200 utmos=3.525 rtf=0.071 :: However, for the first time in five years the relief rolls h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.29s/it]
+INFO:piper_train.eval_harness:[323/500] wer=0.000 utmos=3.882 rtf=0.067 :: His wife visited him in Newgate, and wrote a pitiable accoun
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.17s/it]
+INFO:piper_train.eval_harness:[324/500] wer=0.071 utmos=3.717 rtf=0.056 :: and presently ascertained that Wakefield had gone to the Con
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+INFO:piper_train.eval_harness:[325/500] wer=0.105 utmos=3.810 rtf=0.056 :: A little further off, says Mr. Smith, was "a lath of a fello
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[326/500] wer=0.050 utmos=3.653 rtf=0.057 :: told Robert Oswald, Lee Harvey Oswald's brother, that Oswald
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.47s/it]
+INFO:piper_train.eval_harness:[327/500] wer=0.000 utmos=3.893 rtf=0.064 :: and for offenses of the most varying description, by the Cen
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.19s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.19s/it]
+INFO:piper_train.eval_harness:[328/500] wer=0.222 utmos=3.800 rtf=0.127 :: it didn't do his case any good, end quote.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[329/500] wer=0.000 utmos=3.931 rtf=0.058 :: and reports from other agencies which independently evaluate
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[330/500] wer=0.059 utmos=3.700 rtf=0.067 :: A firm which held a lot of warrants suddenly demanded the de
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.36s/it]
+INFO:piper_train.eval_harness:[331/500] wer=0.067 utmos=3.733 rtf=0.087 :: At different points on the coast where I often visit they bu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[332/500] wer=0.100 utmos=3.946 rtf=0.056 :: The catastrophe exceeded the worst anticipations. Nearly one
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[333/500] wer=0.043 utmos=3.884 rtf=0.052 :: It is scarcely necessary to follow the controversy further. 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[334/500] wer=0.222 utmos=3.629 rtf=0.080 :: In the mean time the police were not idle.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.24s/it]
+INFO:piper_train.eval_harness:[335/500] wer=0.182 utmos=3.768 rtf=0.070 :: seven. Certain of my documents are in the small blue valise.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[336/500] wer=0.250 utmos=3.862 rtf=0.091 :: Threats against the President of the U.S.,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[337/500] wer=0.000 utmos=3.645 rtf=0.080 :: Dr. Clark did not see any other hole or wound on the Preside
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[338/500] wer=0.000 utmos=3.993 rtf=0.119 :: The Commission believes, however,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[339/500] wer=0.000 utmos=4.068 rtf=0.076 :: Lawson was responsible for working out a great many arrangem
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[340/500] wer=0.188 utmos=3.813 rtf=0.069 :: "There should be no tea and sugar, no assemblage of female f
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[341/500] wer=0.000 utmos=3.930 rtf=0.076 :: and for securing a proper system of prison discipline.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[342/500] wer=0.000 utmos=3.732 rtf=0.065 :: On the other hand, the Secret Service had no knowledge whate
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]
+INFO:piper_train.eval_harness:[343/500] wer=0.000 utmos=4.045 rtf=0.054 :: The instability of their relations was probably a function o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+INFO:piper_train.eval_harness:[344/500] wer=0.000 utmos=4.281 rtf=0.121 :: In his sworn statement to the police later that day,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[345/500] wer=0.000 utmos=3.682 rtf=0.067 :: Once experience has been gained in implementing such agreeme
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+INFO:piper_train.eval_harness:[346/500] wer=0.158 utmos=3.989 rtf=0.065 :: filthiness, severity, or neglect; many new dungeons had aggr
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[347/500] wer=0.048 utmos=3.914 rtf=0.057 :: who had devoted all his talent and all his energies for some
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.32s/it]
+INFO:piper_train.eval_harness:[348/500] wer=0.280 utmos=3.860 rtf=0.056 :: photographed the rifle used in the assassination, attempting
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[349/500] wer=0.083 utmos=3.934 rtf=0.069 :: Robert I Bouck, special agent in charge of the Protective Re
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.35s/it]
+INFO:piper_train.eval_harness:[350/500] wer=0.036 utmos=3.658 rtf=0.080 :: While Marina Oswald knew of her husband's plan to go to Mexi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[351/500] wer=0.111 utmos=3.928 rtf=0.095 :: Never, indeed, had an execution been more generally patroniz
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]
+INFO:piper_train.eval_harness:[352/500] wer=0.000 utmos=3.757 rtf=0.065 :: The society was supposed to meet regularly, and its proceedi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[353/500] wer=0.000 utmos=3.620 rtf=0.050 :: slipshod and slovenly, in crushed bonnet and dirty shawl, th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[354/500] wer=0.000 utmos=4.041 rtf=0.063 :: The soil and the atmosphere supply plants with water compose
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[355/500] wer=0.000 utmos=3.906 rtf=0.069 :: In support of her conclusion Mrs. Oswald noted her husband's
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[356/500] wer=0.000 utmos=3.467 rtf=0.065 :: and, if the Council is used, arrangements should be made for
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[357/500] wer=0.000 utmos=3.926 rtf=0.062 :: Burgess was eventually brought back to England, tried at the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.01s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.01s/it]
+INFO:piper_train.eval_harness:[358/500] wer=0.833 utmos=3.957 rtf=0.066 :: Weedon and Lecasser to twelve and six months respectively in
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[359/500] wer=0.000 utmos=3.786 rtf=0.063 :: sharpers, thieves, gamblers, betting men, the outsiders of t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.54s/it]
+INFO:piper_train.eval_harness:[360/500] wer=0.000 utmos=4.082 rtf=0.073 :: and often it is advisable for some people to remain in the b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]
+INFO:piper_train.eval_harness:[361/500] wer=0.000 utmos=3.767 rtf=0.059 :: The claimed warning was one more of Oswald's fabrications.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+INFO:piper_train.eval_harness:[362/500] wer=0.000 utmos=3.953 rtf=0.046 :: The second step we have taken in the restoration of normal b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[363/500] wer=0.000 utmos=3.788 rtf=0.119 :: He had disappeared.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[364/500] wer=0.000 utmos=3.944 rtf=0.082 :: These measures are of two kinds.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[365/500] wer=0.000 utmos=3.957 rtf=0.074 :: It was soon ascertained that the wife had gone off in a cab 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.68s/it]
+INFO:piper_train.eval_harness:[366/500] wer=0.000 utmos=4.338 rtf=0.072 :: The psychological effects of that change must have been high
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[367/500] wer=0.000 utmos=4.052 rtf=0.088 :: and ready at any instant to hazard great danger to themselve
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.30s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.30s/it]
+INFO:piper_train.eval_harness:[368/500] wer=0.125 utmos=3.805 rtf=0.049 :: and having first pulled him sideways, then got upon his shou
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[369/500] wer=0.185 utmos=3.867 rtf=0.064 :: Neither she nor Mrs. Paine saw him leave the house. About ha
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.74s/it]
+INFO:piper_train.eval_harness:[370/500] wer=0.192 utmos=3.595 rtf=0.071 :: The emergency purpose of the N.R.A. was to put men to work a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[371/500] wer=0.500 utmos=3.982 rtf=0.090 :: Lord Abinger sentenced him to eighteen months' imprisonment 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[372/500] wer=1.000 utmos=3.963 rtf=0.104 :: eight. The press yard.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.eval_harness:[373/500] wer=0.100 utmos=4.011 rtf=0.070 :: It will be recalled from the discussion in chapter three
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[374/500] wer=0.107 utmos=4.057 rtf=0.060 :: His name was Hocker; he was by trade a ladies' shoemaker; an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[375/500] wer=0.087 utmos=4.094 rtf=0.065 :: His appearance on the scaffold was the signal for three prol
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]
+INFO:piper_train.eval_harness:[376/500] wer=0.037 utmos=3.409 rtf=0.070 :: These men managed to cut a hole in the ceiling of the ward n
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[377/500] wer=0.000 utmos=3.878 rtf=0.053 :: Without enlargement no material change in discipline or inte
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[378/500] wer=0.182 utmos=3.696 rtf=0.092 :: I am surprised that he didn't do something worse, end quote.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[379/500] wer=0.048 utmos=3.808 rtf=0.060 :: were intended by the protectionists to depress the wheat mar
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[380/500] wer=0.000 utmos=3.578 rtf=0.068 :: and that she could not think of any reason why Oswald would 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[381/500] wer=0.040 utmos=3.888 rtf=0.074 :: Many of them were otherwise and improperly occupied for hour
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[382/500] wer=0.000 utmos=4.197 rtf=0.076 :: But according to the opposite view no reason can be assigned
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]
+INFO:piper_train.eval_harness:[383/500] wer=0.000 utmos=3.546 rtf=0.063 :: Frazier testified further that the FBI avoids the category o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[384/500] wer=0.043 utmos=3.993 rtf=0.059 :: It was practically inoperative as regards the penalties for 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[385/500] wer=0.083 utmos=3.973 rtf=0.066 :: Manning, who was dressed in black, appeared to be a heavy, b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.33s/it]
+INFO:piper_train.eval_harness:[386/500] wer=0.000 utmos=3.916 rtf=0.062 :: Detective L. C. Graves, who had been with Mrs. Markham befor
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[387/500] wer=0.000 utmos=4.193 rtf=0.073 :: The Commission has, therefore, placed no reliance on the par
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+INFO:piper_train.eval_harness:[388/500] wer=0.308 utmos=3.566 rtf=0.076 :: till the whole body of the slaves were manumitted in eightee
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[389/500] wer=0.167 utmos=4.116 rtf=0.061 :: this vehicle was occupied by three Secret Service agents and
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[390/500] wer=0.136 utmos=3.766 rtf=0.066 :: Dr. Hartogs recommended that Oswald be placed on probation o
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[391/500] wer=0.083 utmos=3.482 rtf=0.074 :: who for the fourth time regained his foothold. Again he was 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[392/500] wer=0.625 utmos=3.722 rtf=0.084 :: Prior to November twenty-two, nineteen sixty-three
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.87s/it]
+INFO:piper_train.eval_harness:[393/500] wer=0.235 utmos=3.835 rtf=0.078 :: On October nine, nineteen sixty-two he went to the Dallas of
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.91s/it]
+INFO:piper_train.eval_harness:[394/500] wer=0.000 utmos=3.471 rtf=0.067 :: Agent Sorrels, riding in the lead car, did observe the Texas
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.93s/it]
+INFO:piper_train.eval_harness:[395/500] wer=0.125 utmos=3.721 rtf=0.063 :: reluctant and actually as far as I was concerned, was comple
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[396/500] wer=0.154 utmos=4.023 rtf=0.071 :: and that he had given as his address Mrs. Paine's residence 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.10s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.10s/it]
+INFO:piper_train.eval_harness:[397/500] wer=0.067 utmos=3.676 rtf=0.073 :: There is some possibility that the rifle he was firing might
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[398/500] wer=0.000 utmos=3.508 rtf=0.084 :: Special Agent Ready, on the right front running board of the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[399/500] wer=0.188 utmos=3.197 rtf=0.049 :: to a level of sustained profits within one year from the ina
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]
+INFO:piper_train.eval_harness:[400/500] wer=0.100 utmos=3.968 rtf=0.067 :: The man, quote, in kind of a little trot, end quote, headed 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[401/500] wer=0.000 utmos=3.866 rtf=0.061 :: The prisoners were to cultivate the land and raise sufficien
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[402/500] wer=0.000 utmos=3.642 rtf=0.068 :: With mingling fear and wonder at the mystery always lying be
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[403/500] wer=0.381 utmos=3.847 rtf=0.067 :: I pass now to the criminal side of Newgate, which consisted 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.57s/it]
+INFO:piper_train.eval_harness:[404/500] wer=0.167 utmos=3.870 rtf=0.064 :: Governor Connally was originally seen by Dr. Carrico and Dr.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[405/500] wer=0.000 utmos=3.490 rtf=0.057 :: It would take months or years to get substantial agreement u
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[406/500] wer=0.188 utmos=3.207 rtf=0.069 :: and the result was another lengthy blue book, printed in the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[407/500] wer=0.000 utmos=4.097 rtf=0.065 :: in order to be so added to successive species, every individ
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[408/500] wer=0.042 utmos=3.868 rtf=0.065 :: The fact that Truly found Fritz in the northwest corner of t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[409/500] wer=0.042 utmos=3.374 rtf=0.064 :: Some difficulty then arose as to gaining admission to the st
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[410/500] wer=0.238 utmos=3.610 rtf=0.069 :: The city stands on a broad plain, and is an exact square, a 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.34s/it]
+INFO:piper_train.eval_harness:[411/500] wer=0.000 utmos=3.994 rtf=0.103 :: They talked of the days when the convicts were hung up a doz
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[412/500] wer=0.083 utmos=4.168 rtf=0.069 :: (six) lied to the police after his arrest concerning importa
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[413/500] wer=0.087 utmos=4.041 rtf=0.061 :: The autopsy also disclosed a wound near the base of the back
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[414/500] wer=0.100 utmos=4.012 rtf=0.075 :: Rigorous security precautions had been arranged at Love Fiel
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[415/500] wer=0.111 utmos=3.929 rtf=0.088 :: No beds were issued, only two rugs per prisoner.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+INFO:piper_train.eval_harness:[416/500] wer=0.150 utmos=4.256 rtf=0.073 :: no weavers' looms or carpenters' benches. There must be a gr
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[417/500] wer=0.471 utmos=3.564 rtf=0.074 :: Seaport Traders, Incorporated, received through the mail a m
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[418/500] wer=0.000 utmos=3.779 rtf=0.088 :: and no doubt made the meat also pay toll.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+INFO:piper_train.eval_harness:[419/500] wer=0.000 utmos=3.670 rtf=0.060 :: Our responsibility for the immediate necessities of the unem
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[420/500] wer=0.333 utmos=3.844 rtf=0.065 :: that a witness (Amos Euins) had seen shots fired from a wind
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]
+INFO:piper_train.eval_harness:[421/500] wer=0.000 utmos=3.747 rtf=0.083 :: the Commission had occasion to become informed, to a limited
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[422/500] wer=0.000 utmos=3.817 rtf=0.097 :: The Assassination
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[423/500] wer=0.000 utmos=3.481 rtf=0.074 :: Another time, he fought with two brothers who claimed that h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[424/500] wer=0.000 utmos=3.730 rtf=0.091 :: may be shown to be modifications one of another.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[425/500] wer=0.000 utmos=3.572 rtf=0.071 :: Demoralization caused by vast unemployment is our greatest e
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[426/500] wer=0.000 utmos=3.511 rtf=0.067 :: to operate in a sort of vacuum, isolated from the general pu
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.97s/it]
+INFO:piper_train.eval_harness:[427/500] wer=0.300 utmos=3.687 rtf=0.054 :: Friends arrived about nine a.m., and went out at nine p.m., 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[428/500] wer=0.263 utmos=3.937 rtf=0.066 :: Chief Rowley testified that the present workload of each Sec
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+INFO:piper_train.eval_harness:[429/500] wer=0.000 utmos=4.217 rtf=0.064 :: Under our system, measures must be sought to afford security
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.61s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.62s/it]
+INFO:piper_train.eval_harness:[430/500] wer=0.000 utmos=3.502 rtf=0.059 :: They bought their offices from one another, and were thus co
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[431/500] wer=0.000 utmos=4.040 rtf=0.073 :: he said that he, quote, was very sorry that he had not hit h
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.25s/it]
+INFO:piper_train.eval_harness:[432/500] wer=0.111 utmos=3.812 rtf=0.073 :: both she and Mrs. Paine thought he had come home to make up 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.08s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.08s/it]
+INFO:piper_train.eval_harness:[433/500] wer=0.000 utmos=3.699 rtf=0.096 :: that no President fit for his office would appoint,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.28s/it]
+INFO:piper_train.eval_harness:[434/500] wer=0.062 utmos=4.178 rtf=0.057 :: The committee did not deny the superior advantages offered b
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+INFO:piper_train.eval_harness:[435/500] wer=0.030 utmos=4.000 rtf=0.064 :: that he was the leader of a fascist organization, and when I
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.16s/it]
+INFO:piper_train.eval_harness:[436/500] wer=0.143 utmos=3.870 rtf=0.050 :: The turnkeys complained bitterly that these old prisoners ha
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[437/500] wer=0.000 utmos=3.876 rtf=0.057 :: Lieutenant Donovan testified that Oswald thought that, quote
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[438/500] wer=0.000 utmos=3.511 rtf=0.083 :: But how did the "mighty city" fall? How could Cyrus take Bab
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[439/500] wer=0.083 utmos=3.791 rtf=0.084 :: I was absolutely convinced it was Nixon and now after all th
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[440/500] wer=0.067 utmos=3.890 rtf=0.074 :: a notice is placed in that box regardless of whether the nam
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.05s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.05s/it]
+INFO:piper_train.eval_harness:[441/500] wer=0.000 utmos=3.761 rtf=0.095 :: sought about for a fresh victim to supply him with funds.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.48s/it]
+INFO:piper_train.eval_harness:[442/500] wer=0.000 utmos=3.818 rtf=0.049 :: the culprit was chained down to the floor by running a chain
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.10s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.10s/it]
+INFO:piper_train.eval_harness:[443/500] wer=0.182 utmos=4.025 rtf=0.067 :: foreigners, vindictive, reckless, and truculent ruffians, ea
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.58s/it]
+INFO:piper_train.eval_harness:[444/500] wer=0.556 utmos=4.029 rtf=0.077 :: That of Fauntleroy the banker, in eighteen twenty-four,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[445/500] wer=0.083 utmos=3.716 rtf=0.060 :: The act for which he was taken into custody was the payment 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[446/500] wer=0.000 utmos=4.031 rtf=0.061 :: who must concentrate primarily on the possibility of threats
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.66s/it]
+INFO:piper_train.eval_harness:[447/500] wer=0.000 utmos=3.482 rtf=0.079 :: These words were also in the handwriting of Lee Harvey Oswal
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[448/500] wer=0.000 utmos=4.145 rtf=0.077 :: While Oswald did not seem to object to authority in the abst
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[449/500] wer=0.190 utmos=3.773 rtf=0.067 :: Pate was found guilty, and sentenced to seven years' transpo
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[450/500] wer=0.000 utmos=3.874 rtf=0.060 :: managed to get away in the very same spot where his namesake
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[451/500] wer=0.000 utmos=3.667 rtf=0.068 :: and the prison, although wives and children resided within t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.43s/it]
+INFO:piper_train.eval_harness:[452/500] wer=0.118 utmos=3.917 rtf=0.070 :: The ordinary observes him, looks to the sheriffs, and says a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.95s/it]
+INFO:piper_train.eval_harness:[453/500] wer=0.000 utmos=3.617 rtf=0.072 :: He stated that he had volunteered to give Soviet officials a
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.84s/it]
+INFO:piper_train.eval_harness:[454/500] wer=0.050 utmos=3.786 rtf=0.064 :: by his identification by Cope in Westminster Hospital, who s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.65s/it]
+INFO:piper_train.eval_harness:[455/500] wer=0.000 utmos=3.847 rtf=0.074 :: and an inquiry whether improvements can be made which will r
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.85s/it]
+INFO:piper_train.eval_harness:[456/500] wer=0.200 utmos=3.881 rtf=0.078 :: In any event, Oswald was discharged on April six, nineteen s
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[457/500] wer=0.040 utmos=3.731 rtf=0.058 :: A short time later Mrs. Paine told her that someone had shot
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.78s/it]
+INFO:piper_train.eval_harness:[458/500] wer=0.000 utmos=4.038 rtf=0.078 :: there was no infirmary, no chapel, no work, no classificatio
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[459/500] wer=0.059 utmos=3.813 rtf=0.072 :: It is quite possible that Catherine Blandy, who poisoned her
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.80s/it]
+INFO:piper_train.eval_harness:[460/500] wer=0.150 utmos=3.876 rtf=0.063 :: His captors, it may be added (Lerigo and Allen), were warmly
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[461/500] wer=0.000 utmos=3.815 rtf=0.074 :: that the motorcade was coming up Main Street, quote, where m
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[462/500] wer=0.000 utmos=3.751 rtf=0.098 :: in some yards
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.05s/it]
+INFO:piper_train.eval_harness:[463/500] wer=0.000 utmos=3.990 rtf=0.072 :: the employment of those means and agents by which the lowest
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[464/500] wer=0.111 utmos=3.951 rtf=0.089 :: except the forgery of wills and powers of attorney.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[465/500] wer=0.000 utmos=4.024 rtf=0.073 :: with a civil note to the governor, saying he had no further 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[466/500] wer=0.083 utmos=3.726 rtf=0.077 :: beef, pork, butter, and earthenwares, on all of which they e
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.52s/it]
+INFO:piper_train.eval_harness:[467/500] wer=0.200 utmos=4.236 rtf=0.063 :: The whole of these seventeen had, however, a common airing-y
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.89s/it]
+INFO:piper_train.eval_harness:[468/500] wer=0.000 utmos=3.915 rtf=0.071 :: which, from their similarity to animals of simple organizati
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[469/500] wer=0.100 utmos=3.760 rtf=0.063 :: Scarcely had the conviction of these daring and astute thiev
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.31s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.31s/it]
+INFO:piper_train.eval_harness:[470/500] wer=0.000 utmos=4.074 rtf=0.115 :: and the great outside world shared in the completion of the 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[471/500] wer=0.000 utmos=3.974 rtf=0.067 :: In view of the ever-increasing mobility of American Presiden
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.69s/it]
+INFO:piper_train.eval_harness:[472/500] wer=0.000 utmos=3.943 rtf=0.088 :: than in the United States?
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.90s/it]
+INFO:piper_train.eval_harness:[473/500] wer=0.056 utmos=4.113 rtf=0.063 :: absence or neglect of divine service, were present as in the
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[474/500] wer=0.050 utmos=3.880 rtf=0.088 :: The club spoons and other articles of plate were long a sour
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[475/500] wer=0.000 utmos=3.603 rtf=0.068 :: He made collections when it suited him for ward purposes, to
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]Predicting: 100%|██████████| 1/1 [00:03<00:00,  3.09s/it]
+INFO:piper_train.eval_harness:[476/500] wer=0.182 utmos=4.088 rtf=0.068 :: apparently will loop through the downtown area, probably on 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.64s/it]
+INFO:piper_train.eval_harness:[477/500] wer=0.038 utmos=3.388 rtf=0.071 :: A murder which reproduced many of the features of that commi
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.75s/it]
+INFO:piper_train.eval_harness:[478/500] wer=0.200 utmos=3.610 rtf=0.060 :: Based on that training, his basic knowledge in sight manipul
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.27s/it]
+INFO:piper_train.eval_harness:[479/500] wer=0.250 utmos=3.457 rtf=0.076 :: "It is well known," likewise comments Le Conte,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.56s/it]
+INFO:piper_train.eval_harness:[480/500] wer=0.100 utmos=3.709 rtf=0.051 :: although their ministrations were occasionally extended to t
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[481/500] wer=0.364 utmos=3.802 rtf=0.075 :: Eighteen years had elapsed since the formation of the "Ladie
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[482/500] wer=0.304 utmos=3.525 rtf=0.064 :: As the carriage came up to him Oxford turned, put his hand i
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.79s/it]
+INFO:piper_train.eval_harness:[483/500] wer=0.000 utmos=4.088 rtf=0.071 :: "Welcome Mr. Kennedy to Dallas," sponsored by the American F
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.60s/it]
+INFO:piper_train.eval_harness:[484/500] wer=0.043 utmos=3.977 rtf=0.077 :: communicating his own skill and aptitude in crime, or acquir
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.53s/it]
+INFO:piper_train.eval_harness:[485/500] wer=0.077 utmos=3.998 rtf=0.068 :: Elm Street was to be reached from Main by turning right at H
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[486/500] wer=0.200 utmos=3.656 rtf=0.071 :: When he failed to return by ten or ten:thirty p.m., Marina O
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.81s/it]
+INFO:piper_train.eval_harness:[487/500] wer=0.000 utmos=3.731 rtf=0.057 :: I find it ordered "that the ordinary of Newgate be restricte
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.86s/it]
+INFO:piper_train.eval_harness:[488/500] wer=0.043 utmos=4.023 rtf=0.057 :: It was that of a person, quote, who practiced in the law, an
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.70s/it]
+INFO:piper_train.eval_harness:[489/500] wer=0.000 utmos=3.674 rtf=0.061 :: In spite of these difficulties, however, and in the face of 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.83s/it]
+INFO:piper_train.eval_harness:[490/500] wer=0.000 utmos=4.120 rtf=0.060 :: Just after Robson's frauds had agitated the minds of all dir
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.59s/it]
+INFO:piper_train.eval_harness:[491/500] wer=0.053 utmos=3.714 rtf=0.059 :: In a space for the names of, quote, close friends, end quote
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.72s/it]
+INFO:piper_train.eval_harness:[492/500] wer=0.118 utmos=3.892 rtf=0.075 :: evaluated the sharpshooter qualification as a, quote, fairly
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+INFO:piper_train.eval_harness:[493/500] wer=0.000 utmos=4.091 rtf=0.095 :: onto the Stemmons Freeway.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.92s/it]
+INFO:piper_train.eval_harness:[494/500] wer=0.167 utmos=3.966 rtf=0.076 :: which Thornley read at Oswald's suggestion.
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.71s/it]
+INFO:piper_train.eval_harness:[495/500] wer=0.111 utmos=4.145 rtf=0.078 :: According to the vice president of Klein's, William Waldman,
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.63s/it]
+INFO:piper_train.eval_harness:[496/500] wer=0.000 utmos=3.856 rtf=0.069 :: and debtors might practically have as much as they liked, if
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.82s/it]
+INFO:piper_train.eval_harness:[497/500] wer=0.000 utmos=4.061 rtf=0.055 :: He had gone on board in his Quaker dress, but when captured 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.73s/it]
+INFO:piper_train.eval_harness:[498/500] wer=0.062 utmos=4.047 rtf=0.060 :: The counselor testified that there was some indication that 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.55s/it]
+INFO:piper_train.eval_harness:[499/500] wer=0.036 utmos=3.937 rtf=0.062 :: This rule has some, but very few, exceptions; such as where 
+Predicting:   0%|          | 0/1 [00:00<?, ?it/s]Predicting: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Predicting: 100%|██████████| 1/1 [00:02<00:00,  3.00s/it]
+INFO:piper_train.eval_harness:[500/500] wer=0.000 utmos=3.690 rtf=0.090 :: I sincerely hope that as a result
+INFO:piper_train.eval_harness:Wrote <WSL_DEV_HOME>/eval_results/baseline_full/best-epoch=1079-val_loss_mel=19.2943_per_sentence.csv
+INFO:piper_train.eval_harness:Checkpoint <WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt :: mean_wer=0.088 mean_utmos=3.827 mean_rtf=0.071
+INFO:piper_train.eval_harness:Wrote <WSL_DEV_HOME>/eval_results/baseline_full/summary.json
