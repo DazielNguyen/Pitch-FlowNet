@@ -1,0 +1,74 @@
+{
+ "note": "No source snapshot was saved when the runs started. Candidate commits bracket the runs; current sources are as they are now.",
+ "groups": {
+  "code/current-source/edgetts-windows-HEAD-a73a897": {
+   "files": 94,
+   "bytes": 1976318,
+   "classification": [
+    "CURRENT_SOURCE"
+   ],
+   "origins": [
+    "git:HEAD"
+   ]
+  },
+  "code/current-source/home-dev-BanhmiTTS-port": {
+   "files": 71,
+   "bytes": 1747216,
+   "classification": [
+    "CURRENT_SOURCE"
+   ],
+   "origins": [
+    "wsl-dev:BanhmiTTS"
+   ]
+  },
+  "code/current-source/wsl-home-dev-PitchFlowNet-working-tree": {
+   "files": 137,
+   "bytes": 1720993,
+   "classification": [
+    "CURRENT_SOURCE"
+   ],
+   "origins": [
+    "wsl-dev:PitchFlowNet"
+   ]
+  },
+  "code/historical-candidates/edgetts-6033be5": {
+   "files": 64,
+   "bytes": 1851978,
+   "classification": [
+    "HISTORICAL_SOURCE_CANDIDATE"
+   ],
+   "origins": [
+    "git:6033be5"
+   ]
+  },
+  "code/historical-candidates/edgetts-badf381": {
+   "files": 67,
+   "bytes": 1868333,
+   "classification": [
+    "HISTORICAL_SOURCE_CANDIDATE"
+   ],
+   "origins": [
+    "git:badf381"
+   ]
+  },
+  "code/historical-candidates/launch-scripts": {
+   "files": 13,
+   "bytes": 19527,
+   "classification": [
+    "HISTORICAL_SOURCE_CANDIDATE"
+   ],
+   "origins": [
+    "git:6d0522b",
+    "git:7ba86e2",
+    "git:badf381",
+    "git:ef20d0b"
+   ]
+  }
+ },
+ "facts": {
+  "6033be5": "2026-06-30; lacks use_vits2/use_noised_mas switches that the full run's hparams contain",
+  "badf381": "2026-07-10; first commit with those switches; committed after both launches",
+  "8f07b63": "2026-07-25; renames Snake1d to SnakeBeta and adds a Snake switch (after both runs)",
+  "launch": "launch scripts rsync the Windows working tree (without .git) to <WSL_DEV_HOME>/PitchFlowNet and run src/python"
+ }
+}

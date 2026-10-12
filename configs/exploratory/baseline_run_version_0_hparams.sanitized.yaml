@@ -1,0 +1,94 @@
+accelerator: gpu
+batch_size: 16
+betas: !!python/tuple
+- 0.8
+- 0.99
+c_kl: 1.0
+c_mel: 45
+channels: 1
+checkpoint_epochs: 1
+dataset:
+- !!python/object/apply:pathlib.PosixPath
+  - /
+  - home
+  - dev
+  - data_preprocessed
+  - dataset.jsonl
+dataset_dir: !!python/object/apply:pathlib.PosixPath
+- /
+- home
+- dev
+- data_preprocessed
+default_root_dir: <WSL_DEV_HOME>/baseline_run
+devices: '2'
+eps: 1.0e-09
+filter_channels: 768
+filter_length: 1024
+gin_channels: 0
+grad_clip: null
+hidden_channels: 192
+hop_length: 256
+init_lr_ratio: 1.0
+inter_channels: 192
+kernel_size: 3
+learning_rate: 0.0002
+lr_decay: 0.999875
+mas_noise_scale: 0.01
+max_epochs: 1100
+max_phoneme_ids: 400
+mel_channels: 80
+mel_fmax: null
+mel_fmin: 0.0
+n_heads: 2
+n_layers: 6
+n_layers_q: 3
+num_speakers: 1
+num_symbols: 256
+num_test_examples: 500
+num_val_examples: 100
+num_workers: 8
+p_dropout: 0.1
+precision: bf16-mixed
+quality: medium
+resblock: '2'
+resblock_dilation_sizes: !!python/tuple
+- !!python/tuple
+  - 1
+  - 2
+- !!python/tuple
+  - 2
+  - 6
+- !!python/tuple
+  - 3
+  - 12
+resblock_kernel_sizes: !!python/tuple
+- 3
+- 5
+- 7
+resume_from_checkpoint: null
+resume_from_single_speaker_checkpoint: null
+sample_bytes: 2
+sample_rate: 22050
+seed: 1234
+segment_size: 8192
+strategy: ddp_find_unused_parameters_true
+upsample_initial_channel: 256
+upsample_kernel_sizes: !!python/tuple
+- 16
+- 16
+- 8
+upsample_rates: !!python/tuple
+- 8
+- 8
+- 4
+use_dur_disc: false
+use_f0: false
+use_mrd: false
+use_noised_mas: false
+use_sdp: true
+use_snake: false
+use_speaker_cond_enc: false
+use_spectral_norm: false
+use_transformer_flows: false
+warmup_epochs: 0
+win_length: 1024
