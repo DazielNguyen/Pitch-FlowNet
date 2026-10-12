@@ -63,8 +63,12 @@ class Report:
 
 def run():
     r = Report()
-    files = sorted({f for f in git("ls-files", "-z", "--cached", "--others", "--exclude-standard").split("\0") if f})
-    files = [f for f in files if (ROOT / f).is_file()]
+    listed = sorted({f for f in git("ls-files", "-z", "--cached", "--others", "--exclude-standard").split("\0") if f})
+    # A tracked file that cannot be read (deleted, or beyond the Windows path limit) must not drop out silently.
+    unreadable = [f for f in listed if not (ROOT / f).is_file()]
+    r.add("every tracked file is present and readable in the working tree", not unreadable,
+          {"count": len(unreadable), "files": unreadable[:20]} if unreadable else None)
+    files = [f for f in listed if f not in set(unreadable)]
     fileset = set(files)
 
     # 1. No artifacts, private folders, oversized or credential files.

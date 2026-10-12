@@ -210,6 +210,13 @@ python -m piper_train \
 
 The latest reports are in `manifests/tracked-package-check.json` and `manifests/verification-report.json`.
 
+**Cloning on Windows:**
+- The longest tracked path is 122 characters.
+- Under a long base folder, it can pass the 260-character limit.
+- Clone with `git -c core.longpaths=true clone …` into a short folder.
+- Python can read such paths only when Windows long-path support is enabled.
+- The package check reports any tracked file it cannot read.
+
 **Not checked:**
 - installing the environment;
 - importing or running the model code;

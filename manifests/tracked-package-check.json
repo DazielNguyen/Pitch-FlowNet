@@ -1,10 +1,14 @@
 {
  "tool": "tools/check_tracked_package.py",
- "run_utc": "2026-10-12T08:42:40+00:00",
+ "run_utc": "2026-10-12T08:44:16+00:00",
  "python": "3.13.9",
- "git_head": "63976f8",
- "files_checked": 592,
+ "git_head": "c94e55e",
+ "files_checked": 593,
  "checks": [
+  {
+   "check": "every tracked file is present and readable in the working tree",
+   "result": "pass"
+  },
   {
    "check": "no datasets, checkpoints, audio, events, compiled files or private folders",
    "result": "pass"
