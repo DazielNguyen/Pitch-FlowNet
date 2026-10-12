@@ -1,0 +1,158 @@
+# Pitch-FlowNet: what stays out of Git.
+# Ignored files stay on the workstation; they are NOT deleted. See docs/artifacts.md.
+
+# Datasets and features (LJ Speech as used, the processed cache with spectrogram and F0 tensors)
+datasets/raw/
+datasets/processed/
+
+# Model and run artifacts
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.wav
+events.out.tfevents.*
+
+# Full local manifests (too large for Git). The tracked subset is manifests/file-manifest-core.json.
+/SHA256SUMS
+/manifests/file-manifest.json
+
+# Private originals that are not published in any form
+history/private/
+# unpublished manuscript drafts (they carry author contact details)
+evidence/manuscript/
+# author working notes on manuscript revisions
+history/notes/
+history/prior-audits-2026-09-23/PitchFlowNet_Conference_Draft_2026-09-24.txt
+# 11 MB log of the BanhmiTTS port; not one of the paper's runs (catalogued in manifests/file-manifest-core.json)
+runs/candidates/BanhmiTTS-port/full-config-h-cython-mas-batch16-20260714/train.log
+
+# Build outputs, environments and caches
+__pycache__/
+*.pyc
+*.so
+*.pyd
+*.egg-info/
+build/
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+# Cython output in the BanhmiTTS working tree (not a committed source file)
+code/current-source/home-dev-BanhmiTTS-port/src/python/banhmi_tts/model/monotonic_align/_core.c
+
+# Credentials
+.env
+.env.*
+*.key
+*.pem
+
+# Originals that contain machine paths. Their sanitized copies (*.sanitized.*) are tracked beside them;
+# manifests/sanitization/*.json maps each pair by SHA-256. The block is written by tools/sanitize_for_git.py.
+# BEGIN sanitized originals
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/01_Baseline_BigVgan_VITS2_FO.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/02_Config_B_BigVGAN.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/03_Config_C_VITS2.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/04_Config_D_F0.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/05_Config_E_BigVGAN_VITS2.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/06_Config_F_BigVGAN_F0.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/07_Config_G_VITS2_F0.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/baseline-vits.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/configs/piper-modern.yaml
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/compute_oracle_loss.py
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/extract_test_sentences.py
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/gt_wer.py
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/measure_rtf.py
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/posterior_mean_test.py
+/code/current-source/edgetts-windows-HEAD-a73a897/src/python/piper_train/waveform_alignment_test.py
+/code/current-source/home-dev-BanhmiTTS-port/scripts/launch_full_training.sh
+/code/current-source/home-dev-BanhmiTTS-port/scripts/resume_full_training.sh
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/compute_oracle_loss.py
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/extract_test_sentences.py
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/gt_wer.py
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/measure_rtf.py
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/posterior_mean_test.py
+/code/current-source/wsl-home-dev-PitchFlowNet-working-tree/src/python/piper_train/waveform_alignment_test.py
+/code/historical-candidates/edgetts-6033be5/configs/baseline-vits.yaml
+/code/historical-candidates/edgetts-6033be5/configs/piper-modern.yaml
+/code/historical-candidates/edgetts-badf381/configs/01_Baseline_BigVgan_VITS2_FO.yaml
+/code/historical-candidates/edgetts-badf381/configs/baseline-vits.yaml
+/code/historical-candidates/edgetts-badf381/configs/piper-modern.yaml
+/code/historical-candidates/edgetts-badf381/src/python/piper_train/extract_test_sentences.py
+/code/historical-candidates/launch-scripts/6d0522b/.wsl_ablation.sh
+/code/historical-candidates/launch-scripts/6d0522b/.wsl_baseline.sh
+/code/historical-candidates/launch-scripts/6d0522b/.wsl_fix_train.sh
+/code/historical-candidates/launch-scripts/6d0522b/.wsl_run.sh
+/code/historical-candidates/launch-scripts/6d0522b/.wsl_train.sh
+/code/historical-candidates/launch-scripts/6d0522b/measure_rtf.sh
+/code/historical-candidates/launch-scripts/7ba86e2/.wsl_fix_train.sh
+/code/historical-candidates/launch-scripts/7ba86e2/.wsl_run.sh
+/code/historical-candidates/launch-scripts/7ba86e2/.wsl_train.sh
+/code/historical-candidates/launch-scripts/badf381/.wsl_baseline.sh
+/code/historical-candidates/launch-scripts/badf381/.wsl_train.sh
+/code/historical-candidates/launch-scripts/ef20d0b/.wsl_ablation.sh
+/code/historical-candidates/launch-scripts/ef20d0b/measure_rtf.sh
+/configs/baseline/02_Baseline_VanillaVITS_version_0_hparams.yaml
+/configs/exploratory/06_Config_E_BigVGAN_VITS2_version_1_hparams.yaml
+/configs/exploratory/09_Config_H_Full_ep773_version_0_hparams.yaml
+/configs/exploratory/baseline_run_version_0_hparams.yaml
+/configs/full/01_Baseline_BigVgan_VITS2_FO_version_2_hparams.yaml
+/datasets/splits/reconstructed_split_seed1234.json
+/datasets/splits/test_entries_500.jsonl
+/evaluation/eval_h_vs_baseline/f0_configH/summary.json
+/evaluation/eval_h_vs_baseline/f0_configH_v2/summary.json
+/evaluation/eval_h_vs_baseline/summary.json
+/evaluation/full/eval_pitchflownet_500/summary.json
+/evaluation/full/eval_pitchflownet_500_run.log
+/evaluation/full/measure_rtf.sh
+/evaluation/ground-truth/eval_pitchflownet_500_gt_run.log
+/evaluation/other/PitchFlowNet-eval_results/best_epoch863.log
+/evaluation/other/PitchFlowNet-eval_results/best_epoch863/summary.json
+/evaluation/other/PitchFlowNet-eval_results/current_checkpoint_only.log
+/evaluation/other/PitchFlowNet-eval_results/current_checkpoint_only/summary.json
+/evaluation/other/PitchFlowNet-eval_results/epoch_check/summary.json
+/evaluation/other/PitchFlowNet-eval_results/large_run/summary.json
+/evaluation/other/PitchFlowNet-eval_results/progress_check_440.log
+/evaluation/other/eval_100samples/run.log
+/evaluation/other/eval_100samples/summary.json
+/evaluation/other/eval_baseline_vs_piper_modern/summary.json
+/evaluation/other/eval_f0_ablation_E_vs_H/summary.json
+/evaluation/other/eval_results/baseline_full/summary.json
+/evaluation/plots/data_processing_assets/scripts/plot_wer_utmos.py
+/evaluation/statistics/history_archived_pair.json
+/evaluation/statistics/history_archived_pair.py
+/evidence/derived/tensorboard_event_scan.json
+/history/environment/edgetts-env-conda-list_2026-10-12.txt
+/history/environment/system_2026-10-12.txt
+/history/prior-audits-2026-09-23/audit_question2_sources.py
+/history/prior-audits-2026-09-23/audit_question3.py
+/history/prior-audits-2026-09-23/audit_question6.py
+/history/prior-audits-2026-09-23/context_PitchFlowNet_2026-09-23.md
+/history/prior-audits-2026-09-23/pruning_checkpoint_metadata_2026-09-23.json
+/history/prior-audits-2026-09-23/question2_checkpoint_shapes_2026-09-23.json
+/history/prior-audits-2026-09-23/question2_parameter_counts_2026-09-23.json
+/history/prior-audits-2026-09-23/question2_sources_2026-09-23.json
+/history/prior-audits-2026-09-23/question3_audit_2026-09-23.json
+/runs/baseline/02_baseline_train.log
+/runs/candidates/home-dev-root/baseline_run.log
+/runs/candidates/home-dev-root/baseline_train.log
+/runs/candidates/home-dev-root/bigvgan_train.log
+/runs/candidates/home-dev-root/config_e_train.log
+/runs/candidates/home-dev-root/config_h_ep773_train.log
+/runs/candidates/home-dev-root/eval_baseline.log
+/runs/candidates/home-dev-root/eval_f0_ablation_E_vs_H.log
+/runs/candidates/home-dev-root/eval_f0_ablation_diag.txt
+/runs/candidates/home-dev-root/preprocess.log
+/runs/candidates/home-dev-root/ref_metrics.log
+/runs/candidates/home-dev-root/ref_metrics2.log
+/runs/candidates/home-dev-root/run_eval100.sh
+/runs/candidates/home-dev-root/run_f0_ablation_eval.sh
+/runs/candidates/home-dev-root/tensorboard.log
+/runs/candidates/home-dev-root/tensorboard_baseline.log
+/runs/candidates/home-dev-root/tensorboard_bigvgan.log
+/runs/candidates/home-dev-root/tensorboard_config_e.log
+/runs/candidates/home-dev-root/train_bigvgan.sh
+/runs/full/01_Baseline_BigVgan_VITS2_FO_train.log
+/runs/full/train_h.log
+/tools/build_pitchflownet_record.py
+# END sanitized originals

@@ -1,0 +1,3 @@
+# Keep every file byte-identical to the record: no end-of-line conversion on checkout or commit.
+# The hashes in the manifests are taken over the exact bytes.
+* -text
