@@ -32,4 +32,5 @@ This repository is the evidence and source record for the PitchFlowNet conferenc
   - `history/private/`, `evidence/manuscript/` or `history/notes/`;
   - credentials.
 - Stage explicit paths; do not run `git add .` without reviewing what it would add.
+- Do not add AI attribution to commits or pull requests: no `Co-Authored-By` trailer for an AI assistant and no "Generated with" line.
 - Do not push, upload or publish without the author's request.

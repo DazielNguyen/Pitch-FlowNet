@@ -15,7 +15,7 @@ The original evidence files beside them are unchanged.
 | Manifests | `manifests/camera-ready/` | `split-manifest.json`, `data-manifest.json`, `source-provenance-pre.json`, `source-provenance-post.json` (19/10), `source-provenance-post-2026-10-20.json` (after the resume fix in `camera_ready/model.py`) |
 | Tests | `tests/camera_ready/` | `python -m unittest discover -s tests/camera_ready -v` from the repository root |
 | Tools | `tools/camera_ready/` | Split manifest, source provenance; `launch_train.sh`, `resume_train.sh`, `check_ckpt.py`, `tensorboard.sh`, `wsl_keepalive.ps1` (see `runbook-MardeusPC.md`); `resume_diagnostic.py` (PLAN O1) |
-| Documents | `docs/camera-ready/` | `PRIORITY.md`, `PLAN.md`, `preflight*.md`, `data-sync.md`, `PROMPT-training-machine.md`; later `eta.md`, `experiment-plan.md`, `handoff_to_mac.md` |
+| Documents | `docs/camera-ready/` | `PRIORITY.md`, `PLAN.md`, `experiment-plan.md` (decisions), `eta.md`, `preflight*.md`, `data-sync.md`, `runbook-MardeusPC.md`, `PROMPT-training-machine.md`, `PROMPT-daziel-ablation.md` (the two ablations on the PC); later `handoff_to_mac.md` |
 
 ## Variants
 
