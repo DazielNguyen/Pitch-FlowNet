@@ -23,6 +23,7 @@ the repository catalogues:
 | [docs/missing-information.md](docs/missing-information.md) | Records that do not exist or were not found |
 | [docs/artifacts.md](docs/artifacts.md) | Data, checkpoints and logs kept outside Git, and how to point code at them |
 | [docs/setup-status.md](docs/setup-status.md) | What would be needed to run anything again |
+| [docs/camera-ready/README.md](docs/camera-ready/README.md) | Camera-ready experiments (branch `camera-ready-20261019`): layout, configs, plan |
 
 ## Relation to EdgeTTS, Piper and BanhmiTTS
 

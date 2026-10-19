@@ -22,9 +22,9 @@
 
 | ID | Task | Owner | Depends on | Target | Status | Evidence |
 |---|---|---|---|---|---|---|
-| T01 | Bring branch `camera-ready-20261019` to the training machine (push or copy) | author | — | 20/10 | TODO | |
+| T01 | Bring branch `camera-ready-20261019` to the training machine (push or copy) | author | — | 20/10 | DONE | Clone on MardeusPC at `58cab26`; layout moved in `1e4cc1a` |
 | T02 | Sync the data outside Git and verify the hashes (`data-sync.md`) | author + assistant | T01 | 20/10 | TODO | |
-| T03 | Dedicated env, MAS build, `preflight-<machine>.md` | assistant | T01, T02 | 20/10 | TODO | |
+| T03 | Dedicated env, MAS build, `preflight-<machine>.md` | assistant | T01, T02 | 20/10 | IN PROGRESS: WSL Ubuntu 22.04, env `pfn-cr` (versions as on the PC) done; MAS build waits for the clone inside WSL | `docs/camera-ready/preflight-MardeusPC.md` |
 | T04 | Fix the resume continuity test (PLAN O1) | assistant | T03 | 20/10 | TODO | |
 | T05 | DDP validation equals one process, subprocess DDP (PLAN O2) | assistant | T03 | 20/10 | TODO | |
 | T06 | GPU smoke and pilots: `pilot-H-new`, `pilot-H-noF0` (200 G updates, interrupt + resume, at most 30 min each) | assistant, author OK | T04, T05, free GPU | 21/10 | TODO | |
