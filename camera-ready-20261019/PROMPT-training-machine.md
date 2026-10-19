@@ -18,11 +18,12 @@ Bạn hỗ trợ phần thí nghiệm camera-ready của bài SOICT 2026, paper 
    - Mọi việc mới chỉ làm trong `camera-ready-20261019/`.
 2. **Đọc theo thứ tự:**
    1. `AGENTS.md`;
-   2. `camera-ready-20261019/PLAN.md`;
-   3. `camera-ready-20261019/preflight.md`;
-   4. `camera-ready-20261019/data-sync.md`;
-   5. `camera-ready-20261019/data-manifest.json`;
-   6. các file trong `camera-ready-20261019/configs/`.
+   2. `camera-ready-20261019/PRIORITY.md`: thứ tự công việc và trạng thái. Cập nhật file này mỗi khi một hàng đổi trạng thái, kèm commit làm bằng chứng;
+   3. `camera-ready-20261019/PLAN.md`;
+   4. `camera-ready-20261019/preflight.md`;
+   5. `camera-ready-20261019/data-sync.md`;
+   6. `camera-ready-20261019/data-manifest.json`;
+   7. các file trong `camera-ready-20261019/configs/`.
 3. **Ghi nhớ trạng thái hiện có:**
    - Source của workspace là bản chép của ứng viên lịch sử `badf381`, kèm các sửa đổi đã ghi trong `source-provenance-post.json`.
    - Đây không phải source đã chạy trong lịch sử, và không được gọi là source đó.
