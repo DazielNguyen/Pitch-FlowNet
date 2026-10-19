@@ -18,6 +18,8 @@ Bạn hỗ trợ phần thí nghiệm camera-ready của bài SOICT 2026, paper 
    - Mọi việc mới chỉ làm trong các thư mục camera-ready (bảng đầy đủ ở `docs/camera-ready/README.md`):
      `code/camera-ready-source/`, `configs/PFN-*/`, `configs/camera-ready-*/`, `manifests/camera-ready/`,
      `tests/camera_ready/`, `tools/camera_ready/`, `docs/camera-ready/`.
+   - **Kích hoạt ngay quy định commit:** `git config core.hooksPath tools/hooks`, rồi kiểm bằng `git config --get core.hooksPath`.
+     Hook `tools/hooks/commit-msg` chặn mọi dòng attribution của AI và message sai định dạng.
 2. **Đọc theo thứ tự:**
    1. `AGENTS.md`;
    2. `docs/camera-ready/PRIORITY.md`: thứ tự công việc và trạng thái. Cập nhật file này mỗi khi một hàng đổi trạng thái, kèm commit làm bằng chứng;
@@ -60,8 +62,16 @@ Bạn hỗ trợ phần thí nghiệm camera-ready của bài SOICT 2026, paper 
 - Không coi author account A1–A6 là đã trả lời, và không đoán lý do chọn checkpoint hay session trong lịch sử.
 - Giả thuyết 2.9 không phải nguyên nhân lịch sử đã xác nhận.
 
-**Repo:**
-- Commit nhỏ, đúng phạm vi, trên nhánh `camera-ready-20261019`.
+**Repo (quy định bắt buộc của tác giả, xem `AGENTS.md` mục Commits):**
+- **Không attribution:** không bao giờ thêm `Co-Authored-By` của Claude, Codex hay bất kỳ AI nào; không thêm "Generated with…", emoji robot hay link phiên AI.
+- **Định danh:** commit bằng Git identity của tác giả; không đổi `user.name` hay `user.email`.
+- **Định dạng message:**
+  - subject `type(scope): summary`, tối đa 72 ký tự, không có dấu chấm cuối;
+  - một dòng trống;
+  - body nói rõ đã đổi gì và vì sao, đã kiểm gì kèm kết quả, còn gì mở hoặc lỗi. Không ghi một phép kiểm chưa chạy.
+- **Phạm vi:** mỗi commit một phạm vi, stage đường dẫn cụ thể, trên nhánh `camera-ready-20261019`.
+- **Trước mỗi commit:** chạy `git diff --cached --stat`, `git diff --cached --check` và `python tools/check_tracked_package.py`.
+- **Không sửa lịch sử:** không amend, rebase hay force-push lịch sử đã chia sẻ.
 - Không push, merge, upload, sửa manuscript hay ledger, trừ khi tác giả yêu cầu.
 
 **Cách làm việc:**

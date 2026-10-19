@@ -1,0 +1,43 @@
+#!/bin/sh
+# Commit-message rules of this repository (enforced for every tool: Claude Code, Codex, humans).
+# Activate once per clone:  git config core.hooksPath tools/hooks
+#
+# Refused:
+#   - any AI attribution: Co-Authored-By trailers naming an AI tool or vendor, "Generated with ...",
+#     robot emoji, links to claude.ai/code or chatgpt/openai;
+#   - a subject that is not "type(scope): summary" or "type: summary", or longer than 72 characters;
+#   - a missing blank line between subject and body.
+# Merge and revert messages created by git are accepted as they are.
+
+msg_file="$1"
+# Drop comment lines (git strips them later) before checking.
+msg=$(grep -v '^#' "$msg_file")
+subject=$(printf '%s\n' "$msg" | sed -n '1p')
+second=$(printf '%s\n' "$msg" | sed -n '2p')
+
+fail() {
+    echo "commit-msg: $1" >&2
+    echo "commit-msg: see AGENTS.md, section Commits" >&2
+    exit 1
+}
+
+case "$subject" in
+    "Merge "*|"Revert "*) exit 0 ;;
+esac
+
+if printf '%s\n' "$msg" | grep -Eiq 'co-authored-by:.*(claude|anthropic|codex|openai|chatgpt|gpt|copilot|gemini|cursor|noreply@anthropic\.com)'; then
+    fail "AI co-author trailer is not allowed"
+fi
+if printf '%s\n' "$msg" | grep -Eiq 'generated (with|by) .*(claude|codex|chatgpt|openai|copilot|gemini|an ai([^a-z]|$))|claude\.ai/code|chatgpt\.com|🤖'; then
+    fail "AI attribution text is not allowed"
+fi
+if ! printf '%s\n' "$subject" | grep -Eq '^(feat|fix|docs|test|chore|refactor|perf|build|ci|style|results)(\([a-z0-9._/-]+\))?: [^ ].*[^.]$'; then
+    fail "subject must be 'type(scope): summary' (types: feat fix docs test chore refactor perf build ci style results), no trailing period"
+fi
+if [ "${#subject}" -gt 72 ]; then
+    fail "subject is ${#subject} characters; keep it at most 72"
+fi
+if [ -n "$second" ]; then
+    fail "leave a blank line between the subject and the body"
+fi
+exit 0

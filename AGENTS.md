@@ -32,5 +32,24 @@ This repository is the evidence and source record for the PitchFlowNet conferenc
   - `history/private/`, `evidence/manuscript/` or `history/notes/`;
   - credentials.
 - Stage explicit paths; do not run `git add .` without reviewing what it would add.
-- Do not add AI attribution to commits or pull requests: no `Co-Authored-By` trailer for an AI assistant and no "Generated with" line.
 - Do not push, upload or publish without the author's request.
+
+## Commits (binding rule of the author, for every assistant: Claude Code, Codex or any other)
+
+- **No AI attribution, ever.** Do not add any of the following:
+  - a `Co-Authored-By` trailer for Claude, Codex or any AI tool;
+  - "Generated with/by …" text, robot emoji or links to an assistant session.
+  - The repository hook `tools/hooks/commit-msg` refuses such messages. Activate it once per clone with `git config core.hooksPath tools/hooks`.
+  - `.claude/settings.json` turns Claude Code attribution off.
+- **Commit identity:** commit with the author's Git identity. Do not change `user.name` or `user.email`.
+- **One scope per commit.** Split unrelated changes, and stage explicit paths.
+- **Message format:**
+  - **Subject:** `type(scope): summary`, at most 72 characters, imperative, no trailing period. Types: `feat fix docs test chore refactor perf build ci style results`.
+  - **Blank line.**
+  - **Body:** wrapped prose or short bullets saying what changed and why. Then what was checked and with which result, and what is still open or failing. Never claim a check that was not run.
+- **Before each commit:**
+  - review `git diff --cached --stat` and the staged content;
+  - run `git diff --cached --check`;
+  - run `python tools/check_tracked_package.py`;
+  - make sure no data, checkpoint, WAV or private file is staged.
+- **History:** do not amend, rebase or force-push published history.
