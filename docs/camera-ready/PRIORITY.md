@@ -62,7 +62,7 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 | T01 | Bring the branch to the training machine | author | — | 20/10 | DONE | Clone on MardeusPC at `58cab26`; layout moved in `1e4cc1a`; WSL clone at `<WSL_DEV_HOME>/Pitch-FlowNet`, branch `camera-ready-20261019-v2` |
 | T02 | Move the data outside Git and verify the hashes (`data-sync.md`) | author + assistant | T01 | 20/10 | DONE: all inputs on MardeusPC verified (dataset, config, 39,300 cache files, 13,100 WAVs, test entries, checkpoints 773 and 1079) | `preflight-MardeusPC.md` (Data) |
 | T03 | Dedicated env, MAS build, `preflight-MardeusPC.md` | assistant | T01 | 20/10 | DONE: env `pfn-cr`, MAS built, full test run: 22/25 pass; the 3 failures are O1 (T04) and O2 (T05) | `preflight-MardeusPC.md` (Tests) |
-| T04 | Fix the resume continuity test (PLAN O1). On one GPU, resume is the only protection against interruptions | assistant | T02, T03 | 20/10 | TODO: on MardeusPC 986 tensors differ and the 1-epoch validation metric differs by ≈ 0.7 (PC: 455 tensors, ≈ 1e-8); cause not yet known | `preflight-MardeusPC.md` (Tests) |
+| T04 | Fix the resume continuity test (PLAN O1). On one GPU, resume is the only protection against interruptions | assistant | T02, T03 | 20/10 | DONE: cause found and fixed (DataLoaders drew their base seed from the global RNG); the resumed run is bit-identical to an uninterrupted one; tests 24/25 (only O2 left) | PLAN O1, `resume_diagnostic.py`, `runbook-MardeusPC.md` |
 | T06 | GPU smoke and pilots, queue row 0: `PFN-Full-Pilot` then `PFN-NoF0-Pilot` (200 G updates, interrupt + resume, at most 30 min each, one after the other). Measure s/it, peak VRAM with the display attached, validation and checkpoint time | assistant, author OK | T04 | 21/10 | TODO | |
 | T07 | `eta.md` from the pilot measurements: G updates per hour, a common budget for the queue, which rows 3–6 fit | assistant | T06 | 21/10 | TODO | |
 | T08 | Author decisions in `experiment-plan.md`: (a) `train_shuffle`; (b) MAS decay; (c) the common `max_g_updates` and how many queue rows to run (device plan is fixed: 1 GPU, batch 16); (d) replication seed 2345 or not; (e) checkpoint rule (min `val_mel_l1_global`, fixed before any test) | author | T07 | 21/10 | TODO | |
@@ -125,6 +125,8 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 ## Log
 
 One line per change of plan or blocker, newest first.
+
+- 20/10: O1 closed: resume diverged because the DataLoaders drew their worker base seed from the global RNG; fixed with a private generator per DataLoader (`camera_ready/model.py`). Crash recovery prepared: `check_ckpt.py`, `resume_train.sh` (with a fallback to the newest epoch checkpoint), TensorBoard in tmux, WSL keep-alive; Windows sleep on AC turned off (`runbook-MardeusPC.md`).
 
 - 20/10: All inputs verified on MardeusPC (IMPORT PASS); the external drive read unreliably over USB, so the author copied the archives by hand and they matched their hashes. Full tests: 22/25 pass; resume (O1) differs far more than on the PC.
 

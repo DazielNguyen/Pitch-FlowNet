@@ -106,6 +106,13 @@ All items verified on 2026-10-20 00:36 (`IMPORT PASS`).
 | `TrainCPU.test_ledger_and_best_state_across_resume` | FAIL: best file `…=86.4454` vs `…=85.7259` | O1 (T04) |
 | `ValidationDDP.test_two_processes_equal_one` | ERROR: `ddp_spawn` cannot serialize a non-leaf tensor that requires grad | O2 (T05) |
 
+**Update 2026-10-20 01:04: O1 closed (PLAN O1).**
+- The resume divergence had a cause in the code: the DataLoaders drew their base seed from the global RNG. It is fixed in `camera_ready/model.py`.
+- The resume test was rewritten as PLAN O1 specifies: deterministic mode with one thread, noise floor from a second uninterrupted run.
+- Full run: 25 tests, **24 pass, 1 ERROR** (`ValidationDDP`, O2, not needed for 1-GPU runs). Log `<WSL_DEV_HOME>/outputs/tests/unittest-20261020T0104-o1fix.log`.
+
+The first test run, before the fix, recorded the following.
+
 **The resume difference here is much larger than on the PC.**
 - On the PC: 455 of 994 tensors differed, by about 1e-8.
 - Here: 986 tensors differ, and the validation metric after one epoch differs by about 0.7.
