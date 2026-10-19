@@ -60,7 +60,7 @@
 |---|---|---|---|---|---|---|
 | T22 | T3 comparators: B-new, B-plusBigVGAN | author OK | GPU time | — | TODO | |
 | T23 | `run_manifest.schema.json` matching `train.py` output | assistant | — | — | TODO | |
-| T24 | `tools/verify_data.py` (read-only data check) | assistant | — | — | TODO | |
+| T24 | `tools/camera_ready/verify_data.py` (read-only data check) | assistant | — | — | TODO | |
 
 ## Handoff (continuous)
 

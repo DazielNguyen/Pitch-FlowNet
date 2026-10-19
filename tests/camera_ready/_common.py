@@ -12,20 +12,20 @@ import sys
 import tempfile
 from pathlib import Path
 
-WS = Path(__file__).resolve().parents[1]                 # camera-ready-20261019/
-SRC = WS / "src" / "python"
+REPO = Path(__file__).resolve().parents[2]               # repository root
+SRC = REPO / "code" / "camera-ready-source" / "src" / "python"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 HOME = Path.home()  # the WSL account that holds the historical runs and data
 DATASET_DIR = Path(os.environ.get("CR_DATASET_DIR", str(HOME / "data_preprocessed")))
 STORED_TEST = Path(os.environ.get("CR_STORED_TEST", str(HOME / "test_entries_500.jsonl")))
-SPLIT_MANIFEST = WS / "split-manifest.json"
+SPLIT_MANIFEST = REPO / "manifests" / "camera-ready" / "split-manifest.json"
 CKPT_BASELINE = Path(os.environ.get("CR_CKPT_BASELINE", str(
     HOME / "02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt")))
 CKPT_FULL = Path(os.environ.get("CR_CKPT_FULL", str(
     HOME / "01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt")))
-TEST_OUTPUT = Path(os.environ.get("CR_TEST_OUTPUT", str(WS.parents[1] / "outputs" / "tests")))
+TEST_OUTPUT = Path(os.environ.get("CR_TEST_OUTPUT", str(REPO.parent / "outputs" / "tests")))
 
 
 def dataset_config() -> dict:

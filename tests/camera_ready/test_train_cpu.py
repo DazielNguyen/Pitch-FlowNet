@@ -11,12 +11,12 @@ import unittest
 
 import torch
 
-from _common import DATASET_DIR, WS, base_model_kwargs, dataset_config, new_run_dir, small_manifest
+from _common import DATASET_DIR, REPO, base_model_kwargs, dataset_config, new_run_dir, small_manifest
 from piper_train.camera_ready import train as cr_train
 from piper_train.camera_ready.model import MONITOR, CameraReadyVitsModel
 
 torch.set_num_threads(4)
-CONFIG = WS / "configs" / "cpu-smoke-H.json"
+CONFIG = REPO / "configs" / "camera-ready-tests" / "cpu-smoke-H.json"
 
 
 def run(run_dir, manifest, *extra):

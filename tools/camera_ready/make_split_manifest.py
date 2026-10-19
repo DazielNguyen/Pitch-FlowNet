@@ -1,8 +1,8 @@
 """Write the camera-ready split manifest: ordered stable utterance IDs per split, with hashes.
 
-    python camera-ready-20261019/tools/make_split_manifest.py \
+    python tools/camera_ready/make_split_manifest.py \
         --dataset <data_preprocessed>/dataset.jsonl --wav-dir <raw LJ Speech wavs> \
-        --stored-test <test_entries_500.jsonl> --output camera-ready-20261019/split-manifest.json
+        --stored-test <test_entries_500.jsonl> --output manifests/camera-ready/split-manifest.json
 
 Membership is the reconstruction of the historical split: random_split over dataset.jsonl rows in
 file order, order [train, test, validation], torch.Generator().manual_seed(1234). It is checked

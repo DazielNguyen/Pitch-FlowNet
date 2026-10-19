@@ -35,7 +35,7 @@
      ```sh
      python - <<'PY'
      import hashlib, json, pathlib
-     m = json.load(open("camera-ready-20261019/split-manifest.json"))
+     m = json.load(open("manifests/camera-ready/split-manifest.json"))
      wavs = pathlib.Path("<WSL_DEV_HOME>/data/wavs")
      bad = [e["id"] for s in m["splits"].values() for e in s
             if hashlib.sha256((wavs / f"{e['id']}.wav").read_bytes()).hexdigest() != e["raw_wav_sha256"]]
@@ -43,7 +43,7 @@
      PY
      ```
    - the cache files against the evidence record's local `manifests/file-manifest.json`, if that file is copied too.
-   - **Not done yet:** a small read-only `tools/verify_data.py` that runs all three checks; see PLAN.md.
+   - **Not done yet:** a small read-only `tools/camera_ready/verify_data.py` that runs all three checks; see PLAN.md.
 
 ## What not to do
 
