@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Resume an interrupted camera-ready run after a crash, a reboot or a power loss (inside WSL).
 #
-#   tools/camera_ready/resume_train.sh <config.json> [--fallback] [--execute]
+#   tools/camera_ready/resume_train.sh <config.json> [--fallback] [--limit-train-batches N] [--stop-after-epochs N] [--execute]
+#
+# --limit-train-batches and --stop-after-epochs are passed on to launch_train.sh. A pilot that was started
+# with --limit-train-batches must be resumed with the same value, or its next epoch runs every batch.
 #
 # 1. Refuses while the run is still alive (tmux session cr-<run_id> or a training process).
 # 2. Checks <run dir>/checkpoints/last.ckpt with check_ckpt.py (zip CRC, safe load, counters, finite).
@@ -19,13 +22,14 @@ REPO=$(cd "$HERE/../.." && pwd)
 OUTPUTS=${CR_OUTPUTS:-$HOME/outputs}
 PY=${CR_PYTHON:-$HOME/miniforge3/envs/pfn-cr/bin/python}
 
-[ $# -ge 1 ] || { sed -n '2,15p' "$0"; exit 2; }
+[ $# -ge 1 ] || { sed -n '2,18p' "$0"; exit 2; }
 CONFIG=$(realpath "$1"); shift
 FALLBACK=0; PASS=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --fallback) FALLBACK=1 ;;
     --execute) PASS+=(--execute) ;;
+    --limit-train-batches|--stop-after-epochs) PASS+=("$1" "$2"); shift ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
   shift
