@@ -1,0 +1,95 @@
+{
+ "run_id": "PFN-Full-s1234",
+ "device_note": "1 GPU (RTX 5070, single process, no DDP), batch_size 16: effective batch 16 per G update; the historical runs used 2 ranks x 16 = 32. Derived from configs/camera-ready-2gpu/H-new.json: only run_id, trainer.devices, trainer.strategy, protocol.budget_label and this note differ.",
+ "tier": "T1 reference: all three groups",
+ "groups": {
+  "B": 1,
+  "V": 1,
+  "F": 1
+ },
+ "model": {
+  "resblock": "2",
+  "resblock_kernel_sizes": [
+   3,
+   5,
+   7
+  ],
+  "resblock_dilation_sizes": [
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    12
+   ]
+  ],
+  "upsample_rates": [
+   8,
+   8,
+   4
+  ],
+  "upsample_initial_channel": 256,
+  "upsample_kernel_sizes": [
+   16,
+   16,
+   8
+  ],
+  "filter_length": 1024,
+  "hop_length": 256,
+  "win_length": 1024,
+  "mel_channels": 80,
+  "mel_fmin": 0.0,
+  "mel_fmax": null,
+  "segment_size": 8192,
+  "inter_channels": 192,
+  "hidden_channels": 192,
+  "filter_channels": 768,
+  "n_heads": 2,
+  "n_layers": 6,
+  "kernel_size": 3,
+  "p_dropout": 0.1,
+  "use_sdp": true,
+  "learning_rate": 0.0002,
+  "betas": [
+   0.8,
+   0.99
+  ],
+  "eps": 1e-09,
+  "lr_decay": 0.999875,
+  "c_mel": 45,
+  "c_kl": 1.0,
+  "batch_size": 16,
+  "num_workers": 8,
+  "grad_clip": 1.0,
+  "max_phoneme_ids": 400,
+  "num_val_examples": 100,
+  "num_test_examples": 500,
+  "use_bigvgan": true,
+  "use_vits2": true,
+  "use_f0": true
+ },
+ "protocol": {
+  "train_seed": 1234,
+  "data_seed": 1234,
+  "val_seed": 2026,
+  "train_shuffle": false,
+  "mas_decay_per_g_update": 4e-06,
+  "max_g_updates": 430100,
+  "budget_label": "PLACEHOLDER until PLAN O4: 430,100 G updates was the historical-equivalent budget (1,100 epochs x 391 batches per rank on 2 ranks x 16); on 1 GPU x 16 it covers half the samples, about 550 epochs of 782 batches",
+  "preview_every_n_epochs": 1
+ },
+ "trainer": {
+  "accelerator": "gpu",
+  "devices": 1,
+  "strategy": "auto",
+  "precision": "bf16-mixed",
+  "max_epochs": 1110,
+  "log_every_n_steps": 50,
+  "num_sanity_val_steps": 2
+ }
+}

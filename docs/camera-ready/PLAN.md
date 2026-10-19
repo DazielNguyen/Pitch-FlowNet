@@ -20,6 +20,7 @@
 | C. Deterministic per-utterance validation, exact sum/count over ranks, previews from validation IDs, fixed checkpoint directory, ledger of saves/removals | `camera_ready/model.py`, `camera_ready/callbacks.py` | done; the DDP equality test is OPEN (O2) |
 | D. G/D update and sample counters in checkpoints, G-update budget, MAS decay per G update, separate init/data/validation seeds, per-epoch RNG reseed | `camera_ready/model.py`, `callbacks.py`, `train.py` | done; the resume test is OPEN (O1) |
 | Run configs, 2 GPUs (reference) | `configs/camera-ready-2gpu/`: `H-new`, `H-noF0` (T1); `H-noVITS2`, `H-noBigVGAN` (T2); `B-new`, `B-plusBigVGAN` (T3); `pilot-*` (200 G updates). CPU test: `configs/camera-ready-tests/cpu-smoke-H.json` | written; budget values are placeholders (O4) |
+| Run configs, 1 GPU (used on MardeusPC) | `configs/PFN-Full/`, `PFN-NoF0/` (T1); `PFN-NoVITS2/`, `PFN-NoBigVGAN/` (T2); `PFN-Baseline/`, `PFN-Baseline-BigVGAN/` (T3); each holds `<name>.json` and `<name>-Pilot.json` | written; budget values are placeholders (O4) |
 | Data inventory and sync plan | `preflight.md`, `data-manifest.json`, `data-sync.md` | done |
 
 **Source changes against the historical candidate:**

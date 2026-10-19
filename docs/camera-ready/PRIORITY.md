@@ -84,4 +84,6 @@
 
 One line per change of plan or blocker, newest first.
 
+- 19/10: Author: train on MardeusPC, 1 × RTX 5070 only, keeping the configuration otherwise unchanged; data moves over Tailscale. New 1-GPU configs named by variant: `PFN-Full`, `PFN-NoF0`, `PFN-NoVITS2`, `PFN-NoBigVGAN`, `PFN-Baseline`, `PFN-Baseline-BigVGAN` and their `-Pilot` versions, each derived from the matching `H-*`/`B-*` config (devices 1, strategy `auto`, batch 16, so effective batch 16 instead of 32); the budget stays a placeholder until O4. Run directories use the `run_id` (e.g. `PFN-Full-s1234`). MardeusPC still needs WSL (admin) and the data (`preflight-MardeusPC.md`).
+
 - 19/10: GPUs on the PC are busy with another project; training moves to another machine, which the author operates.
