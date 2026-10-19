@@ -85,6 +85,7 @@ Prompt này dành cho máy PC của tác giả, Windows có WSL `Ubuntu-24.04`, 
    git clone -b camera-ready-20261019-v2 https://github.com/DazielNguyen/Pitch-FlowNet.git ~/Pitch-FlowNet-cr
    ```
    - Ghi lại HEAD.
+   - **Bật hook commit ngay:** `cd ~/Pitch-FlowNet-cr && git config core.hooksPath tools/hooks`, rồi kiểm bằng `git config --get core.hooksPath`. Đọc mục **Commits** trong `AGENTS.md`: commit bằng Git identity của tác giả, không thêm attribution của AI, message dạng `type(scope): summary`.
    - Nhánh trên GitHub phải chứa commit có config `configs/PFN-*/PFN-*-275ep.json` và `tools/camera_ready/launch_train.sh` có tuỳ chọn `--gpu`. Nếu thiếu, báo tác giả để push; không tự tạo lại.
 2. **Env:**
    - Dùng conda có sẵn, tạo env mới `pfn-cr`: Python 3.10.20, `torch==2.12.1` (index cu130), `pytorch-lightning==2.6.5`, `numpy==2.2.6`, cùng các gói còn lại trong `code/camera-ready-source/src/python/requirements.txt`.
