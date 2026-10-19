@@ -83,9 +83,15 @@ class VitsModel(pl.LightningModule):
         num_val_examples: int = 100,
         num_test_examples: int = 500,
         max_phoneme_ids: Optional[int] = None,
+        # "legacy": historical behaviour (Snake inside the decoder ResBlocks even when use_bigvgan
+        # is false); needed to load the historical checkpoints. "strict": use_bigvgan switches every
+        # periodic activation of the decoder, including those in the ResBlocks.
+        group_semantics: str = "legacy",
         **kwargs,
     ):
         super().__init__()
+        if group_semantics not in ("legacy", "strict"):
+            raise ValueError(f"group_semantics must be 'legacy' or 'strict', not {group_semantics!r}")
         self.save_hyperparameters()
         # GAN training needs two independent backward/step calls per batch
         # (generator, then discriminator) -- not expressible via PL's
@@ -131,6 +137,7 @@ class VitsModel(pl.LightningModule):
             use_noised_mas=_use_noised_mas,
             mas_noise_scale=0.01,
             use_speaker_cond_enc=False,
+            resblock_snake=_use_snake if self.hparams.group_semantics == "strict" else None,
         )
         self.model_d = MultiPeriodDiscriminator(
             use_spectral_norm=self.hparams.use_spectral_norm

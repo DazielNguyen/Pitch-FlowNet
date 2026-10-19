@@ -447,8 +447,12 @@ class Generator(torch.nn.Module):
         gin_channels: int = 0,
         use_snake: bool = True,
         use_f0: bool = True,
+        resblock_snake: typing.Optional[bool] = None,
     ):
         super(Generator, self).__init__()
+        # resblock_snake=None keeps the historical behaviour (Snake inside every ResBlock,
+        # whatever use_snake says). The camera-ready group semantics pass use_snake here.
+        self.resblock_snake = True if resblock_snake is None else resblock_snake
         self.LRELU_SLOPE = 0.1
         self.use_snake = use_snake
         self.use_f0 = use_f0
@@ -485,7 +489,7 @@ class Generator(torch.nn.Module):
             for j, (k, d) in enumerate(
                 zip(resblock_kernel_sizes, resblock_dilation_sizes)
             ):
-                self.resblocks.append(resblock_module(ch, k, d))
+                self.resblocks.append(resblock_module(ch, k, d, use_snake=self.resblock_snake))
 
         if use_snake:
             self.final_snake = modules.Snake1d(ch)
@@ -892,6 +896,7 @@ class SynthesizerTrn(nn.Module):
         use_noised_mas: bool = False,
         mas_noise_scale: float = 0.01,
         use_speaker_cond_enc: bool = False,
+        resblock_snake: typing.Optional[bool] = None,
     ):
 
         super().__init__()
@@ -942,6 +947,7 @@ class SynthesizerTrn(nn.Module):
             gin_channels=gin_channels,
             use_snake=use_snake,
             use_f0=use_f0,
+            resblock_snake=resblock_snake,
         )
         self.enc_q = PosteriorEncoder(
             spec_channels,
