@@ -9,7 +9,7 @@
   - the conda environment.
 - **Training here uses the one RTX 5070.** The 1-GPU configs are in `configs/PFN-*/`, see `README.md`.
 
-**Status: BLOCKED_MISSING_INPUT** (data and checkpoints not on this machine yet).
+**Status:** data verified; resume test (O1) open before any pilot.
 
 ## Repository
 
@@ -65,21 +65,53 @@ It is used only for export checks, not for training.
 
 ## Data (`data-sync.md`, `manifests/camera-ready/data-manifest.json`)
 
-| Item | Expected location in WSL | Present |
-|---|---|---|
-| `dataset.jsonl`, `config.json` | `<WSL_DEV_HOME>/data_preprocessed/` | No |
-| Feature cache, 39,300 files | `<WSL_DEV_HOME>/data_preprocessed/cache/22050/` | No |
-| Raw WAVs, 13,100 files | `<WSL_DEV_HOME>/data/wavs/` | No |
-| `test_entries_500.jsonl` | `<WSL_DEV_HOME>/test_entries_500.jsonl` | No |
-| Checkpoint 773 | `<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/` | No |
-| Checkpoint 1079 | `<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/` | No |
+All items verified on 2026-10-20 00:36 (`IMPORT PASS`).
 
-**Transfer.**
-- The data will come over Tailscale from the PC (author's decision).
-- At setup time the PC was not visible in the tailnet: only this machine and one other Windows machine, offline for 80 days.
+| Item | Location in WSL | Check | Result |
+|---|---|---|---|
+| `dataset.jsonl` | `<WSL_DEV_HOME>/data_preprocessed/` | SHA-256 against `data-manifest.json` | OK |
+| `config.json` | `<WSL_DEV_HOME>/data_preprocessed/` | SHA-256 | OK |
+| Feature cache | `<WSL_DEV_HOME>/data_preprocessed/cache/22050/` | file count (no per-file manifest on this machine); covered by the archive hash | 39,300 files |
+| Raw WAVs | `<WSL_DEV_HOME>/data/wavs/` | `raw_wav_sha256` of every entry in `split-manifest.json` | 13,100 checked, 0 mismatches |
+| `test_entries_500.jsonl` | `<WSL_DEV_HOME>/` | SHA-256 | OK |
+| Checkpoint 773 | `<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/` | SHA-256 and bytes | OK, 845,967,744 bytes |
+| Checkpoint 1079 | `<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/` | SHA-256 and bytes | OK, 874,730,405 bytes |
+
+**Transfer route.**
+
+1. **Tailscale.**
+   - The PC's WSL joined the tailnet with a user-level Tailscale in userspace mode. Nothing was installed system-wide on the PC.
+   - Only the DERP relay worked, at about 0.45 MB/s.
+   - Checkpoint 773 came this way.
+2. **External drive.** On the PC, four tar archives were written to an external SSD.
+   - Each archive was read once, at the lowest CPU and IO priority. Its SHA-256 was computed while it was written (`SHA256SUMS.source`).
+   - The PC's training sessions were not touched.
+3. **On this machine.** Reading the drive in the USB port was unstable: Windows logged repeated `UASPStor` resets and retried IO at the same block addresses.
+   - The author copied the archives by hand into `<WSL_DEV_HOME>/PitchFlowNet-data/`.
+   - All four matched `SHA256SUMS.source`.
+   - They were then unpacked and checked item by item, as in the table above.
+
+**Scripts and logs (outside Git):**
+- `<WSL_DEV_HOME>/pfn-sync/import_local.sh` and its `.log` on this machine;
+- `export_to_f.sh` and its `.log` beside the archives.
+
+## Tests (2026-10-20 00:36, WSL clone at `f5669a9`)
+
+`python -m unittest discover -s tests/camera_ready -v`: 25 tests, 22 pass, 2 FAIL, 1 ERROR. The log is outside Git, in `<WSL_DEV_HOME>/outputs/tests/`.
+
+| Test | Result | Open item |
+|---|---|---|
+| distributed (4), gating (4), historical checkpoints (3), split (7), train_cpu budget / directory guard / diagnostics (3) | pass | — |
+| `TrainCPU.test_resume_reproduces_uninterrupted_run` | FAIL: 986 tensors differ | O1 (T04) |
+| `TrainCPU.test_ledger_and_best_state_across_resume` | FAIL: best file `…=86.4454` vs `…=85.7259` | O1 (T04) |
+| `ValidationDDP.test_two_processes_equal_one` | ERROR: `ddp_spawn` cannot serialize a non-leaf tensor that requires grad | O2 (T05) |
+
+**The resume difference here is much larger than on the PC.**
+- On the PC: 455 of 994 tensors differed, by about 1e-8.
+- Here: 986 tensors differ, and the validation metric after one epoch differs by about 0.7.
+- This has not been investigated yet (T04). It is not known whether it is nondeterminism or a resume defect.
 
 ## Not done
 
-- Data and checkpoint hash checks (no data).
-- MAS build, PLAN O1/O2, unit tests.
+- PLAN O1 (resume), before any pilot.
 - GPU smoke and pilots.
