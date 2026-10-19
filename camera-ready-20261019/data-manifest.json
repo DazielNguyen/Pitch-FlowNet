@@ -1,0 +1,59 @@
+{
+ "schema": "camera-ready data manifest v1",
+ "created": "2026-10-19",
+ "note": "Data needed by the camera-ready runs. None of it is in Git. Hashes were read on the PC on 2026-10-19 unless stated. <WSL_DEV_HOME> is the home directory of the WSL account that holds the data.",
+ "items": [
+  {
+   "id": "dataset_jsonl",
+   "required_for": ["training", "evaluation"],
+   "source_path": "<WSL_DEV_HOME>/data_preprocessed/dataset.jsonl",
+   "sha256": "3b93b9883e1ac98d951049c3dbd5e5130c06985baa1b70c60c75e431b29c7bdf",
+   "rows": 13100,
+   "note": "Holds absolute paths into <WSL_DEV_HOME>/data_preprocessed/cache/22050/. The split manifest checks this exact hash, so keep the file byte-identical and reproduce the same absolute directory on the target machine (or a symlink to it)."
+  },
+  {
+   "id": "dataset_config",
+   "required_for": ["training", "evaluation"],
+   "source_path": "<WSL_DEV_HOME>/data_preprocessed/config.json",
+   "sha256": "6eeb898264813993e00f4a85d0a4fd44210bedfa64d976cf531584baa0993de7"
+  },
+  {
+   "id": "feature_cache",
+   "required_for": ["training"],
+   "source_path": "<WSL_DEV_HOME>/data_preprocessed/cache/22050/",
+   "files": 39300,
+   "approx_bytes": "22 GB",
+   "per_file_hashes": "the evidence record's local manifests/file-manifest.json (git-ignored), entries datasets/processed/data_preprocessed/cache/22050/*",
+   "note": "normalised audio, linear spectrograms and frame F0 tensors (*.pt)"
+  },
+  {
+   "id": "raw_wavs",
+   "required_for": ["evaluation (references, waveform F0)", "split manifest regeneration"],
+   "source_path": "<WSL_DEV_HOME>/data/wavs/",
+   "files": 13100,
+   "approx_bytes": "3.6 GB",
+   "per_file_hashes": "split-manifest.json, field raw_wav_sha256 of every entry"
+  },
+  {
+   "id": "stored_test_entries",
+   "required_for": ["checks"],
+   "source_path": "<WSL_DEV_HOME>/test_entries_500.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "id": "ckpt_baseline_773",
+   "required_for": ["evaluation of the historical pair", "tests"],
+   "source_path": "<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt",
+   "bytes": 845967744,
+   "sha256": "54d867192b673c5f493ee937db06ff3bba6a1c0192969131407e3a795245aac1"
+  },
+  {
+   "id": "ckpt_full_1079",
+   "required_for": ["evaluation of the historical pair", "tests"],
+   "source_path": "<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt",
+   "bytes": 874730405,
+   "sha256": "8e6eacface1105c329ada0ccbec4c7a5cce88e86ac08797092ab30c1698a4edf"
+  }
+ ],
+ "second_copy": "The same files (verified copies of 2026-10-12) are in the evidence record's git-ignored folders datasets/raw/home-dev-data, datasets/processed/data_preprocessed and runs/*/checkpoints of this repository on the PC."
+}

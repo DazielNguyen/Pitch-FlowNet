@@ -1,0 +1,4 @@
+# Build outputs of the workspace (regenerated from sources)
+src/python/piper_train/vits/monotonic_align/core.c
+src/python/piper_train/vits/monotonic_align/monotonic_align/
+*.egg-info/
