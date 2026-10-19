@@ -65,7 +65,7 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 
 | ID | Task | Owner | Depends on | Target | Status | Evidence |
 |---|---|---|---|---|---|---|
-| T01 | Bring the branch to the training machine | author | — | 20/10 | DONE | Clone on MardeusPC at `58cab26`; layout moved in `1e4cc1a`; WSL clone at `<WSL_DEV_HOME>/Pitch-FlowNet`, branch `camera-ready-20261019-v2` |
+| T01 | Bring the branch to the training machine | author | — | 20/10 | DONE | Clone on MardeusPC at `58cab26`; layout moved in `920b604`; WSL clone at `<WSL_DEV_HOME>/Pitch-FlowNet`, branch `camera-ready-20261019-v2` |
 | T02 | Move the data outside Git and verify the hashes (`data-sync.md`) | author + assistant | T01 | 20/10 | DONE: all inputs on MardeusPC verified (dataset, config, 39,300 cache files, 13,100 WAVs, test entries, checkpoints 773 and 1079) | `preflight-MardeusPC.md` (Data) |
 | T03 | Dedicated env, MAS build, `preflight-MardeusPC.md` | assistant | T01 | 20/10 | DONE: env `pfn-cr`, MAS built, full test run: 22/25 pass; the 3 failures are O1 (T04) and O2 (T05) | `preflight-MardeusPC.md` (Tests) |
 | T04 | Fix the resume continuity test (PLAN O1). On one GPU, resume is the only protection against interruptions | assistant | T02, T03 | 20/10 | DONE: cause found and fixed (DataLoaders drew their base seed from the global RNG); the resumed run is bit-identical to an uninterrupted one; tests 24/25 (only O2 left) | PLAN O1, `resume_diagnostic.py`, `runbook-MardeusPC.md` |
@@ -124,13 +124,15 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 | 19/10 | Tests (gating, split, sharding, historical checkpoints pass; resume and DDP checks open as T04/T05) | `9ce3eb5` |
 | 19/10 | Preflight, data sync plan, PLAN | `d528a90` |
 | 19/10 | Prompt for the training machine | `e9e5647` |
-| 19/10 | Workspace moved into the main repository folders | `1e4cc1a` |
-| 19/10 | Single-GPU run configs `configs/PFN-*/` | `dace802` |
-| 19/10 | Layout page and MardeusPC preflight | `f5669a9` |
+| 19/10 | Workspace moved into the main repository folders | `920b604` |
+| 19/10 | Single-GPU run configs `configs/PFN-*/` | `da54b21` |
+| 19/10 | Layout page and MardeusPC preflight | `17323a3` |
 
 ## Log
 
 One line per change of plan or blocker, newest first.
+
+- 20/10: On the author's request the AI co-author line was removed from all MardeusVN commit messages (history rewritten; trees, authors and dates unchanged). Old → new hashes: `manifests/camera-ready/commit-map-2026-10-20.json`; the runs started before it cite the old hashes. New commits carry no AI attribution (AGENTS.md).
 
 - 20/10: Author decisions after the reviews (all three name the missing ablation): leave-one-group-out with a new 275-epoch reference (1/4 of the historical epochs); historical Full is not the ablation reference. Pilot measured 13.2 min per epoch on the RTX 5070. The PC joins from about 20/10 13:00.
 
