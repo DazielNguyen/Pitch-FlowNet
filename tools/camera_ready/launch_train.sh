@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# Launch one camera-ready training run on the single GPU of the training machine (inside WSL).
+# Launch one camera-ready training run on one GPU of the training machine (inside WSL).
 #
-#   tools/camera_ready/launch_train.sh <config.json> [--resume] [--limit-train-batches N] [--stop-after-epochs N] [--execute]
+#   tools/camera_ready/launch_train.sh <config.json> [--gpu N] [--resume] [--limit-train-batches N] [--stop-after-epochs N] [--execute]
+#
+# --gpu N (default 0) selects the GPU as numbered by nvidia-smi (CUDA_DEVICE_ORDER=PCI_BUS_ID, CUDA_VISIBLE_DEVICES=N). Runs on different GPUs may run side by side;
+# each GPU is held by one run through the lock $CR_OUTPUTS/locks/gpu<N>.lock, removed when the run's session ends.
 #
 # Without --execute it only checks the inputs and prints the command (dry run).
 # With --execute it starts the run in its own tmux session cr-<run_id> and writes the log to
@@ -11,8 +14,8 @@
 #   - the config, the dataset files or the split manifest are missing;
 #   - the config still carries a placeholder budget (protocol.budget_label starts with "PLACEHOLDER");
 #   - the run directory exists (fresh start) or lacks last.ckpt (--resume);
-#   - another camera-ready training process or the tmux session cr-<run_id> already exists;
-#   - the GPU is busy (memory or utilisation above the thresholds below).
+#   - the same run is already running, or the tmux session cr-<run_id> already exists;
+#   - the GPU is held by another run (live lock) or is busy (memory or utilisation above the thresholds below).
 #
 # Environment (defaults in brackets):
 #   CR_DATASET_DIR [$HOME/data_preprocessed]   CR_OUTPUTS [$HOME/outputs]
@@ -31,11 +34,12 @@ MAX_UTIL=${CR_GPU_MAX_UTIL:-10}
 
 [ $# -ge 1 ] || { sed -n '2,20p' "$0"; exit 2; }
 CONFIG=$(realpath "$1"); shift
-EXECUTE=0; RESUME=0; EXTRA=()
+EXECUTE=0; RESUME=0; EXTRA=(); GPU=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --execute) EXECUTE=1 ;;
     --resume) RESUME=1; EXTRA+=(--resume) ;;
+    --gpu) GPU=$2; shift ;;
     --limit-train-batches|--stop-after-epochs) EXTRA+=("$1" "$2"); shift ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
@@ -56,6 +60,8 @@ if [ -f "$CONFIG" ]; then
 fi
 RUN_DIR="$OUTPUTS/runs/$RUN_ID"
 SESSION="cr-$RUN_ID"
+LOCK="$OUTPUTS/locks/gpu$GPU.lock"
+case "$GPU" in ''|*[!0-9]*) problems+=("--gpu needs a GPU index, got '$GPU'") ;; esac
 
 if [ -n "$RUN_ID" ]; then
   if [ "$RESUME" = 1 ]; then
@@ -65,13 +71,23 @@ if [ -n "$RUN_ID" ]; then
   fi
   ! tmux has-session -t "$SESSION" 2>/dev/null || problems+=("tmux session $SESSION already exists")
 fi
-if pgrep -f "piper_train.camera_ready.train" >/dev/null; then
-  problems+=("another camera-ready training process is running: $(pgrep -af piper_train.camera_ready.train | head -1)")
+if [ -n "$RUN_ID" ] && pgrep -f "piper_train.camera_ready.train .*--run-dir $RUN_DIR( |\$)" >/dev/null; then
+  problems+=("run $RUN_ID is already running: $(pgrep -af "run-dir $RUN_DIR" | head -1)")
+fi
+STALE_LOCK=0
+if [ -f "$LOCK" ]; then
+  holder=$(awk '{print $1}' "$LOCK")
+  if tmux has-session -t "cr-$holder" 2>/dev/null; then
+    problems+=("GPU $GPU is held by run $holder (lock $LOCK, tmux session cr-$holder)")
+  else
+    STALE_LOCK=1   # its session ended without removing the lock (crash, reboot); replaced at launch
+  fi
 fi
 
-GPU_STATE=$(nvidia-smi --query-gpu=index,name,memory.used,utilization.gpu --format=csv,noheader,nounits 2>/dev/null || true)
-if [ -z "$GPU_STATE" ]; then
-  problems+=("nvidia-smi gave no GPU")
+if ! GPU_STATE=$(nvidia-smi -i "$GPU" --query-gpu=index,name,memory.used,utilization.gpu --format=csv,noheader,nounits 2>/dev/null) \
+   || ! echo "$GPU_STATE" | head -1 | grep -Eq '^[0-9]+, .+, [0-9]+, [0-9]+$'; then
+  GPU_STATE="(none)"
+  problems+=("nvidia-smi gave no GPU with index $GPU")
 else
   read -r used util < <(echo "$GPU_STATE" | head -1 | awk -F', ' '{print $3, $4}')
   if [ "$used" -gt "$MAX_USED" ] || [ "$util" -gt "$MAX_UTIL" ]; then
@@ -79,7 +95,7 @@ else
   fi
 fi
 
-CMD=(env CUDA_VISIBLE_DEVICES=0 "$PY" -m piper_train.camera_ready.train
+CMD=(env CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=$GPU "$PY" -m piper_train.camera_ready.train
      --config "$CONFIG" --dataset-dir "$DATASET_DIR" --split-manifest "$SPLIT" --run-dir "$RUN_DIR" "${EXTRA[@]}")
 
 echo "run_id:   $RUN_ID"
@@ -99,8 +115,10 @@ if [ "$EXECUTE" = 0 ]; then
   exit 0
 fi
 
-mkdir -p "$OUTPUTS/logs"
+mkdir -p "$OUTPUTS/logs" "$OUTPUTS/locks"
+[ "$STALE_LOCK" = 0 ] || echo "note:     replacing stale lock $LOCK ($(cat "$LOCK"))"
+echo "$RUN_ID $(date -Is)" > "$LOCK"
 LOG="$OUTPUTS/logs/$RUN_ID-$(date -u +%Y%m%dT%H%M%SZ).log"
 printf -v QCMD '%q ' "${CMD[@]}"
-tmux new-session -d -s "$SESSION" "cd $(printf %q "$SRC") && { echo \"# start \$(date -Is) $QCMD\"; $QCMD; echo \"# exit \$? \$(date -Is)\"; } > $(printf %q "$LOG") 2>&1"
-echo "STARTED in tmux session $SESSION; log: $LOG"
+tmux new-session -d -s "$SESSION" "cd $(printf %q "$SRC") && { echo \"# start \$(date -Is) $QCMD\"; $QCMD; echo \"# exit \$? \$(date -Is)\"; } > $(printf %q "$LOG") 2>&1; rm -f $(printf %q "$LOCK")"
+echo "STARTED on GPU $GPU in tmux session $SESSION; log: $LOG; lock: $LOCK"

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Resume an interrupted camera-ready run after a crash, a reboot or a power loss (inside WSL).
 #
-#   tools/camera_ready/resume_train.sh <config.json> [--fallback] [--limit-train-batches N] [--stop-after-epochs N] [--execute]
+#   tools/camera_ready/resume_train.sh <config.json> [--gpu N] [--fallback] [--limit-train-batches N] [--stop-after-epochs N] [--execute]
 #
-# --limit-train-batches and --stop-after-epochs are passed on to launch_train.sh. A pilot that was started
+# --gpu, --limit-train-batches and --stop-after-epochs are passed on to launch_train.sh (resume on the GPU the run used). A pilot that was started
 # with --limit-train-batches must be resumed with the same value, or its next epoch runs every batch.
 #
 # 1. Refuses while the run is still alive (tmux session cr-<run_id> or a training process).
@@ -29,7 +29,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --fallback) FALLBACK=1 ;;
     --execute) PASS+=(--execute) ;;
-    --limit-train-batches|--stop-after-epochs) PASS+=("$1" "$2"); shift ;;
+    --limit-train-batches|--stop-after-epochs|--gpu) PASS+=("$1" "$2"); shift ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
   shift
