@@ -16,19 +16,30 @@
 |---|---|---|
 | Workspace source = historical candidate `badf381`, byte-exact copy | `src/python`, `source-provenance-pre.json` | done (59/59 equal to record) |
 | A. Group gating: `use_bigvgan` also removes the ResBlock Snake under `group_semantics="strict"`; legacy mode keeps the historical checkpoints loadable | `vits/modules.py`, `vits/models.py`, `vits/lightning.py` | done, tested |
-| B. Split by stable ID from `split-manifest.json`; split seed separated from the training seed; the test split is never loaded in training | `split-manifest.json`, `tools/make_split_manifest.py`, `camera_ready/split.py` | done, tested |
+| B. Split by stable ID from `split-manifest.json`; split seed separated from the training seed; the test split is never loaded in training | `split-manifest.json`, `tools/camera_ready/make_split_manifest.py`, `camera_ready/split.py` | done, tested |
 | C. Deterministic per-utterance validation, exact sum/count over ranks, previews from validation IDs, fixed checkpoint directory, ledger of saves/removals | `camera_ready/model.py`, `camera_ready/callbacks.py` | done; the DDP equality test is OPEN (O2) |
-| D. G/D update and sample counters in checkpoints, G-update budget, MAS decay per G update, separate init/data/validation seeds, per-epoch RNG reseed | `camera_ready/model.py`, `callbacks.py`, `train.py` | done; the resume test is OPEN (O1) |
-| Run configs | `configs/H-new`, `H-noF0` (T1); `H-noVITS2`, `H-noBigVGAN` (T2); `B-new`, `B-plusBigVGAN` (T3); `pilot-*` (200 G updates); `cpu-smoke-H` | written; budget values are placeholders (O4) |
+| D. G/D update and sample counters in checkpoints, G-update budget, MAS decay per G update, separate init/data/validation seeds, per-epoch RNG reseed | `camera_ready/model.py`, `callbacks.py`, `train.py` | done; resume check closed on 20/10 (O1) |
+| Run configs, 2 GPUs (reference) | `configs/camera-ready-2gpu/`: `H-new`, `H-noF0` (T1); `H-noVITS2`, `H-noBigVGAN` (T2); `B-new`, `B-plusBigVGAN` (T3); `pilot-*` (200 G updates). CPU test: `configs/camera-ready-tests/cpu-smoke-H.json` | written; budget values are placeholders (O4) |
+| Run configs, 1 GPU (used on MardeusPC) | `configs/PFN-Full/`, `PFN-NoF0/` (T1); `PFN-NoVITS2/`, `PFN-NoBigVGAN/` (T2); `PFN-Baseline/`, `PFN-Baseline-BigVGAN/` (T3); each holds `<name>.json` and `<name>-Pilot.json` | written; budget values are placeholders (O4) |
 | Data inventory and sync plan | `preflight.md`, `data-manifest.json`, `data-sync.md` | done |
 
 **Source changes against the historical candidate:**
 - `source-provenance-post.json`: 3 files changed, 7 files added;
-- `git diff 44992bb -- camera-ready-20261019/src`.
+- `git diff -M 44992bb HEAD -- camera-ready-20261019/src code/camera-ready-source/src` (the workspace moved on 19/10).
 
 ## OPEN items, in order
 
-**O1. Resume continuity test.**
+**O1. Resume continuity test. CLOSED on 20/10 (MardeusPC).**
+- **Diagnosis:** `tools/camera_ready/resume_diagnostic.py`, deterministic mode, one thread.
+  - A resumed run diverged from an uninterrupted one far beyond the noise floor: max |Δw| 7e-4 against 1.3e-5, and the epoch-1 validation metric 85.73 against 86.45.
+  - **Cause:** the training and validation DataLoaders drew their worker base seed from the global RNG each time an iterator was created. Lightning creates that iterator at different points relative to the per-epoch reseed in a continuing run and in a resumed run, so every random crop, MAS noise draw and dropout mask after a resume differed.
+- **Fix:** each DataLoader gets a private `torch.Generator` (`camera_ready/model.py`). The data loaded is unchanged: the collate is deterministic, and the sampler has its own seed.
+  - After the fix, the resumed run is bit-identical to a second uninterrupted run: weights, optimizer moments, schedulers and counters.
+  - The first run in a Python process can still differ by about 1e-5. The cause is not identified; real runs are one per process.
+- **Test** (`tests/camera_ready/test_train_cpu.py`): deterministic mode with one thread, as below. It measures the noise floor with a second uninterrupted run.
+- **Recorded:** the source change in `manifests/camera-ready/source-provenance-post-2026-10-20.json`.
+
+The original problem and plan, kept for reference:
 - **Problem:** CPU training is not bit-deterministic here. Two fresh 1-epoch runs differ by about 1e-8 in 455/994 tensors, so the current exact-equality assertion cannot pass.
 - **Fix:** run the test with `torch.use_deterministic_algorithms(True)` and one CPU thread, then compare exactly.
   - If some operation stays nondeterministic, compare "resumed vs uninterrupted" against "uninterrupted vs uninterrupted" (same tolerance).
@@ -38,16 +49,16 @@
 **O2. DDP validation equals one process.**
 - **Problem:** `ddp_spawn` cannot pickle the weight-norm tensors.
 - **Fix:**
-  - write a small script, `tests/ddp_validate_check.py`, that runs `Trainer.validate` with `strategy="ddp"` (subprocess launcher), CPU and gloo, on 3 validation utterances (shards 2 + 1);
+  - write a small script, `tests/camera_ready/ddp_validate_check.py`, that runs `Trainer.validate` with `strategy="ddp"` (subprocess launcher), CPU and gloo, on 3 validation utterances (shards 2 + 1);
   - call it from the test for `devices=1` and `devices=2`;
   - compare the per-utterance values and the global metric.
 
 **O0. Before any test on a machine:** build the MAS Cython extension in the workspace. It is git-ignored, so each machine builds its own:
 ```sh
-cd camera-ready-20261019/src/python/piper_train/vits/monotonic_align
+cd code/camera-ready-source/src/python/piper_train/vits/monotonic_align
 mkdir -p monotonic_align && cythonize -i core.pyx && mv core*.so monotonic_align/
 ```
-Then run `python -m unittest discover -s camera-ready-20261019/tests -v`, with the data paths of `data-sync.md`.
+Then run `python -m unittest discover -s tests/camera_ready -v`, with the data paths of `data-sync.md`.
 
 **O3. GPU smoke and pilot.**
 - **When:** only on a GPU verified free. On this PC that means after Piper-SeqIR and its automatic evaluation/timing session (SeqIR was at epoch 974/1,500 on 19/10 15:19, about 4.4 min/epoch, so the GPUs are free about 21/10 at the earliest), or on another training machine.
@@ -87,7 +98,7 @@ Then run `python -m unittest discover -s camera-ready-20261019/tests -v`, with t
   - `--execute` only after the author's review.
 - **`launch_eval.sh`:** dry-run by default.
 - **`eta.md`** and **`handoff_to_mac.md`:** done / pending / failed, launch commands, all source changes against history.
-- **`tools/verify_data.py`:** read-only data check, see `data-sync.md`.
+- **`tools/camera_ready/verify_data.py`:** read-only data check, see `data-sync.md`.
 
 **O7. Evaluation tooling** (prepare; do not run test-set evaluation during setup).
 - **Synthesis:**

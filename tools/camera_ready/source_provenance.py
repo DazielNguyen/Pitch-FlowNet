@@ -1,6 +1,6 @@
 """Hash the workspace source tree and compare it with the record of the historical candidate.
 
-    python camera-ready-20261019/tools/source_provenance.py --stage pre|post --output <json>
+    python tools/camera_ready/source_provenance.py --stage pre|post --output <json>
 
 Run from the repository root. Read-only except for the output file.
 """
@@ -11,7 +11,7 @@ import subprocess
 from pathlib import Path
 
 CANDIDATE = "code/historical-candidates/edgetts-badf381/src/python/"
-WORK = Path("camera-ready-20261019/src/python")
+WORK = Path("code/camera-ready-source/src/python")
 
 
 def sha(p: Path) -> str:

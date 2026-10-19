@@ -7,6 +7,9 @@ This repository is the evidence and source record for the PitchFlowNet conferenc
 - Treat everything under `runs/`, `datasets/`, `evaluation/`, `configs/`, `code/` and `history/` as copied originals.
   - Do not edit them.
   - Add derived files beside them and record them in `manifests/`.
+- Camera-ready work lives in its own subfolders, which may be edited: `code/camera-ready-source/`, `configs/PFN-*/`,
+  `configs/camera-ready-*/`, `manifests/camera-ready/`, `tests/camera_ready/`, `tools/camera_ready/`, `docs/camera-ready/`.
+  See `docs/camera-ready/README.md`.
 - Keep evidence classes apart: contemporaneous records, direct artifacts, historical source candidates,
   current source, reconstructions, author accounts.
   - A matching hash or file name does not prove what a process executed.

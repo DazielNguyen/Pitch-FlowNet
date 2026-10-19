@@ -131,19 +131,29 @@ class CameraReadyVitsModel(VitsModel):
     def _collate(self):
         return UtteranceCollate(is_multispeaker=self.hparams.num_speakers > 1, segment_size=self.hparams.segment_size)
 
+    @staticmethod
+    def _loader_generator(seed: int, rank: int) -> torch.Generator:
+        # Without its own generator a DataLoader draws its worker base seed from the global RNG each time an
+        # iterator is created. Lightning creates that iterator at different points relative to the per-epoch
+        # reseed in a continuing run and in a resumed one, so the global RNG (and with it every random crop,
+        # MAS noise and dropout of the epoch) diverged after a resume. A private generator keeps the global RNG
+        # a function of (train_seed, rank, epoch) only.
+        return torch.Generator().manual_seed((seed * 1_000_003 + rank * 10_007) % (2**63 - 1))
+
     def train_dataloader(self):
         world, rank = self._world_rank()
         sampler = DistributedSampler(self._train_dataset, num_replicas=world, rank=rank,
                                      shuffle=bool(self.hparams.train_shuffle), seed=int(self.hparams.data_seed), drop_last=False)
         return DataLoader(self._train_dataset, sampler=sampler, collate_fn=self._collate(),
                           num_workers=self.hparams.num_workers, batch_size=self.hparams.batch_size,
-                          pin_memory=True, persistent_workers=self.hparams.num_workers > 0)
+                          pin_memory=True, persistent_workers=self.hparams.num_workers > 0,
+                          generator=self._loader_generator(int(self.hparams.data_seed), rank))
 
     def val_dataloader(self):
         world, rank = self._world_rank()
         sampler = ShardedSequentialSampler(len(self._val_dataset), world, rank)
         return DataLoader(self._val_dataset, sampler=sampler, collate_fn=self._collate(), num_workers=0,
-                          batch_size=1, pin_memory=True)
+                          batch_size=1, pin_memory=True, generator=self._loader_generator(int(self.hparams.val_seed), rank))
 
     def test_dataloader(self):
         raise RuntimeError("the camera-ready protocol never evaluates the test split inside training")

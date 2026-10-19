@@ -1,0 +1,491 @@
+{
+ "stage": "post",
+ "repo_head": "ddd0699dbc970fbd80606fab99be5348df3ca425",
+ "candidate": "EdgeTTS commit badf381 (copied from code/historical-candidates/edgetts-badf381/src/python/)",
+ "excluded_from_copy": [
+  "piper_train/extract_test_sentences.py (contains machine paths; not used by training)",
+  "piper_train/vits/monotonic_align/core.c (Cython output; rebuilt from core.pyx)",
+  "piper_train/norm_audio/models/silero_vad.onnx (preprocessing only)",
+  "*.so, __pycache__"
+ ],
+ "files": 66,
+ "equal_to_record": 56,
+ "differ_from_record": [
+  "piper_train/vits/lightning.py",
+  "piper_train/vits/models.py",
+  "piper_train/vits/modules.py"
+ ],
+ "not_in_record": [
+  "piper_train/camera_ready/__init__.py",
+  "piper_train/camera_ready/callbacks.py",
+  "piper_train/camera_ready/ckpt_io.py",
+  "piper_train/camera_ready/distributed.py",
+  "piper_train/camera_ready/model.py",
+  "piper_train/camera_ready/split.py",
+  "piper_train/camera_ready/train.py"
+ ],
+ "rows": [
+  {
+   "path": ".dockerignore",
+   "sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b",
+   "record_sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b",
+   "record_origin": "git:EdgeTTS@badf381:src/python/.dockerignore",
+   "equals_record": true
+  },
+  {
+   "path": "Dockerfile",
+   "sha256": "241bc9ff75d81b883082ce98b3413b0a8827b5201f7a1e91e1883634fe95d1c6",
+   "record_sha256": "241bc9ff75d81b883082ce98b3413b0a8827b5201f7a1e91e1883634fe95d1c6",
+   "record_origin": "git:EdgeTTS@badf381:src/python/Dockerfile",
+   "equals_record": true
+  },
+  {
+   "path": "README.md",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_origin": "git:EdgeTTS@badf381:src/python/README.md",
+   "equals_record": true
+  },
+  {
+   "path": "build_monotonic_align.sh",
+   "sha256": "1d17e68923fc7ce69b785221c44f7a90d2f57ae1df02830c1f1f75d08255006a",
+   "record_sha256": "1d17e68923fc7ce69b785221c44f7a90d2f57ae1df02830c1f1f75d08255006a",
+   "record_origin": "git:EdgeTTS@badf381:src/python/build_monotonic_align.sh",
+   "equals_record": true
+  },
+  {
+   "path": "mypy.ini",
+   "sha256": "5b445129f2f038e59fc011dd604590076269de9fe8ee4c950910477a6f0a1cdc",
+   "record_sha256": "5b445129f2f038e59fc011dd604590076269de9fe8ee4c950910477a6f0a1cdc",
+   "record_origin": "git:EdgeTTS@badf381:src/python/mypy.ini",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/.gitignore",
+   "sha256": "da7abcf91ad801a200e41279a92172b32ee3bec30a66ff59621a71f64070359d",
+   "record_sha256": "da7abcf91ad801a200e41279a92172b32ee3bec30a66ff59621a71f64070359d",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/.gitignore",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/.isort.cfg",
+   "sha256": "d914cfdcb322cf174a7f675425de2778fda018b5ab652c9223b5c82d2842ed19",
+   "record_sha256": "d914cfdcb322cf174a7f675425de2778fda018b5ab652c9223b5c82d2842ed19",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/.isort.cfg",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/VERSION",
+   "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+   "record_sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/VERSION",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/__init__.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/__main__.py",
+   "sha256": "b67cea1bc5c66da8ad25f2acc20c1a403db72ee0cb22a023d43b26035d925214",
+   "record_sha256": "b67cea1bc5c66da8ad25f2acc20c1a403db72ee0cb22a023d43b26035d925214",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/__main__.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/_resources.py",
+   "sha256": "d96f98779f31ac2ac56ee2bc204b32c4b47aa00c69a26ed2127b290f83dd9c7f",
+   "record_sha256": "d96f98779f31ac2ac56ee2bc204b32c4b47aa00c69a26ed2127b290f83dd9c7f",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/_resources.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/camera_ready/__init__.py",
+   "sha256": "5eb212c4cdc11eca1abba9611425df4918a6a76c32d04f18b2d84f6bc1c8a5be",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/callbacks.py",
+   "sha256": "210c5219912b63895188d89be3c2cdd9a01ccb31986bee07824dbc8bb3461667",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/ckpt_io.py",
+   "sha256": "19c181f10363e71b2753bba118a2f33e7ad5a4e92d12e13f356aa8ecf1c8b3c8",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/distributed.py",
+   "sha256": "e9ef5210c3729b5c20f529c1b9e7ee387eb67acf17c41e6101611726b28653b7",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/model.py",
+   "sha256": "f44c605311c0533bacad68a5b09eb88e438e9bba105cecfe36fba3b65f314c4c",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/split.py",
+   "sha256": "555ceeeaa838aa06601bc052501ab587484da50aaeac9c7cd26f3f3290804d11",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/camera_ready/train.py",
+   "sha256": "896d489cdb7f726cd0145d2622ca52464641f31cb98cac1e40c661395c9f13fb",
+   "record_sha256": null,
+   "record_origin": null,
+   "equals_record": null
+  },
+  {
+   "path": "piper_train/check_phonemes.py",
+   "sha256": "3f1c826a85c62d986abca4262c62909eb67b557dd2e31a2ba456082ac936fd3a",
+   "record_sha256": "3f1c826a85c62d986abca4262c62909eb67b557dd2e31a2ba456082ac936fd3a",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/check_phonemes.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/clean_cached_audio.py",
+   "sha256": "9581f8f08378e08bd33a4b2c32da51d53695d0d8ffc4b1130566e9fd76ff5b83",
+   "record_sha256": "9581f8f08378e08bd33a4b2c32da51d53695d0d8ffc4b1130566e9fd76ff5b83",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/clean_cached_audio.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/compute_reference_metrics.py",
+   "sha256": "67dd342ab64c043278d227ba3527040d0a8b2bd237373b9f38733b6b23fcaeb3",
+   "record_sha256": "67dd342ab64c043278d227ba3527040d0a8b2bd237373b9f38733b6b23fcaeb3",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/compute_reference_metrics.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/eval_harness.py",
+   "sha256": "97f4348ec2a2801ad7a13c290bc32dc79a573b71eb7f4bd8d42993ff8729b683",
+   "record_sha256": "97f4348ec2a2801ad7a13c290bc32dc79a573b71eb7f4bd8d42993ff8729b683",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/eval_harness.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/export_generator.py",
+   "sha256": "904f62d9c69535c4560e39ed070d86240556d13f116806557480cf1a82d3c440",
+   "record_sha256": "904f62d9c69535c4560e39ed070d86240556d13f116806557480cf1a82d3c440",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/export_generator.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/export_onnx.py",
+   "sha256": "225811295f737552de626256892a763d726ef7bfb361fc351a11fc3b610f0989",
+   "record_sha256": "225811295f737552de626256892a763d726ef7bfb361fc351a11fc3b610f0989",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/export_onnx.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/export_onnx_streaming.py",
+   "sha256": "7c2b43f9905da6f7a3484cc586ac9167dc25b1b2381738e2c7d43dd320370aea",
+   "record_sha256": "7c2b43f9905da6f7a3484cc586ac9167dc25b1b2381738e2c7d43dd320370aea",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/export_onnx_streaming.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/export_torchscript.py",
+   "sha256": "3a33be890f8a99141aa91f20d20e5eaf40e11c6b9d9a488b4d3c1b40f04e6e6e",
+   "record_sha256": "3a33be890f8a99141aa91f20d20e5eaf40e11c6b9d9a488b4d3c1b40f04e6e6e",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/export_torchscript.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/filter_utterances.py",
+   "sha256": "4fb4083b256801106594eeb743cb4b7c130c62feebc7a08a78218a5814318094",
+   "record_sha256": "4fb4083b256801106594eeb743cb4b7c130c62feebc7a08a78218a5814318094",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/filter_utterances.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/infer.py",
+   "sha256": "c1344fe8586e50625066f9a19e38fa7ed70f3bff0ee41f7f9e8f93d12c3af77c",
+   "record_sha256": "c1344fe8586e50625066f9a19e38fa7ed70f3bff0ee41f7f9e8f93d12c3af77c",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/infer.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/infer_generator.py",
+   "sha256": "034936d62df6a38bd65f99b6817735fcf3def262a1e03c2c845edd9ef0723185",
+   "record_sha256": "034936d62df6a38bd65f99b6817735fcf3def262a1e03c2c845edd9ef0723185",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/infer_generator.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/infer_onnx.py",
+   "sha256": "53ae5bc6557cf7acc0bb20e46c45a3c7570e6edc5477e322631863821076fb7d",
+   "record_sha256": "53ae5bc6557cf7acc0bb20e46c45a3c7570e6edc5477e322631863821076fb7d",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/infer_onnx.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/infer_onnx_streaming.py",
+   "sha256": "819f742d9bb2b8a5f4a90e42e50807d25af731b583339fa35dace6bfb721fbe8",
+   "record_sha256": "819f742d9bb2b8a5f4a90e42e50807d25af731b583339fa35dace6bfb721fbe8",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/infer_onnx_streaming.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/infer_torchscript.py",
+   "sha256": "869334538e61c1c2fcbf769f689dd5b0d305fa45ccc0d72ef63d4d829aee3390",
+   "record_sha256": "869334538e61c1c2fcbf769f689dd5b0d305fa45ccc0d72ef63d4d829aee3390",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/infer_torchscript.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/norm_audio/__init__.py",
+   "sha256": "075c9c9532e266d54ed1fdd4951b3984e35bfb27943971e13957f560db50ec1f",
+   "record_sha256": "075c9c9532e266d54ed1fdd4951b3984e35bfb27943971e13957f560db50ec1f",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/norm_audio/__init__.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/norm_audio/trim.py",
+   "sha256": "fd9b04dd26216a14127447412de4b0c8524672f11bb7ee44fe59d6c134f8b5c6",
+   "record_sha256": "fd9b04dd26216a14127447412de4b0c8524672f11bb7ee44fe59d6c134f8b5c6",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/norm_audio/trim.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/norm_audio/vad.py",
+   "sha256": "0d71df443d2aa85279d858cfbeb2f92e537a91e256b9cf4d7fa4cd871a700bfe",
+   "record_sha256": "0d71df443d2aa85279d858cfbeb2f92e537a91e256b9cf4d7fa4cd871a700bfe",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/norm_audio/vad.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/preprocess.py",
+   "sha256": "acb25ecf3bdaccee29c5c5b2becf3887c0ee4c74f08b8112207f68b97b487ec8",
+   "record_sha256": "acb25ecf3bdaccee29c5c5b2becf3887c0ee4c74f08b8112207f68b97b487ec8",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/preprocess.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/py.typed",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/py.typed",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/pylintrc",
+   "sha256": "9bf78262b240c32f04eaf62f071950facb7777624454dc62694479fe58cd796c",
+   "record_sha256": "9bf78262b240c32f04eaf62f071950facb7777624454dc62694479fe58cd796c",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/pylintrc",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/say.py",
+   "sha256": "3299991dc9cd8eb04b4aa94e543ffb61a2a1180d4d2e228c159d1f8d9efe5f4b",
+   "record_sha256": "3299991dc9cd8eb04b4aa94e543ffb61a2a1180d4d2e228c159d1f8d9efe5f4b",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/say.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/select_speaker.py",
+   "sha256": "60c112496928d0639de574aa778349231d6fb3f6838977ab3944d895f8faa43d",
+   "record_sha256": "60c112496928d0639de574aa778349231d6fb3f6838977ab3944d895f8faa43d",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/select_speaker.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/setup.cfg",
+   "sha256": "4f92b0029e99afa3abdc2db8d13dbfc86777724c0467f4e51f2b4f335d37dba8",
+   "record_sha256": "4f92b0029e99afa3abdc2db8d13dbfc86777724c0467f4e51f2b4f335d37dba8",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/setup.cfg",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/__init__.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/attentions.py",
+   "sha256": "c9cfd5885f3347ccfaf03ce9866555567dbb7fdc4aff9c22f12e084cb5d540bd",
+   "record_sha256": "c9cfd5885f3347ccfaf03ce9866555567dbb7fdc4aff9c22f12e084cb5d540bd",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/attentions.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/commons.py",
+   "sha256": "26c0fc09d67765c618b9b621c3c4a8e61202073885942aca2ebbf594c0d10833",
+   "record_sha256": "26c0fc09d67765c618b9b621c3c4a8e61202073885942aca2ebbf594c0d10833",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/commons.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/config.py",
+   "sha256": "a12b94221c3d026ec14392700e0b423be3f5cd1c8dee73e047e5355ee9dc265b",
+   "record_sha256": "a12b94221c3d026ec14392700e0b423be3f5cd1c8dee73e047e5355ee9dc265b",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/config.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/dataset.py",
+   "sha256": "5e755a8bbf59114cc72e8030554af8152abb83c22256054a4164d7027e17affc",
+   "record_sha256": "5e755a8bbf59114cc72e8030554af8152abb83c22256054a4164d7027e17affc",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/dataset.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/lightning.py",
+   "sha256": "c3acc42e8f79ee1c115dd817d543e14a4d4715d92ed6447aef168620a5594eb9",
+   "record_sha256": "fd56cc8c5c3296294125e9aef780d64caf8865cb5132965d6fb7f19f30016225",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/lightning.py",
+   "equals_record": false
+  },
+  {
+   "path": "piper_train/vits/losses.py",
+   "sha256": "8feb8836105c63155716f16eb627b04294eec3ea85f89e8cea174955e38aa8d1",
+   "record_sha256": "8feb8836105c63155716f16eb627b04294eec3ea85f89e8cea174955e38aa8d1",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/losses.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/mel_processing.py",
+   "sha256": "86e2236d081ec1298cdfd85dcd166f654088edf4cd48c98b700bf77fccd86fc9",
+   "record_sha256": "86e2236d081ec1298cdfd85dcd166f654088edf4cd48c98b700bf77fccd86fc9",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/mel_processing.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/models.py",
+   "sha256": "d05c0d23a608fc4d42dcc686f71955abfe3444a937c01be2f2113f607b4164c9",
+   "record_sha256": "106bad457f7ffa74cfa6d1f1d4f14c5a7ea4e8c53ecfc1cb02397dea6dd34255",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/models.py",
+   "equals_record": false
+  },
+  {
+   "path": "piper_train/vits/modules.py",
+   "sha256": "053c3f6ec3c47499979bdefa06d907ac5ee98d319650cb08e55d6914bbc64a5a",
+   "record_sha256": "e751b13545f982f2edf103df675230c327a9451e3dd42aaf0843ae9d9c8e43f6",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/modules.py",
+   "equals_record": false
+  },
+  {
+   "path": "piper_train/vits/monotonic_align/Makefile",
+   "sha256": "f498d98c4d777d9037c9a09e28df59284af42b419e5e6c428662b83ffc5c082f",
+   "record_sha256": "f498d98c4d777d9037c9a09e28df59284af42b419e5e6c428662b83ffc5c082f",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/monotonic_align/Makefile",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/monotonic_align/__init__.py",
+   "sha256": "e48740383d59ed496831be9dffd35116c5e83488c443787d9af39287f02d3b79",
+   "record_sha256": "e48740383d59ed496831be9dffd35116c5e83488c443787d9af39287f02d3b79",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/monotonic_align/__init__.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/monotonic_align/core.pyx",
+   "sha256": "8640b303683823a4a1259179547ef476999b1cbb2e46ff656b970763cfbc1157",
+   "record_sha256": "8640b303683823a4a1259179547ef476999b1cbb2e46ff656b970763cfbc1157",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/monotonic_align/core.pyx",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/monotonic_align/setup.py",
+   "sha256": "d0ae62249da6288925c7a9dc11f0904b7e2c926e611cf8b3f6f465404bdebef6",
+   "record_sha256": "d0ae62249da6288925c7a9dc11f0904b7e2c926e611cf8b3f6f465404bdebef6",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/monotonic_align/setup.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/transforms.py",
+   "sha256": "2038349b8eb60efef6d43acb3be31f5a1251077c0055bd71d7f55e7e6715b5b6",
+   "record_sha256": "2038349b8eb60efef6d43acb3be31f5a1251077c0055bd71d7f55e7e6715b5b6",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/transforms.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/utils.py",
+   "sha256": "7b18b2aed3c76e79c6bdc1d649b687f7e811eacac7e593c794a8aa57620752b4",
+   "record_sha256": "7b18b2aed3c76e79c6bdc1d649b687f7e811eacac7e593c794a8aa57620752b4",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/utils.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/vits/wavfile.py",
+   "sha256": "a106624c8addc34a0b4db715c0a7c65f27b55ad2ad7baa8aff9daa57088cbdf7",
+   "record_sha256": "a106624c8addc34a0b4db715c0a7c65f27b55ad2ad7baa8aff9daa57088cbdf7",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/vits/wavfile.py",
+   "equals_record": true
+  },
+  {
+   "path": "piper_train/voice_conversion.py",
+   "sha256": "13403f4ceac84273c164abae1e29a8d5380ab13fc51f2154181e75db54bede3c",
+   "record_sha256": "13403f4ceac84273c164abae1e29a8d5380ab13fc51f2154181e75db54bede3c",
+   "record_origin": "git:EdgeTTS@badf381:src/python/piper_train/voice_conversion.py",
+   "equals_record": true
+  },
+  {
+   "path": "requirements-eval.txt",
+   "sha256": "184a348f3e5c1ba2820aae1a13d1435e9c94dee36ec84c9af07fce2e56e0af05",
+   "record_sha256": "184a348f3e5c1ba2820aae1a13d1435e9c94dee36ec84c9af07fce2e56e0af05",
+   "record_origin": "git:EdgeTTS@badf381:src/python/requirements-eval.txt",
+   "equals_record": true
+  },
+  {
+   "path": "requirements.txt",
+   "sha256": "c38cf326e37aec375fc91f11a5ab476c94ce6c6a18f1acf038f6974403d4e319",
+   "record_sha256": "c38cf326e37aec375fc91f11a5ab476c94ce6c6a18f1acf038f6974403d4e319",
+   "record_origin": "git:EdgeTTS@badf381:src/python/requirements.txt",
+   "equals_record": true
+  },
+  {
+   "path": "requirements_dev.txt",
+   "sha256": "d7f913167ed7c8707bb901b529fbe9bd193ae9f0256936c0745f2f855db53925",
+   "record_sha256": "d7f913167ed7c8707bb901b529fbe9bd193ae9f0256936c0745f2f855db53925",
+   "record_origin": "git:EdgeTTS@badf381:src/python/requirements_dev.txt",
+   "equals_record": true
+  },
+  {
+   "path": "run-docker",
+   "sha256": "4b7e820eb5e2fd33397b0496d609dd4fa3c72b13d7b35c986a944d4c2a02f259",
+   "record_sha256": "4b7e820eb5e2fd33397b0496d609dd4fa3c72b13d7b35c986a944d4c2a02f259",
+   "record_origin": "git:EdgeTTS@badf381:src/python/run-docker",
+   "equals_record": true
+  },
+  {
+   "path": "scripts/check.sh",
+   "sha256": "c626904910289662ad5a63fed1ae5d66731258942b00a104bac3d4997ab88381",
+   "record_sha256": "c626904910289662ad5a63fed1ae5d66731258942b00a104bac3d4997ab88381",
+   "record_origin": "git:EdgeTTS@badf381:src/python/scripts/check.sh",
+   "equals_record": true
+  },
+  {
+   "path": "scripts/setup.sh",
+   "sha256": "783e966abdc1ee6e237f78171871e656dd8a1e289d8cbf3bc807fdd619c92009",
+   "record_sha256": "783e966abdc1ee6e237f78171871e656dd8a1e289d8cbf3bc807fdd619c92009",
+   "record_origin": "git:EdgeTTS@badf381:src/python/scripts/setup.sh",
+   "equals_record": true
+  },
+  {
+   "path": "setup.py",
+   "sha256": "30ad59ecb88b0625cd478d259ef98bd5bc4299c318e4cde7b3fa8859c93fd78c",
+   "record_sha256": "30ad59ecb88b0625cd478d259ef98bd5bc4299c318e4cde7b3fa8859c93fd78c",
+   "record_origin": "git:EdgeTTS@badf381:src/python/setup.py",
+   "equals_record": true
+  }
+ ]
+}

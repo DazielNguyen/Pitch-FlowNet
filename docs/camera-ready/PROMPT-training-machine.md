@@ -14,18 +14,20 @@ Bạn hỗ trợ phần thí nghiệm camera-ready của bài SOICT 2026, paper 
 
 1. **Lấy repo:** clone repo Pitch-FlowNet, nhánh `camera-ready-20261019`.
    - HEAD tối thiểu là `d528a90`. Nếu HEAD trên máy này khác, báo lại; không reset.
-   - Repo này là kho evidence. Các thư mục `code/`, `configs/`, `runs/`, `datasets/`, `evaluation/`, `history/` ở gốc repo phải giữ nguyên.
-   - Mọi việc mới chỉ làm trong `camera-ready-20261019/`.
+   - Repo này là kho evidence. Các file gốc trong `code/`, `configs/`, `runs/`, `datasets/`, `evaluation/`, `history/` phải giữ nguyên.
+   - Mọi việc mới chỉ làm trong các thư mục camera-ready (bảng đầy đủ ở `docs/camera-ready/README.md`):
+     `code/camera-ready-source/`, `configs/PFN-*/`, `configs/camera-ready-*/`, `manifests/camera-ready/`,
+     `tests/camera_ready/`, `tools/camera_ready/`, `docs/camera-ready/`.
    - **Kích hoạt ngay quy định commit:** `git config core.hooksPath tools/hooks`, rồi kiểm bằng `git config --get core.hooksPath`.
      Hook `tools/hooks/commit-msg` chặn mọi dòng attribution của AI và message sai định dạng.
 2. **Đọc theo thứ tự:**
    1. `AGENTS.md`;
-   2. `camera-ready-20261019/PRIORITY.md`: thứ tự công việc và trạng thái. Cập nhật file này mỗi khi một hàng đổi trạng thái, kèm commit làm bằng chứng;
-   3. `camera-ready-20261019/PLAN.md`;
-   4. `camera-ready-20261019/preflight.md`;
-   5. `camera-ready-20261019/data-sync.md`;
-   6. `camera-ready-20261019/data-manifest.json`;
-   7. các file trong `camera-ready-20261019/configs/`.
+   2. `docs/camera-ready/PRIORITY.md`: thứ tự công việc và trạng thái. Cập nhật file này mỗi khi một hàng đổi trạng thái, kèm commit làm bằng chứng;
+   3. `docs/camera-ready/PLAN.md`;
+   4. `docs/camera-ready/preflight.md`;
+   5. `docs/camera-ready/data-sync.md`;
+   6. `manifests/camera-ready/data-manifest.json`;
+   7. các file trong `configs/PFN-*/`.
 3. **Ghi nhớ trạng thái hiện có:**
    - Source của workspace là bản chép của ứng viên lịch sử `badf381`, kèm các sửa đổi đã ghi trong `source-provenance-post.json`.
    - Đây không phải source đã chạy trong lịch sử, và không được gọi là source đó.
@@ -78,7 +80,7 @@ Bạn hỗ trợ phần thí nghiệm camera-ready của bài SOICT 2026, paper 
 
 ## 2. Preflight trên máy này
 
-Ghi vào `camera-ready-20261019/preflight-<tên máy>.md`:
+Ghi vào `docs/camera-ready/preflight-<tên máy>.md`:
 - **Hệ thống:** OS và WSL nếu có; GPU (model, VRAM, UUID, tiến trình đang chạy); CPU, RAM, dung lượng trống.
   - Nếu dùng WSL, ghi rõ ổ chứa file `.vhdx` và dung lượng trống thật của ổ đó.
 - **Môi trường:** phiên bản Python, torch, CUDA, cuDNN, Lightning, numpy trong env mới.
@@ -97,13 +99,13 @@ Nếu thiếu dữ liệu hoặc hash lệch, báo BLOCKED_MISSING_INPUT kèm da
   - chạy ở chế độ `torch.use_deterministic_algorithms(True)` với 1 thread CPU, rồi so sánh bằng nhau tuyệt đối;
   - nếu một op vẫn không tất định, so "resume vs không ngắt" với ngưỡng nhiễu "không ngắt vs không ngắt";
   - kiểm thêm optimizer, scheduler, bộ đếm, trạng thái best của ledger và seed RNG từng epoch.
-- **O2, DDP so với 1 tiến trình:** viết `tests/ddp_validate_check.py` dùng `strategy="ddp"` (subprocess, gloo trên CPU), 3 câu validation (chia 2 + 1); so sánh giá trị từng câu và metric toàn cục.
-- **Chạy toàn bộ test:** `python -m unittest discover -s camera-ready-20261019/tests -v`, rồi lưu log. Mọi test phải pass. Nếu không, báo nguyên nhân.
+- **O2, DDP so với 1 tiến trình:** viết `tests/camera_ready/ddp_validate_check.py` dùng `strategy="ddp"` (subprocess, gloo trên CPU), 3 câu validation (chia 2 + 1); so sánh giá trị từng câu và metric toàn cục.
+- **Chạy toàn bộ test:** `python -m unittest discover -s tests/camera_ready -v`, rồi lưu log. Mọi test phải pass. Nếu không, báo nguyên nhân.
 
 ## 4. Smoke và pilot trên GPU (PLAN O3)
 
 Chỉ làm khi GPU trống và tác giả đã đồng ý.
-1. **Kiểm input:** chạy `--dry-run` cho `pilot-H-new.json` và `pilot-H-noF0.json`.
+1. **Kiểm input:** chạy `--dry-run` cho `configs/PFN-Full/PFN-Full-Pilot.json` và `configs/PFN-NoF0/PFN-NoF0-Pilot.json`.
 2. **Chạy từng pilot:**
    - với `--limit-train-batches 100` (2 epoch × 100 batch = 200 update G);
    - ngắt sau epoch 1 bằng `--stop-after-epochs 1`, rồi `--resume`;
@@ -116,24 +118,24 @@ Chỉ làm khi GPU trống và tác giả đã đồng ý.
    - các file `run_manifest.json`, `checkpoint_ledger.jsonl` và `val_diagnostics.jsonl` (có số liệu từng rank).
 4. **Giới hạn của pilot:** checkpoint pilot không phải kết quả và không dùng để warm-start.
 
-**Lệnh mẫu.** Chạy từ thư mục `camera-ready-20261019/src/python` sau khi đã kích hoạt env riêng. Các giá trị `<...>` do bạn điền và phải được xác nhận:
+**Lệnh mẫu.** Chạy từ thư mục `code/camera-ready-source/src/python` sau khi đã kích hoạt env riêng. Các giá trị `<...>` do bạn điền và phải được xác nhận:
 
 ```sh
 export CUDA_VISIBLE_DEVICES=<GPU đã xác minh trống>
 python -m piper_train.camera_ready.train \
-  --config ../../configs/pilot-H-new.json \
+  --config ../../../../configs/PFN-Full/PFN-Full-Pilot.json \
   --dataset-dir <thư mục data_preprocessed> \
-  --split-manifest ../../split-manifest.json \
-  --run-dir <thư mục outputs ngoài repo>/pilot-H-new \
+  --split-manifest ../../../../manifests/camera-ready/split-manifest.json \
+  --run-dir <thư mục outputs ngoài repo>/PFN-Full-Pilot \
   --limit-train-batches 100 --dry-run
 ```
 
 ## 5. Ngân sách, ETA và các quyết định (PLAN O4, O5)
 
-Viết `camera-ready-20261019/eta.md` dựa trên số đo pilot thật, không dựa vào log cũ.
+Viết `docs/camera-ready/eta.md` dựa trên số đo pilot thật, không dựa vào log cũ.
 - **Lịch:** lập lịch cho cặp T1 (H-new và H-noF0) cùng ngân sách theo update G, cộng 25–30% dự phòng và thời gian evaluation, để xong trước tối 27/10.
 - **So sánh phương án GPU:** DDP 2 GPU chạy nối tiếp, so với mỗi run 1 GPU. Không giả định cách thứ hai nhanh hơn; nếu đổi batch hiệu dụng thì phải ghi rõ.
-- **Ngân sách rút gọn:** nếu phải rút, gắn nhãn "budget-matched pilot" và tạo config mới (`H-new-<budget>.json`, `H-noF0-<budget>.json`). Không sửa config cũ.
+- **Ngân sách rút gọn:** nếu phải rút, gắn nhãn "budget-matched pilot" và tạo config mới (`configs/PFN-Full/PFN-Full-<budget>.json`, `configs/PFN-NoF0/PFN-NoF0-<budget>.json`). Không sửa config cũ.
 - **Nếu không kịp:** báo NO_FEASIBLE_TRAINING_PAIR và đề xuất chỉ đánh giá checkpoint có sẵn.
 
 Dừng lại và hỏi tác giả, rồi ghi câu trả lời vào `experiment-plan.md` trước khi launch:
@@ -145,7 +147,7 @@ Dừng lại và hỏi tác giả, rồi ghi câu trả lời vào `experiment-p
 
 ## 6. Launch training T1 (chỉ sau khi tác giả xác nhận lệnh)
 
-- **Script launch:** viết `camera-ready-20261019/launch_train.sh`.
+- **Script launch:** viết `tools/camera_ready/launch_train.sh`.
   - Mặc định chạy dry-run.
   - Chặn khi: thư mục run đã tồn tại (trừ `--resume`), thiếu input, GPU bận, có tiến trình training khác, hoặc config còn placeholder.
   - Chỉ chạy thật khi có `--execute`.
@@ -171,7 +173,7 @@ Viết `launch_eval.sh`, mặc định dry-run.
 
 ## 8. Bàn giao
 
-Cập nhật `camera-ready-20261019/handoff_to_mac.md`:
+Cập nhật `docs/camera-ready/handoff_to_mac.md`:
 - việc đã xong, đang dở, thất bại;
 - lệnh đã chạy;
 - hash checkpoint, run manifest và ledger;
