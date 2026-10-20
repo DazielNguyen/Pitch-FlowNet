@@ -4,7 +4,7 @@
 
 **Two parts.**
 - **The paper's main result stays the historical pair:** Baseline epoch 773 and Full epoch 1079. It is evaluated as it is; nothing is retrained to replace it.
-- **New: a leave-one-group-out ablation.** It answers the shared main criticism of the three reviews: "only baseline and full are evaluated; it is impossible to determine which component is responsible".
+- **New: an ablation over the three groups.** Leave-one-out first, then add-one, up to all 2^3 = 8 combinations (extended on 21/10). It answers the shared main criticism of the three reviews: "only baseline and full are evaluated; it is impossible to determine which component is responsible".
 
 ## Decisions (O5 / T08)
 
@@ -25,45 +25,64 @@
 - A difference to it would mostly measure training budget, not the removed group.
 - So the ablation has its own reference, `PFN-Full-275ep`, trained like the ablated runs.
 
-## Run matrix
+## Run matrix: all 2^3 = 8 combinations (extended on 21/10)
 
-All runs use the same recipe, except the one group that is turned off:
+All runs use the same recipe:
 - train seed 1234, data seed 1234, validation seed 2026;
 - strict group gating, batch 16, one GPU, bf16-mixed;
 - 275 epochs.
 
-| Run ID | Config | BigVGAN (B) | VITS2 (V) | F0 (F) | Role |
-|---|---|:-:|:-:|:-:|---|
-| `PFN-Full-275ep-s1234` | `configs/PFN-Full/PFN-Full-275ep.json` | on | on | on | reference |
-| `PFN-NoF0-275ep-s1234` | `configs/PFN-NoF0/PFN-NoF0-275ep.json` | on | on | **off** | F0 group |
-| `PFN-NoBigVGAN-275ep-s1234` | `configs/PFN-NoBigVGAN/PFN-NoBigVGAN-275ep.json` | **off** | on | on | BigVGAN group |
-| `PFN-NoVITS2-275ep-s1234` | `configs/PFN-NoVITS2/PFN-NoVITS2-275ep.json` | on | **off** | on | VITS2 group |
+The eight configs differ only in the group flags (`use_bigvgan`, `use_vits2`, `use_f0`), the run ID and the notes. This was checked by a script; every config passes `train.py --dry-run`. `tests/camera_ready/test_gating.py` builds all eight combinations.
 
-**Optional, if GPU time is left:** `PFN-Baseline-BigVGAN`, "Piper with only a BigVGAN-style decoder", which Review 1 asks for. It gets the same budget and a new 275-epoch config.
+| Priority | Run ID | Config | B | V | F | Question it answers |
+|---:|---|---|:-:|:-:|:-:|---|
+| 1 | `PFN-Full-275ep-s1234` | `configs/PFN-Full/PFN-Full-275ep.json` | on | on | on | reference |
+| 2 | `PFN-NoF0-275ep-s1234` | `configs/PFN-NoF0/PFN-NoF0-275ep.json` | on | on | off | leave-one-out: F0 |
+| 2 | `PFN-NoBigVGAN-275ep-s1234` | `configs/PFN-NoBigVGAN/PFN-NoBigVGAN-275ep.json` | off | on | on | leave-one-out: BigVGAN |
+| 2 | `PFN-NoVITS2-275ep-s1234` | `configs/PFN-NoVITS2/PFN-NoVITS2-275ep.json` | on | off | on | leave-one-out: VITS2 |
+| 3 | `PFN-Baseline-BigVGAN-275ep-s1234` | `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-275ep.json` | on | off | off | add-one: BigVGAN only (Review 1, "Piper with only a BigVGAN-style decoder") |
+| 3 | `PFN-Baseline-275ep-s1234` | `configs/PFN-Baseline/PFN-Baseline-275ep.json` | off | off | off | add-one reference; new strict baseline, **not** the historical epoch-773 baseline |
+| 4 | `PFN-Baseline-VITS2-275ep-s1234` | `configs/PFN-Baseline-VITS2/PFN-Baseline-VITS2-275ep.json` | off | on | off | add-one: VITS2 only (Review 1, "VITS2 itself") |
+| 5 | `PFN-Baseline-F0-275ep-s1234` | `configs/PFN-Baseline-F0/PFN-Baseline-F0-275ep.json` | off | off | on | add-one: F0 only |
+
+**What each set answers:**
+- **Leave-one-out (priority 1–2):** Full against each one-group-off run. How much each group contributes when the other two are present.
+- **Add-one (priority 3–5):** Baseline against each one-group-on run. How much each group gives on its own.
+- **Interactions:** with all eight, the main effects and interactions of the factorial design can be estimated. One seed per cell makes interaction estimates noisy, and the paper says so.
 
 ## Devices and schedule
 
-Estimates use the measured 13.2 min per epoch on the RTX 5070 (`eta.md`). The RTX 4070 Ti speed is measured in the first epoch of its runs.
+**Speed so far:**
+- The RTX 5070 runs about 9.5 min per epoch (`PFN-Full-275ep`, 20–21/10), against 13.2 min in the pilot (`eta.md`). So a run takes about 44 h, plus interruptions.
+- The RTX 4070 Ti speed is measured in the first epoch of its runs.
 
-| GPU | Runs, in order | Estimated span |
+| GPU | Runs, in order | Estimated end |
 |---|---|---|
-| MardeusPC, RTX 5070 | `PFN-Full-275ep`, then `PFN-NoF0-275ep` | 20/10 ≈ 02:45 → 22/10 ≈ 15:15; then → 25/10 ≈ 03:45 |
-| PC (author's other machine), RTX 4070 Ti #0 | `PFN-NoBigVGAN-275ep` | from ≈ 20/10 14:30, after the other project frees the GPUs; ≈ 60 h |
-| PC, RTX 4070 Ti #1 | `PFN-NoVITS2-275ep` | same |
+| MardeusPC, RTX 5070 | `PFN-Full` → `PFN-NoF0` → `PFN-Baseline-VITS2` | ≈ 21/10 night → ≈ 23/10 evening → ≈ 25/10 afternoon |
+| PC, RTX 4070 Ti #0 | `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN` | ≈ 23/10 → ≈ 25/10, if it starts ≈ 21/10 midday |
+| PC, RTX 4070 Ti #1 | `PFN-NoVITS2` → `PFN-Baseline` | same |
+| first GPU free | `PFN-Baseline-F0` | only if it can end before ≈ 26/10 evening |
 
-**Why Full and NoF0 share a GPU:** they form the central comparison (F0, the paper's focus), so they run on the same GPU type. The other two ablations run on RTX 4070 Ti GPUs. Same configs, batch and update count; the GPU type differs, and the paper says so.
+**Capacity.**
+- Three GPUs fit about seven 44-h runs before the evaluation window (26–27/10).
+- `PFN-Baseline-F0` is last and may not fit. If it does not, the paper reports seven of the eight cells and says which one is missing.
+- Never shorten a run to fit; every run keeps 275 epochs.
+
+**GPU types.**
+- `Full` and `NoF0`, the central F0 contrast, share the RTX 5070.
+- The two add-one pairs on the PC (`Baseline` and `Baseline-BigVGAN`) share the RTX 4070 Ti type.
+- Every other contrast crosses GPU types. Configs, batch and update count are the same; the paper states the GPU type of each run.
 
 **Constraints:**
 - Each run uses one GPU and runs in its own tmux session. One run per GPU.
 - On the PC, a dedicated environment is used. Nothing of the other project is touched, and nothing starts before its GPUs are free.
-
-**If the PC cannot start by 22/10 evening:** drop `PFN-NoVITS2` rather than lower the budget. Every run keeps the same 275 epochs.
+- Every launch needs the author's OK of the exact command. The watchdog only resumes after the known CUDA error and never starts a new run (`runbook-MardeusPC.md`).
 
 ## Estimand and limits
 
-**Estimand.** The effect on the evaluation metrics of turning off one group (B, V or F) of the full configuration, at a fixed 275-epoch budget, with one seed.
+**Estimand.** The effect on the evaluation metrics of each group (B, V, F), at a fixed 275-epoch budget with one seed. It is measured two ways: by turning the group off in the full configuration (leave-one-out), and by turning it on in the baseline (add-one).
 - **Not estimated:** the effect at the historical 1,100-epoch budget.
-- **Interactions:** only the Full-vs-one-group-off contrasts are measured, not every combination.
+- **Interactions:** estimable only if all eight cells finish, and with one seed per cell they are imprecise.
 
 **Limits to state in the paper:**
 - **Training:** one seed per run; a shortened budget, 1/4 of the historical epochs.

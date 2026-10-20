@@ -132,6 +132,8 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 
 One line per change of plan or blocker, newest first.
 
+- 21/10: Author extended the ablation to all 2^3 = 8 combinations. New 275-epoch configs: `PFN-Baseline`, `PFN-Baseline-BigVGAN`, and the new folders `PFN-Baseline-VITS2`, `PFN-Baseline-F0`. Priority: the four leave-one-out runs, then `Baseline-BigVGAN` and `Baseline`, then `Baseline-VITS2`, then `Baseline-F0`, the last one only if it fits before 26/10 evening (`experiment-plan.md`).
+
 - 20/10: On the author's request the AI co-author line was removed from all MardeusVN commit messages (history rewritten; trees, authors and dates unchanged). Old → new hashes: `manifests/camera-ready/commit-map-2026-10-20.json`; the runs started before it cite the old hashes. New commits carry no AI attribution (AGENTS.md).
 
 - 20/10: Author decisions after the reviews (all three name the missing ablation): leave-one-group-out with a new 275-epoch reference (1/4 of the historical epochs); historical Full is not the ablation reference. Pilot measured 13.2 min per epoch on the RTX 5070. The PC joins from about 20/10 13:00.

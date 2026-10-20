@@ -26,7 +26,9 @@ The original evidence files beside them are unchanged.
 | `PFN-NoVITS2` | on / off / on | T2 |
 | `PFN-NoBigVGAN` | off / on / on | T2 |
 | `PFN-Baseline` | off / off / off | T3; strict gating, **not** the historical baseline (epoch 773) |
-| `PFN-Baseline-BigVGAN` | on / off / off | T3 |
+| `PFN-Baseline-BigVGAN` | on / off / off | add-one: BigVGAN only |
+| `PFN-Baseline-VITS2` | off / on / off | add-one: VITS2 only |
+| `PFN-Baseline-F0` | off / off / on | add-one: F0 only |
 
 The run ID, and so the run directory, is the config's `run_id` (for example `PFN-Full-s1234`).
 
