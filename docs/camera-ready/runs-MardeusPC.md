@@ -41,3 +41,22 @@
 **Fallback if the error comes back:**
 - raise the Windows TDR delay (registry `TdrDelay`; needs administrator rights and a reboot);
 - or move the display to another output.
+
+### Interruption 2: 2026-10-21 01:09:14 +07
+
+**What happened.**
+- Same failure as interruption 1: `CUDA error: unknown error` in epoch 156, at batch 303 of 782; exit status 1.
+- The last complete checkpoint was epoch 155 (121,992 G updates). Lost: the partial epoch 156, and the idle time until the resume (≈ 2 h 10 min).
+- The display timeout was already "never", so a display wake is not the trigger this time.
+
+**Pattern.** Windows Error Reporting logged `LiveKernelEvent` 141 (GPU engine timeout, driver reset) eight times since training started:
+- 20/10 01:44 (twice), 03:56, 07:13, 11:39, 15:34, 19:41 and 23:04;
+- roughly every 3–4 h.
+
+Most resets left the run alive; two of them, or events like them, killed its CUDA context. The likely cause is the Windows TDR watchdog (2 s by default) on a GPU that drives the display and runs long compute work. Inferred, not proven.
+
+**Resumed** 2026-10-21 03:21:03 +07 from epoch 155, after a CUDA check and `check_ckpt.py`.
+
+**Proposed, not done:**
+- (1) Raise `TdrDelay`, which needs administrator rights and a reboot.
+- (2) A watchdog that resumes automatically after this specific error, within limits. It needs the author's standing OK.
