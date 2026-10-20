@@ -66,3 +66,40 @@ Most resets left the run alive; two of them, or events like them, killed its CUD
 - The author chose the watchdog (`tools/camera_ready/auto_resume.sh`, see `runbook-MardeusPC.md`) and no `TdrDelay` change, to avoid a reboot.
 - It runs in tmux `cr-watch-PFN-Full-275ep-s1234`, with at most 5 automatic resumes, each recorded in `checkpoint_ledger.jsonl`.
 - Tested beforehand on a simulated run with five cases: run alive, CUDA unknown error (resume, dry run), another error (stop), normal end (stop), limit reached (stop).
+
+### Budget change to 200 epochs: 2026-10-21 05:12–05:18 +07
+
+The author lowered the ablation budget to 200 epochs (`experiment-plan.md`). The run was at epoch 168 of 275 and continues in the same directory, ending at epoch 200.
+
+**Script:** `<WSL_DEV_HOME>/pfn-sync/switch_full_to_200.sh`, log `<WSL_DEV_HOME>/outputs/logs/switch-full-200ep.log`. Steps:
+1. Stopped the watchdog.
+2. Waited for the epoch-168 `last.ckpt`, saved 05:15:43 (132,158 G updates).
+3. Sent SIGINT to the training process at 05:15:54. It had not exited after 120 s, so SIGTERM followed at 05:17:54; the session ended at 05:18:14. Nothing of epoch 169 had been saved, so nothing was lost but its first seconds.
+4. Resumed at 05:18:32 with `resume_train.sh configs/PFN-Full/PFN-Full-275ep.json --stop-after-epochs 200 --execute`. `last.ckpt` passed `check_ckpt.py` (epoch 168).
+5. Restarted the watchdog with `--stop-after-epochs 200`.
+
+**Records.** `run_manifest.json` now lists four attempts. The first three have an empty status:
+- attempts 1 and 2 ended with the CUDA error, as described above;
+- attempt 3 was stopped by SIGTERM, which ends Python before the attempt record is written.
+
+This page is the record of all three.
+
+**Expected end:** epoch 200 (index 199), 156,400 G updates. The newest attempt then ends with exit 0, and the watchdog archives the checkpoints (below).
+
+## Final checkpoints of every run
+
+When a run ends with exit 0, `tools/camera_ready/finalize_run.sh` copies its checkpoints to `<WSL_DEV_HOME>/outputs/final/<run_id>/`:
+- `best-epoch=…ckpt`, the minimum `val_mel_l1_global`, which is the checkpoint used for evaluation;
+- `last-epoch=199.ckpt`, the last epoch;
+- `run_manifest.json`, `checkpoint_ledger.jsonl`, `val_diagnostics.jsonl`;
+- `SHA256SUMS` and `final.json`.
+
+**Safeguards:**
+- The copies are real copies, not hard links: Lightning rewrites `last.ckpt` in place.
+- Each copy is checked against its source by SHA-256.
+- Everything is made read-only.
+- The watchdog runs this step itself when the run ends with exit 0. Without the watchdog, run it by hand.
+
+| Run | Final folder | best | last | Status |
+|---|---|---|---|---|
+| `PFN-Full-275ep-s1234` (to epoch 200) | `outputs/final/PFN-Full-275ep-s1234/` | | | pending (training) |

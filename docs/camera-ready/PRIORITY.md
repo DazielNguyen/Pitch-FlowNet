@@ -25,12 +25,12 @@
 
 ## Models to train and the GPU queue
 
-**Decided on 20/10, extended on 21/10 (`experiment-plan.md`), replacing the queue below.**
-- **Design:** ablation over the three groups at 275 epochs per run, up to all 2^3 = 8 combinations: leave-one-out first, then add-one.
-- **RTX 5070:** `PFN-Full-275ep` → `PFN-NoF0-275ep` → `PFN-Baseline-VITS2-275ep`.
-- **PC, RTX 4070 Ti #0:** `PFN-NoBigVGAN-275ep` → `PFN-Baseline-BigVGAN-275ep`, once the GPUs are free.
-- **PC, RTX 4070 Ti #1:** `PFN-NoVITS2-275ep` → `PFN-Baseline-275ep`.
-- **First GPU free:** `PFN-Baseline-F0-275ep`, only if it ends before ≈ 26/10 evening; runs are never shortened.
+**Decided on 20/10, extended to eight runs and lowered to 200 epochs on 21/10 (`experiment-plan.md`), replacing the queue below.**
+- **Design:** all 2^3 = 8 combinations of the three groups at **200 epochs per run** (156,400 G updates; was 275 until 21/10).
+- **RTX 5070:** `PFN-Full` (the running `PFN-Full-275ep-s1234`, ended at epoch 200) → `PFN-NoF0-200ep` → `PFN-Baseline-VITS2-200ep` → `PFN-Baseline-F0-200ep`.
+- **PC, RTX 4070 Ti #0:** `PFN-NoBigVGAN-200ep` → `PFN-Baseline-BigVGAN-200ep`, once the GPUs are free.
+- **PC, RTX 4070 Ti #1:** `PFN-NoVITS2-200ep` → `PFN-Baseline-200ep`.
+- **All eight** should end by ≈ 25/10 11:00. Runs are never shortened below 200 epochs.
 - **Main result:** still the historical pair.
 
 Every run uses train seed 1234 unless marked. One budget in G updates for all runs, fixed at T08.
@@ -73,10 +73,10 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 | T04 | Fix the resume continuity test (PLAN O1). On one GPU, resume is the only protection against interruptions | assistant | T02, T03 | 20/10 | DONE: cause found and fixed (DataLoaders drew their base seed from the global RNG); the resumed run is bit-identical to an uninterrupted one; tests 24/25 (only O2 left) | PLAN O1, `resume_diagnostic.py`, `runbook-MardeusPC.md` |
 | T06 | GPU smoke and pilots, queue row 0: `PFN-Full-Pilot` then `PFN-NoF0-Pilot` (200 G updates, interrupt + resume, at most 30 min each, one after the other). Measure s/it, peak VRAM with the display attached, validation and checkpoint time | assistant, author OK | T04 | 21/10 | DONE: `PFN-Full-Pilot` with one interruption + resume (882 G updates); NoF0 pilot skipped by the author, its speed comes from its first epoch | `eta.md` |
 | T07 | `eta.md` from the pilot measurements: G updates per hour, a common budget for the queue, which rows 3–6 fit | assistant | T06 | 21/10 | DONE: 0.93 s per G update, 13.2 min per epoch, peak 9,989 MiB | `eta.md` |
-| T08 | Author decisions in `experiment-plan.md`: (a) `train_shuffle`; (b) MAS decay; (c) the common `max_g_updates` and how many queue rows to run (device plan is fixed: 1 GPU, batch 16); (d) replication seed 2345 or not; (e) checkpoint rule (min `val_mel_l1_global`, fixed before any test) | author | T07 | 21/10 | DONE: shuffle false, MAS 4e-6, 275 epochs (215,050 G updates), seed 1234 only, min `val_mel_l1_global` | `experiment-plan.md` |
+| T08 | Author decisions in `experiment-plan.md`: (a) `train_shuffle`; (b) MAS decay; (c) the common `max_g_updates` and how many queue rows to run (device plan is fixed: 1 GPU, batch 16); (d) replication seed 2345 or not; (e) checkpoint rule (min `val_mel_l1_global`, fixed before any test) | author | T07 | 21/10 | DONE: shuffle false, MAS 4e-6, 275 epochs (215,050 G updates), seed 1234 only, min `val_mel_l1_global`; (c) changed on 21/10 to 200 epochs (156,400 G updates) to fit eight runs | `experiment-plan.md` |
 | T09 | `tools/camera_ready/launch_train.sh`: dry-run by default; refuses a busy GPU, a second training process, an existing run directory (except `--resume`), missing inputs, a placeholder budget | assistant | T03 | 21/10 | DONE: dry run checked for both pilots and the placeholder refusal; `--execute` first used at T06 | `tools/camera_ready/launch_train.sh` |
-| T10 | Launch the 275-epoch ablation runs in the order of `experiment-plan.md`, each after the author's OK of the exact command. RTX 5070: `PFN-Full` → `PFN-NoF0` → `PFN-Baseline-VITS2`. PC GPU 0: `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN`. PC GPU 1: `PFN-NoVITS2` → `PFN-Baseline` (`PROMPT-daziel-ablation.md`). Then `PFN-Baseline-F0` if it fits before 26/10 evening. Clean tree at every launch | author OK | T08, T09 | 20–25/10 | IN PROGRESS: `PFN-Full-275ep-s1234` started 20/10 02:29 on the RTX 5070 (manifest: commit f1495c0, clean tree, 215,050 G updates); the other seven not yet launched | `run_manifest.json` of the run (outside Git) |
-| T11 | Monitor every run read-only (log, `val_diagnostics.jsonl`, `checkpoint_ledger.jsonl`, TensorBoard, `nvidia-smi`): NaN, rising validation, OOM, stalls. Resume an interrupted run with `resume_train.sh` (never a second copy, never a restart from scratch) and record each interruption. On the RTX 5070, start `PFN-NoF0-275ep` only after `PFN-Full-275ep` ends. At each end, check `best-*.ckpt` and `last.ckpt` and record SHA-256, epoch and best `val_mel_l1_global` | assistant | T10 | until done (≤ 27/10) | IN PROGRESS: `PFN-Full-275ep-s1234` interrupted twice by `CUDA error: unknown error` (20/10 20:30, 21/10 01:09), with repeated GPU timeouts (LiveKernelEvent 141); resumed each time (epochs 125, 155) | `runs-MardeusPC.md` |
+| T10 | Launch the 200-epoch ablation runs in the order of `experiment-plan.md`, each after the author's OK of the exact command. RTX 5070: `PFN-Full` (ended at epoch 200) → `PFN-NoF0` → `PFN-Baseline-VITS2` → `PFN-Baseline-F0`. PC GPU 0: `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN`. PC GPU 1: `PFN-NoVITS2` → `PFN-Baseline` (`PROMPT-daziel-ablation.md`). Configs `configs/PFN-*/PFN-*-200ep.json`. Clean tree at every launch | author OK | T08, T09 | 20–25/10 | IN PROGRESS: `PFN-Full-275ep-s1234` started 20/10 02:29 on the RTX 5070 (manifest: commit f1495c0, clean tree, 215,050 G updates); the other seven not yet launched | `run_manifest.json` of the run (outside Git) |
+| T11 | Monitor every run read-only (log, `val_diagnostics.jsonl`, `checkpoint_ledger.jsonl`, TensorBoard, `nvidia-smi`): NaN, rising validation, OOM, stalls. Resume an interrupted run with `resume_train.sh` (never a second copy, never a restart from scratch) and record each interruption. On the RTX 5070, start `PFN-NoF0-275ep` only after `PFN-Full-275ep` ends. At each end, `finalize_run.sh` keeps read-only copies of `best-*.ckpt` and the last checkpoint (epoch 200) with SHA-256 in `outputs/final/<run_id>/` (the watchdog does it on exit 0); record epoch and best `val_mel_l1_global` | assistant | T10 | until done (≤ 27/10) | IN PROGRESS: `PFN-Full-275ep-s1234` interrupted twice by `CUDA error: unknown error` (20/10 20:30, 21/10 01:09), with repeated GPU timeouts (LiveKernelEvent 141); resumed each time (epochs 125, 155) | `runs-MardeusPC.md` |
 
 ## P1: needed for the camera-ready content
 
@@ -133,6 +133,8 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 ## Log
 
 One line per change of plan or blocker, newest first.
+
+- 21/10: Author lowered the budget from 275 to 200 epochs per run (156,400 G updates; 18.2 % of the historical epochs) so that all eight combinations fit. New configs `configs/PFN-*/PFN-*-200ep.json`. The running `PFN-Full-275ep-s1234` was at epoch 168. It was interrupted right after the epoch-168 checkpoint and resumed with `--stop-after-epochs 200`. This is equivalent to a 200-epoch run: the budget only decides the stop; the LR steps per epoch and the MAS noise per G update (`experiment-plan.md`, `runs-MardeusPC.md`).
 
 - 21/10: Author extended the ablation to all 2^3 = 8 combinations. New 275-epoch configs: `PFN-Baseline`, `PFN-Baseline-BigVGAN`, and the new folders `PFN-Baseline-VITS2`, `PFN-Baseline-F0`. Priority: the four leave-one-out runs, then `Baseline-BigVGAN` and `Baseline`, then `Baseline-VITS2`, then `Baseline-F0`, the last one only if it fits before 26/10 evening (`experiment-plan.md`).
 

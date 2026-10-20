@@ -82,7 +82,7 @@ On this machine the GPU also drives the display. Windows resets it every few hou
 **Standing permission.** On 2026-10-21 the author gave a standing OK to resume automatically after this one error, without rebooting or changing the registry.
 
 ```sh
-bash tools/camera_ready/auto_resume.sh configs/<variant>/<config>.json --start [--gpu N]   # tmux cr-watch-<run_id>
+bash tools/camera_ready/auto_resume.sh configs/<variant>/<config>.json --start [--gpu N] [--stop-after-epochs N]   # tmux cr-watch-<run_id>
 ```
 
 **What it does.**
@@ -101,6 +101,29 @@ bash tools/camera_ready/auto_resume.sh configs/<variant>/<config>.json --start [
 - the limit is reached;
 - the session is gone without an exit line, e.g. after a WSL restart.
 
+**Runs that end before their config budget.** `--stop-after-epochs N` is passed to every automatic resume. `PFN-Full-275ep-s1234` uses `--stop-after-epochs 200`.
+
 **It never starts the next run of the queue.** When the run ends with exit 0, the watchdog stops.
 
 **After a reboot**, start it again after `resume_train.sh`, because it runs in tmux.
+
+## When a run ends: archive its best and last checkpoints
+
+```sh
+bash tools/camera_ready/finalize_run.sh configs/<variant>/<config>.json [--expect-epochs N]
+```
+
+The watchdog runs this itself when the run ends with exit 0, passing `--expect-epochs` from `--stop-after-epochs`.
+
+It refuses in four cases:
+- the newest attempt is not `completed`;
+- the epoch count differs from `--expect-epochs`;
+- a checkpoint fails `check_ckpt.py`;
+- the final folder exists already.
+
+**Result:** read-only copies in `$CR_OUTPUTS/final/<run_id>/`:
+- `best-epoch=…ckpt` and `last-epoch=<E>.ckpt` (E = 0-based last epoch, 199 for 200 epochs);
+- the run's manifest, ledger and validation diagnostics;
+- `SHA256SUMS` and `final.json`.
+
+**Space:** ≈ 1.75 GB per run. **Evaluation reads only these copies.**
