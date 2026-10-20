@@ -1,6 +1,6 @@
 # Experiment plan: camera-ready ablation (SOICT 2026, paper 4478)
 
-**Status:** decided by the author on 2026-10-20, before any new run and before any test-set result.
+**Status:** decided by the author on 2026-10-20 and extended to all eight group combinations on 2026-10-21. Both decisions came before any test-set result.
 
 **Two parts.**
 - **The paper's main result stays the historical pair:** Baseline epoch 773 and Full epoch 1079. It is evaluated as it is; nothing is retrained to replace it.
