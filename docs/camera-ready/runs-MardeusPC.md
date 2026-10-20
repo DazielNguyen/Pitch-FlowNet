@@ -60,3 +60,9 @@ Most resets left the run alive; two of them, or events like them, killed its CUD
 **Proposed, not done:**
 - (1) Raise `TdrDelay`, which needs administrator rights and a reboot.
 - (2) A watchdog that resumes automatically after this specific error, within limits. It needs the author's standing OK.
+
+### Automatic resume enabled: 2026-10-21
+
+- The author chose the watchdog (`tools/camera_ready/auto_resume.sh`, see `runbook-MardeusPC.md`) and no `TdrDelay` change, to avoid a reboot.
+- It runs in tmux `cr-watch-PFN-Full-275ep-s1234`, with at most 5 automatic resumes, each recorded in `checkpoint_ledger.jsonl`.
+- Tested beforehand on a simulated run with five cases: run alive, CUDA unknown error (resume, dry run), another error (stop), normal end (stop), limit reached (stop).

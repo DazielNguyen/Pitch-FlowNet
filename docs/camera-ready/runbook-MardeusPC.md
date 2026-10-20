@@ -74,3 +74,33 @@ A resumed run continues where the uninterrupted run would have been. The CPU che
 - schedulers, counters and the validation metric are equal.
 
 The GPU pilots (T06) check this again with one interruption.
+
+## Automatic resume after the CUDA unknown error (watchdog)
+
+On this machine the GPU also drives the display. Windows resets it every few hours (`LiveKernelEvent` 141), and a run can then die with `CUDA error: unknown error` (`runs-MardeusPC.md`).
+
+**Standing permission.** On 2026-10-21 the author gave a standing OK to resume automatically after this one error, without rebooting or changing the registry.
+
+```sh
+bash tools/camera_ready/auto_resume.sh configs/<variant>/<config>.json --start [--gpu N]   # tmux cr-watch-<run_id>
+```
+
+**What it does.**
+- Every 2 min it checks the run's tmux session.
+- It resumes only when all of these hold:
+  - the session is gone;
+  - the newest launch log ends with a non-zero exit;
+  - the log contains `CUDA error: unknown error`.
+- Before resuming it waits 60 s, checks CUDA with a small matmul, then runs `resume_train.sh --execute`, which checks `last.ckpt`.
+- **At most 5 times per run.** Each automatic resume is written to `$CR_OUTPUTS/logs/watchdog-<run_id>.log` and appended to the run's `checkpoint_ledger.jsonl` (`"event": "auto_resume"`).
+
+**It stops and leaves the run to the author when:**
+- the run ends with another error;
+- `last.ckpt` is damaged (it never uses `--fallback`);
+- the CUDA check fails;
+- the limit is reached;
+- the session is gone without an exit line, e.g. after a WSL restart.
+
+**It never starts the next run of the queue.** When the run ends with exit 0, the watchdog stops.
+
+**After a reboot**, start it again after `resume_train.sh`, because it runs in tmux.
