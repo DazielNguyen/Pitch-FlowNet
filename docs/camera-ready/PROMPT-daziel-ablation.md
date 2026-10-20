@@ -151,13 +151,15 @@ bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.js
   - **Không bao giờ train lại từ đầu, và không chạy hai bản của cùng một run.**
   - Ghi mỗi lần bị ngắt vào `runs-Daziel.md`.
 
-## 6. Khi hai run xong (dự kiến khoảng 23/10)
+## 6. Khi hai run đầu xong (dự kiến khoảng 23/10)
 
 1. **Ghi kết quả:** kiểm `best-*.ckpt` và `last.ckpt` bằng `tools/camera_ready/check_ckpt.py`. Ghi SHA-256, số byte, epoch, `g_updates` và điểm validation tốt nhất vào `runs-Daziel.md`.
-2. **Báo tác giả để chọn việc tiếp theo.** Không tự làm.
-   - (a) Train `PFN-Baseline-BigVGAN-275ep` (Review 1 yêu cầu "Piper chỉ thêm BigVGAN"). Cần một config 275 epoch mới, tạo giống các config 275 epoch hiện có.
-   - (b) Dùng GPU cho evaluation, sau khi protocol được khoá (T12–T17 trong `PRIORITY.md`).
-   - (c) Seed thứ hai cho một run.
+2. **Run tiếp theo trên PC** đã có trong kế hoạch (`experiment-plan.md`, bảng 8 tổ hợp, mở rộng ngày 21/10). Config 275 epoch đã có sẵn. Launch từng run **chỉ sau khi tác giả xác nhận đúng lệnh đó**:
+   - GPU 0: `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-275ep.json` (thêm-một: chỉ BigVGAN, đúng câu hỏi của Review 1);
+   - GPU 1: `configs/PFN-Baseline/PFN-Baseline-275ep.json` (mốc so cho nhóm thêm-một; baseline strict mới, **không phải** baseline lịch sử 773);
+   - `configs/PFN-Baseline-F0/PFN-Baseline-F0-275ep.json`, cho GPU nào rảnh trước, **chỉ khi** run đó xong được trước khoảng tối 26/10. Nếu không kịp thì báo tác giả, không rút ngắn số epoch;
+   - `PFN-Baseline-VITS2` chạy trên MardeusPC, không chạy ở máy này.
+   Các lệnh vẫn là `launch_train.sh <config> --gpu N`: dry-run trước, rồi `--execute`.
 3. **Không evaluate trên tập test** trước khi tác giả khoá protocol (`tools/camera_ready/launch_eval.sh`).
 
 ## 7. Bàn giao
