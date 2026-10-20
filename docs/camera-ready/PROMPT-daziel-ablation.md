@@ -8,16 +8,16 @@ Prompt này dành cho máy PC của tác giả, Windows có WSL `Ubuntu-24.04`, 
 ## 0. Bối cảnh, đọc trước, chưa chạy gì
 
 **Ba review đều nêu cùng một điểm yếu chính:** chỉ có baseline và full, thiếu ablation. Tác giả đã quyết định làm ablation bỏ từng nhóm (leave-one-group-out), cùng một công thức cho mọi run (`docs/camera-ready/experiment-plan.md`):
-- **Ngân sách:** 275 epoch mỗi run = 275 × 782 batch = **215.050 update G**. Đây là 1/4 số epoch lịch sử.
+- **Ngân sách:** **200 epoch** mỗi run = 200 × 782 batch = **156.400 update G**, tức 18,2% số epoch lịch sử. Tác giả hạ từ 275 xuống 200 ngày 21/10, để chạy đủ 8 tổ hợp.
 - **Cấu hình:** batch 16, 1 GPU mỗi run, không DDP; seed 1234; `train_shuffle=false`; MAS decay `4e-6`.
 - **Chọn checkpoint:** `val_mel_l1_global` nhỏ nhất, không bao giờ dùng tập test.
 
 | Run | GPU | Trạng thái lúc viết prompt (20/10 03:00) |
 |---|---|---|
-| `PFN-Full-275ep-s1234` (mốc so) | MardeusPC, RTX 5070 | **đang train**, bắt đầu 20/10 02:29 |
-| `PFN-NoF0-275ep-s1234` | MardeusPC, RTX 5070 | chạy sau Full |
-| **`PFN-NoBigVGAN-275ep-s1234`** | **PC này, GPU 0** | **việc của bạn** |
-| **`PFN-NoVITS2-275ep-s1234`** | **PC này, GPU 1** | **việc của bạn** |
+| `PFN-Full-275ep-s1234` (mốc so, dừng ở epoch 200) | MardeusPC, RTX 5070 | **đang train**, bắt đầu 20/10 02:29, dự kiến xong khoảng 21/10 10:30 |
+| `PFN-NoF0-200ep-s1234`, rồi `PFN-Baseline-VITS2-200ep`, rồi `PFN-Baseline-F0-200ep` | MardeusPC, RTX 5070 | chạy sau Full |
+| **`PFN-NoBigVGAN-200ep-s1234`**, rồi **`PFN-Baseline-BigVGAN-200ep`** | **PC này, GPU 0** | **việc của bạn** |
+| **`PFN-NoVITS2-200ep-s1234`**, rồi **`PFN-Baseline-200ep`** | **PC này, GPU 1** | **việc của bạn** |
 
 **Cặp lịch sử (Baseline 773, Full 1079) vẫn là kết quả chính của bài.** Không train lại, không warm-start từ các checkpoint đó.
 
@@ -86,7 +86,7 @@ Prompt này dành cho máy PC của tác giả, Windows có WSL `Ubuntu-24.04`, 
    ```
    - Ghi lại HEAD.
    - **Bật hook commit ngay:** `cd ~/Pitch-FlowNet-cr && git config core.hooksPath tools/hooks`, rồi kiểm bằng `git config --get core.hooksPath`. Đọc mục **Commits** trong `AGENTS.md`: commit bằng Git identity của tác giả, không thêm attribution của AI, message dạng `type(scope): summary`.
-   - Nhánh trên GitHub phải chứa commit có config `configs/PFN-*/PFN-*-275ep.json` và `tools/camera_ready/launch_train.sh` có tuỳ chọn `--gpu`. Nếu thiếu, báo tác giả để push; không tự tạo lại.
+   - Nhánh trên GitHub phải chứa commit có config `configs/PFN-*/PFN-*-200ep.json` và `tools/camera_ready/launch_train.sh` có tuỳ chọn `--gpu`. Nếu thiếu, báo tác giả để push; không tự tạo lại.
 2. **Env:**
    - Dùng conda có sẵn, tạo env mới `pfn-cr`: Python 3.10.20, `torch==2.12.1` (index cu130), `pytorch-lightning==2.6.5`, `numpy==2.2.6`, cùng các gói còn lại trong `code/camera-ready-source/src/python/requirements.txt`.
    - Kiểm `torch.cuda.device_count() == 2`. Ghi phiên bản thật vào preflight.
@@ -119,11 +119,11 @@ Prompt này dành cho máy PC của tác giả, Windows có WSL `Ubuntu-24.04`, 
 ```sh
 source ~/pfn-cr.env && cd ~/Pitch-FlowNet-cr
 bash tools/camera_ready/tensorboard.sh start                     # http://localhost:6007
-bash tools/camera_ready/launch_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-275ep.json --gpu 0   # dry run
-bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.json --gpu 1       # dry run
+bash tools/camera_ready/launch_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-200ep.json --gpu 0   # dry run
+bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-200ep.json --gpu 1       # dry run
 # after the author's OK:
-bash tools/camera_ready/launch_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-275ep.json --gpu 0 --execute
-bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.json --gpu 1 --execute
+bash tools/camera_ready/launch_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-200ep.json --gpu 0 --execute
+bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-200ep.json --gpu 1 --execute
 ```
 
 **Launcher (`--gpu N`):**
@@ -143,8 +143,8 @@ bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.js
   ```sh
   source ~/pfn-cr.env && cd ~/Pitch-FlowNet-cr
   bash tools/camera_ready/tensorboard.sh start
-  bash tools/camera_ready/resume_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-275ep.json --gpu 0   # dry run, checks last.ckpt
-  bash tools/camera_ready/resume_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.json --gpu 1
+  bash tools/camera_ready/resume_train.sh configs/PFN-NoBigVGAN/PFN-NoBigVGAN-200ep.json --gpu 0   # dry run, checks last.ckpt
+  bash tools/camera_ready/resume_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-200ep.json --gpu 1
   # then the same with --execute, after the author's OK
   ```
   - Nếu `last.ckpt` hỏng, thêm `--fallback` để dùng `epoch-*.ckpt` mới nhất.
@@ -153,11 +153,12 @@ bash tools/camera_ready/launch_train.sh configs/PFN-NoVITS2/PFN-NoVITS2-275ep.js
 
 ## 6. Khi hai run đầu xong (dự kiến khoảng 23/10)
 
-1. **Ghi kết quả:** kiểm `best-*.ckpt` và `last.ckpt` bằng `tools/camera_ready/check_ckpt.py`. Ghi SHA-256, số byte, epoch, `g_updates` và điểm validation tốt nhất vào `runs-Daziel.md`.
+1. **Chốt checkpoint của mỗi run** ngay khi run kết thúc với exit 0: `bash tools/camera_ready/finalize_run.sh <config> --expect-epochs 200`. Lệnh này chép bản chỉ đọc của `best-epoch=…ckpt` (checkpoint dùng để evaluate) và `last-epoch=199.ckpt` (epoch 200) vào `$CR_OUTPUTS/final/<run_id>/`, kèm `SHA256SUMS` và `final.json`. Nếu dùng watchdog (`tools/camera_ready/auto_resume.sh … --start --gpu N`), nó tự làm bước này.
+   **Ghi kết quả:** kiểm `best-*.ckpt` và `last.ckpt` bằng `tools/camera_ready/check_ckpt.py`. Ghi SHA-256, số byte, epoch, `g_updates` và điểm validation tốt nhất vào `runs-Daziel.md`.
 2. **Run tiếp theo trên PC** đã có trong kế hoạch (`experiment-plan.md`, bảng 8 tổ hợp, mở rộng ngày 21/10). Config 275 epoch đã có sẵn. Launch từng run **chỉ sau khi tác giả xác nhận đúng lệnh đó**:
-   - GPU 0: `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-275ep.json` (thêm-một: chỉ BigVGAN, đúng câu hỏi của Review 1);
-   - GPU 1: `configs/PFN-Baseline/PFN-Baseline-275ep.json` (mốc so cho nhóm thêm-một; baseline strict mới, **không phải** baseline lịch sử 773);
-   - `configs/PFN-Baseline-F0/PFN-Baseline-F0-275ep.json`, cho GPU nào rảnh trước, **chỉ khi** run đó xong được trước khoảng tối 26/10. Nếu không kịp thì báo tác giả, không rút ngắn số epoch;
+   - GPU 0: `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-200ep.json` (thêm-một: chỉ BigVGAN, đúng câu hỏi của Review 1);
+   - GPU 1: `configs/PFN-Baseline/PFN-Baseline-200ep.json` (mốc so cho nhóm thêm-một; baseline strict mới, **không phải** baseline lịch sử 773);
+   - `PFN-Baseline-F0-200ep` dự kiến chạy trên MardeusPC. Nếu máy này rảnh trước và tác giả đồng ý, có thể chạy nó ở đây (`configs/PFN-Baseline-F0/PFN-Baseline-F0-200ep.json`). Không bao giờ rút ngắn số epoch;
    - `PFN-Baseline-VITS2` chạy trên MardeusPC, không chạy ở máy này.
    Các lệnh vẫn là `launch_train.sh <config> --gpu N`: dry-run trước, rồi `--execute`.
 3. **Không evaluate trên tập test** trước khi tác giả khoá protocol (`tools/camera_ready/launch_eval.sh`).
