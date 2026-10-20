@@ -9,7 +9,8 @@
 # Standing permission of the author (2026-10-21) for this one failure: on MardeusPC the display GPU resets
 # (Windows LiveKernelEvent 141) and a run can die with "CUDA error: unknown error". Every <interval> seconds:
 #   - the run's tmux session cr-<run_id> is alive               -> nothing to do;
-#   - its newest launch log ends with "# exit 0"                -> the run is finished; the watchdog stops;
+#   - its newest launch log ends with "# exit 0"                -> the run is finished: finalize_run.sh archives its best and
+#                                                                  last checkpoints (read-only copies); the watchdog stops;
 #   - it ends with a non-zero exit and the CUDA unknown error   -> wait 60 s, check CUDA with a small matmul,
 #     then resume_train.sh --execute (which checks last.ckpt); at most --max-resumes times in total;
 #   - anything else (another error, a damaged last.ckpt, a failed CUDA check, the limit reached)
@@ -65,7 +66,14 @@ while true; do
   LOG=$(ls -t "$OUTPUTS/logs/$RUN_ID-"*.log 2>/dev/null | head -1)
   [ -n "$LOG" ] || { say "STOP: no launch log for $RUN_ID"; exit 1; }
   EXIT=$(grep -ao '# exit [0-9]*' "$LOG" | tail -1 | awk '{print $3}')
-  if [ "$EXIT" = 0 ]; then say "run finished (exit 0 in $(basename "$LOG")); watchdog stops"; exit 0; fi
+  if [ "$EXIT" = 0 ]; then
+    say "run finished (exit 0 in $(basename "$LOG")); archiving its best and last checkpoints"
+    EXP=(); [ ${#STOPAT[@]} -gt 0 ] && EXP=(--expect-epochs "${STOPAT[1]}")
+    if [ "$DRY" = 1 ]; then say "DRY RUN: would run finalize_run.sh $(basename "$CONFIG") ${EXP[*]}"; exit 0; fi
+    if bash "$HERE/finalize_run.sh" "$CONFIG" "${EXP[@]}" >>"$WLOG" 2>&1; then say "finalized: $OUTPUTS/final/$RUN_ID; watchdog stops"
+    else say "STOP: finalize_run.sh refused (see above); author needed"; exit 1; fi
+    exit 0
+  fi
   if [ -z "$EXIT" ]; then say "STOP: $(basename "$LOG") has no exit line and the session is gone (WSL restart?); author needed"; exit 1; fi
   if ! tail -c 20000 "$LOG" | grep -aq "CUDA error: unknown error"; then
     say "STOP: exit $EXIT without the CUDA unknown error; author needed. Last error: $(tr '\r' '\n' < "$LOG" | grep -aE 'Error' | tail -1 | cut -c1-160)"
