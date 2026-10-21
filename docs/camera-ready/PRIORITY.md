@@ -84,11 +84,11 @@ Every run uses train seed 1234 unless marked. One budget in G updates for all ru
 
 | ID | Task | Owner | Depends on | Target | Status | Evidence |
 |---|---|---|---|---|---|---|
-| T12 | Evaluation harness: synthesis seeded per utterance ID, every run kept; WER macro/corpus; UTMOSv2 as predicted score; full records. Measure its duration for the time budget | assistant | T03 | 24/10 | TODO | |
+| T12 | Evaluation harness: synthesis seeded per utterance ID, every run kept; WER macro/corpus; UTMOSv2 as predicted score; full records. Measure its duration for the time budget | assistant | T03 | 24/10 | DONE: historical evaluation reproduced and made deterministic (seeded synthesis and UTMOSv2, strict safe load), env `pfn-eval` at the historical versions; checked twice on 5 validation utterances | `eval-protocol.md`, `tools/camera_ready/evaluate_like_history.py` |
 | T13 | Waveform F0 metrics (same extractor for synthesized and reference; alignment chosen on validation) | assistant | T12 | 24/10 | TODO | |
 | T14 | Pitch intervention −2/0/+2 semitones, hook with tests (z, duration, noise fixed) | assistant | T12 | 25/10 | TODO | |
 | T15 | RTF protocol: isolated CPU, explicit threads, warm-up, model-only vs end-to-end. **Not while a run trains** (its data loader uses the CPU): measure after the queue ends | assistant | T12, idle machine | 27/10 | TODO | |
-| T16 | `tools/camera_ready/launch_eval.sh` (dry-run by default); evaluation protocol locked before any new test result | assistant, author OK | T12–T15 | 26/10 | TODO | |
+| T16 | `tools/camera_ready/launch_eval.sh` (dry-run by default); evaluation protocol locked before any new test result | assistant, author OK | T12–T15 | 26/10 | DONE: locked on 21/10 as the historical evaluation (author) | `eval-protocol.md`, `tools/camera_ready/launch_eval.sh` |
 | T17 | Run the locked evaluation on the T1 checkpoints (and the historical 773/1079 pair if decided) | author OK | T11, T16 | 27/10 | TODO | |
 | T18 | Author answers A1–A6 (previews, checkpoint and session choice) for the manuscript wording | author | — | 28/10 | WAITING AUTHOR | `author-answers.md` of the follow-up package |
 
