@@ -49,7 +49,11 @@ mkdir -p "$OUTPUTS/logs"
 if [ "$START" = 1 ]; then
   W="cr-watch-$RUN_ID"
   if tmux has-session -t "$W" 2>/dev/null; then echo "already running: tmux session $W (log $WLOG)"; exit 0; fi
-  tmux new-session -d -s "$W" "bash $(printf %q "$0") $(printf %q "$CONFIG") --gpu $GPU ${STOPAT[*]} --max-resumes $MAX --interval $INTERVAL"
+  # A tmux server that already runs (other sessions) gives new sessions its own environment, not this shell's:
+  # pass the CR_* settings explicitly so the watchdog, resume_train.sh and finalize_run.sh use the same paths.
+  ENVV=(); for v in CR_OUTPUTS CR_PYTHON CR_DATASET_DIR CR_GPU_MAX_USED_MIB CR_GPU_MAX_UTIL; do
+    [ -n "${!v:-}" ] && ENVV+=("$v=$(printf %q "${!v}")"); done
+  tmux new-session -d -s "$W" "env ${ENVV[*]} bash $(printf %q "$0") $(printf %q "$CONFIG") --gpu $GPU ${STOPAT[*]} --max-resumes $MAX --interval $INTERVAL"
   echo "started: tmux session $W, log $WLOG"
   exit 0
 fi
