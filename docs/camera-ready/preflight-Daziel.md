@@ -108,13 +108,42 @@ Created on 22/10 with the existing Miniconda (conda 26.3.2, channel `defaults`);
 
 - `torch.cuda.device_count()` = 2, both GeForce RTX 4070 Ti.
 - **MAS extension:** built in `code/camera-ready-source/src/python/piper_train/vits/monotonic_align/` with `cythonize -i core.pyx`; `monotonic_align/core.cpython-310-x86_64-linux-gnu.so`. The tree stays clean (build outputs are git-ignored).
-- **`<WSL_DEV_HOME>/pfn-cr.env`:** `CR_OUTPUTS=$HOME/outputs-pfn-cr`, `CR_PYTHON` and `CR_TENSORBOARD` of `pfn-cr`, `CR_TB_PORT=6007`.
+- **`<WSL_DEV_HOME>/pfn-cr.env`:** `CR_OUTPUTS=$HOME/outputs-pfn-cr`, `CR_PYTHON` and `CR_TENSORBOARD` of `pfn-cr`, `CR_TB_PORT=6007`; since 22/10 20:25 also `CR_EVAL_PYTHON` of `pfn-eval` (below).
+
+## Evaluation environment (section 4.5), `<WSL_DEV_HOME>/miniconda3/envs/pfn-eval`
+
+Built on 2026-10-22 20:25–20:27 +07, at `nice -n10` while both runs trained, with the commands of section 4.5:
+`conda create -n pfn-eval --clone pfn-cr`, then `pip install` with the constraint `torch==2.12.1`, then `torchaudio==2.11.0 --no-deps`.
+Log outside Git: `<WSL_DEV_HOME>/outputs-pfn-cr/logs/make-pfn-eval.log`. `pfn-cr` was not changed (torch there is still 2.12.1+cu130).
+
+| Package | Version | As `eval-protocol.md` |
+|---|---|---|
+| torch | 2.12.1+cu130 | yes |
+| torchaudio | 2.11.0 | yes |
+| openai-whisper | 20250625 | yes |
+| jiwer | 4.0.0 | yes |
+| transformers | 5.12.1 | yes |
+| timm | 1.0.27 | yes |
+| scipy | 1.15.3 | yes |
+| librosa | 0.11.0 | yes |
+| UTMOSv2 | 1.3.1.dev0, commit `cc2700db57bb83ee13dc31ebe1b868c254e15d09` (from `direct_url.json`) | yes |
+| Pulled in as dependencies | torchvision 0.27.1, huggingface-hub 1.33.0, numpy 2.2.6, pytorch-lightning 2.6.5 | not listed there |
+
+- `import whisper, jiwer, utmosv2` works; `pip check`: no broken requirements.
+- `tools/camera_ready/evaluate_like_history.py --help` runs.
+- Not run yet: the 5-utterance validation smoke test. It runs on the first final best checkpoint, into `tests/eval-smoke-<YYYYMMDD>/`. The Whisper `base.en` and UTMOSv2 weights are downloaded then.
+
+## Output layout (`runbook-MardeusPC.md`, **Output layout**)
+
+On 22/10 20:25 two files were moved to follow the layout. No script refers to them, and the GPU log keeps being written to the same file:
+- `logs/gpu-20261022.csv` → `logs/gpumon-20261021T184520Z.csv`;
+- `tests/unittest-20261021T182743Z.log` → `tests/unittest-20261022/unittest-20261021T182743Z.log`.
 
 ## Tests (2026-10-22 01:27 +07, clone at `ee6a378`)
 
 `$CR_PYTHON -m unittest discover -s tests/camera_ready -v`: 25 tests, **24 pass, 1 ERROR**, as expected.
 - The ERROR is `ValidationDDP.test_two_processes_equal_one`: `ddp_spawn` cannot serialize a non-leaf tensor that requires grad (PLAN O2). It is not needed for 1-GPU runs.
-- Log outside Git: `<WSL_DEV_HOME>/outputs-pfn-cr/tests/unittest-20261021T182743Z.log`.
+- Log outside Git: `<WSL_DEV_HOME>/outputs-pfn-cr/tests/unittest-20261022/unittest-20261021T182743Z.log`.
 
 ## Dry runs (step 5, before any launch)
 
@@ -129,3 +158,5 @@ Created on 22/10 with the existing Miniconda (conda 26.3.2, channel `defaults`);
 
 - Windows side, by the author: pause Windows Update; start `wsl_keepalive.ps1 start -Distro Ubuntu-24.04`.
 - Git identity is not set in this WSL clone (`user.name`, `user.email` empty). The author sets it before the first commit here.
+
+**Update 2026-10-22:** all three closed. The keep-alive was started at 01:33 +07 (`runs-Daziel.md`). The author paused Windows Update. On the author's instruction, the clone's local Git identity was set to the author's own, the same as the Windows copy.
