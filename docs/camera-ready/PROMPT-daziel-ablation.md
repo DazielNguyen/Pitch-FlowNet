@@ -51,9 +51,25 @@ Trên RTX 5070, một epoch mất khoảng 8,3 phút, tức mỗi run khoảng 2
 | Mục đích | Đường dẫn |
 |---|---|
 | Repo | `~/Pitch-FlowNet-cr` |
-| Kết quả run | `~/outputs-pfn-cr` |
-| Env | `pfn-cr` |
+| Gốc mọi kết quả (`$CR_OUTPUTS`) | `~/outputs-pfn-cr` |
+| Env train | `pfn-cr` |
+| Env evaluation | `pfn-eval` |
 | TensorBoard | cổng **6007** (cổng 6006 có thể đang dùng cho `tb-seqir`) |
+
+**Cấu trúc thư mục kết quả phải giống hệt MardeusPC.** Xem mục **Output layout** trong `runbook-MardeusPC.md`.
+
+| Thư mục | Nội dung |
+|---|---|
+| `runs/<run_id>/` | thư mục làm việc của run |
+| `final/<run_id>/` | bản chốt chỉ đọc |
+| `eval/<label>/` | evaluation trên test, label = `<variant>-200ep-best` |
+| `logs/` | mọi log |
+| `locks/` | khoá GPU |
+| `tests/` | test, chạy thử, chẩn đoán, việc bị dừng giữa chừng, tên dạng `<what>-<YYYYMMDD>/` |
+
+- **Không tạo thư mục nào khác** dưới `$CR_OUTPUTS`. Không để kết quả ở chỗ khác. Không chép kết quả vào repo.
+- Evaluation chạy thử luôn vào `tests/`, **không bao giờ vào `eval/`**.
+- Không gửi dữ liệu đi đâu. MardeusPC sẽ tự lấy `eval/<label>/` (không gồm `wavs/`) qua Tailscale để so sánh.
 
 **Tập test:** không dùng để tuning, early-stop hay chọn checkpoint. Không evaluate trên test trừ khi tác giả yêu cầu, và khi đó theo đúng `docs/camera-ready/eval-protocol.md`.
 
@@ -148,6 +164,7 @@ MardeusPC đã đưa toàn bộ phần chuẩn bị lên `main` qua các PR #3�
    export CR_PYTHON=<đường dẫn python của env pfn-cr>
    export CR_TENSORBOARD=<đường dẫn tensorboard của env pfn-cr>
    export CR_TB_PORT=6007
+   export CR_EVAL_PYTHON=<đường dẫn python của env pfn-eval>
    ```
 4. **Test:**
    ```sh
@@ -156,7 +173,23 @@ MardeusPC đã đưa toàn bộ phần chuẩn bị lên `main` qua các PR #3�
    - Lưu log vào `$CR_OUTPUTS/tests/`.
    - **Kết quả mong đợi: 24/25 pass.** Chỉ có `ValidationDDP` báo ERROR (PLAN O2), và nó không cần cho run 1 GPU.
    - Kết quả khác thì báo nguyên nhân và dừng.
-5. **Phía Windows, tác giả làm:**
+5. **Env evaluation `pfn-eval`** (dùng ở mục 7). Phiên bản phải đúng như evaluation lịch sử, xem `eval-protocol.md`:
+   ```sh
+   conda create -y -n pfn-eval --clone pfn-cr
+   echo "torch==2.12.1" > /tmp/pfn-eval-constraints.txt
+   <python của pfn-eval> -m pip install -c /tmp/pfn-eval-constraints.txt "openai-whisper==20250625" "jiwer==4.0.0" \
+     "transformers==5.12.1" "timm==1.0.27" "scipy==1.15.3" "librosa==0.11.0" \
+     "git+https://github.com/sarulab-speech/UTMOSv2.git@cc2700db57bb83ee13dc31ebe1b868c254e15d09"
+   <python của pfn-eval> -m pip install --no-deps "torchaudio==2.11.0"
+   ```
+   - **Kiểm:** `import whisper, jiwer, utmosv2` chạy được, và torch vẫn là 2.12.1. Ghi phiên bản thật vào preflight.
+   - **Chạy thử trên 5 câu validation**, dùng bất kỳ checkpoint camera-ready nào có trên máy. Ví dụ, sau khi run đầu tiên lưu epoch 0, dùng `last.ckpt` của nó:
+     ```sh
+     $CR_EVAL_PYTHON tools/camera_ready/evaluate_like_history.py evaluate --checkpoint <ckpt> --label smoke \
+       --output $CR_OUTPUTS/tests/eval-smoke-<YYYYMMDD> --split validation --limit 5 --threads 4
+     ```
+     Kết quả chạy thử chỉ để kiểm môi trường, không phải kết quả, và phải nằm trong `tests/`.
+6. **Phía Windows, tác giả làm:**
    - tắt sleep và tắt tự tắt màn hình khi cắm điện:
      ```
      powercfg /change standby-timeout-ac 0
@@ -225,15 +258,55 @@ bash tools/camera_ready/auto_resume.sh configs/PFN-NoVITS2/PFN-NoVITS2-200ep.jso
   - nếu watchdog không chạy, chốt bằng tay: `bash tools/camera_ready/finalize_run.sh <config> --expect-epochs 200`;
   - ghi SHA-256, epoch best và `val_mel_l1_global` best vào `runs-Daziel.md`.
 
-## 7. Hai run tiếp theo (mỗi lệnh cần tác giả xác nhận)
+## 7. Evaluate hai run đầu, TRƯỚC khi train hai run tiếp theo
 
-Khi run trên GPU đó đã chốt xong:
+**Đây là bước bắt buộc.** Khi `PFN-NoBigVGAN-200ep-s1234` và `PFN-NoVITS2-200ep-s1234` đều đã chốt (có `final/<run_id>/final.json`), evaluate cả hai trước khi launch bất cứ run nào khác.
+
+**Protocol:** đúng `docs/camera-ready/eval-protocol.md`, đã khoá ngày 21/10.
+- 500 câu test; tổng hợp trên CPU;
+- WER bằng Whisper `base.en`; UTMOSv2 (điểm dự đoán, không phải MOS);
+- F0 lấy từ bộ dự đoán F0; MCD; UTMOS của audio gốc;
+- seed riêng cho từng câu.
+
+**Không đổi tham số nào.**
+
+```sh
+source ~/pfn-cr.env && cd ~/Pitch-FlowNet-cr
+B0=$(ls $CR_OUTPUTS/final/PFN-NoBigVGAN-200ep-s1234/best-epoch=*.ckpt)
+B1=$(ls $CR_OUTPUTS/final/PFN-NoVITS2-200ep-s1234/best-epoch=*.ckpt)
+bash tools/camera_ready/launch_eval.sh --split test --threads 4 "PFN-NoBigVGAN-200ep-best=$B0" "PFN-NoVITS2-200ep-best=$B1"            # dry run
+bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-NoBigVGAN-200ep-best=$B0" "PFN-NoVITS2-200ep-best=$B1"  # after the author's OK
+```
+
+**Cách chạy:**
+- Mỗi model chạy trong tmux riêng `cr-eval-<label>`, CPU 4 thread, mức ưu tiên thấp. Khoảng 35–75 phút mỗi model.
+- GPU không cần cho bước này.
+- **Label phải đúng tên trên.** Kết quả nằm trong `$CR_OUTPUTS/eval/<label>/`.
+
+**Kiểm khi xong**, với từng label:
+1. `summary.json` có `num_sentences: 500`, và `mcd.n: 500`, `n_skipped: 0`.
+2. `protocol.json` có:
+   - `checkpoint_sha256` trùng SHA-256 của file best trong `final/<run_id>/SHA256SUMS`;
+   - `split: test`;
+   - các phiên bản gói đúng `eval-protocol.md`.
+3. UTMOS của audio gốc (`mcd.mean_gt_utmos`) phải ra **≈ 3,831**. MardeusPC đo được 3,8308; số trong bài là 3,830. Lệch rõ là dấu hiệu môi trường sai. Khi đó **dừng và báo**, đừng train tiếp.
+4. Ghi vào `runs-Daziel.md`: WER, UTMOSv2, MCD, F0, giờ bắt đầu/kết thúc, SHA-256 của checkpoint.
+   - **RTF đo trong lúc chạy không dùng để báo cáo được** nếu máy đang chạy việc khác.
+   - **Không tự so sánh và không kết luận.** Chỉ ghi số. MardeusPC sẽ gom kết quả và chạy `compare`.
+
+Báo tác giả. Chỉ khi evaluation đã xong và qua đủ các kiểm tra trên, mới sang mục 8.
+
+## 8. Hai run tiếp theo (mỗi lệnh cần tác giả xác nhận)
+
+Khi run trên GPU đó đã chốt **và đã evaluate xong (mục 7)**:
 - **GPU 0:** `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-200ep.json` (thêm-một: chỉ BigVGAN, đúng câu hỏi của Review 1).
 - **GPU 1:** `configs/PFN-Baseline/PFN-Baseline-200ep.json` (mốc so cho nhóm thêm-một; baseline strict mới, **không phải** baseline lịch sử 773).
 
 Lệnh giống mục 5: dry-run, rồi `--execute`, rồi `auto_resume.sh --start --gpu N`. Không bao giờ rút ngắn số epoch.
 
-## 8. Bàn giao
+**Khi hai run này xong:** evaluate đúng như mục 7, với label `PFN-Baseline-BigVGAN-200ep-best` và `PFN-Baseline-200ep-best`.
+
+## 9. Bàn giao
 
 - **`docs/camera-ready/runs-Daziel.md`** ghi:
   - lệnh đã chạy;
@@ -241,6 +314,7 @@ Lệnh giống mục 5: dry-run, rồi `--execute`, rồi `auto_resume.sh --star
   - các lần bị ngắt và tự resume;
   - tốc độ;
   - hash của checkpoint cuối;
+  - kết quả evaluation của từng label;
   - đề xuất cập nhật `PRIORITY.md`.
 - **Commit** trên `PFN-Daziel-22102026`, đúng định dạng, không attribution AI. Không push nếu chưa được yêu cầu.
 - **Báo ngắn bằng tiếng Việt,** kết thúc bằng một trong các trạng thái: `READY_FOR_TRAINING_REVIEW`, `TRAINING_RUNNING`, `BLOCKED_MISSING_INPUT`, `GPU_BLOCKED`.

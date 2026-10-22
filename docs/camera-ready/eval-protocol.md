@@ -52,4 +52,4 @@ The inline RTF depends on what else the machine runs. RTF numbers for the paper 
 2. Each 200-epoch run when it is finalized.
 3. `compare` for the main pair and for the ablation contrasts.
 
-Results stay outside Git, in `<WSL_DEV_HOME>/outputs/eval/<label>/`. Only summaries derived from them are added to the repository later, with their hashes.
+Results stay outside Git, in `$CR_OUTPUTS/eval/<label>/` on each machine (layout and labels: `runbook-MardeusPC.md`, **Output layout**). Only summaries derived from them are added to the repository later, with their hashes.

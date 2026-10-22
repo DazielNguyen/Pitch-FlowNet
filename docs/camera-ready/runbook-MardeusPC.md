@@ -127,3 +127,26 @@ It refuses in four cases:
 - `SHA256SUMS` and `final.json`.
 
 **Space:** ≈ 1.75 GB per run. **Evaluation reads only these copies.**
+
+## Output layout (the same on every machine)
+
+All outputs of the camera-ready work live under one root, `$CR_OUTPUTS`. On MardeusPC that is `<WSL_DEV_HOME>/outputs`; on the PC, `<WSL_DEV_HOME>/outputs-pfn-cr`. The folders under it are the same on both machines:
+
+| Folder | Written by | Contents and naming |
+|---|---|---|
+| `runs/<run_id>/` | `launch_train.sh`, `resume_train.sh` (`train.py`) | `run_manifest.json`, `checkpoint_ledger.jsonl`, `val_diagnostics.jsonl`, `checkpoints/`, `tb/` |
+| `final/<run_id>/` | `finalize_run.sh` (the watchdog on exit 0) | read-only: `best-epoch=…ckpt`, `last-epoch=199.ckpt`, the manifest, ledger, diagnostics, `SHA256SUMS`, `final.json`. Never written into afterwards |
+| `eval/<label>/` | `launch_eval.sh` (`evaluate_like_history.py`) | `summary.json`, `protocol.json`, `*_per_sentence.csv`, `mcd/`, `reference.jsonl`, `wavs/`. **Label = `<variant>-200ep-best`**, e.g. `PFN-NoBigVGAN-200ep-best`. The Full reference is `PFN-Full-200ep-best` |
+| `eval/compare-<labels>.json` | `evaluate_like_history.py compare` | paired Wilcoxon tests |
+| `logs/` | all tools | `<run_id>-<UTC>.log`, `watchdog-<run_id>.log`, `eval-<label>-<UTC>.log`, `tensorboard.log`, `gpumon-<UTC>.csv`; one-off scripts log as `<what>.log` |
+| `locks/` | `launch_train.sh` | `gpu<N>.lock` |
+| `tests/` | unit tests, smoke tests, diagnostics, stopped or aborted work | `<what>-<YYYYMMDD>/`, e.g. `eval-smoke-20261021/`, `resume-diag-20261020/` |
+
+**Rules:**
+- No other top-level folder under `$CR_OUTPUTS`.
+- No result outside it, and nothing in the repository.
+- A smoke or trial evaluation goes to `tests/`, never to `eval/`. `eval/` holds only test-split evaluations of final checkpoints under `eval-protocol.md`.
+- Each machine keeps its own runs.
+- **Collecting the results.** MardeusPC collects the PC's `eval/<label>/` folders, without `wavs/`, over Tailscale into its own `eval/`, for the comparisons. The PC never sends data anywhere.
+
+On 22/10 the three one-off folders of MardeusPC (`diag/`, `eval-smoke/`, `eval-aborted/`) were moved under `tests/` to follow this layout. No document or script referred to them.
