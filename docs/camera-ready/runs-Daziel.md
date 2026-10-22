@@ -14,7 +14,7 @@
 | Environment | `<WSL_DEV_HOME>/miniconda3/envs/pfn-cr`; settings in `<WSL_DEV_HOME>/pfn-cr.env` (`CR_OUTPUTS=$HOME/outputs-pfn-cr`, `CR_TB_PORT=6007`) |
 | WSL keep-alive | `wsl_keepalive.ps1 start -Distro Ubuntu-24.04`, started 2026-10-22 01:33:02 +07 (PID 16932) |
 | TensorBoard | tmux `cr-tensorboard`, http://localhost:6007, started 01:33:13 +07 |
-| GPU log | tmux `cr-gpulog`, `nvidia-smi` every 5 s into `<WSL_DEV_HOME>/outputs-pfn-cr/logs/gpu-20261022.csv`, started 01:45:20 +07 |
+| GPU log | tmux `cr-gpulog`, `nvidia-smi` every 5 s into `<WSL_DEV_HOME>/outputs-pfn-cr/logs/gpumon-20261021T184520Z.csv` (named `gpu-20261022.csv` until 22/10 20:25, renamed to follow the output layout), started 01:45:20 +07 |
 
 **Commands run** (2026-10-22 01:33 +07, after the author's OK of these exact commands):
 
