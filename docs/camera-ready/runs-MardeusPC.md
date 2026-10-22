@@ -84,7 +84,70 @@ The author lowered the ablation budget to 200 epochs (`experiment-plan.md`). The
 
 This page is the record of all three.
 
-**Expected end:** epoch 200 (index 199), 156,400 G updates. The newest attempt then ends with exit 0, and the watchdog archives the checkpoints (below).
+### Automatic resumes 3 and 4: 2026-10-21
+
+The watchdog (`--stop-after-epochs 200`) handled both. Each time it waited 60 s, checked CUDA, checked `last.ckpt` and resumed; each resume is in `checkpoint_ledger.jsonl` (`"event": "auto_resume"`).
+
+| # | CUDA error | Where | Resumed from | Resumed at |
+|---:|---|---|---|---|
+| 3 | 21/10 07:07:33 | epoch 181, batch 184 of 782 | epoch 180 | 07:10:02 (auto resume 1) |
+| 4 | 21/10 09:44:04 | epoch 198, batch 452 of 782 | epoch 197 | 09:47:42 (auto resume 2) |
+
+### End: 2026-10-21 10:08:36 +07 (exit 0)
+
+**Result.**
+- `Trainer.fit stopped: max_epochs=200 reached`: 200 epochs, 156,400 G updates, 2,500,000 samples.
+- **Best:** epoch 188, `val_mel_l1_global` 21.3153. Last epoch (199): 21.3991.
+
+**Attempts.** `run_manifest.json` lists six:
+- attempts 1–5 have an empty status: four ended with the CUDA error, one with SIGTERM (the budget change);
+- attempt 6 is `completed`.
+
+**Interruptions in total:** four, all `CUDA error: unknown error`. Two were resumed by hand (20/10 20:44, 21/10 03:21) and two by the watchdog. Training lost is the partial epochs, plus ≈ 2 h 10 min idle before the second resume.
+
+**Archive.** Finalized by the watchdog at 10:10:02 into `<WSL_DEV_HOME>/outputs/final/PFN-Full-275ep-s1234/`, read-only, with `final.json`. The training source tree is `1ee13cb4…`.
+
+**Evaluation** (`eval-protocol.md`, 21/10 12:18). Best checkpoint, test split, 500 utterances; results outside Git, in `<WSL_DEV_HOME>/outputs/eval/PFN-Full-200ep-best/`:
+
+| Metric | Value |
+|---|---:|
+| WER, mean / median | 11.35 % / 7.41 % |
+| UTMOSv2, predicted, mean | 3.516 |
+| MCD, mean | 25.64 |
+| F0 predictor RMSE / corr | 0.540 / 0.186 |
+| Reference UTMOSv2 | 3.831 |
+
+The inline RTF (0.068) is not a reportable RTF: other evaluations ran beside it.
+
+## PFN-NoF0-200ep-s1234
+
+| Item | Value |
+|---|---|
+| Config | `configs/PFN-NoF0/PFN-NoF0-200ep.json`, 200 epochs = 156,400 G updates |
+| Start | 2026-10-21 12:22:14 +07, after the author's OK. Commit `33dca31`, clean tree. Training source tree `1ee13cb4…`, the same as `PFN-Full-275ep-s1234` |
+| Watchdog | `cr-watch-PFN-NoF0-200ep-s1234`, from the launch (limit 5 automatic resumes) |
+| GPU idle before it | 21/10 10:08 → 12:22. The author chose to finish the Full evaluation first |
+
+**Interruptions so far:** three, all `CUDA error: unknown error`, all resumed by the watchdog within about 3 minutes.
+
+| # | CUDA error | Where | Resumed from | Resumed at |
+|---:|---|---|---|---|
+| 1 | 21/10 18:41:09 | epoch 44, batch 278 of 782 | epoch 43 | 18:44:11 (auto resume 1) |
+| 2 | 21/10 21:06:26 | epoch 59, batch 758 of 782 | epoch 58 | 21:09:52 (auto resume 2) |
+| 3 | 22/10 01:18:39 | epoch 87, batch 557 of 782 | epoch 86 | 01:21:35 (auto resume 3) |
+
+As for the Full run, the attempts that ended with the CUDA error have an empty status in `run_manifest.json`.
+
+**Progress on 22/10 15:47.**
+- Last checkpoint: epoch 188 (147,798 G updates), at 15:40.
+- `val_mel_l1_global`: 21.3212; best so far 21.2366 at epoch 187.
+- About 8.4 min per epoch, so the expected end is ≈ 22/10 17:20, if no further interruption occurs.
+
+**Next.** The one-off chain `<WSL_DEV_HOME>/pfn-sync/after_nof0.sh` (tmux `cr-chain`, author's OK on 22/10) waits for the NoF0 archive. Then it does the following, stopping at the first failed check:
+1. updates the WSL clone and checks that it is clean;
+2. launches `PFN-Baseline-VITS2-200ep` with its watchdog;
+3. evaluates the NoF0 best checkpoint;
+4. compares it with `PFN-Full-200ep-best`.
 
 ## Final checkpoints of every run
 
@@ -102,4 +165,5 @@ When a run ends with exit 0, `tools/camera_ready/finalize_run.sh` copies its che
 
 | Run | Final folder | best | last | Status |
 |---|---|---|---|---|
-| `PFN-Full-275ep-s1234` (to epoch 200) | `outputs/final/PFN-Full-275ep-s1234/` | | | pending (training) |
+| `PFN-Full-275ep-s1234` (to epoch 200) | `outputs/final/PFN-Full-275ep-s1234/` | `best-epoch=188-val_mel_l1_global=21.3153.ckpt`, SHA-256 `95e6d6c9…` | `last-epoch=199.ckpt`, SHA-256 `f600d86f…` | finalized 21/10 10:10 |
+| `PFN-NoF0-200ep-s1234` | `outputs/final/PFN-NoF0-200ep-s1234/` | | | pending (training, epoch 188/200 on 22/10 15:47) |
