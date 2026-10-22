@@ -138,16 +138,53 @@ The inline RTF (0.068) is not a reportable RTF: other evaluations ran beside it.
 
 As for the Full run, the attempts that ended with the CUDA error have an empty status in `run_manifest.json`.
 
-**Progress on 22/10 15:47.**
-- Last checkpoint: epoch 188 (147,798 G updates), at 15:40.
-- `val_mel_l1_global`: 21.3212; best so far 21.2366 at epoch 187.
-- About 8.4 min per epoch, so the expected end is ≈ 22/10 17:20, if no further interruption occurs.
+### End: 2026-10-22 17:18:16 +07 (exit 0)
 
-**Next.** The one-off chain `<WSL_DEV_HOME>/pfn-sync/after_nof0.sh` (tmux `cr-chain`, author's OK on 22/10) waits for the NoF0 archive. Then it does the following, stopping at the first failed check:
-1. updates the WSL clone and checks that it is clean;
-2. launches `PFN-Baseline-VITS2-200ep` with its watchdog;
-3. evaluates the NoF0 best checkpoint;
-4. compares it with `PFN-Full-200ep-best`.
+**Result.**
+- 200 epochs, 156,400 G updates. No interruption after the third.
+- **Best:** epoch 192, `val_mel_l1_global` 21.1037. Last epoch (199): 21.2832.
+
+**Attempts.** `run_manifest.json` lists four:
+- attempts 1–3 ended with the CUDA error (empty status);
+- attempt 4 is `completed`, 22/10 01:21:35 → 17:18:00.
+
+**Archive.** Finalized by the watchdog at 17:19:16 into `<WSL_DEV_HOME>/outputs/final/PFN-NoF0-200ep-s1234/`, read-only.
+
+### Evaluation and the F0 contrast: 2026-10-22
+
+**Chain.** The one-off chain `<WSL_DEV_HOME>/pfn-sync/after_nof0.sh` (tmux `cr-chain`, author's OK on 22/10; log `outputs/logs/chain-after-nof0.log`) ran after the archive:
+- 17:20:04: updated the WSL clone to `229b9b5` (clean);
+- 17:20:08: launched `PFN-Baseline-VITS2-200ep` with its watchdog;
+- 17:22:47: started the evaluation of the best checkpoint (`eval-protocol.md`, label `PFN-NoF0-200ep-best`);
+- 19:01:49: ran `compare`, after the evaluation finished at 18:59:51. The evaluation took 2,763 s for synthesis and scoring, alongside the new training run.
+
+**Results.** Test split, 500 utterances. Results outside Git, in `<WSL_DEV_HOME>/outputs/eval/`.
+
+| Metric | `PFN-Full-200ep-best` (epoch 188) | `PFN-NoF0-200ep-best` (epoch 192) | Paired Wilcoxon (two-sided, per utterance) |
+|---|---:|---:|---|
+| WER mean / median | 11.35 % / 7.41 % | 13.02 % / 8.70 % | p = 0.0077 |
+| UTMOSv2 mean / median (predicted, not MOS) | 3.516 / 3.520 | 3.189 / 3.203 | p = 1.9 × 10⁻⁵⁸ |
+| MCD mean / median | 25.64 / 25.46 | 25.58 / 25.48 | not tested (the historical comparison tests WER and UTMOSv2 only) |
+| F0 predictor RMSE / corr | 0.540 / 0.186 | — (no F0 group) | |
+| Reference UTMOSv2 | 3.8308 | 3.8308 | |
+
+The comparison file is `compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json`.
+
+**Limits:**
+- **One training seed per run.** The Wilcoxon test covers variation across utterances, not across training runs.
+- **UTMOSv2 is a predicted score.**
+- **Inline RTF is not reportable.** It was 0.093, measured beside a training run.
+- **Multiple comparisons.** A correction across the ablation comparisons, if any, has to be fixed before the other results are seen.
+
+## PFN-Baseline-VITS2-200ep-s1234
+
+| Item | Value |
+|---|---|
+| Config | `configs/PFN-Baseline-VITS2/PFN-Baseline-VITS2-200ep.json`; B off, V on, F off; 156,400 G updates |
+| Start | 2026-10-22 17:20:08 +07, by the chain above (author's OK). Commit `229b9b5`, `dirty_paths` `[]`, training source tree `1ee13cb4…` |
+| Watchdog | `cr-watch-PFN-Baseline-VITS2-200ep-s1234` (limit 5 automatic resumes) |
+
+**Progress on 22/10 19:05.** Epoch 11, at about 1.9 it/s once the evaluation ended, i.e. about 6.9 min per epoch. Expected end ≈ 23/10 16:30, if no interruption occurs.
 
 ## Final checkpoints of every run
 
@@ -166,4 +203,5 @@ When a run ends with exit 0, `tools/camera_ready/finalize_run.sh` copies its che
 | Run | Final folder | best | last | Status |
 |---|---|---|---|---|
 | `PFN-Full-275ep-s1234` (to epoch 200) | `outputs/final/PFN-Full-275ep-s1234/` | `best-epoch=188-val_mel_l1_global=21.3153.ckpt`, SHA-256 `95e6d6c9…` | `last-epoch=199.ckpt`, SHA-256 `f600d86f…` | finalized 21/10 10:10 |
-| `PFN-NoF0-200ep-s1234` | `outputs/final/PFN-NoF0-200ep-s1234/` | | | pending (training, epoch 188/200 on 22/10 15:47) |
+| `PFN-NoF0-200ep-s1234` | `outputs/final/PFN-NoF0-200ep-s1234/` | `best-epoch=192-val_mel_l1_global=21.1037.ckpt`, SHA-256 `8f8570c6…` | `last-epoch=199.ckpt`, SHA-256 `1ed42171…` | finalized 22/10 17:19 |
+| `PFN-Baseline-VITS2-200ep-s1234` | `outputs/final/PFN-Baseline-VITS2-200ep-s1234/` | | | pending (training) |
