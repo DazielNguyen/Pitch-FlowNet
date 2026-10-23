@@ -96,19 +96,68 @@ bash tools/camera_ready/auto_resume.sh configs/PFN-NoVITS2/PFN-NoVITS2-200ep.jso
 - Over the whole run, epochs 1–199 took 6.50 min on average; peak memory in the GPU log was 10,933 MiB, display included.
 - Best checkpoint: epoch 188, `val_mel_l1_global` 21.2745.
 
+## The two baselines (section 8)
+
+**Commands** (2026-10-23 02:35 +07, after the author's OK of these exact commands, given before the evaluation above ended):
+
+```sh
+source ~/pfn-cr.env && cd ~/Pitch-FlowNet-cr
+bash tools/camera_ready/launch_train.sh configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-200ep.json --gpu 0 --execute
+bash tools/camera_ready/auto_resume.sh configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-200ep.json --start --gpu 0
+bash tools/camera_ready/launch_train.sh configs/PFN-Baseline/PFN-Baseline-200ep.json --gpu 1 --execute
+bash tools/camera_ready/auto_resume.sh configs/PFN-Baseline/PFN-Baseline-200ep.json --start --gpu 1
+```
+
+**Conditions met before the launch**, as the author set them:
+- both evaluations above passed every check;
+- `runs-Daziel.md` was committed (`10cd2cd`) and `git status --short` was empty;
+- both dry runs exited 0;
+- both GPUs were idle (4 MiB and 1,514 MiB used, display included).
+
+**Run manifests,** checked 2 min after the launch:
+- `head` `10cd2cd`, branch `PFN-Daziel-22102026`, **`dirty_paths: []`**;
+- `tree_sha256` `1ee13cb4efe39da5657398021f3b85eb3a2a3eb5b89a1f1392dc33c4dfe90a52`;
+- `max_g_updates` 156,400, `devices` 1, and the group flags of each config.
+
+### PFN-Baseline-BigVGAN-200ep-s1234 (GPU 0)
+
+| Item | Value |
+|---|---|
+| Config | `configs/PFN-Baseline-BigVGAN/PFN-Baseline-BigVGAN-200ep.json`; B on, V off, F off; 156,400 G updates |
+| Start | 2026-10-23 02:35:47 +07, tmux `cr-PFN-Baseline-BigVGAN-200ep-s1234`, `CUDA_VISIBLE_DEVICES=0` |
+| Launch log | `<WSL_DEV_HOME>/outputs-pfn-cr/logs/PFN-Baseline-BigVGAN-200ep-s1234-20261022T193547Z.log` |
+| Speed | epoch 0: 10.0 min; epoch 1: 6.2 min; epochs 1–199: 6.15 min on average (about 5.5 min once `PFN-Baseline` had ended) |
+| Peak memory (GPU log) | 9,577 MiB |
+| Interruptions | none; one attempt, no automatic resume |
+| End | 2026-10-23 23:09:41 +07, exit 0, after 200 epochs (20 h 34 min); finalized by the watchdog at 23:09:56 |
+| Best | epoch 199 (the last epoch), `val_mel_l1_global` 21.0612 |
+
+### PFN-Baseline-200ep-s1234 (GPU 1)
+
+| Item | Value |
+|---|---|
+| Config | `configs/PFN-Baseline/PFN-Baseline-200ep.json`; B off, V off, F off; 156,400 G updates; the new strict baseline, **not** the historical epoch-773 baseline |
+| Start | 2026-10-23 02:35:48 +07, tmux `cr-PFN-Baseline-200ep-s1234`, `CUDA_VISIBLE_DEVICES=1` (the display GPU) |
+| Launch log | `<WSL_DEV_HOME>/outputs-pfn-cr/logs/PFN-Baseline-200ep-s1234-20261022T193548Z.log` |
+| Speed | epoch 0: 9.0 min; epoch 1: 5.3 min; epochs 1–199: 5.31 min on average |
+| Peak memory (GPU log) | 8,575 MiB, display included |
+| Interruptions | none; one attempt, no automatic resume |
+| End | 2026-10-23 20:20:53 +07, exit 0, after 200 epochs (17 h 45 min); finalized by the watchdog at 20:21:58 |
+| Best | epoch 194, `val_mel_l1_global` 22.1978 |
+
 ## Final checkpoints
 
 | Run | Final folder | best (epoch, `val_mel_l1_global`) | SHA-256 best | SHA-256 last | Status |
 |---|---|---|---|---|---|
 | `PFN-NoBigVGAN-200ep-s1234` | `outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/` | 199, 22.3429 | `89aa7550fecbbdd4909b33ba19e87e2a49f85ce8ded7ed2536c36f0432171aa9` | `90abc7e97f0fe30cf482d8d1870edd808f85a846e0f61e464867a512dab81eb4` | final, evaluated |
 | `PFN-NoVITS2-200ep-s1234` | `outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/` | 188, 21.2745 | `9aa0730e95d7b9631f233d78c35f6110a5d413ac351d1dce2563bc90ea38e7ec` | `22e9aa78c2d8418bf36c9c334722af913faa9a6a9ae9403666391b82760d98ce` | final, evaluated |
-| `PFN-Baseline-BigVGAN-200ep-s1234` | | | | | queued on GPU 0 |
-| `PFN-Baseline-200ep-s1234` | | | | | queued on GPU 1 |
+| `PFN-Baseline-BigVGAN-200ep-s1234` | `outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/` | 199, 21.0612 | `10950c6e2ade4174fdabfe1c139c96882413d925d2287e5cb8acfa1a3c8a6e96` | `5e48544f6be4fb968d9ffa624849ea1735f5e4e013d8212fddb46b9b3d1a289d` | final, evaluated |
+| `PFN-Baseline-200ep-s1234` | `outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/` | 194, 22.1978 | `ede081d416e65a3228a5a44a33eb24fcfb87c423132b693b0aa02a218e8e5bb4` | `784852eea22384637ec11cd83cc4d3245b54408116f149897e8f90d2bf7ee480` | final, evaluated |
 
-**Checks of both final folders** (section 6 of the prompt):
+**Checks of all four final folders** (section 6 of the prompt):
 - `best-epoch=…ckpt`, `last-epoch=199.ckpt`, `SHA256SUMS`, `final.json`, the manifest, ledger and diagnostics are present, and all are read-only;
 - `sha256sum -c SHA256SUMS`: all five files OK;
-- `final.json`: `epochs_completed` 200, `g_updates` 156,400, `attempts` 1, `source_commit` `ee6a378`, `source_tree_sha256` `1ee13cb4…`.
+- `final.json`: `epochs_completed` 200, `g_updates` 156,400, `attempts` 1, `source_tree_sha256` `1ee13cb4…`; `source_commit` `ee6a378` for the first two runs and `10cd2cd` for the two baselines.
 
 **Environment smoke test** (section 4.5), before the test-split evaluation:
 - 5 validation utterances on the best checkpoint of `PFN-NoVITS2-200ep-s1234`, into `<WSL_DEV_HOME>/outputs-pfn-cr/tests/eval-smoke-20261022/`, 2026-10-22 23:23–23:24 +07, exit 0.
@@ -155,6 +204,40 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-N
 - **RTF is not reportable** from these runs: both evaluations ran at the same time on the same CPU (`mean_rtf` 0.0709 and 0.0722 inline).
 - **No comparison and no conclusion here.** MardeusPC collects `eval/<label>/` without `wavs/` and runs `compare`.
 
+### The two baselines
+
+**Command**, after the author's OK of this exact command:
+
+```sh
+source ~/pfn-cr.env && cd ~/Pitch-FlowNet-cr
+B0=$(ls $CR_OUTPUTS/final/PFN-Baseline-BigVGAN-200ep-s1234/best-epoch=*.ckpt)
+B1=$(ls $CR_OUTPUTS/final/PFN-Baseline-200ep-s1234/best-epoch=*.ckpt)
+bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-Baseline-BigVGAN-200ep-best=$B0" "PFN-Baseline-200ep-best=$B1"
+```
+
+**How it ran:**
+- Both labels ran at the same time, at `nice -n10` with 4 CPU threads, from 2026-10-23 23:22:44 +07. No GPU work ran.
+- They ended at 2026-10-24 00:51:46 (Baseline-BigVGAN) and 00:51:44 (Baseline), both with exit 0.
+- The repository was at `10cd2cd`. During the evaluation the untracked page `PROMPT-mardeus-export.md` was written; it is not code, and the tool does not record the repository state.
+- Logs: `logs/eval-<label>-20261023T162244Z.log`.
+
+**Checks, all passed for both labels:** the same as above. `mcd.mean_gt_utmos` is 3.83079 for both.
+
+| Label | Checkpoint (SHA-256) | WER mean | WER median | UTMOSv2 mean | UTMOSv2 median | MCD mean | MCD median | F0 RMSE | F0 corr | `eval_seconds` |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `PFN-Baseline-BigVGAN-200ep-best` | epoch 199 (`10950c6e…`) | 0.1009 | 0.0667 | 3.4945 | 3.5125 | 25.744 | 25.577 | n/a | n/a | 2404.2 |
+| `PFN-Baseline-200ep-best` | epoch 194 (`ede081d4…`) | 0.1082 | 0.0667 | 2.9407 | 2.9585 | 25.573 | 25.350 | n/a | n/a | 2391.7 |
+
+- **F0 n/a:** both models have no F0 group, so the F0-predictor metric does not apply (`null` in `summary.json`).
+- **RTF is not reportable**, for the same reason as above (`mean_rtf` 0.0737 and 0.0593 inline).
+- **No comparison and no conclusion here.**
+
+## Services stopped (author's instruction, 2026-10-23)
+
+- After all four runs had ended, the author asked to train nothing more on this machine.
+- TensorBoard (`cr-tensorboard`) and the GPU log (`cr-gpulog`) were stopped at 23:26 +07.
+- The WSL keep-alive was stopped on 24/10 at 00:52, after both evaluations had ended.
+
 ## Proposed updates to `PRIORITY.md` and `experiment-plan.md` (for MardeusPC to apply)
 
 - RTX 4070 Ti speed, measured in epoch 1: 6.6 min per epoch (`NoBigVGAN`), 6.4 min (`NoVITS2`), with both GPUs training at once. About 22 h per 200-epoch run, against ≈ 28–32 h on the RTX 5070.
@@ -168,3 +251,12 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-N
   - Whole-run speed: 6.50 and 6.77 min per epoch.
   - Their `eval/<label>/` folders are ready for collection.
   - The two baselines start after this commit, on 23/10 ≈ 02:45; expected end ≈ 24/10 01:00, without interruptions.
+- **Update 2026-10-24 00:55:**
+  - All four PC runs are final and evaluated on the test split:
+    - `PFN-NoVITS2` ended 22/10 23:16;
+    - `PFN-NoBigVGAN` ended 23/10 00:12;
+    - `PFN-Baseline` ended 23/10 20:20;
+    - `PFN-Baseline-BigVGAN` ended 23/10 23:09.
+  - No run needed a resume.
+  - Nothing more trains on the PC.
+  - Next, by the author's decision: the PC collects `eval/<label>/` (without `wavs/`) and `final/<run_id>/` of `PFN-Full`, `PFN-NoF0` and `PFN-Baseline-VITS2` from MardeusPC on an external drive (`PROMPT-mardeus-export.md`), and runs `compare` for the seven models. `PFN-Baseline-F0` follows when it is final.
