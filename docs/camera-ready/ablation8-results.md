@@ -22,8 +22,9 @@ The analysis was done on the PC on 2026-10-24.
 | Evaluations, one folder per label | `<WSL_DEV_HOME>/outputs-pfn-cr/eval/<label>/`: `summary.json`, `protocol.json`, `*_per_sentence.csv` (WER, UTMOSv2), `mcd/mcd_gtmos.csv` (MCD, reference UTMOSv2), `reference.jsonl` |
 | Final checkpoints and run records | `<WSL_DEV_HOME>/outputs-pfn-cr/final/<run_id>/` (read-only, `SHA256SUMS`) |
 | Pairwise Wilcoxon tests of WER and UTMOSv2 | `eval/compare-<off>_<on>.json`, from `tools/camera_ready/evaluate_like_history.py compare` (commit `f773be2`) |
-| Analysis tool | `tools/camera_ready/ablation8_analysis.py` (in Git, commit `5eb3510`), tests `tests/camera_ready/test_ablation8.py` |
-| Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}` |
+| Analysis tool | `tools/camera_ready/ablation8_analysis.py` (in Git, last changed in commit `f939d4b`), tests `tests/camera_ready/test_ablation8.py` |
+| CPU RTF benchmark (T15) | `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`), tests `tests/camera_ready/test_benchmark_rtf.py` |
+| Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}`, `ablation8-rtf.{csv,json}`, `ablation8-rtf-runs.jsonl` |
 | Hashes of every source and derived file | `manifests/camera-ready/ablation8-derived.json` (in Git) |
 | Import of the four MardeusPC runs | `runs-Daziel.md`, "Import from MardeusPC" |
 
@@ -80,20 +81,26 @@ No model, optimiser, data or seed setting differs.
 
 `eval/ablation8-table.md`, from each `summary.json` and `protocol.json`:
 
-| Label | B | V | F | Best epoch | WER mean | WER median | UTMOSv2 mean | UTMOSv2 median | MCD mean | F0 RMSE | F0 corr | Recorded RTF | Training GPU |
-|---|:-:|:-:|:-:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| `PFN-Full-200ep-best` | 1 | 1 | 1 | 188 | 0.1135 | 0.0741 | 3.5156 | 3.5204 | 25.638 | 0.5399 | 0.1861 | 0.0682 | NVIDIA GeForce RTX 5070 |
-| `PFN-NoF0-200ep-best` | 1 | 1 | 0 | 192 | 0.1302 | 0.0870 | 3.1887 | 3.2026 | 25.576 | n/a | n/a | 0.0926 | NVIDIA GeForce RTX 5070 |
-| `PFN-NoVITS2-200ep-best` | 1 | 0 | 1 | 188 | 0.1101 | 0.0588 | 3.5185 | 3.5452 | 25.760 | 0.5827 | 0.1992 | 0.0722 | NVIDIA GeForce RTX 4070 Ti |
-| `PFN-Baseline-BigVGAN-200ep-best` | 1 | 0 | 0 | 199 | 0.1009 | 0.0667 | 3.4945 | 3.5125 | 25.744 | n/a | n/a | 0.0737 | NVIDIA GeForce RTX 4070 Ti |
-| `PFN-NoBigVGAN-200ep-best` | 0 | 1 | 1 | 199 | 0.1214 | 0.0769 | 3.2442 | 3.2703 | 25.923 | 0.4813 | 0.1784 | 0.0709 | NVIDIA GeForce RTX 4070 Ti |
-| `PFN-Baseline-VITS2-200ep-best` | 0 | 1 | 0 | 188 | 0.1105 | 0.0714 | 3.3723 | 3.3817 | 25.623 | n/a | n/a | 0.0775 | NVIDIA GeForce RTX 5070 |
-| `PFN-Baseline-F0-200ep-best` | 0 | 0 | 1 | 195 | 0.1349 | 0.0714 | 3.0599 | 3.0956 | 26.728 | 0.6200 | 0.1923 | 0.0529 | NVIDIA GeForce RTX 5070 |
-| `PFN-Baseline-200ep-best` | 0 | 0 | 0 | 194 | 0.1082 | 0.0667 | 2.9407 | 2.9585 | 25.573 | n/a | n/a | 0.0593 | NVIDIA GeForce RTX 4070 Ti |
+| Label | B | V | F | Best epoch | WER mean | WER median | UTMOSv2 mean | UTMOSv2 median | MCD mean | F0 RMSE | F0 corr | Recorded RTF | Audio (s) | Training GPU |
+|---|:-:|:-:|:-:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `PFN-Full-200ep-best` | 1 | 1 | 1 | 188 | 0.1135 | 0.0741 | 3.5156 | 3.5204 | 25.638 | 0.5399 | 0.1861 | 0.0682 | 3009.9 | NVIDIA GeForce RTX 5070 |
+| `PFN-NoF0-200ep-best` | 1 | 1 | 0 | 192 | 0.1302 | 0.0870 | 3.1887 | 3.2026 | 25.576 | n/a | n/a | 0.0926 | 4219.7 | NVIDIA GeForce RTX 5070 |
+| `PFN-NoVITS2-200ep-best` | 1 | 0 | 1 | 188 | 0.1101 | 0.0588 | 3.5185 | 3.5452 | 25.760 | 0.5827 | 0.1992 | 0.0722 | 3036.8 | NVIDIA GeForce RTX 4070 Ti |
+| `PFN-Baseline-BigVGAN-200ep-best` | 1 | 0 | 0 | 199 | 0.1009 | 0.0667 | 3.4945 | 3.5125 | 25.744 | n/a | n/a | 0.0737 | 3000.0 | NVIDIA GeForce RTX 4070 Ti |
+| `PFN-NoBigVGAN-200ep-best` | 0 | 1 | 1 | 199 | 0.1214 | 0.0769 | 3.2442 | 3.2703 | 25.923 | 0.4813 | 0.1784 | 0.0709 | 2951.6 | NVIDIA GeForce RTX 4070 Ti |
+| `PFN-Baseline-VITS2-200ep-best` | 0 | 1 | 0 | 188 | 0.1105 | 0.0714 | 3.3723 | 3.3817 | 25.623 | n/a | n/a | 0.0775 | 3057.6 | NVIDIA GeForce RTX 5070 |
+| `PFN-Baseline-F0-200ep-best` | 0 | 0 | 1 | 195 | 0.1349 | 0.0714 | 3.0599 | 3.0956 | 26.728 | 0.6200 | 0.1923 | 0.0529 | 3070.6 | NVIDIA GeForce RTX 5070 |
+| `PFN-Baseline-200ep-best` | 0 | 0 | 0 | 194 | 0.1082 | 0.0667 | 2.9407 | 2.9585 | 25.573 | n/a | n/a | 0.0593 | 3076.9 | NVIDIA GeForce RTX 4070 Ti |
+
+Reference test audio (the 500 raw WAVs of the split, header durations): 3256.2 s.
 
 - WER is a fraction here (0.1135 = 11.35 %).
 - F0 RMSE and correlation are the F0-predictor metric (phoneme-level log-F0 against the cached reference). They exist only for F = 1.
-- **The recorded RTF is not a reportable RTF:** it was measured inline, on two machines, with other work running (section 5).
+- **The recorded RTF is not a reportable RTF:** it was measured inline, on two machines, with other work running. The idle-machine CPU benchmark is in section 5.
+- **Audio** is the total duration synthesized for the 500 sentences (sum of `audio_duration_sec`).
+  - Seven cells produce 2,952–3,077 s.
+  - **`PFN-NoF0` produces 4,219.7 s, about 40 % more for the same text.** This is longer than the reference recordings (3,256.2 s, which include their leading and trailing silence).
+  - The CPU benchmark reproduced the same lengths exactly (section 5). This is an observation; its cause, for example the duration predictor or pauses, was not examined. It may bear on NoF0's WER and UTMOSv2, which are the highest WER and the lowest UTMOSv2 of the four cells with BigVGAN.
 
 ## 3. Pairwise tests: the 12 cube edges and Full vs Baseline
 
@@ -312,16 +319,64 @@ Columns:
 | Full | RTX 5070 | 6 | 2 | 3 | 31.65 | 28.75 | 1.511 | 8.47 | 0.0682 |
 | NoF0 | RTX 5070 | 4 | 3 | 0 | 28.93 | 28.45 | 1.527 | 8.42 | 0.0926 |
 
-**Inference cost.** The recorded `mean_rtf` was measured inline during evaluation, on two different machines that were not idle. It is **indicative only and not reportable as RTF.** No idle-machine RTF benchmark (T15) has been run yet.
+**Inference cost, recorded inline.** The recorded `mean_rtf` was measured inline during evaluation, on two different machines that were not idle. It is **indicative only and not reportable as RTF.**
+
+**Inference cost, CPU benchmark (T15).** All eight best checkpoints were measured on the PC, idle, on 2026-10-24 20:31–21:12 +07, with `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`; log `logs/rtf-ablation8-20261024.log`). Files: `eval/ablation8-rtf.{json,csv}`, `ablation8-rtf-runs.jsonl`.
+
+Protocol (agreed with the author on 24/10):
+- **Threads:** CPU only, 1 and 2 threads, one interop thread.
+  - The process was pinned with `taskset` to vCPU 0 (1 thread) and to vCPUs 0 and 2 (2 threads).
+  - Under WSL, Hyper-V schedules the vCPUs on host cores, so P-core or E-core placement was not controlled.
+- **Synthesis:** the same path as the evaluation:
+  - `weights_only` strict load, decoder weight norm removed;
+  - `eval_harness.synthesize` at 0.667 / 1.0 / 0.8;
+  - the evaluation's per-utterance seeds.
+- **Sentences:** 10 validation utterances as warm-up, then the first 100 test utterances (610–859 s of audio per model).
+- **Rounds:** three, with the model order rotated. Each (round, model, threads) cell ran in its own process.
+- **Reported value:** the corpus RTF, i.e. Σ time / Σ audio duration, as the median over the three rounds, with the range in brackets.
+  - Model-only time is the harness's own window (the model forward).
+  - End-to-end adds espeak phonemization and tensor building.
+
+| Label | B V F | 1 thread: model RTF, median [min, max] | 1 thread: end-to-end | 2 threads: model RTF, median [min, max] | 2 threads: end-to-end | Audio lengths equal in all 6 runs |
+|---|:-:|---|---:|---|---:|:-:|
+| Full | 1 1 1 | 0.0880 [0.0861, 0.0881] | 0.0881 | 0.0567 [0.0560, 0.0584] | 0.0568 | yes |
+| NoF0 | 1 1 0 | 0.0917 [0.0914, 0.0924] | 0.0918 | 0.0600 [0.0599, 0.0611] | 0.0601 | yes |
+| NoVITS2 | 1 0 1 | 0.0795 [0.0791, 0.0801] | 0.0796 | 0.0521 [0.0520, 0.0526] | 0.0522 | yes |
+| Baseline-BigVGAN | 1 0 0 | 0.0790 [0.0785, 0.0796] | 0.0791 | 0.0517 [0.0514, 0.0520] | 0.0518 | yes |
+| NoBigVGAN | 0 1 1 | 0.0766 [0.0761, 0.0769] | 0.0767 | 0.0495 [0.0495, 0.0498] | 0.0496 | yes |
+| Baseline-VITS2 | 0 1 0 | 0.0758 [0.0757, 0.0759] | 0.0759 | 0.0495 [0.0494, 0.0501] | 0.0496 | yes |
+| Baseline-F0 | 0 0 1 | 0.0690 [0.0688, 0.0692] | 0.0691 | 0.0449 [0.0446, 0.0454] | 0.0450 | yes |
+| Baseline | 0 0 0 | 0.0682 [0.0674, 0.0683] | 0.0683 | 0.0442 [0.0438, 0.0443] | 0.0443 | yes |
+
+**Checks on the benchmark:**
+- all 48 runs had 100 utterances, the requested thread count and affinity;
+- at the start, no other tmux session ran and the load average was 0.51. The load before later runs, up to 1.75, came from the benchmark's own previous run;
+- the round-to-round range is at most 4.2 % of the median (Full, 2 threads), and under 2.5 % for every other cell;
+- the synthesized lengths were identical across the 6 runs of each model and equal to the evaluation's, so the benchmark timed the same audio that was scored.
+
+**Reading:**
+- **Relative to Baseline, at 1 thread:**
+  - B adds about 16 % to the model RTF (0.0790 vs 0.0682);
+  - V adds about 11 % (0.0758);
+  - F adds about 1 % (0.0690);
+  - Full is about 29 % slower (0.0880).
+- **NoVITS2** (0.0795) is about 10 % faster than Full.
+- **Two threads** give a 1.53–1.55× speed-up for every model.
+- **End-to-end ≈ model-only:** phonemization adds about 0.0001 RTF.
+- **The RTF of NoF0 divides by its longer audio** (section 2). Per sentence, it spends more time than the RTF suggests.
+- **What these values are:** CPU RTFs of one idle WSL machine at 1–2 threads. They are comparable among the eight models, not with other hardware or with RTFs measured differently.
 
 **Pareto sets** of mean quality against cost:
 
 - WER vs inference-path size: Baseline, Baseline-BigVGAN
 - WER vs recorded RTF: Baseline, Baseline-BigVGAN, Baseline-F0
+- WER vs CPU RTF (1 thread): Baseline, Baseline-BigVGAN
 - UTMOSv2 vs inference-path size: Baseline, Baseline-BigVGAN, NoVITS2
 - UTMOSv2 vs recorded RTF: Baseline-F0, Full, NoVITS2
+- UTMOSv2 vs CPU RTF (1 thread): Baseline, Baseline-BigVGAN, Baseline-F0, Baseline-VITS2, NoVITS2
 - MCD vs inference-path size: Baseline
 - MCD vs recorded RTF: Baseline, Baseline-F0
+- MCD vs CPU RTF (1 thread): Baseline
 
 **Reading:**
 - **The top UTMOSv2 group** has three cells: NoVITS2 (3.519), Full (3.516) and Baseline-BigVGAN (3.495).
@@ -329,6 +384,7 @@ Columns:
   - Neither is significant. **This does not show that they are equal.**
   - Full vs Baseline-BigVGAN is not a cube edge and was not tested.
 - **Size:** Baseline-BigVGAN is the smallest of the three; it is B alone, 3,648 elements more than Baseline. NoVITS2 is 2.1 % larger than Baseline, Full 9.4 %.
+- **Speed:** at 1 thread, Baseline-BigVGAN and NoVITS2 have nearly the same CPU RTF (0.0790, 0.0795); Full is slower (0.0880). Both of them are on the UTMOSv2 front against the CPU RTF. Full is not, because NoVITS2 has a higher mean UTMOSv2 at a lower RTF. That difference in UTMOSv2 (−0.003 for Full) is not significant, so the front is a ranking of point estimates.
 - **Baseline** is on every MCD and WER front. Its UTMOSv2 (2.941) is the lowest of the eight.
 
 ## 6. Recommended configuration
@@ -344,7 +400,7 @@ If one has to be chosen from these runs, **Full (B + V + F) is the defensible ch
 The record should also say:
 - **BigVGAN carries the largest share of the predicted-naturalness gain.** It does so with almost no inference-path cost.
 - **VITS2 adds no measurable UTMOSv2 or WER once BigVGAN and F0 are present.** Its only significant gain in Full is MCD.
-  - NoVITS2 is therefore a smaller alternative (−6.7 % inference-path elements) with the same predicted naturalness within the test's resolution.
+  - NoVITS2 is therefore a smaller and faster alternative: −6.7 % inference-path elements, and a CPU RTF of 0.0795 against 0.0880 at 1 thread. Its predicted naturalness is the same within the test's resolution.
   - V is also the estimate most exposed to the machine confound.
 - **The F0 group helps predicted naturalness only together with BigVGAN and VITS2.** On its own it worsens MCD and WER.
 
@@ -367,7 +423,11 @@ So the ranking may change with longer training.
   - MCD is the harness's DTW over 24 MFCCs, with large absolute values (≈ 25–27).
   - F0 metrics exist only as summaries.
   - A non-significant difference is not equivalence.
-- **RTF:** only inline values exist; no idle-machine benchmark (T15).
+- **RTF:**
+  - The CPU benchmark was run on one WSL machine without control of P-core or E-core placement, at 1–2 threads, on 100 of the 500 test sentences.
+  - Its values compare the eight models with each other only.
+  - The inline values of the evaluations are not reportable.
+- **Audio length of NoF0:** its synthesized audio is about 40 % longer than that of the other cells. This was observed, not explained.
 
 ## Draft text for the author
 

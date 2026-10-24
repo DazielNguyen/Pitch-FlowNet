@@ -286,3 +286,12 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
 - **Update 2026-10-24 20:10:**
   - All eight cells are imported and analysed (`ablation8-results.md`). `PRIORITY.md` and `experiment-plan.md` are updated from this machine, on the author's instruction of 24/10.
   - The author asked for one RTF benchmark of the eight best checkpoints (T15). Its protocol is still to be agreed: CPU as `eval-protocol.md` says, or one idle GPU as the task of 24/10 says. Nothing has been run.
+- **Update 2026-10-24 21:20: CPU RTF benchmark (T15) done.**
+  - **Protocol:** the author chose 1 and 2 threads on the CPU and agreed to the protocol, the smoke run and the full run.
+  - **Commands:**
+    - `wsl_keepalive.ps1 start` (20:29);
+    - one smoke run of `benchmark_rtf.py run-one` (Full, 1 thread) into `tests/rtf-smoke-20261024/`, RTF 0.0880;
+    - `benchmark_rtf.py plan --execute` in tmux `cr-rtf`, 20:31:09 → 21:11:57, exit 0, 48 runs;
+    - `wsl_keepalive.ps1 stop` (21:13).
+  - **Result:** `ablation8-results.md`, section 5. The synthesized lengths equal the evaluation's for every model.
+  - **Machine state:** no other job of this project ran during the benchmark, and no other tmux session existed at its start. Activity on the Windows side was not monitored.
