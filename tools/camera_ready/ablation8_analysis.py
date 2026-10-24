@@ -11,11 +11,13 @@ Checkpoints are opened only for the parameter count, with torch.load(weights_onl
 
   check    consistency of the eight evaluations (sizes, split, checkpoint hashes, sentences and their order,
            protocol settings, reference UTMOSv2) and the config differences between cube neighbours; stops on a failure
-  table    one row per label: bits, best epoch, WER, UTMOSv2, MCD, F0, recorded RTF, training GPU
+  table    one row per label: bits, best epoch, WER, UTMOSv2, MCD, F0, recorded RTF, synthesized audio duration,
+           training GPU; and the duration of the reference test audio
   pairs    the 12 cube edges and Full vs Baseline: paired difference (on - off), paired-bootstrap 95 % CI of the
            mean difference, two-sided Wilcoxon signed-rank (SciPy defaults, as compare), Holm within each metric
   effects  factorial effects in effect coding, Shapley attribution of the Full - Baseline gap, F0 metrics as 2x2
-  cost     stored tensor elements, checkpoint size, training time per machine, recorded RTF, Pareto sets
+  cost     stored tensor elements, checkpoint size, training time per machine, recorded RTF, the CPU RTF benchmark of
+           benchmark_rtf.py when ablation8-rtf.json exists, Pareto sets
 
 UTMOSv2 is a predicted score, not MOS. A non-significant difference does not establish equivalence. One training
 seed per cell: the sentence-level bootstrap and tests do not cover training variance.
@@ -285,6 +287,23 @@ def cmd_check(a, data=None):
 
 # ---------------------------------------------------------------- table
 
+def reference_audio_sec(data):
+    """Total duration of the raw test WAVs (header only), from the dataset rows of the evaluated sentences; None if
+    the data are not on this machine."""
+    try:
+        import soundfile
+        dataset = pathlib.Path(next(iter(data.values()))["protocol"]["dataset_jsonl"])
+        rows = {}
+        for line in dataset.read_text(encoding="utf-8").splitlines():
+            if line:
+                r = json.loads(line)
+                rows[r["audio_norm_path"]] = r["audio_path"]
+        refs = [json.loads(l) for l in (next(iter(data.values()))["dir"] / "reference.jsonl").read_text().splitlines() if l]
+        return sum(soundfile.info(rows[x["audio_norm_path"]]).duration for x in refs)
+    except (ImportError, OSError, KeyError, RuntimeError):
+        return None
+
+
 def cmd_table(a, data=None):
     data = data or load_all(a.eval_dir)
     rows = []
@@ -295,16 +314,20 @@ def cmd_table(a, data=None):
                      "wer_mean": s["mean_wer"], "wer_median": s["median_wer"], "utmos_mean": s["mean_utmos"],
                      "utmos_median": s["median_utmos"], "mcd_mean": s["mcd"]["mean_mcd"], "mcd_median": s["mcd"]["median_mcd"],
                      "f0_rmse": s.get("f0_rmse"), "f0_corr": s.get("f0_corr"), "mean_rtf_recorded": s["mean_rtf"],
+                     "audio_sec_total": sum(float(r["audio_duration_sec"]) for r in data[label]["rows"]),
                      "training_gpu": man["devices"]["torch"][0]["name"],
                      "source": f"eval/{label}/summary.json, protocol.json; final/{RUNS[label]}/run_manifest.json"})
     write_csv(a.eval_dir / "ablation8-table.csv", rows)
     fmt = lambda x, n: "n/a" if x is None else f"{x:.{n}f}"
-    md = ["| Label | B | V | F | Best epoch | WER mean | WER median | UTMOSv2 mean | UTMOSv2 median | MCD mean | F0 RMSE | F0 corr | Recorded RTF | Training GPU |",
-          "|---|:-:|:-:|:-:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|"]
+    md = ["| Label | B | V | F | Best epoch | WER mean | WER median | UTMOSv2 mean | UTMOSv2 median | MCD mean | F0 RMSE | F0 corr | Recorded RTF | Audio (s) | Training GPU |",
+          "|---|:-:|:-:|:-:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|"]
     for r in rows:
         md.append(f"| `{r['label']}` | {r['B']} | {r['V']} | {r['F']} | {r['best_epoch']} | {fmt(r['wer_mean'], 4)} | "
                   f"{fmt(r['wer_median'], 4)} | {fmt(r['utmos_mean'], 4)} | {fmt(r['utmos_median'], 4)} | {fmt(r['mcd_mean'], 3)} | "
-                  f"{fmt(r['f0_rmse'], 4)} | {fmt(r['f0_corr'], 4)} | {fmt(r['mean_rtf_recorded'], 4)} | {r['training_gpu']} |")
+                  f"{fmt(r['f0_rmse'], 4)} | {fmt(r['f0_corr'], 4)} | {fmt(r['mean_rtf_recorded'], 4)} | {r['audio_sec_total']:.1f} | {r['training_gpu']} |")
+    ref = reference_audio_sec(data)
+    if ref is not None:
+        md.append(f"\nReference test audio (the 500 raw WAVs of the split, header durations): {ref:.1f} s.")
     (a.eval_dir / "ablation8-table.md").write_text("\n".join(md) + "\n")
     return rows
 
@@ -452,17 +475,23 @@ def model_size(ckpt: pathlib.Path) -> dict:
 
 def cmd_cost(a, data=None):
     data = data or load_all(a.eval_dir)
+    # the CPU RTF benchmark (benchmark_rtf.py, T15), when it has been run: median corpus model RTF over its rounds
+    bench_file = a.eval_dir / "ablation8-rtf.json"
+    bench = ({(r["label"], r["threads"]): r for r in json.loads(bench_file.read_text())["results"]}
+             if bench_file.is_file() else {})
     rows = []
     for label, (b, v, f) in sorted(CELLS.items(), key=lambda kv: kv[1], reverse=True):
         ckpt = a.final_dir / RUNS[label] / pathlib.Path(data[label]["protocol"]["checkpoint"]).name
         s = data[label]["summary"]
+        extra = {f"rtf_cpu_{t}t_model": bench[(label, t)]["model_corpus_rtf_median"] for t in (1, 2) if (label, t) in bench}
         rows.append({"label": label, "B": b, "V": v, "F": f, **model_size(ckpt), **training_cost(a.final_dir, RUNS[label]),
-                     "mean_rtf_recorded": s["mean_rtf"], "wer_mean": s["mean_wer"], "utmos_mean": s["mean_utmos"],
+                     "mean_rtf_recorded": s["mean_rtf"], **extra, "wer_mean": s["mean_wer"], "utmos_mean": s["mean_utmos"],
                      "mcd_mean": s["mcd"]["mean_mcd"]})
     write_csv(a.eval_dir / "ablation8-cost.csv", rows)
     fronts = {}
+    costs = ["elements_inference_path", "mean_rtf_recorded"] + (["rtf_cpu_1t_model"] if bench else [])
     for metric in METRICS:
-        for cost in ("elements_inference_path", "mean_rtf_recorded"):
+        for cost in costs:
             pts = {r["label"]: (r[f"{metric}_mean"], r[cost]) for r in rows}
             fronts[f"{metric} vs {cost}"] = pareto(pts, (not HIGHER_BETTER[metric], True))
     write_json(a.eval_dir / "ablation8-cost.json", {
@@ -471,7 +500,9 @@ def cmd_cost(a, data=None):
                               "generator without the posterior encoder enc_q, which only training uses",
                   "training": "per machine; RTX 5070 and RTX 4070 Ti times are not comparable with each other; active time "
                               "ends a dead attempt at its last ledger event",
-                  "rtf": "recorded inline during evaluation on different, not idle machines: indicative only, not reportable"},
+                  "rtf": "recorded inline during evaluation on different, not idle machines: indicative only, not reportable",
+                  "rtf_cpu": "rtf_cpu_<T>t_model: the CPU benchmark of benchmark_rtf.py (ablation8-rtf.json), median over "
+                             "three rounds of the corpus model RTF with T threads, all eight models on the same idle machine"},
         "rows": rows})
     return rows
 

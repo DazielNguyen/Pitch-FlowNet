@@ -5,8 +5,8 @@
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
-  "commit": "5eb3510",
-  "sha256": "891f6e31a13475bc9d92c3663ce0dbe40b8e86026727e2d12d0cc7da7674f4b6",
+  "commit": "c8d3144",
+  "sha256": "b4e5e1fafea78474a65d4757ef3dcfb3cfee96a6fef5970515fc50026f8dc9c8",
   "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
  },
@@ -77,11 +77,11 @@
   },
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-cost.csv",
-   "sha256": "27f1dd8e8f4d2101047e60919b557a1f028bfcda7b8bae8ba7d8cf57a8096453"
+   "sha256": "8bbefde85cdec4cac2862df89c4e1d4b27188a5558816e5bd72fe5f8155e005f"
   },
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-cost.json",
-   "sha256": "d5eb2e20808fd1a0216c78cc4f85c7d8c6574e7cad4ee21b5d0acc18e4d87013"
+   "sha256": "f069e809b0346d1951de3e85cb249ca38c2d32d427d20cb7b2297690aad4f68b"
   },
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-effects.csv",
@@ -100,14 +100,46 @@
    "sha256": "0d87bd21b60a682cae74702d0233c4c46ec78da94532ec257d8cca4793f7703d"
   },
   {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-rtf-runs.jsonl",
+   "sha256": "c12cbe0d84cb0fe7e76a9e7fc83006072a0bbbe5c467c4ba77bdf8e4fb89bc31"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-rtf.csv",
+   "sha256": "1f6f25303483a6a3701203f3ce2e73c4c980b79aa08f384305964ec9b3343a57"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-rtf.json",
+   "sha256": "45b395cd27d98454bfb76381aace9260b0d1ace9f97912297a343a5e178b1bbb"
+  },
+  {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-table.csv",
-   "sha256": "bf9dd00b66ba5c7669b7adda073a3489811731306a08008f23ae2451adced654"
+   "sha256": "55a4db972bbf4008ffb51bfec66566c4c979687ade23151d41d974fdcffb44e0"
   },
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-table.md",
-   "sha256": "33bd0cdbb6dc7269ae8d42e4644452e3872c246f97a2ec667496cfc8649e530d"
+   "sha256": "a7bf5a2cdfb270b893a79b0fdf5a77c497747c209be9b2d2ef46223f0cf6c2ec"
   }
  ],
+ "diagnostics": {
+  "tool": "tools/camera_ready/duration_diag.py",
+  "commit": "c8d3144",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/duration-diag-20261024.log",
+  "note": "text encoder, duration predictor, posterior encoder, flow and MAS only; no audio; no selection",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/durations.jsonl",
+    "sha256": "f95b2c3106ff7627ad0f299db890603cec319c16d9089931fbfda010dc44400a"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/summary.csv",
+    "sha256": "e4f6912cf8fc0bde45cecddde0cd4f9a3263ab1f2aef4d7634009bd36b0e11e3"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/summary.json",
+    "sha256": "17bf2cdbc216118d1a23480fb27a3e12de5e0e696687ddc4b4c87edcb89ef968"
+   }
+  ]
+ },
  "sources": [
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/summary.json",

@@ -16,7 +16,10 @@
 - the paired bootstrap CIs;
 - the factorial effects and the Shapley attribution.
 
-Open: the RTF benchmark (T15), whose protocol is still to be agreed.
+**RTF (T15).** The CPU benchmark of the eight checkpoints ran on 24/10 (`ablation8-results.md`, section 5). Its protocol was agreed with the author on that day, after the test results existed:
+- 1 and 2 threads;
+- 100 test utterances;
+- three rounds.
 
 **Two parts.**
 - **The paper's main result stays the historical pair:** Baseline epoch 773 and Full epoch 1079. It is evaluated as it is; nothing is retrained to replace it.
