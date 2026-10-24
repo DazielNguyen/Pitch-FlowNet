@@ -427,7 +427,42 @@ So the ranking may change with longer training.
   - The CPU benchmark was run on one WSL machine without control of P-core or E-core placement, at 1–2 threads, on 100 of the 500 test sentences.
   - Its values compare the eight models with each other only.
   - The inline values of the evaluations are not reportable.
-- **Audio length of NoF0:** its synthesized audio is about 40 % longer than that of the other cells. This was observed, not explained.
+- **Audio length of NoF0:** its synthesized audio is about 40 % longer than that of the other cells (section 8).
+- **The checkpoint-selection metric does not see text-to-speech quality.**
+  - `val_mel_l1_global` is computed with the training forward. The decoder reconstructs a random segment from the posterior encoder's latent of the real spectrogram.
+  - It does not pass through the text encoder, the flow or the duration predictor.
+  - The best epoch of each run is therefore the best for decoder reconstruction, not for synthesis from text. A run whose duration predictor drifts, as NoF0's appears to, can still have a low validation value. NoF0's 21.10 is the second lowest of the eight, after Baseline-BigVGAN's 21.06.
+  - This holds for all eight runs. It was fixed before any test result (decision (e) of `experiment-plan.md`).
+
+## 8. The long audio of NoF0: what is known
+
+Read-only analysis of the files above (per-sentence `audio_duration_sec`, the raw test WAVs, the source code), on 24/10.
+
+**What the data show:**
+- **NoF0 speaks more slowly, about uniformly.**
+  - Per sentence, its duration over Full has median 1.40 (10th–90th percentile 1.25–1.57); 98.6 % of the sentences are more than 10 % longer.
+  - The excess grows with length (excess ≈ 0.385 × Full duration + 0.10 s).
+  - It does not correlate with punctuation (r = −0.06). So it is a slower rate throughout, not added pauses.
+- **The other cells agree with each other.** The other seven cells produce 0.91–0.95 of the reference duration (median per sentence 0.91–0.95). NoF0 produces 1.30.
+- **Within NoF0, the most stretched sentences score lower on UTMOSv2:**
+  - r = −0.24 between stretch and UTMOSv2;
+  - UTMOSv2 3.121 in the top quartile of stretch, against 3.292 in the bottom quartile.
+  - The longer audio is a plausible contributor to NoF0's low UTMOSv2. A causal link was not tested.
+
+**What the code shows:**
+- In `SynthesizerTrn.infer`, the durations come from the stochastic duration predictor applied to the text-encoder output (`use_sdp: true` in both configs; `noise_scale_w` 0.8).
+- `use_f0` does not change that path. It adds the F0 predictor, read from the same encoder output and trained with its own loss, and the F0 conditioning of the decoder.
+- So the stretch is in the learned weights of the NoF0 run, not in a different inference path. Removing F0 can only act on durations indirectly: through training, the F0 loss also shapes the shared encoder output.
+
+**What cannot be decided from these runs:**
+- Only one of the four F = 0 cells is stretched. Baseline, Baseline-BigVGAN and Baseline-VITS2 have normal durations.
+- So this is not a general effect of removing F0.
+- With one seed per cell, a run-specific outcome cannot be separated from an interaction of F with B and V.
+
+**Possible diagnostics, not run.** Each needs the author's OK, because it runs the models (no audio is written, no test result is used for selection):
+1. **Predicted durations on the test texts.** Run only the text encoder and the duration predictor of the best and the last checkpoint of every run, and sum the predicted frames. This shows whether the stretch exists at epoch 199 too, and in which runs.
+2. **Teacher-forced durations on validation.** Compare the predicted durations with the MAS durations on the 100 validation utterances. This measures each duration predictor against its own alignment.
+3. **SDP noise.** Repeat 1 with `noise_scale_w` 0. This shows whether the stretch comes from the stochastic part of the duration predictor.
 
 ## Draft text for the author
 
@@ -437,4 +472,4 @@ Proposals only. The manuscript is not edited here. Each number has its source ab
 
 > The components interact. The VITS2 modules raise UTMOSv2 when the BigVGAN-style decoder is absent (+0.432 without F0, +0.184 with F0) but not when it is present (−0.306 without F0; −0.003, p = 0.60, with F0). F0 conditioning gives its largest gain when both other components are present (+0.327, p < 10⁻⁵⁶).
 
-> Limitations: one training seed per configuration, so the reported intervals reflect variation across test sentences, not across training runs; the eight runs were trained on two GPU types; all runs were still improving at 200 epochs; UTMOSv2 is a predicted score, not a listening test.
+> Limitations: one training seed per configuration, so the reported intervals reflect variation across test sentences, not across training runs; the eight runs were trained on two GPU types; all runs were still improving at 200 epochs; checkpoints were selected by a teacher-forced mel reconstruction loss on validation, which does not reflect the duration predictor; UTMOSv2 is a predicted score, not a listening test.
