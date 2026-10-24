@@ -82,6 +82,25 @@ class PureFunctions(unittest.TestCase):
         self.assertLess(mean, hi)
 
 
+class TrainingCost(unittest.TestCase):
+    def test_dead_attempt_ends_at_its_last_checkpoint_event(self):
+        d = Path(tempfile.mkdtemp(prefix="ablation8-cost-")) / "RUN"
+        d.mkdir()
+        (d / "run_manifest.json").write_text(json.dumps({"devices": {"torch": [{"name": "GPU X"}]}, "attempts": [
+            {"start_utc": "2026-10-20T00:00:00+00:00"},
+            {"start_utc": "2026-10-20T03:00:00+00:00", "end_utc": "2026-10-20T04:00:00+00:00"}]}))
+        ledger = [{"time_utc": "2026-10-20T00:30:00Z", "event": "save", "file": "last.ckpt", "epoch": 0},
+                  {"time_utc": "2026-10-20T01:00:00Z", "event": "save", "file": "last.ckpt", "epoch": 1},
+                  {"time_utc": "2026-10-20T02:59:00Z", "event": "auto_resume", "n": 1},
+                  {"time_utc": "2026-10-20T03:30:00Z", "event": "save", "file": "last.ckpt", "epoch": 2}]
+        (d / "checkpoint_ledger.jsonl").write_text("".join(json.dumps(r) + "\n" for r in ledger))
+        c = A.training_cost(d.parent, "RUN")
+        self.assertAlmostEqual(c["active_gpu_h"], 2.0)       # 00:00-01:00 (last save) + 03:00-04:00
+        self.assertAlmostEqual(c["wall_clock_h"], 4.0)
+        self.assertEqual((c["attempts"], c["auto_resumes"], c["other_resumes"]), (2, 1, 0))
+        self.assertAlmostEqual(c["median_epoch_min"], 30.0)
+
+
 class SyntheticRun(unittest.TestCase):
     """pairs and effects on fake per-sentence files; the WER/UTMOSv2 p-values must match a compare-*.json."""
 

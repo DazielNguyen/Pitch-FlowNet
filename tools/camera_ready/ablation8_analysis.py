@@ -417,10 +417,11 @@ def parse_utc(s):
 
 def training_cost(final_dir: pathlib.Path, run_id: str) -> dict:
     """Wall-clock and active training time from run_manifest.json attempts and the checkpoint ledger.
-    An attempt without an end time (it died) ends at its last ledger event; the lost partial epoch is not counted."""
+    An attempt without an end time (it died) ends at its last checkpoint event (save or remove), not at the
+    watchdog's auto_resume entry, which is written after the wait; the lost partial epoch is not counted."""
     man = json.loads((final_dir / run_id / "run_manifest.json").read_text())
     ledger = [json.loads(line) for line in (final_dir / run_id / "checkpoint_ledger.jsonl").read_text().splitlines() if line]
-    times = sorted(parse_utc(r["time_utc"]) for r in ledger)
+    times = sorted(parse_utc(r["time_utc"]) for r in ledger if r.get("event") in ("save", "remove"))
     starts = [parse_utc(x["start_utc"]) for x in man["attempts"]]
     active = 0.0
     for i, st in enumerate(starts):
@@ -430,7 +431,9 @@ def training_cost(final_dir: pathlib.Path, run_id: str) -> dict:
         active += (end - st).total_seconds()
     end_all = parse_utc(man["attempts"][-1]["end_utc"])
     saves = [(r["epoch"], parse_utc(r["time_utc"])) for r in ledger if r.get("file") == "last.ckpt" and r.get("event") == "save"]
-    durations = sorted((t2 - t1).total_seconds() / 60 for (e1, t1), (e2, t2) in zip(saves, saves[1:]) if e2 == e1 + 1)
+    # epoch durations from consecutive last.ckpt saves of the same attempt (none across an interruption)
+    durations = sorted((t2 - t1).total_seconds() / 60 for (e1, t1), (e2, t2) in zip(saves, saves[1:])
+                       if e2 == e1 + 1 and not any(t1 < st <= t2 for st in starts))
     auto = sum(1 for r in ledger if r.get("event") == "auto_resume")
     return {"gpu": man["devices"]["torch"][0]["name"], "attempts": len(starts), "auto_resumes": auto,
             "other_resumes": len(starts) - 1 - auto, "wall_clock_h": (end_all - starts[0]).total_seconds() / 3600,
