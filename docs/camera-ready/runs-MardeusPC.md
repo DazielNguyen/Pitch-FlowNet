@@ -184,7 +184,61 @@ The comparison file is `compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json`.
 | Start | 2026-10-22 17:20:08 +07, by the chain above (author's OK). Commit `229b9b5`, `dirty_paths` `[]`, training source tree `1ee13cb4…` |
 | Watchdog | `cr-watch-PFN-Baseline-VITS2-200ep-s1234` (limit 5 automatic resumes) |
 
-**Progress on 22/10 19:05.** Epoch 11, at about 1.9 it/s once the evaluation ended, i.e. about 6.9 min per epoch. Expected end ≈ 23/10 16:30, if no interruption occurs.
+### End: 2026-10-23 18:27:12 +07 (exit 0)
+
+**Result.**
+- 200 epochs, 156,400 G updates, in one attempt: no interruption, no automatic resume.
+- **Best:** epoch 188, `val_mel_l1_global` 22.2346. Last epoch (199): 22.7031.
+
+**Archive.** Finalized by the watchdog at 18:29:59 into `outputs/final/PFN-Baseline-VITS2-200ep-s1234/`.
+
+**Chain.** The one-off chain `<WSL_DEV_HOME>/pfn-sync/after_baseline_vits2.sh` (tmux `cr-chain-f0`, author's OK "ok chain F0" on 23/10; log `outputs/logs/chain-after-baseline-vits2.log`):
+- updated the WSL clone to `b91fff3`;
+- launched `PFN-Baseline-F0-200ep` at 18:30;
+- evaluated the best checkpoint, 18:32 → 20:06.
+
+**Evaluation** (locked protocol, test split, 500 utterances, label `PFN-Baseline-VITS2-200ep-best`):
+
+| Metric | Value |
+|---|---:|
+| WER mean / median | 11.05 % / 7.14 % |
+| UTMOSv2 mean / median (predicted) | 3.372 / 3.382 |
+| MCD mean / median | 25.62 / 25.50 |
+| Reference UTMOSv2 | 3.8308 |
+
+- No comparison was run here. Its add-one reference, `PFN-Baseline`, was trained on the PC.
+- The inline RTF (0.078) is not reportable: it was measured beside a training run.
+
+## PFN-Baseline-F0-200ep-s1234
+
+| Item | Value |
+|---|---|
+| Config | `configs/PFN-Baseline-F0/PFN-Baseline-F0-200ep.json`; B off, V off, F on; 156,400 G updates |
+| Start | 2026-10-23 18:30:42 +07, by the chain above. Commit `b91fff3`, `dirty_paths` `[]`, training source tree `1ee13cb4…` |
+| Watchdog | `cr-watch-PFN-Baseline-F0-200ep-s1234` (limit 5 automatic resumes) |
+
+### End: 2026-10-24 16:24:26 +07 (exit 0)
+
+**Result.**
+- 200 epochs, 156,400 G updates, in one attempt: no interruption, no automatic resume. About 6.4 min per epoch at the end.
+- **Best:** epoch 195, `val_mel_l1_global` 22.5705. Last epoch (199): 23.1776.
+
+**Archive.** Finalized by the watchdog at 16:24:58 into `outputs/final/PFN-Baseline-F0-200ep-s1234/`.
+
+**Evaluation.** Started automatically by `<WSL_DEV_HOME>/pfn-sync/eval_after_baseline_f0.sh` (tmux `cr-eval-wait-f0`), 16:26 → 17:20. Locked protocol, test split, 500 utterances, label `PFN-Baseline-F0-200ep-best`:
+
+| Metric | Value |
+|---|---:|
+| WER mean / median | 13.49 % / 7.14 % |
+| UTMOSv2 mean / median (predicted) | 3.060 / 3.096 |
+| MCD mean / median | 26.73 / 26.66 |
+| F0 predictor RMSE / corr | 0.620 / 0.192 |
+| Reference UTMOSv2 | 3.8308 |
+
+- No comparison was run here; its reference, `PFN-Baseline`, is on the PC.
+- The inline RTF (0.053) was measured with no training run beside it. It is still not the declared-thread RTF measurement (T15), so it is not reported as RTF.
+
+**All four MardeusPC runs are trained and evaluated.** Training on this machine is complete.
 
 ## Final checkpoints of every run
 
@@ -204,4 +258,54 @@ When a run ends with exit 0, `tools/camera_ready/finalize_run.sh` copies its che
 |---|---|---|---|---|
 | `PFN-Full-275ep-s1234` (to epoch 200) | `outputs/final/PFN-Full-275ep-s1234/` | `best-epoch=188-val_mel_l1_global=21.3153.ckpt`, SHA-256 `95e6d6c9…` | `last-epoch=199.ckpt`, SHA-256 `f600d86f…` | finalized 21/10 10:10 |
 | `PFN-NoF0-200ep-s1234` | `outputs/final/PFN-NoF0-200ep-s1234/` | `best-epoch=192-val_mel_l1_global=21.1037.ckpt`, SHA-256 `8f8570c6…` | `last-epoch=199.ckpt`, SHA-256 `1ed42171…` | finalized 22/10 17:19 |
-| `PFN-Baseline-VITS2-200ep-s1234` | `outputs/final/PFN-Baseline-VITS2-200ep-s1234/` | | | pending (training) |
+| `PFN-Baseline-VITS2-200ep-s1234` | `outputs/final/PFN-Baseline-VITS2-200ep-s1234/` | `best-epoch=188-val_mel_l1_global=22.2346.ckpt`, SHA-256 `2f3c28ad…` | `last-epoch=199.ckpt`, SHA-256 `c665c914…` | finalized 23/10 18:29 |
+| `PFN-Baseline-F0-200ep-s1234` | `outputs/final/PFN-Baseline-F0-200ep-s1234/` | `best-epoch=195-val_mel_l1_global=22.5705.ckpt`, SHA-256 `27bd2dec…` | `last-epoch=199.ckpt`, SHA-256 `e13daf50…` | finalized 24/10 16:24 |
+
+## Export to the PC: 2026-10-24 17:21–17:45 +07
+
+**What and why.** This follows `PROMPT-mardeus-export.md`, extended by the author on 24/10 to all four MardeusPC runs, i.e. with `PFN-Baseline-F0`. The author was away and wanted it done without waiting.
+
+**Where it went, and the deviation from the prompt.**
+- No external drive was attached, so the package was written to the internal data drive `E:`, not to an external drive:
+  - folder `E:\pfn-transfer-20261024\`;
+  - one store-only zip of that folder, `E:\pfn-transfer-20261024.zip`, which the author asked for;
+  - a plain report, `E:\pfn-transfer-20261024-BAOCAO.txt`.
+- The author copies the folder or the zip to the external drive. The read-back from the drive (prompt section 3.4) is still to be done there: `sha256sum -c SHA256SUMS.source`.
+
+**Scripts (outside Git):**
+- `<WSL_DEV_HOME>/pfn-sync/export_four.sh`, started by `after_f0_eval_export.sh` (tmux `cr-export`) once the Baseline-F0 evaluation had ended;
+- log: `<WSL_DEV_HOME>/outputs/logs/export-four-runs.log`.
+
+**Checks of section 2, all passed:**
+
+| Label | `final/` SHA256SUMS | `num_sentences` | MCD n / skipped | split | `checkpoint_sha256` = best file | Reference UTMOSv2 |
+|---|---|---:|---|---|---|---:|
+| `PFN-Full-200ep-best` | OK | 500 | 500 / 0 | test | yes (`95e6d6c9…`) | 3.8308 |
+| `PFN-NoF0-200ep-best` | OK | 500 | 500 / 0 | test | yes (`8f8570c6…`) | 3.8308 |
+| `PFN-Baseline-VITS2-200ep-best` | OK | 500 | 500 / 0 | test | yes (`2f3c28ad…`) | 3.8308 |
+| `PFN-Baseline-F0-200ep-best` | OK | 500 | 500 / 0 | test | yes (`27bd2dec…`) | 3.8308 |
+
+**Checks of section 3:**
+- `wavs/` entries in every `eval-*.tar`: 0;
+- `sha256sum -c SHA256SUMS.source` read back from `E:`: all nine files OK;
+- zip: 10 entries, CRC test OK.
+
+**Size:** folder 6.5 GB; zip 6.5 GB.
+
+**`SHA256SUMS.source`:**
+
+```
+98b3dc762caf0cc9cb53a013815c00630ad6e26246286fe48dd309ab318cdf7e  eval-PFN-Baseline-F0-200ep-best.tar
+9c33c3e07d09b8849bd99db13aabdb1685bbb11cbb6482dd3230623aaac7071c  eval-PFN-Baseline-VITS2-200ep-best.tar
+f140d38ddb88ee2516dddba047bbee4b40c470b25479146bd059fa6dff1c72fe  eval-PFN-Full-200ep-best.tar
+ee1e7b218bfce99249680b7ff07760530175c635142719b03dea037a5d788fe6  eval-PFN-NoF0-200ep-best.tar
+e7384c4c8b1a7ed0fd9b168a7755564f1304d0b866f9228e3433000048e9c9cd  eval-compare.tar
+e818b9aaa333cd87e65b64cba12c9ad05fdd483b73df8e370710fe51a26ddc9b  final-PFN-Baseline-F0-200ep-s1234.tar
+e9c1370399e03068a4394ac617a20df3880d951482f0c104691e85d7c0be3b0f  final-PFN-Baseline-VITS2-200ep-s1234.tar
+d9cc462cdc7dbb17a6425a703ea61db448df0564b330f5e7aaa00280d0748835  final-PFN-Full-275ep-s1234.tar
+9197aab7f391535dd6d1e1f6ec42abcdad16d7285d7d1c72417b1a500389f841  final-PFN-NoF0-200ep-s1234.tar
+```
+
+**Zip:** `b87a66760315220c6f59f0eff531db121de06cf572bbbb053dbf65703c7fb9b5  pfn-transfer-20261024.zip`
+
+**Status:** `READY_FOR_TRANSFER`. Nothing was trained or re-evaluated for the export, and nothing was sent over a network.
