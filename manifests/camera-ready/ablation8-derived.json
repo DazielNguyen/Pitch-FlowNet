@@ -5,7 +5,7 @@
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
-  "commit": "f939d4b",
+  "commit": "c8d3144",
   "sha256": "b4e5e1fafea78474a65d4757ef3dcfb3cfee96a6fef5970515fc50026f8dc9c8",
   "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
@@ -120,6 +120,26 @@
    "sha256": "a7bf5a2cdfb270b893a79b0fdf5a77c497747c209be9b2d2ef46223f0cf6c2ec"
   }
  ],
+ "diagnostics": {
+  "tool": "tools/camera_ready/duration_diag.py",
+  "commit": "c8d3144",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/duration-diag-20261024.log",
+  "note": "text encoder, duration predictor, posterior encoder, flow and MAS only; no audio; no selection",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/durations.jsonl",
+    "sha256": "f95b2c3106ff7627ad0f299db890603cec319c16d9089931fbfda010dc44400a"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/summary.csv",
+    "sha256": "e4f6912cf8fc0bde45cecddde0cd4f9a3263ab1f2aef4d7634009bd36b0e11e3"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/duration-diag-20261024/summary.json",
+    "sha256": "17bf2cdbc216118d1a23480fb27a3e12de5e0e696687ddc4b4c87edcb89ef968"
+   }
+  ]
+ },
  "sources": [
   {
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/summary.json",

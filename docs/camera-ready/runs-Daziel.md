@@ -295,3 +295,8 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
     - `wsl_keepalive.ps1 stop` (21:13).
   - **Result:** `ablation8-results.md`, section 5. The synthesized lengths equal the evaluation's for every model.
   - **Machine state:** no other job of this project ran during the benchmark, and no other tmux session existed at its start. Activity on the Windows side was not monitored.
+- **Update 2026-10-24 22:30: duration diagnostics, after the author's OK.**
+  - `tools/camera_ready/duration_diag.py` (commit `c8d3144`) ran 22:10–22:19 on the CPU and wrote no audio. Results are in `tests/duration-diag-20261024/`.
+  - The best checkpoint of every run reproduced the evaluation's durations for 500 of 500 sentences.
+  - Finding: the long NoF0 audio comes from the stochastic part of its duration predictor (`ablation8-results.md`, section 8).
+  - The historical pair is reported there as recorded, in section 9.
