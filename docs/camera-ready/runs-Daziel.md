@@ -238,6 +238,29 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
 - TensorBoard (`cr-tensorboard`) and the GPU log (`cr-gpulog`) were stopped at 23:26 +07.
 - The WSL keep-alive was stopped on 24/10 at 00:52, after both evaluations had ended.
 
+## Import from MardeusPC: 2026-10-24 19:52 +07
+
+**What came.** The package of `runs-MardeusPC.md`, "Export to the PC", written there with `export_four.sh`. The author copied it into the Windows copy of the repository, under `docs/pfn-transfer-20261024/`, unzipped:
+- 9 tar files and `SHA256SUMS.source`;
+- the zip itself was not there, so its SHA-256 (`b87a6676…`) could not be checked.
+
+**Checks, all passed** (script log `<WSL_DEV_HOME>/outputs-pfn-cr/logs/import-mardeus-20261024.log`):
+- **The hash list itself:** `SHA256SUMS.source` is identical, line for line, to the copy committed in `runs-MardeusPC.md` (9 lines). The hash list does not rest only on the package that carried it.
+- **Hashes:** `sha256sum -c SHA256SUMS.source` gave 9/9 OK, once at the source and again after staging the tars in `<WSL_DEV_HOME>/pfn-import-staging-20261024/` (outside `$CR_OUTPUTS`).
+- **Tar contents:** every tar was listed before extraction. There was no absolute path, no `..`, no link, and no `wavs/` or `.wav` entry. Each tar has one top folder.
+- **No overwrite:** none of the targets existed before.
+- **Extraction:** into `$CR_OUTPUTS/eval/<label>/` (Full, NoF0, Baseline-VITS2, Baseline-F0), `$CR_OUTPUTS/eval/compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json` and `$CR_OUTPUTS/final/<run_id>/` (`PFN-Full-275ep-s1234`, `PFN-NoF0-200ep-s1234`, `PFN-Baseline-VITS2-200ep-s1234`, `PFN-Baseline-F0-200ep-s1234`).
+- **Final folders:** `sha256sum -c SHA256SUMS` in each imported `final/<run_id>/` gave 5/5 OK each. All four folders are read-only (0 writable entries).
+
+**Afterwards:**
+- The staging folder was removed after the checks.
+- On the author's instruction, `docs/pfn-transfer-20261024/` (6.45 GB) was deleted from the Windows copy, so that OneDrive does not sync it and Git cannot stage it. The copy on MardeusPC (`E:\pfn-transfer-20261024\` and the zip) remains.
+
+**Analysis of the eight cells.** Results and their sources: `ablation8-results.md`; hashes: `manifests/camera-ready/ablation8-derived.json`.
+- Tool `tools/camera_ready/ablation8_analysis.py`, commits `a2521ae` and `5eb3510`.
+- The twelve missing `compare-*.json` were written here with `evaluate_like_history.py compare` (log `logs/compare-ablation8-20261024.log`).
+- Nothing was trained, synthesized or re-scored.
+
 ## Proposed updates to `PRIORITY.md` and `experiment-plan.md` (for MardeusPC to apply)
 
 - RTX 4070 Ti speed, measured in epoch 1: 6.6 min per epoch (`NoBigVGAN`), 6.4 min (`NoVITS2`), with both GPUs training at once. About 22 h per 200-epoch run, against ≈ 28–32 h on the RTX 5070.
@@ -260,3 +283,6 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
   - No run needed a resume.
   - Nothing more trains on the PC.
   - Next, by the author's decision: the PC collects `eval/<label>/` (without `wavs/`) and `final/<run_id>/` of `PFN-Full`, `PFN-NoF0` and `PFN-Baseline-VITS2` from MardeusPC on an external drive (`PROMPT-mardeus-export.md`), and runs `compare` for the seven models. `PFN-Baseline-F0` follows when it is final.
+- **Update 2026-10-24 20:10:**
+  - All eight cells are imported and analysed (`ablation8-results.md`). `PRIORITY.md` and `experiment-plan.md` are updated from this machine, on the author's instruction of 24/10.
+  - The author asked for one RTF benchmark of the eight best checkpoints (T15). Its protocol is still to be agreed: CPU as `eval-protocol.md` says, or one idle GPU as the task of 24/10 says. Nothing has been run.
