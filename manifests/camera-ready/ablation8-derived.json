@@ -1,0 +1,433 @@
+{
+ "schema": "camera-ready derived-file manifest v1",
+ "created": "2026-10-24",
+ "machine": "the PC (2 x RTX 4070 Ti), WSL account <WSL_DEV_HOME>",
+ "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
+ "tool": {
+  "path": "tools/camera_ready/ablation8_analysis.py",
+  "commit": "5eb3510",
+  "sha256": "891f6e31a13475bc9d92c3663ce0dbe40b8e86026727e2d12d0cc7da7674f4b6",
+  "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
+ },
+ "compare_tool": {
+  "path": "tools/camera_ready/evaluate_like_history.py",
+  "commit": "f773be2",
+  "sha256": "314c79cccbcafad335358b7386523269bb8e89aa8af204422e13d82980788c72",
+  "note": "compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json was written on MardeusPC (22/10) and imported; the other twelve were written on the PC on 24/10 (<WSL_DEV_HOME>/outputs-pfn-cr/logs/compare-ablation8-20261024.log)",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-200ep-best_PFN-Baseline-BigVGAN-200ep-best.json",
+    "sha256": "ed603003902c6103f5b821911a9ffaf16557a6d0a2f070f0137f6b1a468cefb1"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-200ep-best_PFN-Baseline-F0-200ep-best.json",
+    "sha256": "8e203ed3b0b128b4bf7840eba5b2fb778d5ff76ed217836415fb25488447a5a5"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-200ep-best_PFN-Baseline-VITS2-200ep-best.json",
+    "sha256": "bcb9b9aa02cd875501cbe8fae366a5786d86d73426aac2c69824fb13b643dd3d"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-200ep-best_PFN-Full-200ep-best.json",
+    "sha256": "5c52cbc11495c3c3a95c0fddeff7356f83aded10842b8571bbe34c7577ef9451"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-BigVGAN-200ep-best_PFN-NoF0-200ep-best.json",
+    "sha256": "e7596ddcfdb0c1ac27880d089f79040f29297ce5cdd91981e1fcb8d9d526ae81"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-BigVGAN-200ep-best_PFN-NoVITS2-200ep-best.json",
+    "sha256": "8d3fc4bbbd722b070d7d19d076036579d41f7f639971980a146e645a13dd3ce5"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-F0-200ep-best_PFN-NoBigVGAN-200ep-best.json",
+    "sha256": "1273bcb30dfb8ced2a4221c581d3a28e4a1d31558d16648e1694c21a3c8d6ed3"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-F0-200ep-best_PFN-NoVITS2-200ep-best.json",
+    "sha256": "f60366312b9162ba8819edb9dda94fd99d6284d2a690d54b58a1ba66dfa922aa"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-VITS2-200ep-best_PFN-NoBigVGAN-200ep-best.json",
+    "sha256": "c2812a2fbe584431e2e9936679a6e53fd3e75e51391f9c583ddb8595a902f711"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-VITS2-200ep-best_PFN-NoF0-200ep-best.json",
+    "sha256": "a595b92576303013862df68ca227707a78534347a286dd448a4a99522b5d395c"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json",
+    "sha256": "b997de64184054691fd11564ac5ffa239bd9bcfa52b69c78a5bf729759a5761e"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-NoBigVGAN-200ep-best_PFN-Full-200ep-best.json",
+    "sha256": "6750c99327cc9dcce4ba9e61d48ec11b4c1d7a8b5d68b7b953d0b3b5fc141a98"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-NoVITS2-200ep-best_PFN-Full-200ep-best.json",
+    "sha256": "a570b588d5eecafe592fa54dd32ecfbd8974aad2b59acd3acfcee27b03763cc2"
+   }
+  ]
+ },
+ "derived": [
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-check.json",
+   "sha256": "7b6f5a8bacfd4873e46f4fd692b33902ffccb2d3d473443ca6681b30ee15e20b"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-cost.csv",
+   "sha256": "27f1dd8e8f4d2101047e60919b557a1f028bfcda7b8bae8ba7d8cf57a8096453"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-cost.json",
+   "sha256": "d5eb2e20808fd1a0216c78cc4f85c7d8c6574e7cad4ee21b5d0acc18e4d87013"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-effects.csv",
+   "sha256": "31c76bb91065eded1db22eec5bc8f3ec41e601b97c52058a2a26b6045172733f"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-effects.json",
+   "sha256": "38f54ced3d8c193c90c1b037d2f714f884a1e5bc54ce0b159353921921f1dee5"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-pairs.csv",
+   "sha256": "6872db5572b4903b958c005bdfc3d2eea1251e40f30a4c0483b7de5db8ea111c"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-pairs.json",
+   "sha256": "0d87bd21b60a682cae74702d0233c4c46ec78da94532ec257d8cca4793f7703d"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-table.csv",
+   "sha256": "bf9dd00b66ba5c7669b7adda073a3489811731306a08008f23ae2451adced654"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation8-table.md",
+   "sha256": "33bd0cdbb6dc7269ae8d42e4644452e3872c246f97a2ec667496cfc8649e530d"
+  }
+ ],
+ "sources": [
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/summary.json",
+   "sha256": "d1778114a40d3c1765f4efad005fec5ed85f096f8f2740a9ff081f7230518acd"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/protocol.json",
+   "sha256": "d789c2286d74fee686e8c6fa92054dbff09e35dadaa2d485e27c664f3bd57829"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/best-epoch=188-val_mel_l1_global=21.3153_per_sentence.csv",
+   "sha256": "3aaa7d16f8a13db702364ca40f0cd5dfd8db2861e5e3f36ddef05011c7878344"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "b30f5ab3c95a81953e2721c3d0a4e3f681dd23cdb9d0278d901b8daeb3ffcda4"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Full-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Full-275ep-s1234/SHA256SUMS",
+   "sha256": "ffd1ba97748d2d12c367aceb5529c3f1debcf1dc182a92b4db95851d41b76270"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Full-275ep-s1234/final.json",
+   "sha256": "b46d153b37868abf3a5ef0246ffa46bfa639321c44543ff0771b4e48e7c1cd45"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Full-275ep-s1234/run_manifest.json",
+   "sha256": "bce0f15db82df32d7ec2c4da70ce86bb002ea817360a0d0aba2190aeda5d06eb"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Full-275ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "1fa57f619840dee639c2f2b2552eec33f8efd061d61fdfb470bb1ce28928e4ad"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Full-275ep-s1234/val_diagnostics.jsonl",
+   "sha256": "692e091c6633c911b127aa356ad677fa0d060a394af3bba900f48a33dcea033e"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoF0-200ep-best/summary.json",
+   "sha256": "34137fd67e5e80fcba8d1aa897557e5e85a091884d84e8c30c7febef38c4baf3"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoF0-200ep-best/protocol.json",
+   "sha256": "a647426291a3e1574676d57ee5c8a411e01317ee3a866f733d76dfa63b6cf848"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoF0-200ep-best/best-epoch=192-val_mel_l1_global=21.1037_per_sentence.csv",
+   "sha256": "0f657b6a3b3f3cc8536e1fb0f98c9f0df1c649335efaa9e78ae222e010dc0a18"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoF0-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "b6c2018889148502f66ee8082157aea2e2d4deeb5c5ed791ab252421497ccd22"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoF0-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoF0-200ep-s1234/SHA256SUMS",
+   "sha256": "828fc8d2b1169cf9736e96bcb9d6cde462683659733f36a76816429e7b593f2f"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoF0-200ep-s1234/final.json",
+   "sha256": "953f9c02aaf9a4f7eef6a30924f90894ef27627ed9b5dcd4a3bc8a06f483ccf3"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoF0-200ep-s1234/run_manifest.json",
+   "sha256": "1773ddc0a00fd8130ff6804f749c1e18a7a88c742a0d4c297e47ca5714917b22"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoF0-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "e1b04cd153e85e62b8c04a4303ca142ad897b4f13a9bdae92a0b20d7f9cc6008"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoF0-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "db6095766043b9c7e4d6ccbd64e316b4e9f94d4a248cf6b3a74ef29b01765ddb"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoVITS2-200ep-best/summary.json",
+   "sha256": "7edc3ca578fa184801a3ee5cd76bd86012ac9bae004cc2f60037f5e0b2b56c9f"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoVITS2-200ep-best/protocol.json",
+   "sha256": "81e616d8f7c653eed6ecbe54b564cbc59681792bc1652596393c259c1f38ae02"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoVITS2-200ep-best/best-epoch=188-val_mel_l1_global=21.2745_per_sentence.csv",
+   "sha256": "14727e1fe2deacbfc2b8eb94eee76601adf2fb5d61ca63a9866ef655153ceaab"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoVITS2-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "5627ef3a4522f98a4927bf0cc25e3def4e766b018966717326624c10938d34f9"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoVITS2-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/SHA256SUMS",
+   "sha256": "93baa071eabf289fbccdf3c3041ec02e2f1ce00ac67dc0a907b5ea082f432c12"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/final.json",
+   "sha256": "19d42fbd148148afd5a2fc122f5122e090b7f748e5d5c58719761f43a7d791a4"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/run_manifest.json",
+   "sha256": "4e6e600074df42c17f607c7e701822dcdb2ae272810f932ce94d7aef333cf761"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "d1c9118e89549db37091e772a6b076d549688ad4cae89f8996797f74c1d87d45"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoVITS2-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "4b33783839fce199b414b5385c5a66854d925241bbad476a418fb56647656ffb"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoBigVGAN-200ep-best/summary.json",
+   "sha256": "8ee4b391cdab75fe0160ad763e6a0dbacebea8269c24899f88e677fe3e6fb8f3"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoBigVGAN-200ep-best/protocol.json",
+   "sha256": "ee1fbf5dad09eb442e3a4699416c5542d58650a9247c46776163c6f14d2550a1"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoBigVGAN-200ep-best/best-epoch=199-val_mel_l1_global=22.3429_per_sentence.csv",
+   "sha256": "28586496b0afa6d9ce5354cdc90dfd5428047ead3e8c485cd5507c1c8d49506b"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoBigVGAN-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "c780428cac767fb0d9f27f49ee130768af93a4c53c591c8c2b25a78fc7153bf1"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-NoBigVGAN-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/SHA256SUMS",
+   "sha256": "e4cb21b763f5b2a1e5982d0932a161a86cc0e5e09e6253d992d9e5d87b87d7de"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/final.json",
+   "sha256": "8f708a0010f39344866a29fd5945ef62c9774e8bedbc52595d5832f1d9d1ef1a"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/run_manifest.json",
+   "sha256": "074bb16cec76a3d99761fc002a5086e103e6edeff5a589fa11d9d7c122ca2cb0"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "1c041daaa56e2bb77aee525e48cdea54f3cfcd5ff6c7cea0eb87348a9d9f25f6"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-NoBigVGAN-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "0bb71710f2d2540c1a558c60a8ce64e4b95419aaf00b25259acc34180d206bc0"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-BigVGAN-200ep-best/summary.json",
+   "sha256": "6d6aa67ba11cfdf11f45fc709e0c4adc26aefc4ab82236af11b24fcacc084ee4"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-BigVGAN-200ep-best/protocol.json",
+   "sha256": "ca706afee51f1d2be1d3339eaec0a8284ad172f9f0edf0de5dccb678947362fe"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-BigVGAN-200ep-best/best-epoch=199-val_mel_l1_global=21.0612_per_sentence.csv",
+   "sha256": "cddffb25e5fef6dec92d0b099f8d109f57f5c4df8e1f2fd63a55971f7e3c52d1"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-BigVGAN-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "7555fbd63bb270c4c26346c077f8608f716b6f6a2e346cd4a98cc54dcf3526c5"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-BigVGAN-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/SHA256SUMS",
+   "sha256": "6551c988a2b6a72b9374c96175d4b53b5ae421611bfdcc1890915df035f2f76e"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/final.json",
+   "sha256": "75c5ffc35a2297945fb63c8905b94fd125187c40718334e794f1c5718c8f5805"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/run_manifest.json",
+   "sha256": "6a0c28b40bb38620c431d1307a0aa26e1805f0cc6dfd4b74f669d79651dc4f6c"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "5a88a55e85a6f5d2efeda4ae242029802f0fb325e6d66e6130961b179de11c14"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-BigVGAN-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "4eecbcbf96a33ed51412241be91657ccf11672b838425bf605f6bf02a8be0782"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-VITS2-200ep-best/summary.json",
+   "sha256": "6392852c3a4beed81f0b133d4e30d2bdc7f3488c32a77a9bf0f103eeaff19af0"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-VITS2-200ep-best/protocol.json",
+   "sha256": "c125d614f7cacc51e7c49829f5ba5b1c08668152a2d2026de90aa20db87e2770"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-VITS2-200ep-best/best-epoch=188-val_mel_l1_global=22.2346_per_sentence.csv",
+   "sha256": "ee2d7b7531b2c1f020ebb3cd369e9df08d71daa5800678ec6ccb843cc09c101f"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-VITS2-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "3c6772324a3c9a100a955dad936013a961d3ebdff1ab94f8d098b2bcd1ee72ec"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-VITS2-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-VITS2-200ep-s1234/SHA256SUMS",
+   "sha256": "96847308666cba1085ac070e61422405190f5f3573c00087adb017d8c6a6c70f"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-VITS2-200ep-s1234/final.json",
+   "sha256": "ceb7b9bf73d7c0f9fb6502dd8d59cede8bd15c70232af835c9d4086882558c32"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-VITS2-200ep-s1234/run_manifest.json",
+   "sha256": "22892b92242e6e3abab19e8714f88927f9ca21fc7e34dc011b69fd5cd65b7622"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-VITS2-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "1ec3ced462670e9096327095177e04dfbccdc9b377e888768d74533d58454c7e"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-VITS2-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "ef7f4ca84c04f95ed03c359c38af09cbceb8b84ee76f0a3362362d7a925ffb28"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-F0-200ep-best/summary.json",
+   "sha256": "125576ab01ce52373160609b2abc22cab8da82a4f99b3d325f3bd4f73c0bc373"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-F0-200ep-best/protocol.json",
+   "sha256": "5b04bc77965ccb10245abb9299eb1de79c37793a3f417bb05166aa568b90c221"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-F0-200ep-best/best-epoch=195-val_mel_l1_global=22.5705_per_sentence.csv",
+   "sha256": "257ab7103699408b224011912dd630889692ddef500f09a7fb4e5120ac2b774d"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-F0-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "2426daad7b35a241ef3eb7b1611ebe551a82af95a18483e139bbb7f529bb3e49"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-F0-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-F0-200ep-s1234/SHA256SUMS",
+   "sha256": "5efc55b61ed93cdc6036c6a894480ce6c63a231e88bedb73872773409308bb1a"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-F0-200ep-s1234/final.json",
+   "sha256": "697fb34468b17581bd979d387f2eb72d6e43ad00fcb9901db6f97a274b811407"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-F0-200ep-s1234/run_manifest.json",
+   "sha256": "f2e2d3aaabd75e86efc322fc4bc333d529642b12d074d8a1cbb377cb7f589dba"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-F0-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "79d9c708f75dcef702fe2a6e8b953b7a5b7e05384af1e01def86e3ddd15caaaa"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-F0-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "b2e4744489cbc6425351e105dbf82bf84319072931f4e9c1a558c869644fc465"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-200ep-best/summary.json",
+   "sha256": "1c610992175f19f0437d237fc2841e75d0b87990a82d78dcb94261469ac7f067"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-200ep-best/protocol.json",
+   "sha256": "b142ed1b0da734c0b4d3977f68f64c8248c1780625c0cc56c336c64c7db6b26d"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-200ep-best/best-epoch=194-val_mel_l1_global=22.1978_per_sentence.csv",
+   "sha256": "3516443577695c87428a7045b3574bd557eb889d12dc925005bb2d7aa226fecb"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-200ep-best/mcd/mcd_gtmos.csv",
+   "sha256": "5949e1b61aec989fb85a16532c46f89c7ad096fc0180d3fb1e1ed42c31c63efb"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/PFN-Baseline-200ep-best/reference.jsonl",
+   "sha256": "8c97aa2b2f39d49240acaf6ef7f6e1b01f27007089b9bc26d74c61bcf1314029"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/SHA256SUMS",
+   "sha256": "3a4a808b96535cc927c40cf0f4a0f3617f173af483f51a55e303668677a2dc54"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/final.json",
+   "sha256": "02be9019d2ea2454d0c18db644c45f1a885712b535cb659a01acc68b89d252df"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/run_manifest.json",
+   "sha256": "6181eb1b6f81ec5847c1729d3d362130760ec1b2ab7ce1fb1b9d4f780950f868"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/checkpoint_ledger.jsonl",
+   "sha256": "b4ed8c6a74522fbded6fc6a2a4e485aab86e92d9f86dc5f5f725322231ae9148"
+  },
+  {
+   "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/val_diagnostics.jsonl",
+   "sha256": "e12aa7e180eb85fbc70a517e5e1f3ede821637ec3bd0e4d76488605083094c3b"
+  }
+ ]
+}

@@ -8,6 +8,16 @@
 | 2026-10-21 | Extended to all eight group combinations |
 | 2026-10-21 | Budget lowered from 275 to **200 epochs per run**, so that all eight fit |
 
+**Outcome (24/10).** The ablation is done: all eight cells were trained for 200 epochs and evaluated with the locked protocol (`eval-protocol.md`). They were analysed on the PC: `ablation8-results.md`, with the hashes of every source and derived file in `manifests/camera-ready/ablation8-derived.json`.
+
+**Analysis choices made after the test results existed.** They come from the author's task of 24/10; they are not decisions of this plan:
+- the 13 paired comparisons: the 12 cube edges and Full vs Baseline;
+- the Holm correction within each metric;
+- the paired bootstrap CIs;
+- the factorial effects and the Shapley attribution.
+
+Open: the RTF benchmark (T15), whose protocol is still to be agreed.
+
 **Two parts.**
 - **The paper's main result stays the historical pair:** Baseline epoch 773 and Full epoch 1079. It is evaluated as it is; nothing is retrained to replace it.
 - **New: an ablation over the three groups.**
@@ -86,6 +96,12 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 | MardeusPC, RTX 5070 | `PFN-Full` (to epoch 200) → `PFN-NoF0` → `PFN-Baseline-VITS2` → `PFN-Baseline-F0` | ≈ 21/10 10:30 → ≈ 22/10 19:00 → ≈ 24/10 03:00 → ≈ 25/10 11:00 |
 | PC, RTX 4070 Ti #0 | `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN` | ≈ 22/10 22:00 → ≈ 24/10 06:00, if it starts ≈ 21/10 14:00 |
 | PC, RTX 4070 Ti #1 | `PFN-NoVITS2` → `PFN-Baseline` | same |
+
+**Actual ends** (`runs-MardeusPC.md`, `runs-Daziel.md`):
+- RTX 5070: Full 21/10 10:08, NoF0 22/10 17:18, Baseline-VITS2 23/10 18:27, Baseline-F0 24/10 16:24.
+- PC GPU 0: NoBigVGAN 23/10 00:12, Baseline-BigVGAN 23/10 23:09.
+- PC GPU 1: NoVITS2 22/10 23:16, Baseline 23/10 20:20.
+- The PC started on 22/10 01:33, not on 21/10.
 
 **Capacity.**
 - All eight runs should end by about 25/10 11:00. That leaves about 57 h for evaluation and reserve before 27/10 evening; the PC GPUs are free for evaluation from about 24/10.
