@@ -17,7 +17,7 @@ The analysis was done on the PC on 2026-10-24.
 
 ## Summary
 
-**State on 2026-10-25.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded (section 9). Pitch control through the F0 conditioning has been tested (section 10).
+**State on 2026-10-25.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded (section 9). Pitch control through the F0 conditioning (section 10) and the waveform F0 against the recordings (section 11) have been tested.
 
 **Main numbers** (test split, 500 utterances; 95 % CIs from the paired bootstrap; Holm across 13 pairs):
 - **Full vs Baseline (200 epochs):**
@@ -36,6 +36,11 @@ The analysis was done on the PC on 2026-10-24.
 - **Pitch is not controllable through the F0 conditioning** (section 10).
   - Scaling the decoder's F0 input by ±2 semitones, with z, durations and noise fixed, moves the output pitch by only 0.008–0.023 semitones (slope 0.004–0.011). This holds in all four F = 1 cells and in the historical Full model.
   - The decoder uses the conditioning, since the waveform changes, but the pitch comes from the latent.
+- **Waveform F0 against the recordings** (section 11, DTW as the MCD):
+  - every model has a log-F0 correlation of 0.32–0.37 and an F0 RMSE of 439–513 cents;
+  - the F0 group does not bring the pitch closer to the recordings: alone it makes it worse (RMSE +57 cents), and in the other cells RMSE, correlation, VDE and GPE do not change significantly after Holm, except GPE −0.013 with BigVGAN;
+  - the historical 1079 and 773 do not differ;
+  - Full vs Baseline improves RMSE by 17 cents.
 
 **Limits** (section 7):
 - one seed per cell;
@@ -58,6 +63,7 @@ The analysis was done on the PC on 2026-10-24.
 | Duration diagnostics | `tools/camera_ready/duration_diag.py` (commit `c8d3144`), tests `tests/camera_ready/test_duration_diag.py`; results in `tests/duration-diag-20261024/` |
 | Historical pair, as recorded | `evaluation/eval_h_vs_baseline/` (in Git, sanitized copies) |
 | Pitch intervention (T14) | `tools/camera_ready/pitch_shift.py` (commit `524708f`), tests `tests/camera_ready/test_pitch_shift.py`; results in `tests/pitch-shift-20261025/` |
+| Waveform F0 (T13) | `tools/camera_ready/waveform_f0.py` (commit `ac6e68a`), tests `tests/camera_ready/test_waveform_f0.py`; results in `tests/waveform-f0-20261025/` |
 | Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}`, `ablation8-rtf.{csv,json}`, `ablation8-rtf-runs.jsonl` |
 | Hashes of every source and derived file | `manifests/camera-ready/ablation8-derived.json` (in Git) |
 | Import of the four MardeusPC runs | `runs-Daziel.md`, "Import from MardeusPC" |
@@ -630,6 +636,120 @@ All values are in semitones. Every model used 100 of 100 utterances.
 - **Larger shifts** and the quality of the shifted audio (UTMOSv2, WER) were not measured.
 - **The F0 path may affect other properties:** this test does not show that the F0 path has no benefit. The UTMOSv2 effects of F (section 4) may come through effects other than pitch.
 
+## 11. Waveform F0 against the recordings (T13)
+
+**Question.** How close is the pitch of the synthesized waveform to the pitch of the recording of the same sentence, and does the F0 group bring it closer? Review 1 asks for waveform F0 metrics.
+
+**Protocol.** Agreed with the author on 2026-10-25 before the run. It is a supplementary analysis, outside the protocol locked on 21/10.
+- **Tool:** `tools/camera_ready/waveform_f0.py`, commit `ac6e68a`.
+- **Models:** the eight cells (best checkpoints) and the historical pair (773, 1079).
+- **Audio:** the 500 test utterances, synthesized with the evaluation's seeds and scales.
+  - The historical pair is synthesized with seeds here for the first time. Its numbers are not those of the historical evaluation.
+- **Reference:** the normalised audio of the cache, the same reference as the MCD.
+- **F0 extraction:** pyworld `harvest` (60–600 Hz, 5 ms) for both the synthesized and the reference audio.
+- **Alignment (primary):** DTW exactly as the harness's MCD (24 MFCC, n_fft 1024, hop 256, normalised by the reference frames, euclidean). Each MFCC frame takes the nearest F0 frame.
+- **Alignment (sensitivity):** a linear time stretch.
+- **Metrics, per utterance:**
+  - F0 RMSE and mean offset, in cents (pairs voiced in both);
+  - log-F0 correlation;
+  - VDE (voicing decision error);
+  - GPE (gross pitch error, more than 20 %);
+  - FFE (F0 frame error);
+  - coverage.
+- **Statistics:**
+  - per model, bootstrap 95 % CIs over utterances;
+  - six paired comparisons: the four F edges, Full vs Baseline, and 1079 vs 773;
+  - paired-bootstrap CIs of the difference (on − off);
+  - two-sided Wilcoxon, Holm within each metric across the six.
+- **Interpretation:** numbers only. A non-significant difference is not equivalence.
+
+**Run and checks:**
+- **Run:** 2026-10-25 17:57–18:35 +07, CPU. 5,000 WAVs, records and summary are outside Git, in `<WSL_DEV_HOME>/outputs-pfn-cr/tests/waveform-f0-20261025/` (1.4 GB). Log: `logs/waveform-f0-20261025.log`.
+- **Reproduction:** the eight cells reproduced the evaluation's durations, 500 of 500. Baseline, Baseline-BigVGAN, NoBigVGAN and NoVITS2 also reproduced the evaluation's WAV bytes, 500 of 500.
+- **Self-check:** a reference aligned with itself gave 0 cents and no voicing error.
+- **Smoke-run check of the high error level.** Five utterances, three models; this sanity check was not a step of the protocol.
+  - The synthesized and reference F0 ranges agree (about 150–300 Hz).
+  - Only 1–8 % of aligned frames are more than 1,000 cents apart, so octave errors are not the cause.
+  - Shifting the synthesized track by ±30 ms changes the RMSE only moderately.
+  - The high level therefore reflects contours that differ from the particular recording, not a measurement fault.
+
+#### Per model, DTW alignment (primary)
+
+| Model | B V F | F0 RMSE (cents) | Offset (cents) | log-F0 corr | VDE | GPE | FFE | Coverage |
+|---|:-:|---|---|---|---|---|---|---:|
+| Full | 1 1 1 | 439.1 [432.5, 445.7] | -32.8 [-43.9, -21.8] | 0.338 [0.323, 0.353] | 0.159 [0.154, 0.163] | 0.372 [0.363, 0.381] | 0.441 [0.433, 0.449] | 0.763 |
+| NoF0 | 1 1 0 | 445.9 [439.8, 452.2] | -4.0 [-14.5, +6.6] | 0.352 [0.337, 0.366] | 0.162 [0.158, 0.166] | 0.372 [0.364, 0.380] | 0.440 [0.433, 0.447] | 0.751 |
+| NoVITS2 | 1 0 1 | 451.1 [444.3, 457.9] | -49.5 [-60.6, -38.1] | 0.339 [0.324, 0.353] | 0.157 [0.153, 0.161] | 0.375 [0.366, 0.383] | 0.438 [0.431, 0.446] | 0.755 |
+| Baseline-BigVGAN | 1 0 0 | 451.9 [445.3, 458.6] | +24.7 [+13.4, +36.0] | 0.350 [0.335, 0.365] | 0.158 [0.154, 0.162] | 0.388 [0.379, 0.396] | 0.451 [0.443, 0.458] | 0.757 |
+| NoBigVGAN | 0 1 1 | 448.0 [440.9, 455.2] | +33.9 [+22.1, +45.6] | 0.361 [0.345, 0.377] | 0.156 [0.152, 0.161] | 0.388 [0.379, 0.397] | 0.450 [0.442, 0.458] | 0.760 |
+| Baseline-VITS2 | 0 1 0 | 447.7 [441.1, 454.4] | -15.7 [-26.8, -4.4] | 0.356 [0.341, 0.371] | 0.160 [0.155, 0.164] | 0.381 [0.372, 0.389] | 0.446 [0.439, 0.453] | 0.755 |
+| Baseline-F0 | 0 0 1 | 513.0 [504.9, 521.2] | +50.7 [+37.2, +64.2] | 0.316 [0.301, 0.332] | 0.168 [0.164, 0.172] | 0.432 [0.422, 0.441] | 0.485 [0.477, 0.492] | 0.738 |
+| Baseline | 0 0 0 | 456.1 [449.5, 462.7] | +15.5 [+4.1, +26.7] | 0.339 [0.324, 0.354] | 0.160 [0.156, 0.164] | 0.395 [0.386, 0.404] | 0.457 [0.450, 0.464] | 0.754 |
+| Historical Baseline-773 | (773) | 451.6 [444.9, 458.3] | +21.3 [+9.7, +33.0] | 0.374 [0.359, 0.389] | 0.155 [0.151, 0.159] | 0.385 [0.376, 0.394] | 0.446 [0.438, 0.453] | 0.759 |
+| Historical Full-1079 | (1079) | 452.6 [445.6, 459.5] | -24.3 [-35.3, -13.0] | 0.369 [0.353, 0.384] | 0.155 [0.151, 0.160] | 0.380 [0.371, 0.390] | 0.443 [0.435, 0.452] | 0.760 |
+
+#### Paired comparisons, DTW (on − off; Holm across the six within each metric)
+
+| Comparison | Metric | Mean diff [95 % CI] | p (raw) | p (Holm) | n |
+|---|---|---|---:|---:|---:|
+| Baseline → Baseline-F0 | rmse_cents | +56.9 [+49.6, +64.6] | 2.0e-38 | 1.2e-37 | 500 |
+| Baseline → Baseline-F0 | corr_logf0 | -0.023 [-0.040, -0.006] | 0.002 | 0.011 | 500 |
+| Baseline → Baseline-F0 | vde | +0.008 [+0.004, +0.012] | 1.9e-05 | 1.2e-04 | 500 |
+| Baseline → Baseline-F0 | gpe | +0.037 [+0.027, +0.046] | 5.0e-15 | 3.0e-14 | 500 |
+| Baseline → Baseline-F0 | offset_cents | +35.2 [+24.3, +46.2] | 7.3e-10 | 7.3e-10 | 500 |
+| Baseline-VITS2 → NoBigVGAN | rmse_cents | +0.3 [-5.9, +6.7] | 0.639 | 1.000 | 500 |
+| Baseline-VITS2 → NoBigVGAN | corr_logf0 | +0.005 [-0.010, +0.021] | 0.217 | 0.650 | 500 |
+| Baseline-VITS2 → NoBigVGAN | vde | -0.003 [-0.007, +0.001] | 0.098 | 0.488 | 500 |
+| Baseline-VITS2 → NoBigVGAN | gpe | +0.007 [-0.001, +0.015] | 0.049 | 0.147 | 500 |
+| Baseline-VITS2 → NoBigVGAN | offset_cents | +49.7 [+41.1, +58.3] | 1.8e-25 | 9.2e-25 | 500 |
+| Baseline-BigVGAN → NoVITS2 | rmse_cents | -0.8 [-7.3, +5.6] | 0.937 | 1.000 | 500 |
+| Baseline-BigVGAN → NoVITS2 | corr_logf0 | -0.012 [-0.027, +0.003] | 0.067 | 0.333 | 500 |
+| Baseline-BigVGAN → NoVITS2 | vde | -0.001 [-0.005, +0.003] | 0.120 | 0.488 | 500 |
+| Baseline-BigVGAN → NoVITS2 | gpe | -0.013 [-0.021, -0.005] | 0.004 | 0.017 | 500 |
+| Baseline-BigVGAN → NoVITS2 | offset_cents | -74.2 [-82.7, -65.7] | 3.7e-45 | 2.2e-44 | 500 |
+| NoF0 → Full | rmse_cents | -6.8 [-12.8, -0.9] | 0.021 | 0.083 | 500 |
+| NoF0 → Full | corr_logf0 | -0.013 [-0.029, +0.002] | 0.075 | 0.333 | 500 |
+| NoF0 → Full | vde | -0.003 [-0.007, +0.001] | 0.135 | 0.488 | 500 |
+| NoF0 → Full | gpe | +0.000 [-0.008, +0.008] | 0.714 | 0.714 | 500 |
+| NoF0 → Full | offset_cents | -28.7 [-36.6, -21.0] | 9.5e-12 | 1.9e-11 | 500 |
+| Baseline → Full | rmse_cents | -17.0 [-23.0, -11.1] | 2.0e-08 | 9.9e-08 | 500 |
+| Baseline → Full | corr_logf0 | -0.001 [-0.017, +0.016] | 0.657 | 1.000 | 500 |
+| Baseline → Full | vde | -0.001 [-0.005, +0.003] | 0.501 | 1.000 | 500 |
+| Baseline → Full | gpe | -0.023 [-0.030, -0.015] | 5.0e-09 | 2.5e-08 | 500 |
+| Baseline → Full | offset_cents | -48.2 [-56.5, -40.0] | 8.8e-24 | 3.5e-23 | 500 |
+| Historical Baseline-773 → Historical Full-1079 | rmse_cents | +1.0 [-5.4, +7.4] | 0.609 | 1.000 | 500 |
+| Historical Baseline-773 → Historical Full-1079 | corr_logf0 | -0.005 [-0.020, +0.009] | 0.602 | 1.000 | 500 |
+| Historical Baseline-773 → Historical Full-1079 | vde | +0.000 [-0.004, +0.004] | 0.949 | 1.000 | 500 |
+| Historical Baseline-773 → Historical Full-1079 | gpe | -0.004 [-0.013, +0.004] | 0.243 | 0.487 | 500 |
+| Historical Baseline-773 → Historical Full-1079 | offset_cents | -45.6 [-55.0, -36.1] | 2.0e-19 | 6.0e-19 | 500 |
+
+**Linear-stretch sensitivity.** Full tables: `summary.json` → `models.linear`, `comparisons.linear`.
+- Every model scores worse with the linear stretch: RMSE 492–567 cents, correlation 0.18–0.23, VDE 0.20–0.23.
+- The significance after Holm agrees with DTW, with two exceptions:
+  - **NoF0 → Full:** with the stretch, Full is better on RMSE (−29.0 [−35.5, −22.5]), correlation, VDE (−0.032) and GPE (−0.027), all p (Holm) ≤ 0.03. With DTW, none of these is significant (RMSE −6.8, p (Holm) 0.083).
+    - NoF0's audio is about 40 % longer (section 8), so a linear stretch misaligns it more.
+  - **The correlation drop of Baseline → Baseline-F0** is significant with DTW (p (Holm) 0.011) but not with the stretch (0.648).
+- The DTW result is the primary one.
+
+**What it shows:**
+- **No model's waveform pitch closely follows the recording's contour.**
+  - log-F0 correlation is 0.32–0.37 and F0 RMSE 439–513 cents, with gross pitch errors in 37–43 % of the voiced pairs.
+  - These models produce their own intonation, not the recording's. This is expected without the recordings' durations and prosody. The level is similar for the 200-epoch cells and for the historical pair.
+- **The F0 group does not bring the waveform pitch closer to the recording.**
+  - **Alone** (Baseline → Baseline-F0), it makes every metric worse: RMSE +56.9 cents, correlation −0.023, GPE +0.037; all p (Holm) ≤ 0.011.
+  - **With VITS2 or with BigVGAN**, it changes RMSE, correlation, VDE and GPE by nothing significant, except a GPE −0.013 with BigVGAN (p (Holm) 0.017).
+  - **With both** (NoF0 → Full), the DTW differences on these four metrics are not significant after Holm.
+- **The historical pair does not differ** on RMSE, correlation, VDE or GPE (1079 vs 773: RMSE +1.0 [−5.4, +7.4], p (Holm) 1.0).
+- **Full vs Baseline (200 epochs)** is a small improvement: RMSE −17.0 cents (about 4 % of the level), GPE −0.023; correlation does not change.
+- **The F0 group mainly moves the mean pitch level,** by −74 to +50 cents depending on the cell; these offset changes are significant on all four F edges. The direction is not consistent. Every model's mean offset from the recordings stays within ±51 cents.
+- **Together with section 10:** the F0 branch neither steers the waveform pitch nor makes it track the recordings better in these checkpoints. Its UTMOSv2 effects (section 4) come through other properties.
+
+**Limits:**
+- **One reference realisation:** the recording is one valid intonation of each sentence. A low agreement with it does not by itself mean an unnatural pitch.
+- **Alignment and extraction:** DTW on MFCC and harvest both add error.
+- **Multiplicity:** the six comparisons are corrected within each metric, not across the metrics.
+- **No pitch range:** pitch range (for example the spread of log-F0 per utterance) was not in the protocol and was not measured.
+
 ## Draft text for the author
 
 Proposals only. The manuscript is not edited here. Each number has its source above.
@@ -638,6 +758,6 @@ Proposals only. The manuscript is not edited here. Each number has its source ab
 
 > The components interact. The VITS2 modules raise UTMOSv2 when the BigVGAN-style decoder is absent (+0.432 without F0, +0.184 with F0) but not when it is present (−0.306 without F0; −0.003, p = 0.60, with F0). F0 conditioning gives its largest gain when both other components are present (+0.327, p < 10⁻⁵⁶).
 
-> Pitch control: scaling the F0 input of the decoder by ±2 semitones, with the latent, durations and noise fixed, moves the pitch of the output by only 0.008–0.023 semitones in every F0-conditioned model, including the historical full model (epoch 1079). The F0 conditioning changes the waveform but does not determine its pitch, which follows the latent representation. Claims of explicit pitch control through the F0 branch are therefore not supported by these checkpoints.
+> Pitch control: scaling the F0 input of the decoder by ±2 semitones, with the latent, durations and noise fixed, moves the pitch of the output by only 0.008–0.023 semitones in every F0-conditioned model, including the historical full model (epoch 1079). The F0 conditioning changes the waveform but does not determine its pitch, which follows the latent representation. Claims of explicit pitch control through the F0 branch are therefore not supported by these checkpoints. Measured on the waveform against the recordings (DTW-aligned, 500 test sentences), the F0 branch also does not bring the pitch contour closer to the reference: on its own it increases the F0 RMSE by 57 cents, it gives no significant change when the other components are present, and the historical full and baseline models do not differ (F0 RMSE 453 vs 452 cents; log-F0 correlation 0.37 for both).
 
 > Limitations: one training seed per configuration, so the reported intervals reflect variation across test sentences, not across training runs; the eight runs were trained on two GPU types; all runs were still improving at 200 epochs; checkpoints were selected by a teacher-forced mel reconstruction loss on validation, which does not reflect the duration predictor; UTMOSv2 is a predicted score, not a listening test.

@@ -305,3 +305,8 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
   - **Run:** `tools/camera_ready/pitch_shift.py` (commit `524708f`), 17:25–17:37, 100 test utterances, into `tests/pitch-shift-20261025/`.
   - **Reproduction checks:** passed (durations 100/100; WAV bytes 100/100 where the evaluation WAVs exist).
   - **Result:** not controllable (`ablation8-results.md`, section 10).
+- **Update 2026-10-25 19:00: waveform F0 against the recordings (T13), protocol agreed with the author before the run.**
+  - **Smoke run:** 5 utterances, into `tests/waveform-f0-smoke-20261025/`.
+  - **Run:** `tools/camera_ready/waveform_f0.py` (commit `ac6e68a`), 17:57–18:35, 500 test utterances × 10 models, into `tests/waveform-f0-20261025/` (1.4 GB).
+  - **Checks:** durations 500/500 for the eight cells; WAV bytes 500/500 where available; reference self-check 0 cents.
+  - **Result:** `ablation8-results.md`, section 11.
