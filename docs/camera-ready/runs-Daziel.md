@@ -300,3 +300,8 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
   - The best checkpoint of every run reproduced the evaluation's durations for 500 of 500 sentences.
   - Finding: the long NoF0 audio comes from the stochastic part of its duration predictor (`ablation8-results.md`, section 8).
   - The historical pair is reported there as recorded, in section 9.
+- **Update 2026-10-25 17:45: pitch intervention (T14), protocol agreed with the author before the run.**
+  - **Checks first:** `f0_cond` weights were inspected (read-only), and a 5-utterance smoke run went into `tests/pitch-shift-smoke-20261025/`.
+  - **Run:** `tools/camera_ready/pitch_shift.py` (commit `524708f`), 17:25–17:37, 100 test utterances, into `tests/pitch-shift-20261025/`.
+  - **Reproduction checks:** passed (durations 100/100; WAV bytes 100/100 where the evaluation WAVs exist).
+  - **Result:** not controllable (`ablation8-results.md`, section 10).

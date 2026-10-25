@@ -17,7 +17,7 @@ The analysis was done on the PC on 2026-10-24.
 
 ## Summary
 
-**State on 2026-10-24.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded (section 9).
+**State on 2026-10-25.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded (section 9). Pitch control through the F0 conditioning has been tested (section 10).
 
 **Main numbers** (test split, 500 utterances; 95 % CIs from the paired bootstrap; Holm across 13 pairs):
 - **Full vs Baseline (200 epochs):**
@@ -33,6 +33,9 @@ The analysis was done on the PC on 2026-10-24.
 - **NoF0 synthesizes about 40 % more audio** than the other cells. This comes from the stochastic part of its duration predictor at `noise_scale_w` 0.8 (section 8). The checkpoint-selection metric cannot see it (section 7).
 - **Recommended system:** Full. NoVITS2 is a smaller and faster alternative with the same predicted naturalness within the test's resolution (section 6).
 - **Historical pair, as recorded:** Full 1079 against Baseline 773 gives WER 8.64 % vs 9.17 % (p = 0.115) and UTMOSv2 3.807 vs 3.366 (p = 1.6 × 10⁻⁷⁹). It is not comparable with the ablation (section 9).
+- **Pitch is not controllable through the F0 conditioning** (section 10).
+  - Scaling the decoder's F0 input by ±2 semitones, with z, durations and noise fixed, moves the output pitch by only 0.008–0.023 semitones (slope 0.004–0.011). This holds in all four F = 1 cells and in the historical Full model.
+  - The decoder uses the conditioning, since the waveform changes, but the pitch comes from the latent.
 
 **Limits** (section 7):
 - one seed per cell;
@@ -54,6 +57,7 @@ The analysis was done on the PC on 2026-10-24.
 | CPU RTF benchmark (T15) | `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`), tests `tests/camera_ready/test_benchmark_rtf.py` |
 | Duration diagnostics | `tools/camera_ready/duration_diag.py` (commit `c8d3144`), tests `tests/camera_ready/test_duration_diag.py`; results in `tests/duration-diag-20261024/` |
 | Historical pair, as recorded | `evaluation/eval_h_vs_baseline/` (in Git, sanitized copies) |
+| Pitch intervention (T14) | `tools/camera_ready/pitch_shift.py` (commit `524708f`), tests `tests/camera_ready/test_pitch_shift.py`; results in `tests/pitch-shift-20261025/` |
 | Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}`, `ablation8-rtf.{csv,json}`, `ablation8-rtf-runs.jsonl` |
 | Hashes of every source and derived file | `manifests/camera-ready/ablation8-derived.json` (in Git) |
 | Import of the four MardeusPC runs | `runs-Daziel.md`, "Import from MardeusPC" |
@@ -569,6 +573,63 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 - **The training differs:** 1,100 epochs on 2 GPUs with batch 2 × 16, against 200 epochs on 1 GPU with batch 16.
 - **Do not take** a difference between a historical number and an ablation number as an effect of any component.
 
+## 10. Pitch control through the F0 conditioning (T14)
+
+**Question.**
+- The F0-predictor RMSE and correlation (sections 2, 4) measure the predictor only.
+- They do not show the pitch of the waveform, or that the decoder uses its F0 conditioning.
+- This test asks whether changing the F0 that the decoder receives changes the pitch of the output.
+
+**Protocol.** Agreed with the author on 2026-10-25 before any run. It is a supplementary analysis, outside the protocol locked on 21/10.
+- **Tool:** `tools/camera_ready/pitch_shift.py`, commit `524708f`.
+- **Intervention:** a hook on `dec.forward` scales the decoder's F0 input by 2^(s/12) for s = −2, 0, +2 semitones, or removes it ("off").
+  - With the evaluation's per-utterance seeds, the latent z, the durations and the noise are identical in every condition.
+  - No file under `code/` was changed.
+- **Models:** the best checkpoints of Full, NoVITS2, NoBigVGAN and Baseline-F0, and the historical Full (epoch 1079).
+- **Sentences:** the first 100 test utterances.
+- **F0 extraction:** pyworld `harvest` (60–600 Hz, 5 ms frames), with the same settings for all conditions. Lengths are equal, so frames pair one to one.
+- **Metrics:**
+  - per utterance, the median of 12·log₂(F0_c / F0_0) over frames voiced in both;
+  - per model, the paired-bootstrap 95 % CI (10,000 resamples, seed 2026);
+  - slope = (shift(+2) − shift(−2)) / 4.
+- **Interpretation bands, fixed before the run:**
+  - slope ≥ 0.8 with a CI excluding 0: controllable;
+  - 0.2–0.8 with a CI excluding 0: partly controllable;
+  - otherwise: not controllable.
+
+**Run and checks:**
+- **Run:** 2026-10-25 17:25–17:37 +07, CPU. 2,000 WAVs plus F0, records and summary are outside Git, in `<WSL_DEV_HOME>/outputs-pfn-cr/tests/pitch-shift-20261025/` (538 MB). Log: `logs/pitch-shift-20261025.log`.
+- **Reproduction:** at s = 0 every model reproduced the evaluation's durations, 100 of 100.
+  - For NoVITS2 and NoBigVGAN, whose evaluation WAVs are on this machine, the WAVs were byte-identical, 100 of 100.
+  - The historical checkpoint was evaluated without seeds, so it has only the check that lengths are equal across conditions.
+- **The hook acts on the decoder:** the waveform differs from s = 0 by a median relative RMS of 0.09–0.22 for ±2 semitones, and 0.59–0.90 for "off". The relative RMS includes phase differences, so it is not a perceptual measure.
+
+| Model | +2 st requested: achieved shift [95 % CI] | −2 st: achieved [95 % CI] | Slope [95 % CI] | Reading (fixed bands) | Off: shift [95 % CI] | Voicing agreement with s = 0: +2 / −2 / off |
+|---|---|---|---|---|---|---|
+| Full | +0.018 [+0.017, +0.019] | −0.014 [−0.015, −0.013] | 0.0081 [0.0078, 0.0085] | not controllable | −0.078 [−0.083, −0.073] | 0.935 / 0.932 / 0.903 |
+| NoVITS2 | +0.020 [+0.019, +0.021] | −0.017 [−0.018, −0.016] | 0.0092 [0.0088, 0.0096] | not controllable | −0.059 [−0.065, −0.055] | 0.929 / 0.927 / 0.890 |
+| NoBigVGAN | +0.009 [+0.008, +0.010] | −0.008 [−0.009, −0.008] | 0.0043 [0.0041, 0.0045] | not controllable | −0.152 [−0.162, −0.143] | 0.943 / 0.942 / 0.871 |
+| Baseline-F0 | +0.013 [+0.012, +0.014] | −0.012 [−0.012, −0.011] | 0.0062 [0.0058, 0.0065] | not controllable | −0.423 [−0.505, −0.356] | 0.926 / 0.927 / 0.857 |
+| Historical Full 1079 | +0.023 [+0.022, +0.024] | −0.022 [−0.024, −0.021] | 0.0114 [0.0109, 0.0120] | not controllable | −0.009 [−0.013, −0.006] | 0.926 / 0.923 / 0.873 |
+
+All values are in semitones. Every model used 100 of 100 utterances.
+
+**What it shows:**
+- **The pitch of the waveform does not follow the F0 conditioning.**
+  - A requested ±2 semitones moves the output pitch by 0.008–0.023 semitones. That is about 0.4–1.1 % of the request, in every model including the paper's historical Full model.
+  - The slopes are significantly above 0 but far below the 0.2 band. By the bands fixed in advance, the pitch is **not controllable** through this path.
+- **The decoder does use the conditioning,** but not for pitch:
+  - the waveform changes clearly under ±2 semitones and very strongly under "off";
+  - removing the conditioning moves the pitch by only −0.01 to −0.42 semitones;
+  - it lowers the voicing agreement to 0.86–0.90.
+- **Where the pitch comes from:** in this architecture the predicted F0 reaches only the decoder (`SynthesizerTrn.infer`). The pitch of the output therefore comes from the latent z produced by the prior and the flow, not from the explicit F0.
+- **Voicing agreement under ±2** is only 0.92–0.94 although the pitch hardly moves. The harvest voicing decision reacts to small waveform changes, so this agreement is not by itself evidence of a change in voicing.
+
+**What it does not show:**
+- **Not every form of pitch control is ruled out.** Shifting the latent z, or training with a stronger F0 path, was not tested.
+- **Larger shifts** and the quality of the shifted audio (UTMOSv2, WER) were not measured.
+- **The F0 path may affect other properties:** this test does not show that the F0 path has no benefit. The UTMOSv2 effects of F (section 4) may come through effects other than pitch.
+
 ## Draft text for the author
 
 Proposals only. The manuscript is not edited here. Each number has its source above.
@@ -576,5 +637,7 @@ Proposals only. The manuscript is not edited here. Each number has its source ab
 > To attribute the improvement, we trained all eight combinations of the three components (BigVGAN-style decoder, VITS2 modules, F0 conditioning) under an identical budget of 200 epochs (156,400 generator updates, one seed per configuration) and evaluated them with the same protocol on the 500 test utterances. Relative to the baseline, the full model raises the predicted naturalness (UTMOSv2) by 0.575 (95 % CI 0.546–0.604; Wilcoxon, Holm-adjusted p < 10⁻⁷⁸), while WER (+0.54 pp, CI −0.42 to +1.52) and MCD (+0.065, CI −0.020 to +0.148) do not differ significantly. A Shapley decomposition of the UTMOSv2 gain attributes 56 % to the BigVGAN-style decoder, 21 % to the VITS2 modules and 23 % to F0 conditioning.
 
 > The components interact. The VITS2 modules raise UTMOSv2 when the BigVGAN-style decoder is absent (+0.432 without F0, +0.184 with F0) but not when it is present (−0.306 without F0; −0.003, p = 0.60, with F0). F0 conditioning gives its largest gain when both other components are present (+0.327, p < 10⁻⁵⁶).
+
+> Pitch control: scaling the F0 input of the decoder by ±2 semitones, with the latent, durations and noise fixed, moves the pitch of the output by only 0.008–0.023 semitones in every F0-conditioned model, including the historical full model (epoch 1079). The F0 conditioning changes the waveform but does not determine its pitch, which follows the latent representation. Claims of explicit pitch control through the F0 branch are therefore not supported by these checkpoints.
 
 > Limitations: one training seed per configuration, so the reported intervals reflect variation across test sentences, not across training runs; the eight runs were trained on two GPU types; all runs were still improving at 200 epochs; checkpoints were selected by a teacher-forced mel reconstruction loss on validation, which does not reflect the duration predictor; UTMOSv2 is a predicted score, not a listening test.

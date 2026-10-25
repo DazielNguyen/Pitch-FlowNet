@@ -5,7 +5,7 @@
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
-  "commit": "c8d3144",
+  "commit": "524708f",
   "sha256": "b4e5e1fafea78474a65d4757ef3dcfb3cfee96a6fef5970515fc50026f8dc9c8",
   "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
@@ -139,6 +139,34 @@
     "sha256": "17bf2cdbc216118d1a23480fb27a3e12de5e0e696687ddc4b4c87edcb89ef968"
    }
   ]
+ },
+ "pitch_intervention": {
+  "tool": "tools/camera_ready/pitch_shift.py",
+  "commit": "524708f",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/pitch-shift-20261025.log",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/pitch-shift-20261025/f0.jsonl",
+    "sha256": "6083e136d85ed48921445ff669fe4a966c06fdb4c1d535395a0b2b077eee1203"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/pitch-shift-20261025/protocol.json",
+    "sha256": "7bd0a780cf85a60d0c0c925545a9be930b3c1dad4f3189c0a42e5ec451721d4b"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/pitch-shift-20261025/records.jsonl",
+    "sha256": "ba6dac02b4ec849a00f351bdb4602c11cb231d148248bf3db7e2250ba28d5f1c"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/tests/pitch-shift-20261025/summary.json",
+    "sha256": "bf7cfdb65059bef519bbc33d64450b5dae9a39e2d82f958625adff974077cf5e"
+   }
+  ],
+  "wavs": {
+   "count": 2000,
+   "sha256_of_sorted_list": "07deb39c13e5906af57c5d7396f769c392502a3b3d3ff382bfd96216c64de5bc",
+   "note": "SHA-256 of the text 'sha256  relative/path' per WAV, sorted by path"
+  }
  },
  "sources": [
   {
