@@ -1,6 +1,6 @@
 # Final statistics of the camera-ready comparisons
 
-**Scope.** SOICT 2026 paper 4478, camera-ready, 2026-10-28.
+**Scope.** SOICT 2026 paper 4478, camera-ready, 2026-10-28. The measurement conditions were added the same day.
 - **What this page holds:** the statistics of every comparison that the paper reports or should report, in one method:
   - the main pair, PitchFlowNet (epoch 1079) against Piper (epoch 773);
   - the 2^3 ablation at 200 epochs;
@@ -48,6 +48,105 @@
 - checkpoints: `final/` and the historical checkpoint files.
 - Outputs: `eval/ablation-final-stats.{json,csv}`, `ablation-final-tables.md`, `ablation-final-paper.md`. Their hashes are in `manifests/camera-ready/ablation8-derived.json`.
 
+## Measurement conditions
+
+### Two protocols, kept apart
+
+The main pair and the ablation were trained and evaluated under different protocols. **A number of one column is never compared with a number of the other:** the difference would mix training budget, devices, batch, seeding and machine load with any component effect.
+
+| | **1,100-epoch pair** (the paper's main result: Piper 773, PitchFlowNet 1079) | **200-epoch ablation** (eight cells, camera-ready) |
+|---|---|---|
+| Training | 1,100 epochs, 2 × RTX 4070 Ti, DDP, batch 16 per GPU (32), bf16, seed 1234 (hparams; `evidence/manuscript-crosswalk.md`) | 200 epochs = 156,400 G updates, 1 GPU (RTX 5070 or RTX 4070 Ti), batch 16, bf16, seeds 1234 / 1234 / 2026 (`experiment-plan.md`) |
+| Checkpoint | minimum validation mel loss: epochs 773 and 1079. The selection under DDP is UNRESOLVED in the crosswalk | minimum `val_mel_l1_global` on the 100 validation utterances: epochs 188–199 |
+| Evaluation record | the historical evaluation, `evaluation/eval_h_vs_baseline/` | the protocol locked on 21/10 (`eval-protocol.md`), `eval/<label>/` |
+| CPU of the quality evaluation | Intel Core i7-14700 (manuscript) | Intel Core i7-14700 for the four PC cells; Intel Core i5-14400F for the four MardeusPC cells (`preflight-MardeusPC.md`) |
+| Threads | **not recorded**. The harness sets none, so the PyTorch default applied; it is 12 in that environment today, but this is not proven for the run | **4** (`torch.set_num_threads(4)`, `threads` in every `protocol.json`) |
+| Batch | 1: one utterance per synthesis call (`eval_harness.synthesize`) | 1, the same call |
+| Synthesis | noise 0.667, length 1.0, noise_w 0.8, **unseeded** | the same scales, **seeded per utterance**: (2026 × 1,000,003 + i) mod 2³¹ |
+| Checkpoint load | `load_from_checkpoint(strict=False)` | `torch.load(weights_only=True)`, strict state dict |
+| Text frontend | piper-phonemize (espeak-ng, en-us) | the same |
+| ASR for WER | Whisper `base.en` on the CPU, audio at 16 kHz, `jiwer` per utterance, harness normalisation | the same |
+| UTMOSv2 | `create_model(pretrained=True)`, CPU, **unseeded** (random crop) | the same model, **seeded per utterance** |
+| Software | environment `edgetts`, known only from a snapshot of 2026-10-12, taken after the run: torch 2.12.1, torchaudio 2.11.0, openai-whisper 20250625, jiwer 4.0.0, transformers 5.12.1, timm 1.0.27, scipy 1.15.3, librosa 0.11.0, numpy 2.2.6, piper-phonemize 1.1.0, UTMOSv2 commit `cc2700db` (`history/environment/`) | environment `pfn-eval` on both machines, with the same versions; recorded in every `protocol.json` and identical for the eight labels |
+| Inline RTF of that run | 0.0559 / 0.0568, mean per utterance; threads and load unknown, so **not reportable** | recorded at 4 threads while other work ran, so **not reportable** |
+| Reference UTMOSv2 (MCD module) | 3.8146 and 3.8181, unseeded (`mcd_baseline`, `mcd_configH`) | 3.8308, seeded, identical for every label |
+
+**Measurements made later on the historical checkpoints use the camera-ready conventions** (strict `weights_only` load, the evaluation's seeds): the RTF benchmark, T13 and T14. They describe the 1,100-epoch checkpoints, not the historical evaluation.
+
+### CPU RTF benchmark
+
+**Tool:** `tools/camera_ready/benchmark_rtf.py`, at commit `a67caf3` for the eight cells; the historical pair was added at `5ff1c2b` and `7c08080`. Outputs: `eval/ablation8-rtf.json`, `historical-pair-rtf.json`, `historical-pair-rtf-t12.json`.
+
+| Item | Setting |
+|---|---|
+| Machine | the PC: **Intel Core i7-14700**, Windows 11 Pro, WSL 2 (Ubuntu 24.04.4, kernel 6.18.33.1). WSL exposes 24 vCPUs as 12 virtual cores × 2, with 62.8 GiB RAM. The GPUs are present but not used (`device: cpu`) |
+| Threads | **1, 2 and 12** intra-op threads; 1 interop thread; `OMP_NUM_THREADS` and `MKL_NUM_THREADS` set to the same count |
+| Pinning | `taskset` to vCPU 0 (1 thread), vCPUs 0 and 2 (2 threads), vCPUs 0, 2, …, 22 (12 threads): one vCPU per virtual core. Hyper-V schedules the vCPUs on host cores, so P-core or E-core placement is **not controlled** |
+| Batch | **1**: one utterance per call, no padding |
+| Sentences | 10 validation utterances as warm-up, not timed; then the **first 100 test utterances** (610–859 s of audio per model) |
+| Rounds | **3**; model order rotated each round; every (round, model, threads) cell in its own process |
+| Timing | **model-only**: the harness's window around the forward pass. **End-to-end**: adds espeak phonemization and tensor building. RTF = Σ time / Σ audio duration (corpus RTF); the median and the range over the rounds are reported |
+| Synthesis | noise 0.667, length 1.0, noise_w 0.8, with the evaluation's seeds |
+| Checkpoint load | `torch.load(weights_only=True)`, strict state dict (legacy group semantics for the historical pair). SHA-256 checked before use |
+| Machine state | refuses to start with a load average ≥ 1, another tmux session or GPU work |
+| Software | environment `pfn-eval`, unchanged after 2026-10-22 20:27 +07, i.e. before every run: Python 3.10.20; **torch 2.12.1+cu130 on the CPU** (ATen OpenMP backend, Intel oneMKL 2024.2, oneDNN 3.11.2); numpy 2.2.6; piper-phonemize 1.1.0; pytorch-lightning 2.6.5 |
+
+| Run | Models | Threads | Time (+07) | Load average at start |
+|---|---|---|---|---:|
+| 1 | eight 200-epoch cells | 1, 2 | 2026-10-24 20:31–21:12 | 0.51 |
+| 2 | Piper 773, PitchFlowNet 1079 | 1, 2 | 2026-10-28 02:59–03:10 | 0.06 |
+| 3 | Piper 773, PitchFlowNet 1079 | 12 | 2026-10-28 03:15–03:20 | 0.00 |
+
+**Limits:**
+- the placement on P-cores or E-cores is not controlled;
+- the 12-thread rounds raise the load for each other (load average up to 9.8 before a later round);
+- 100 of the 500 test sentences are timed;
+- one machine.
+
+### MCD as computed here
+
+The MCD of both protocols comes from `piper_train/compute_reference_metrics.py`:
+
+MCD = (10·√2 / ln 10) · (1/|P|) · Σ_{(i,j)∈P} ‖ ẑ_syn,i − ẑ_ref,j ‖₂
+
+- **Features:** librosa MFCCs, C1–C24 (`n_mfcc` 25 with C0 dropped), `n_fft` 1024, hop 256, at 22,050 Hz. The other librosa defaults apply: 128 mel bands, Hann window, centred frames, log-power, DCT-II.
+- **Normalisation:** ẑ = (c − μ) / σ per coefficient. μ and σ are the mean and standard deviation over all frames of the 500 reference utterances, with σ increased by 10⁻⁸.
+- **Alignment:** P is the DTW path between the two normalised sequences (`librosa.sequence.dtw`, euclidean). The accumulated cost is divided by the path length |P|.
+- **Audio:**
+  - synthesized: the WAV, read at 22,050 Hz;
+  - reference: the normalised training audio of the cache (`audio_norm_path`), not the raw LJSpeech WAV.
+- **Consequence:** this is **not** the usual MCD in dB on mel-cepstra (for example SPTK or WORLD) without normalisation. The coefficients are z-normalised, so the values (≈ 25–27) are not in dB and cannot be compared with MCD values in the literature. They compare models within this study only.
+- **If the paper reports MCD,** it should state this definition. The manuscript of 2026-09-24 does not report MCD.
+
+### Ground-truth WER and UTMOSv2 (Table 1 of the manuscript)
+
+**Source.**
+- The manuscript's Ground Truth row, WER 6.67 % and UTMOSv2 3.830, comes from `evaluation/ground-truth/eval_pitchflownet_500_gt/gt_wer_utmos_summary.json`, of 2026-09-24: mean WER 0.066694, mean UTMOSv2 3.8301, 500 sentences. The run log is `eval_pitchflownet_500_gt_run.sanitized.log`.
+- The crosswalk marks it MATCH. The sentences and their order equal the test split.
+
+**What is not recorded:**
+- The script of that run is not in the repository; only its log and outputs are.
+- Whether it scored the raw LJSpeech WAVs or the normalised cache audio is not recorded.
+- Its UTMOSv2 was not seeded, since it is the historical setup.
+
+**Four scorings of the same 500 references exist:**
+
+| Scoring | Audio | Seeded | Mean UTMOSv2 |
+|---|---|---|---:|
+| Ground-truth run, 2026-09-24 | not recorded | no | 3.8301 |
+| MCD module, Piper 773 evaluation | normalised cache audio | no | 3.8146 |
+| MCD module, PitchFlowNet 1079 evaluation | normalised cache audio | no | 3.8181 |
+| MCD module, locked protocol (all eight cells) | normalised cache audio | yes | 3.8308 |
+
+**How the four scorings agree:**
+- The means agree within 0.016.
+- Per sentence they correlate only at r = 0.61–0.67, with a mean absolute difference of about 0.17–0.18. That holds even between the two unseeded scorings of identical audio: UTMOSv2's random crop changes per-sentence scores by up to about 0.87.
+- The 3.830 of the manuscript is therefore one unseeded scoring. Its mean lies within 0.016 of the other three scorings (3.8146–3.8308).
+
+**Proposed for the paper:**
+- report 3.830 as recorded, or 3.831 from the seeded locked protocol, and say which;
+- the Ground Truth WER (6.67 %) exists only from the 2026-09-24 run.
+
 ## Claims of the abstract and conclusion, checked
 
 The claims are from `evidence/manuscript/final/main_draft.tex`, the draft of 2026-09-24 on this machine. A later draft may differ.
@@ -91,6 +190,15 @@ MCD & 26.064 & 26.000 & -0.064 [-0.175, +0.046] & -0.051 & 0.117 & 0.229 \\
 \end{tabular}
 ```
 
+**Measurement, Table F1:**
+- the historical evaluation of the 1,100-epoch checkpoints, 500 test utterances;
+- CPU synthesis, batch 1, thread count not recorded;
+- synthesis and UTMOSv2 unseeded;
+- Whisper `base.en`;
+- MCD as defined in "MCD as computed here".
+
+Suggested caption: *"Paired differences (PitchFlowNet − Piper) over 500 test utterances; 95 % BCa bootstrap CIs (20,000 resamples); two-sided Wilcoxon signed-rank tests, Holm-adjusted across the three metrics. Synthesis on CPU, one utterance per call. UTMOSv2 is a predicted score. MCD is a DTW distance on z-normalised MFCCs (C1–C24), not in dB."*
+
 ### Table F2. Ablation contrasts (200 epochs, 500 test utterances; Holm across the 13 pairs within each metric)
 
 Leave-one-out rows give ablated − Full (the change when the component is removed); add-one rows give with − without.
@@ -128,6 +236,16 @@ Full vs Baseline & +0.575 [+0.546, +0.604] & $6.7\times10^{-80}$ & +0.54 [-0.41,
   - Such a row is not significant after correction.
 - **Training conditions:** one training seed per cell, two GPU types. The machine is aliased with the V terms (`ablation8-results.md`, section 4).
 - **Budget:** all runs were still improving at 200 epochs.
+
+**Measurement, Table F2:**
+- the locked protocol of 21/10, applied to the 200-epoch checkpoints;
+- CPU synthesis, batch 1, **4 threads**;
+- Intel Core i7-14700 (the PC cells) or i5-14400F (the MardeusPC cells); the scores do not depend on the CPU, and the reference UTMOSv2 is identical per sentence on both machines;
+- synthesis and UTMOSv2 seeded per utterance;
+- `pfn-eval` with the package versions above.
+- **Do not compare with Table F1:** it is a different protocol.
+
+Suggested caption: *"Ablation at a matched 200-epoch budget (one seed per configuration). Paired differences over 500 test utterances with 95 % BCa CIs; Holm-adjusted Wilcoxon p-values across the 13 contrasts of the 2³ design within each metric. Leave-one-out rows give ablated − full."*
 
 ## Appendix tables
 
@@ -254,6 +372,14 @@ Every comparison, all metrics; generated in the same run.
 | NoVITS2 | 0.0795 [0.0791, 0.0801] | 0.0521 [0.0520, 0.0526] | — |
 | Hist. Baseline-773 | 0.0789 [0.0772, 0.0803] | 0.0514 [0.0509, 0.0521] | 0.0460 [0.0457, 0.0462] |
 | Hist. Full-1079 | 0.0888 [0.0873, 0.0895] | 0.0579 [0.0575, 0.0588] | 0.0509 [0.0502, 0.0526] |
+
+**Measurement, RTF table:** see "CPU RTF benchmark".
+- Intel Core i7-14700 under WSL 2, idle;
+- CPU only, **batch 1**, **1 / 2 / 12 intra-op threads** with 1 interop thread, pinned one per virtual core;
+- 10 warm-up and **100 test utterances**, 3 rounds, model-only time;
+- torch 2.12.1 (OpenMP, oneMKL 2024.2, oneDNN 3.11.2), Python 3.10.20.
+
+Suggested caption: *"Model-inference RTF on an Intel Core i7-14700 CPU (WSL 2), batch size 1, with 1, 2 or 12 intra-op threads; median [min, max] over three rounds of 100 test utterances after 10 warm-up utterances."*
 
 ### Inference parameters of the historical pair, recomputed
 
