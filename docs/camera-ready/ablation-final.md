@@ -36,7 +36,8 @@
 | **P14**, pitch intervention | slope per model | none (descriptive, against bands fixed in advance) |
 
 **Differences from `ablation8-results.md`:**
-- That page used percentile CIs from 10,000 resamples (seed 2026). This page uses the manuscript's BCa CIs, so a few interval bounds differ by about 0.01 in the reported units.
+- That page used percentile CIs from 10,000 resamples (seed 2026). This page uses the manuscript's BCa CIs.
+- **How much the bounds move:** at most 0.001 for UTMOSv2 and 0.005 for MCD. For WER they move by up to 0.74 pp, because the per-sentence WER differences are skewed; BCa corrects for that skew.
 - Means and p-values are identical.
 
 **Sources:**
