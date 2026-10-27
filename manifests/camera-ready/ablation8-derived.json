@@ -5,7 +5,7 @@
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
-  "commit": "ac6e68a",
+  "commit": "f939d4b",
   "sha256": "b4e5e1fafea78474a65d4757ef3dcfb3cfee96a6fef5970515fc50026f8dc9c8",
   "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
@@ -555,6 +555,55 @@
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.json",
     "sha256": "bd173e11a85aa86b5622fdfa26da85188e19b444968ced7ead277b890f2c28cf"
+   }
+  ]
+ },
+ "final_statistics": {
+  "tool": "tools/camera_ready/ablation_final.py",
+  "commit": "c89e9e8",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation-final-20261028.log",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-paper.md",
+    "sha256": "c5156cf1f9073e8cb68ec70393ca1ee0ba1e2790bcafad44a9d285520aa73d84"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-stats.csv",
+    "sha256": "d6ad5a5b3757fd8d897daa6e1d026ed53b6b0f4d11b569c34afe85e799a15653"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-stats.json",
+    "sha256": "f2d0ca261b7cedb3f224c920c9ee347edfd430e9b09b962e55eb2c25b5bdb399"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-tables.md",
+    "sha256": "ea97946177a94c3c2d30948938fe62c98f17580142a89ae5140d5ab43b07f176"
+   }
+  ],
+  "inputs_also": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-runs.jsonl",
+    "sha256": "b28053b6fff4711ba6500eea74764228b0e47cd270cfdb7df7282c8f20ef61cd"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12-runs.jsonl",
+    "sha256": "2343b6b2deadac40a97ead33f46fe7dd94e0976e1178bde1e99c89e2dd37cada"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.csv",
+    "sha256": "94c25f80005b6a2b69b8f7b40c9323e162685619ec02b6a17749eaf33bf275f4"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.json",
+    "sha256": "bd173e11a85aa86b5622fdfa26da85188e19b444968ced7ead277b890f2c28cf"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.csv",
+    "sha256": "94fc088471c468f2c743de9cc0d902cc61399904b530797b4c1a6cbd27a6f140"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.json",
+    "sha256": "347b426f0b1f1b1355e118e323891c7114d551b75547aa379e088ef2319ac90c"
    }
   ]
  }
