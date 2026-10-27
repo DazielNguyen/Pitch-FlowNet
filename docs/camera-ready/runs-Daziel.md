@@ -319,3 +319,7 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
     - `benchmark_rtf.py historical --execute` in tmux `cr-rtf`, 02:59:13 → 03:09:54, exit 0, 12 runs (`logs/rtf-historical-20261028-b.log`).
   - **Machine:** the run used the built `monotonic_align` extension copied from the WSL clone into the Windows clone (git-ignored; `core.pyx` identical). A hidden `wsl.exe sleep infinity` kept WSL alive and was stopped afterwards.
   - **Result:** `ablation8-results.md`, section 9: Full 0.0888 / 0.0579, Baseline 0.0789 / 0.0514 at 1 / 2 threads. The synthesized lengths were identical across the six runs of each checkpoint.
+- **Update 2026-10-28 03:25: the historical pair at 12 threads, on the author's request.**
+  - **Tool:** `benchmark_rtf.py historical` gained `--threads` (commit `7c08080`) (12 threads pinned to vCPUs 0, 2, …, 22, one per virtual core); tests 7/7 passed.
+  - **Run:** dry run, then `--threads 12 --execute` in tmux `cr-rtf`, 03:15:48 → 03:19:47, exit 0, 6 runs (`logs/rtf-historical-t12-20261028.log`). Load average 0.00 at the start; WSL kept alive by a hidden `wsl.exe sleep infinity`, stopped afterwards.
+  - **Result:** `ablation8-results.md`, section 9: Full 0.0509, Baseline 0.0460 (model RTF, median of three rounds). Lengths identical across the three runs of each checkpoint.

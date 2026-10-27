@@ -33,7 +33,7 @@ The analysis was done on the PC on 2026-10-24.
 - **NoF0 synthesizes about 40 % more audio** than the other cells. This comes from the stochastic part of its duration predictor at `noise_scale_w` 0.8 (section 8). The checkpoint-selection metric cannot see it (section 7).
 - **Recommended system:** Full. NoVITS2 is a smaller and faster alternative with the same predicted naturalness within the test's resolution (section 6).
 - **Historical pair, as recorded:** Full 1079 against Baseline 773 gives WER 8.64 % vs 9.17 % (p = 0.115) and UTMOSv2 3.807 vs 3.366 (p = 1.6 × 10⁻⁷⁹). It is not comparable with the ablation (section 9).
-  - Timed again on 28/10 with the CPU protocol of section 5 (section 9): Full 0.0888 / 0.0579 and Baseline 0.0789 / 0.0514 at 1 / 2 threads, so Full is about 12.5 % slower. The recorded RTFs, 0.0568 vs 0.0559, have no recorded thread count.
+  - Timed again on 28/10 with the CPU protocol of section 5 (section 9): Full 0.0888 / 0.0579 / 0.0509 and Baseline 0.0789 / 0.0514 / 0.0460 at 1 / 2 / 12 threads, so Full is 11–13 % slower. The recorded RTFs, 0.0568 vs 0.0559, have no recorded thread count.
 - **Pitch is not controllable through the F0 conditioning** (section 10).
   - Scaling the decoder's F0 input by ±2 semitones, with z, durations and noise fixed, moves the output pitch by only 0.008–0.023 semitones (slope 0.004–0.011). This holds in all four F = 1 cells and in the historical Full model.
   - The decoder uses the conditioning, since the waveform changes, but the pitch comes from the latent.
@@ -602,6 +602,18 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 - **Checks:** all 12 runs had 100 utterances, the requested thread count and affinity. The round-to-round range is at most 3.9 % of the median (Baseline, 1 thread).
 - **Full against Baseline:** Full is about 12.5 % slower at 1 thread and 12.6 % at 2 threads. The recorded values (0.0568 vs 0.0559, +1.6 %) do not show this gap; their thread count and machine state are not known.
 - **Two threads** give a 1.53× speed-up for both checkpoints, as in section 5.
+
+**Twelve threads (added on the author's request, 03:15:49–03:19:47 +07).** Same tool with `--threads 12` (commit `7c08080`; log `logs/rtf-historical-t12-20261028.log`; files `eval/historical-pair-rtf-t12.{json,csv}`, `historical-pair-rtf-t12-runs.jsonl`). The 12 threads were pinned to vCPUs 0, 2, …, 22, the first vCPU of each of the 12 virtual cores (vCPUs 2k and 2k + 1 are siblings). Load average 0.00 at the start.
+
+| Checkpoint | 12 threads: model RTF, median [min, max] | 12 threads: end-to-end | Speed-up over 1 thread | Over 2 threads | Lengths equal in all 3 runs |
+|---|---|---:|---:|---:|:-:|
+| Full, epoch 1079 | 0.0509 [0.0502, 0.0526] | 0.0510 | 1.74× | 1.14× | yes |
+| Baseline, epoch 773 | 0.0460 [0.0457, 0.0462] | 0.0462 | 1.72× | 1.12× | yes |
+
+- **Full against Baseline:** about 10.7 % slower at 12 threads (12.5 % at 1 thread).
+- **Scaling:** going from 2 to 12 threads gains only 12–14 %; most of the speed-up comes with the second thread.
+- **Spread:** the round-to-round range is 4.7 % of the median for Full and 1.1 % for Baseline. The load average before a run reached 9.8, from the benchmark's own previous 12-thread run.
+- **Against the recorded values:** 0.0509 and 0.0460 are both below the recorded 0.0568 and 0.0559. The recorded run's threads, pinning and machine state are unknown, so these new values do not identify how it was run.
 - **Against section 5:**
   - The historical Full (0.0888 / 0.0579) is close to the 200-epoch Full (0.0880 / 0.0567).
   - The historical Baseline (0.0789 / 0.0514) is slower than the 200-epoch Baseline (0.0682 / 0.0442).

@@ -536,5 +536,26 @@
     "sha256": "347b426f0b1f1b1355e118e323891c7114d551b75547aa379e088ef2319ac90c"
    }
   ]
+ },
+ "historical_pair_rtf_t12": {
+  "tool": "tools/camera_ready/benchmark_rtf.py historical --threads 12",
+  "commit": "7c08080 (committed after the run; the run used the identical file, sha256 below)",
+  "sha256": "2aae0c549d428de64a6d96509c36e00650ead56e271058d40a0453b560cc3b98",
+  "command": "python tools/camera_ready/benchmark_rtf.py historical --checkpoint Historical-Full-1079=<checkpoint> --checkpoint Historical-Baseline-773=<checkpoint> --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --threads 12 --execute  (same checkpoints as historical_pair_rtf; env pfn-eval; tmux cr-rtf; 2026-10-28 03:15-03:20 +07)",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-t12-20261028.log",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12-runs.jsonl",
+    "sha256": "2343b6b2deadac40a97ead33f46fe7dd94e0976e1178bde1e99c89e2dd37cada"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.csv",
+    "sha256": "94c25f80005b6a2b69b8f7b40c9323e162685619ec02b6a17749eaf33bf275f4"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.json",
+    "sha256": "bd173e11a85aa86b5622fdfa26da85188e19b444968ced7ead277b890f2c28cf"
+   }
+  ]
  }
 }
