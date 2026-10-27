@@ -137,7 +137,11 @@ No model, optimiser, data or seed setting differs.
 Reference test audio (the 500 raw WAVs of the split, header durations): 3256.2 s.
 
 - WER is a fraction here (0.1135 = 11.35 %).
-- F0 RMSE and correlation are the F0-predictor metric (phoneme-level log-F0 against the cached reference). They exist only for F = 1.
+- **F0 RMSE and F0 corr are the F0-predictor metric** of `eval_harness.collect_f0_pairs`, not the pitch of the waveform. They exist only for F = 1.
+  - **What is compared:** the predicted log-F0 per input token (phoneme ids with the interleaved pad tokens) against the cached frame F0 of the recording.
+  - **How the reference is built:** the cached F0 is averaged over the segments that the model's own predicted durations give, pooled over all tokens of the 500 utterances.
+  - **Units:** the RMSE is in natural-log Hz; one unit is 1,731 cents.
+  - **Definition and caveats:** `ablation-final.md`, section "F0: predictor log-F0 and waveform pitch". Waveform F0 is in section 11.
 - **The recorded RTF is not a reportable RTF:** it was measured inline, on two machines, with other work running. The idle-machine CPU benchmark is in section 5.
 - **Audio** is the total duration synthesized for the 500 sentences (sum of `audio_duration_sec`).
   - Seven cells produce 2,952–3,077 s.
@@ -243,7 +247,7 @@ Reference test audio (the 500 raw WAVs of the split, header durations): 3256.2 s
 | UTMOSv2 (predicted) | +0.575 [+0.546, +0.604] | +0.321 [+0.305, +0.337], 56 % | +0.123 [+0.108, +0.138], 21 % | +0.131 [+0.114, +0.149], 23 % |
 | MCD | +0.065 [-0.020, +0.148] | -0.207 [-0.259, -0.157], -318 % | -0.186 [-0.234, -0.139], -286 % | +0.459 [+0.409, +0.509], 703 % |
 
-**F0-predictor metrics** (F = 1 only). These are summary values only: no per-sentence F0 values exist, so there is no CI or test.
+**F0-predictor metrics** (F = 1 only). These are summary values only: no per-sentence F0 values exist, so there is no CI or test. The RMSE is in natural-log Hz, of the predicted log-F0 per input token (definition in section 2). It is not the pitch of the waveform; that is in section 11.
 
 | | V = 1 | V = 0 |
 |---|---|---|
@@ -307,7 +311,11 @@ What this means:
   - +2.67 pp alone, p (Holm) 0.085;
   - −1.67 pp [−3.22, −0.30] for NoF0 → Full, p (Holm) 0.085;
   - neither edge is significant after Holm.
-- **F0-predictor RMSE:** it is lowest with V on (0.481 without B, 0.540 with B) and highest in Baseline-F0 (0.620). The correlation is low in all four cells (0.18–0.20). No test is possible on these values.
+- **F0-predictor RMSE** (natural-log Hz, of the predicted log-F0 per token; not the waveform pitch):
+  - it is lowest with V on (0.481 without B, 0.540 with B) and highest in Baseline-F0 (0.620);
+  - the correlation is low in all four cells (0.18–0.20);
+  - no test is possible on these values;
+  - the reference segments come from each model's own predicted durations, so the metric also carries duration error.
 - **Machine:** F's main effect is balanced over the two GPU types.
 - **Size:** about 0.35 M elements (the F0 predictor, +2.1 %).
 
@@ -436,7 +444,7 @@ Protocol (agreed with the author on 24/10):
 If one has to be chosen from these runs, **Full (B + V + F) is the defensible choice for the system the paper reports.** The reasons:
 - **UTMOSv2:** it is in the top group.
 - **MCD:** it is lower than NoVITS2's, −0.122, p (Holm) 0.013.
-- **F0 RMSE:** it is lower than NoVITS2's (0.540 vs 0.583, untested).
+- **F0-predictor RMSE:** it is lower than NoVITS2's (0.540 vs 0.583 ln Hz, untested). This is a predictor metric. On the waveform pitch (section 11), Full and NoVITS2 are close: 439.1 vs 451.1 cents, a difference that was not one of the tested comparisons.
 - **WER:** it is not significantly different from its neighbours or from Baseline.
 
 The record should also say:
@@ -567,7 +575,7 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 | Full, epoch 1079 | 0.0864 / 0.0476 | 3.8070 / 3.8134 | 26.000 / 25.953 | 3.8181 | 0.0568 | `summary`, `mcd_configH` |
 | Baseline, epoch 773 | 0.0917 / 0.0526 | 3.3656 / 3.3945 | 26.064 / 25.904 | 3.8146 | 0.0559 | `summary`, `mcd_baseline` |
 | Full, epoch 1079, second run | 0.0843 / 0.0455 | 3.8244 / 3.8351 | | | | `f0_configH` |
-| Full, epoch 1079, third run | 0.0876 / 0.0435 | 3.8130 / 3.8332 | | | | `f0_configH_v2`, F0 RMSE 0.342, corr 0.332 |
+| Full, epoch 1079, third run | 0.0876 / 0.0435 | 3.8130 / 3.8332 | | | | `f0_configH_v2`; F0-predictor RMSE 0.342 ln Hz, corr 0.332 (rows not recorded) |
 
 - **Paired Wilcoxon, 1079 vs 773** (`summary.sanitized.json`): WER p = 0.115, UTMOSv2 p = 1.6 × 10⁻⁷⁹.
 - **Run-to-run variation:** the three runs of the same checkpoint differ by up to 0.33 pp WER and 0.017 UTMOSv2. The historical synthesis and UTMOSv2 were not seeded (`eval-protocol.md`).

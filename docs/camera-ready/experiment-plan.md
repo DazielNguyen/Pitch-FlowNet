@@ -139,7 +139,7 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 
 ## Evaluation (locked before any new test result; T12–T17)
 
-The same protocol applies to the eight 200-epoch runs and to the historical pair:
+**Plan as written on 20–21/10, before the lock:**
 - test split of `split-manifest.json`, 500 utterances;
 - synthesis seed fixed per utterance;
 - WER macro and corpus, UTMOSv2 as a predicted score;
@@ -147,4 +147,14 @@ The same protocol applies to the eight 200-epoch runs and to the historical pair
 - the pitch-shift test −2/0/+2 semitones;
 - RTF with declared threads and batch.
 
-The details are fixed in `launch_eval.sh` before the first test-set run.
+**What was locked and run instead.**
+- **The lock of 21/10.** The author locked the evaluation as the historical one, with no new metric (`eval-protocol.md`). It has:
+  - WER, as the mean and median of the per-utterance WER (no corpus WER);
+  - UTMOSv2;
+  - MCD;
+  - the F0-predictor metric. This is a phoneme-level log-F0 RMSE and correlation of the predictor, not a waveform F0 metric.
+- **The other three items were done later, as supplementary analyses** outside the lock. Each protocol was agreed with the author before its run (`ablation8-results.md`):
+  - waveform F0 against the recordings (T13, section 11). It measured RMSE and offset in cents, the log-F0 correlation, VDE, GPE and FFE, with MFCC-DTW alignment;
+  - the pitch-shift test (T14, section 10);
+  - the CPU RTF benchmark with declared threads and batch 1 (T15, section 5; `ablation-final.md`, Measurement conditions).
+- **Which F0 numbers are which:** `ablation-final.md`, section "F0: predictor log-F0 and waveform pitch".

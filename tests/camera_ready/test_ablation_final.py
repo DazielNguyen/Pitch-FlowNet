@@ -56,6 +56,45 @@ class PaperTables(unittest.TestCase):
         self.assertEqual(md.count("\\begin{tabular}"), 2)
 
 
+class F0Tables(unittest.TestCase):
+    def test_units_and_sections(self):
+        self.assertAlmostEqual(F.CENTS_PER_LN, 1731.234, places=3)
+        f0 = {"predictor_metric": [{"model": "PFN-Full-200ep-best", "protocol": "p", "rmse_ln": 0.5, "rmse_cents": 0.5 * F.CENTS_PER_LN,
+                                    "corr": 0.2, "source": "s"}],
+              "main_historical_evaluation_f0": [None, None],
+              "waveform": {"PFN-Full-200ep-best": {m: {"mean": 1.0, "ci95": [0.5, 1.5], "n": 3} for m in ("rmse_cents", "corr_logf0", "vde", "gpe")}}}
+        md = F.f0_tables(f0)
+        self.assertIn("| Full | p | 0.5000 | 866 | 0.2000 | `s` |", md)
+        self.assertIn("F0-b.", md)
+        self.assertIn("[None, None]", md)
+
+
+class ExtraTables(unittest.TestCase):
+    def test_rows(self):
+        ci = {"effect": 0.1, "ci95": [0.0, 0.2]}
+        sv = {"value": 0.1, "ci95": [0.0, 0.2], "pct_of_gap": 50.0}
+        x = {"eight": [{"label": "PFN-Full-200ep-best", "B": 1, "V": 1, "F": 1, "best_epoch": 188, "wer_mean": 0.1135, "wer_median": 0.0741,
+                        "utmos_mean": 3.5, "utmos_median": 3.5, "mcd_mean": 25.6, "f0_rmse_ln": None, "f0_corr": None, "audio_sec": 10.0, "gpu": "RTX 5070"}],
+             "reference_audio_sec": 12.0,
+             "effects": {m: {t: ci for t in ("B", "V", "F", "BV", "BF", "VF", "BVF")} for m in ("wer", "utmos", "mcd")},
+             "shapley": {m: {"gap": {"value": 0.2, "ci95": [0.1, 0.3]}, "B": sv, "V": sv, "F": sv} for m in ("wer", "utmos", "mcd")},
+             "runs": [{"label": "PFN-Full-200ep-best", "gpu": "RTX 5070", "attempts": 6, "auto_resumes": 2, "end_utc": "2026-10-21T03:08:19+00:00",
+                       "best_epoch": 188, "best_val": 21.3, "val_epoch_199": 21.4, "slope_150_199_per_10": -0.07}],
+             "nof0_over_full": {"median": 1.4, "p10": 1.25, "p90": 1.57, "share_above_1_1": 0.986},
+             "duration_diag": None,
+             "pitch_intervention": {"PFN-Full-200ep-best": {"n": 100, "+2": {"mean": 0.02, "ci95": [0.01, 0.03], "voicing": 0.9},
+                                                            "-2": {"mean": -0.02, "ci95": [-0.03, -0.01], "voicing": 0.9},
+                                                            "off": {"mean": -0.08, "ci95": [-0.09, -0.07], "voicing": 0.8},
+                                                            "slope": {"mean": 0.008, "ci95": [0.007, 0.009]}, "reading": "not controllable"}},
+             "cost_rows": [], "pareto": {"wer vs size": ["PFN-Baseline-200ep-best"]}, "historical_records": [], "historical_mcd": {}}
+        md = F.extra_tables(x)
+        self.assertIn("| Full | 1 | 1 | 1 | 188 | 11.35 | 7.41 |", md)
+        self.assertIn("| Full | RTX 5070 | 6 | 2 | 2026-10-21 03:08 | 188 |", md)
+        self.assertIn("not controllable", md)
+        self.assertIn("- wer vs size: Baseline", md)
+        self.assertIn("98.6 %", md)
+
+
 class Params(unittest.TestCase):
     def test_inference_definition(self):
         z = lambda *s: torch.zeros(*s)

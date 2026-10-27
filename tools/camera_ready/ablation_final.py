@@ -15,12 +15,15 @@ results existed:
   P14  pitch intervention (T14): slope per model, with a BCa CI; descriptive, no test.
 RTF has no test: three benchmark rounds per cell, median and range. The inference parameter count of the historical
 pair is recomputed from the checkpoints (weights_only) under the manuscript's definition.
-Outputs: <eval-dir>/ablation-final-stats.{json,csv}, ablation-final-tables.md (every table) and ablation-final-paper.md
-(the tables for the paper, in Markdown and LaTeX).
+Outputs: <eval-dir>/ablation-final-stats.{json,csv}, ablation-final-tables.md (every comparison table),
+ablation-final-paper.md (the tables for the paper, in Markdown and LaTeX) and ablation-final-extra.md (the eight-cell
+table, factorial effects and Shapley values with BCa CIs, training runs, durations, duration diagnostics, pitch
+intervention with BCa CIs, size and training cost, Pareto sets, historical evaluation records).
 """
 import argparse
 import csv
 import json
+import math
 import pathlib
 import sys
 
@@ -83,6 +86,242 @@ def inference_params(state_dict):
             "fp32_bytes": int(sum(v.numel() * 4 for v in tensors.values()))}
 
 
+CENTS_PER_LN = 1200.0 / math.log(2.0)      # one natural-log unit of F0 in cents
+# historical records of the F0-predictor metric of the 1079 checkpoint (Piper 773 has no F0 predictor)
+HIST_F0 = [("PitchFlowNet-1079, historical run f0_configH_v2", ROOT / "evaluation/eval_h_vs_baseline/f0_configH_v2/summary.sanitized.json"),
+           ("PitchFlowNet-1079, historical run eval_f0_ablation_E_vs_H", ROOT / "evaluation/other/eval_f0_ablation_E_vs_H/summary.sanitized.json")]
+
+
+def f0_results(eval_dir, cells, t13_records):
+    """(a) the F0-predictor metric of eval_harness.collect_f0_pairs, one pooled value per model, as recorded;
+    (b) the waveform F0 of T13, per-utterance means with BCa CIs."""
+    import numpy as np
+    import ablation8_analysis as A
+    pred = []
+    for label, d in cells.items():
+        s = d["summary"]
+        if A.CELLS[label][2]:
+            pred.append({"model": label, "protocol": "locked (200 epochs), the 500 test rows, seeded",
+                         "rmse_ln": s["f0_rmse"], "rmse_cents": s["f0_rmse"] * CENTS_PER_LN, "corr": s["f0_corr"],
+                         "source": f"eval/{label}/summary.json"})
+    for name, path in HIST_F0:
+        for c in json.loads(path.read_text())["checkpoints"]:
+            if "1079" in c["checkpoint"]:
+                pred.append({"model": name, "protocol": "historical, rows not recorded, unseeded",
+                             "rmse_ln": c["f0_rmse"], "rmse_cents": c["f0_rmse"] * CENTS_PER_LN, "corr": c["f0_corr"],
+                             "source": str(path.relative_to(ROOT))})
+    hist_main = json.loads((HIST_DIR / "summary.sanitized.json").read_text())["checkpoints"]
+    wave = {}
+    by = {}
+    for r in t13_records:
+        by.setdefault(r["label"], {})[r["utterance"]] = r["dtw"]
+    for label, u in by.items():
+        row = {}
+        for metric in ("rmse_cents", "corr_logf0", "vde", "gpe"):
+            v = [u[i][metric] if u[i][metric] is not None else np.nan for i in sorted(u)]
+            s = paired_stats(v, [0.0] * len(v))
+            row[metric] = {"mean": s["diff"], "ci95": s["ci95"], "n": s["n"]}
+        wave[label] = row
+    return {"predictor_metric": pred, "main_historical_evaluation_f0": [c["f0_rmse"] for c in hist_main], "waveform": wave}
+
+
+def f0_tables(f0):
+    short = lambda l: l.replace("PFN-", "").replace("-200ep-best", "").replace("Historical-", "Hist. ")
+    out = ["\n#### F0-a. F0-predictor metric (eval_harness.collect_f0_pairs; one pooled value per model, no CI)\n",
+           "| Model | Protocol | RMSE (ln Hz) | RMSE (cents) | Pearson r (log-F0) | Source |", "|---|---|---:|---:|---:|---|"]
+    for r in f0["predictor_metric"]:
+        out.append(f"| {short(r['model'])} | {r['protocol']} | {r['rmse_ln']:.4f} | {r['rmse_cents']:.0f} | {r['corr']:.4f} | `{r['source']}` |")
+    out.append(f"\nThe main historical evaluation (`evaluation/eval_h_vs_baseline/summary.json`) has f0_rmse = "
+               f"{f0['main_historical_evaluation_f0']} for its two checkpoints: it did not compute the metric.\n")
+    out += ["\n#### F0-b. Waveform F0 against the recordings (T13, DTW; mean over 500 utterances [95 % BCa CI])\n",
+            "| Model | F0 RMSE (cents) | log-F0 corr | VDE | GPE |", "|---|---|---|---|---|"]
+    for label, r in f0["waveform"].items():
+        c = lambda m, n: f"{r[m]['mean']:.{n}f} [{r[m]['ci95'][0]:.{n}f}, {r[m]['ci95'][1]:.{n}f}]"
+        out.append(f"| {short(label)} | {c('rmse_cents', 1)} | {c('corr_logf0', 3)} | {c('vde', 3)} | {c('gpe', 3)} |")
+    return "\n".join(out) + "\n"
+
+
+def extra_results(a, cells, ps, pitch_records):
+    """Everything else the final page reports, from files that exist: the eight-cell table, factorial effects and
+    Shapley values with BCa CIs, the training runs, the durations and duration diagnostics, the pitch intervention
+    with BCa CIs, size and training cost, Pareto sets, and the historical evaluation records."""
+    import numpy as np
+    import ablation8_analysis as A
+    out = {}
+    # eight cells
+    eight = []
+    ref_sec = A.reference_audio_sec(cells)
+    for label, (b, v, f) in sorted(A.CELLS.items(), key=lambda kv: kv[1], reverse=True):
+        s, p = cells[label]["summary"], cells[label]["protocol"]
+        man = json.loads((a.final_dir / A.RUNS[label] / "run_manifest.json").read_text())
+        eight.append({"label": label, "B": b, "V": v, "F": f, "best_epoch": p["checkpoint_info"]["epoch"],
+                      "wer_mean": s["mean_wer"], "wer_median": s["median_wer"], "utmos_mean": s["mean_utmos"],
+                      "utmos_median": s["median_utmos"], "mcd_mean": s["mcd"]["mean_mcd"], "f0_rmse_ln": s.get("f0_rmse"),
+                      "f0_corr": s.get("f0_corr"), "audio_sec": sum(float(r["audio_duration_sec"]) for r in cells[label]["rows"]),
+                      "gpu": man["devices"]["torch"][0]["name"].replace("NVIDIA GeForce ", "")})
+    out["eight"], out["reference_audio_sec"] = eight, ref_sec
+    # factorial effects and Shapley values, BCa
+    eff, shap = {}, {}
+    for metric in A.METRICS:
+        y = {bits: np.asarray(ps[label][metric]) for label, bits in A.CELLS.items()}
+        for term, v in A.factorial_effects(y).items():
+            s = paired_stats(v, np.zeros_like(v))
+            eff.setdefault(metric, {})[term] = {"effect": s["diff"], "ci95": s["ci95"]}
+        gap = y[(1, 1, 1)] - y[(0, 0, 0)]
+        g = paired_stats(gap, np.zeros_like(gap))
+        shap[metric] = {"gap": {"value": g["diff"], "ci95": g["ci95"]}}
+        for name, v in A.shapley(y).items():
+            s = paired_stats(v, np.zeros_like(v))
+            shap[metric][name] = {"value": s["diff"], "ci95": s["ci95"], "pct_of_gap": 100 * s["diff"] / g["diff"] if g["diff"] else None}
+    out["effects"], out["shapley"] = eff, shap
+    # training runs
+    runs = []
+    for label in A.CELLS:
+        fin = a.final_dir / A.RUNS[label]
+        final = json.loads((fin / "final.json").read_text())
+        man = json.loads((fin / "run_manifest.json").read_text())
+        ledger = [json.loads(l) for l in (fin / "checkpoint_ledger.jsonl").read_text().splitlines() if l]
+        val = {}
+        for l in (fin / "val_diagnostics.jsonl").read_text().splitlines():
+            if l:
+                d = json.loads(l)
+                val[d["epoch"]] = d["value"]
+        e = np.array(sorted(val))
+        yv = np.array([val[k] for k in e])
+        tail = e >= 150
+        runs.append({"label": label, "run_id": A.RUNS[label], "gpu": man["devices"]["torch"][0]["name"].replace("NVIDIA GeForce ", ""),
+                     "attempts": len(man["attempts"]), "auto_resumes": sum(1 for r in ledger if r.get("event") == "auto_resume"),
+                     "end_utc": man["attempts"][-1]["end_utc"], "best_epoch": int(e[yv.argmin()]), "best_val": float(yv.min()),
+                     "val_epoch_199": float(val.get(199, float("nan"))),
+                     "slope_150_199_per_10": float(np.polyfit(e[tail], yv[tail], 1)[0] * 10),
+                     "epochs": int(final["epochs_completed"]), "g_updates": int(final["g_updates"])})
+    out["runs"] = runs
+    # durations and the duration diagnostic
+    full = np.array([float(r["audio_duration_sec"]) for r in cells["PFN-Full-200ep-best"]["rows"]])
+    nof0 = np.array([float(r["audio_duration_sec"]) for r in cells["PFN-NoF0-200ep-best"]["rows"]])
+    ratio = nof0 / full
+    out["nof0_over_full"] = {"median": float(np.median(ratio)), "p10": float(np.percentile(ratio, 10)),
+                             "p90": float(np.percentile(ratio, 90)), "share_above_1_1": float(np.mean(ratio > 1.1))}
+    diag = a.tests_dir / "duration-diag-20261024" / "summary.json"
+    out["duration_diag"] = json.loads(diag.read_text())["rows"] if diag.is_file() else None
+    # pitch intervention, BCa from the per-utterance records
+    pi = {}
+    for label in dict.fromkeys(r["label"] for r in pitch_records):
+        rs = [r for r in pitch_records if r["label"] == label and all(r["shift"][c] is not None for c in ("-2", "+2", "off"))]
+        row = {"n": len(rs)}
+        for c in ("+2", "-2", "off"):
+            v = [r["shift"][c] for r in rs]
+            s = paired_stats(v, [0.0] * len(v))
+            row[c] = {"mean": s["diff"], "ci95": s["ci95"], "voicing": float(np.mean([r["voicing"][c] for r in rs]))}
+        sl = [(r["shift"]["+2"] - r["shift"]["-2"]) / 4.0 for r in rs]
+        s = paired_stats(sl, [0.0] * len(sl))
+        row["slope"] = {"mean": s["diff"], "ci95": s["ci95"]}
+        lo, hi = s["ci95"]
+        row["reading"] = ("controllable" if s["diff"] >= 0.8 else "partly controllable" if s["diff"] >= 0.2 else "not controllable") \
+            if (lo > 0 or hi < 0) else "not controllable"
+        pi[label] = row
+    out["pitch_intervention"] = pi
+    # size, training cost and Pareto sets (ablation8_analysis cost)
+    cost = json.loads((a.eval_dir / "ablation8-cost.json").read_text())
+    out["cost_rows"], out["pareto"] = cost["rows"], cost["pareto_sets"]
+    # historical evaluation records of the main pair
+    hist = []
+    for name, path in (("main evaluation", HIST_DIR / "summary.sanitized.json"),
+                       ("second run of 1079", HIST_DIR / "f0_configH" / "summary.sanitized.json"),
+                       ("third run of 1079", HIST_DIR / "f0_configH_v2" / "summary.sanitized.json")):
+        for c in json.loads(path.read_text())["checkpoints"]:
+            hist.append({"run": name, "checkpoint": "PitchFlowNet-1079" if "1079" in c["checkpoint"] else "Piper-773",
+                         **{k: c[k] for k in ("mean_wer", "median_wer", "mean_utmos", "median_utmos", "mean_rtf", "f0_rmse", "f0_corr")},
+                         "source": str(path.relative_to(ROOT))})
+    mcd = {lab: json.loads((HIST_DIR / sub / "mcd_gtmos_summary.json").read_text()) for lab, (_p, sub) in HIST.items()}
+    out["historical_records"], out["historical_mcd"] = hist, mcd
+    return out
+
+
+def extra_tables(x):
+    short = lambda l: l.replace("PFN-", "").replace("-200ep-best", "").replace("Historical-", "Hist. ")
+    nf = lambda v, n: "n/a" if v is None else f"{v:.{n}f}"
+    out = [f"\n#### X1. The eight cells (locked protocol, 500 test utterances)\n",
+           "| Model | B | V | F | Best epoch | WER mean (%) | WER median (%) | UTMOSv2 mean | UTMOSv2 median | MCD mean | F0-pred. RMSE (ln Hz) | F0-pred. r | Audio (s) | Training GPU |",
+           "|---|:-:|:-:|:-:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|"]
+    for r in x["eight"]:
+        out.append(f"| {short(r['label'])} | {r['B']} | {r['V']} | {r['F']} | {r['best_epoch']} | {100*r['wer_mean']:.2f} | {100*r['wer_median']:.2f} | "
+                   f"{r['utmos_mean']:.3f} | {r['utmos_median']:.3f} | {r['mcd_mean']:.3f} | {nf(r['f0_rmse_ln'], 4)} | {nf(r['f0_corr'], 4)} | "
+                   f"{r['audio_sec']:.1f} | {r['gpu']} |")
+    out.append(f"\nReference test audio: {x['reference_audio_sec']:.1f} s (500 raw WAVs, header durations).\n")
+    scale = {"wer": (100.0, 2, "WER (pp)"), "utmos": (1.0, 3, "UTMOSv2"), "mcd": (1.0, 3, "MCD")}
+    out += ["\n#### X2. Factorial effects, effect coding (mean over sentences [95 % BCa CI])\n",
+            "| Term | WER (pp) | UTMOSv2 | MCD |", "|---|---|---|---|"]
+    names = {"BV": "B×V", "BF": "B×F", "VF": "V×F", "BVF": "B×V×F"}
+    for t in ("B", "V", "F", "BV", "BF", "VF", "BVF"):
+        cells = []
+        for m in ("wer", "utmos", "mcd"):
+            k, n, _ = scale[m]
+            e = x["effects"][m][t]
+            cells.append(f"{e['effect']*k:+.{n}f} [{e['ci95'][0]*k:+.{n}f}, {e['ci95'][1]*k:+.{n}f}]")
+        out.append(f"| {names.get(t, t)} | " + " | ".join(cells) + " |")
+    out += ["\n#### X3. Shapley attribution of the Full − Baseline gap [95 % BCa CI]; % of the gap\n",
+            "| Metric | Gap | B | V | F |", "|---|---|---|---|---|"]
+    for m in ("utmos", "wer", "mcd"):
+        k, n, name = scale[m]
+        s = x["shapley"][m]
+        g = s["gap"]
+        cells = [f"{s[c]['value']*k:+.{n}f} [{s[c]['ci95'][0]*k:+.{n}f}, {s[c]['ci95'][1]*k:+.{n}f}], {s[c]['pct_of_gap']:.0f} %" for c in "BVF"]
+        out.append(f"| {name} | {g['value']*k:+.{n}f} [{g['ci95'][0]*k:+.{n}f}, {g['ci95'][1]*k:+.{n}f}] | " + " | ".join(cells) + " |")
+    out += ["\n#### X4. Training runs (final/<run_id>/)\n",
+            "| Model | GPU | Attempts | Watchdog resumes | End (UTC) | Best epoch | Best val_mel_l1_global | Value at epoch 199 | Slope, epochs 150–199 (per 10 epochs) |",
+            "|---|---|---:|---:|---|---:|---:|---:|---:|"]
+    for r in x["runs"]:
+        out.append(f"| {short(r['label'])} | {r['gpu']} | {r['attempts']} | {r['auto_resumes']} | {r['end_utc'][:16].replace('T', ' ')} | "
+                   f"{r['best_epoch']} | {r['best_val']:.4f} | {r['val_epoch_199']:.4f} | {r['slope_150_199_per_10']:+.4f} |")
+    nf0 = x["nof0_over_full"]
+    out.append(f"\n#### X5. Synthesized duration, NoF0 against Full (per sentence)\n\nMedian ratio {nf0['median']:.3f}; 10th–90th percentile "
+               f"{nf0['p10']:.3f}–{nf0['p90']:.3f}; share of sentences more than 10 % longer {100*nf0['share_above_1_1']:.1f} %.\n")
+    if x["duration_diag"]:
+        R = {(r["label"], r["checkpoint"], r["split"], r["noise_w"]): r for r in x["duration_diag"]}
+        out += ["\n#### X6. Duration diagnostics: predicted length / reference frames (test) and predicted / MAS (validation)\n",
+                "| Model | Best epoch | Test, best, noise_w 0.8 | Test, best, noise_w 0 | Test, last, noise_w 0.8 | Test, last, noise_w 0 | "
+                "Validation pred/MAS, 0.8 | Validation pred/MAS, 0 | Per-phoneme mean abs log ratio, 0.8 / 0 |",
+                "|---|---:|---:|---:|---:|---:|---:|---:|---|"]
+        for r in x["eight"]:
+            l = r["label"]
+            g = lambda c, s, n: R[(l, c, s, n)]
+            out.append(f"| {short(l)} | {g('best', 'test', 0.8)['epoch']} | {g('best', 'test', 0.8)['total_ratio_to_reference']:.3f} | "
+                       f"{g('best', 'test', 0.0)['total_ratio_to_reference']:.3f} | {g('last', 'test', 0.8)['total_ratio_to_reference']:.3f} | "
+                       f"{g('last', 'test', 0.0)['total_ratio_to_reference']:.3f} | {g('best', 'validation', 0.8)['total_ratio_to_mas']:.3f} | "
+                       f"{g('best', 'validation', 0.0)['total_ratio_to_mas']:.3f} | {g('best', 'validation', 0.8)['mean_abs_log_ratio_to_mas']:.3f} / "
+                       f"{g('best', 'validation', 0.0)['mean_abs_log_ratio_to_mas']:.3f} |")
+    out += ["\n#### X7. Pitch intervention: achieved shift in semitones [95 % BCa CI], 100 test utterances\n",
+            "| Model | +2 requested | −2 requested | Off | Slope | Reading (bands fixed in advance) | Voicing agreement +2 / −2 / off |",
+            "|---|---|---|---|---|---|---|"]
+    for l, r in x["pitch_intervention"].items():
+        c = lambda k, n: f"{r[k]['mean']:+.{n}f} [{r[k]['ci95'][0]:+.{n}f}, {r[k]['ci95'][1]:+.{n}f}]"
+        out.append(f"| {short(l)} | {c('+2', 3)} | {c('-2', 3)} | {c('off', 3)} | {r['slope']['mean']:.4f} [{r['slope']['ci95'][0]:.4f}, "
+                   f"{r['slope']['ci95'][1]:.4f}] | {r['reading']} | {r['+2']['voicing']:.3f} / {r['-2']['voicing']:.3f} / {r['off']['voicing']:.3f} |")
+    out += ["\n#### X8. Size and training cost of the eight cells (eval/ablation8-cost.json)\n",
+            "| Model | Inference-path elements | Generator | Whole model | Checkpoint (bytes) | GPU | Wall clock (h) | Active GPU-h | G updates / s | Median epoch (min) |",
+            "|---|---:|---:|---:|---:|---|---:|---:|---:|---:|"]
+    for r in x["cost_rows"]:
+        out.append(f"| {short(r['label'])} | {r['elements_inference_path']:,} | {r['elements_generator']:,} | {r['elements_all']:,} | "
+                   f"{r['checkpoint_bytes']:,} | {r['gpu'].replace('NVIDIA GeForce ', '')} | {r['wall_clock_h']:.2f} | {r['active_gpu_h']:.2f} | "
+                   f"{r['g_updates_per_s']:.3f} | {r['median_epoch_min']:.2f} |")
+    out.append("\n#### X9. Pareto sets of mean quality against cost\n")
+    for k, v in x["pareto"].items():
+        out.append(f"- {k}: " + ", ".join(short(s) for s in v))
+    out += ["\n#### X10. Historical evaluation records of the main pair (unseeded; the paper's evaluation)\n",
+            "| Run | Checkpoint | WER mean / median (%) | UTMOSv2 mean / median | Recorded RTF | F0-pred. RMSE (ln Hz) / r | Source |",
+            "|---|---|---|---|---:|---|---|"]
+    for r in x["historical_records"]:
+        f0 = "—" if r["f0_rmse"] is None else f"{r['f0_rmse']:.3f} / {r['f0_corr']:.3f}"
+        out.append(f"| {r['run']} | {r['checkpoint']} | {100*r['mean_wer']:.2f} / {100*r['median_wer']:.2f} | {r['mean_utmos']:.3f} / "
+                   f"{r['median_utmos']:.3f} | {r['mean_rtf']:.4f} | {f0} | `{r['source']}` |")
+    out.append("")
+    for lab, m in x["historical_mcd"].items():
+        out.append(f"- MCD, {lab}: mean {m['mean_mcd']:.3f}, median {m['median_mcd']:.3f}; reference UTMOSv2 {m['mean_gt_utmos']:.4f}; "
+                   f"n {m['n']}, skipped {m['n_skipped']}")
+    return "\n".join(out) + "\n"
+
+
 def read_rows(path):
     with open(path, encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))
@@ -143,6 +382,7 @@ def main():
         for r in json.loads((a.eval_dir / f).read_text())["results"]:
             rtf.setdefault(r["label"], {})[str(r["threads"])] = {k: r[k] for k in ("model_corpus_rtf_median", "model_corpus_rtf_min",
                                                                                      "model_corpus_rtf_max", "e2e_corpus_rtf_median")}
+    f0 = f0_results(a.eval_dir, cells, rec)
     # parameter check of the historical pair
     from piper_train.camera_ready.ckpt_io import load_checkpoint
     params = {label: {**inference_params(load_checkpoint(p)["state_dict"]), "manuscript_M": PAPER_PARAMS_M[label]}
@@ -152,7 +392,7 @@ def main():
                       "families": {"H": "main pair, WER/UTMOSv2/MCD, Holm m=3", "A": "ablation, 13 pairs, Holm within metric",
                                    "P13": "waveform F0 (DTW), 6 comparisons, Holm within metric", "P14": "slopes, descriptive"},
                       "note": "families fixed after the results existed"},
-           "comparisons": rows, "p14_slopes": p14, "rtf": rtf, "historical_params": params}
+           "comparisons": rows, "p14_slopes": p14, "rtf": rtf, "historical_params": params, "f0": f0}
     (a.eval_dir / "ablation-final-stats.json").write_text(json.dumps(doc, indent=1) + "\n")
     fields = ["family", "comparison", "metric", "n", "mean_off", "mean_on", "diff", "ci_low", "ci_high", "d_z", "p_raw", "p_holm", "holm_m"]
     with open(a.eval_dir / "ablation-final-stats.csv", "w", newline="", encoding="utf-8") as f:
@@ -160,8 +400,12 @@ def main():
         w.writeheader()
         for r in rows:
             w.writerow({**{k: r.get(k) for k in fields}, "ci_low": r["ci95"][0], "ci_high": r["ci95"][1]})
-    (a.eval_dir / "ablation-final-tables.md").write_text(tables(rows, p14, rtf, params))
+    (a.eval_dir / "ablation-final-tables.md").write_text(tables(rows, p14, rtf, params) + f0_tables(f0))
     (a.eval_dir / "ablation-final-paper.md").write_text(paper_tables(rows))
+    extra = extra_results(a, cells, ps, pr)
+    doc["extra"] = extra
+    (a.eval_dir / "ablation-final-stats.json").write_text(json.dumps(doc, indent=1) + "\n")
+    (a.eval_dir / "ablation-final-extra.md").write_text(extra_tables(extra))
     print(f"{len(rows)} comparisons; wrote ablation-final-stats.json/.csv, ablation-final-tables.md and ablation-final-paper.md")
 
 
