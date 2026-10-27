@@ -23,6 +23,16 @@ class Schedule(unittest.TestCase):
         self.assertEqual(plan[:2], [(0, "a", 1), (0, "a", 2)])
         self.assertEqual({B.CPUSET[t].count(",") + 1 for t in B.THREADS}, set(B.THREADS))
 
+    def test_cpusets_one_vcpu_per_virtual_core(self):
+        self.assertEqual(B.CPUSET, {1: "0", 2: "0,2"})                      # the settings of 24/10, unchanged
+        self.assertEqual(B.cpuset(12), ",".join(str(i) for i in range(0, 24, 2)))
+        for bad in (0, 13):
+            with self.assertRaises(ValueError):
+                B.cpuset(bad)
+        plan = B.schedule(["a", "b"], rounds=3, threads=(12,))
+        self.assertEqual(len(plan), 6)
+        self.assertEqual({t for _, _, t in plan}, {12})
+
 
 class IdleChecks(unittest.TestCase):
     def test_refusals(self):

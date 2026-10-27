@@ -12,7 +12,9 @@ other than its own cr-rtf, or GPU work), when a checkpoint does not match final/
 
 historical does the same for the paper's historical pair (Full epoch 1079, Baseline epoch 773; added 2026-10-28).
 Each checkpoint must have the file name and SHA-256 recorded in manifests/checkpoint-manifest.json; the outputs are
-<eval-dir>/historical-pair-rtf-runs.jsonl, historical-pair-rtf.json and historical-pair-rtf.csv. The checkpoints load
+<eval-dir>/historical-pair-rtf-runs.jsonl, historical-pair-rtf.json and historical-pair-rtf.csv. --threads T [T ...]
+times other settings (up to 12, pinned like the defaults to the first vCPU of each virtual core: 0, 2, 4, ...); the
+outputs are then named historical-pair-rtf-t<T>-runs.jsonl and so on. The checkpoints load
 through evaluate_like_history.load_model in "legacy" group semantics, strictly, not through the historical harness's
 load_from_checkpoint(strict=False).
 
@@ -46,7 +48,17 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT / "code" / "camera-ready-source" / "src" / "python"))
 
 THREADS = (1, 2)
-CPUSET = {1: "0", 2: "0,2"}
+MAX_THREADS = 12                   # one per virtual core: vCPUs 2k and 2k + 1 are siblings of core k
+
+
+def cpuset(t):
+    """The vCPUs for t threads: the first of each of the first t virtual cores (0, 2, 4, ...)."""
+    if not 1 <= t <= MAX_THREADS:
+        raise ValueError(f"threads must be 1..{MAX_THREADS}, not {t}")
+    return ",".join(str(2 * i) for i in range(t))
+
+
+CPUSET = {t: cpuset(t) for t in THREADS}
 ROUNDS = 3
 N_TEST, N_WARMUP = 100, 10
 LANGUAGE = "en-us"
@@ -188,12 +200,14 @@ def historical_cells(pairs, manifest=CHECKPOINT_MANIFEST, sha256=None):
 
 def cmd_historical(a):
     cells, problems = historical_cells(a.checkpoint)
-    outs = [a.eval_dir / f for f in ("historical-pair-rtf-runs.jsonl", "historical-pair-rtf.json", "historical-pair-rtf.csv")]
+    threads = tuple(a.threads)
+    stem = "historical-pair-rtf" if threads == THREADS else "historical-pair-rtf-t" + "-".join(map(str, threads))
+    outs = [a.eval_dir / f for f in (f"{stem}-runs.jsonl", f"{stem}.json", f"{stem}.csv")]
     recorded = {e["file"]: e["sha256"] for e in json.loads(CHECKPOINT_MANIFEST.read_text())["checkpoints"]}
     extra = {"checkpoints": {label: {"file": ckpt.name, "sha256": recorded.get(ckpt.name)} for label, ckpt in cells},
              "loading": "evaluate_like_history.load_model, legacy group semantics, strict state dict",
              "seeds": "the locked protocol's (base 2026, per test index); the historical evaluation was unseeded"}
-    run_cells(a, cells, outs, problems, extra)
+    run_cells(a, cells, outs, problems, extra, threads)
 
 
 def cmd_plan(a):
@@ -211,16 +225,17 @@ def cmd_plan(a):
     run_cells(a, cells, outs, problems)
 
 
-def run_cells(a, cells, outs, problems, extra=None):
+def run_cells(a, cells, outs, problems, extra=None, threads=THREADS):
     """Check the outputs and the machine, print the schedule, and with --execute run it and write the outputs."""
     problems = list(problems) + [f"exists: {p}" for p in outs if p.exists()]
     state = machine_state()
     problems += idle_problems(state)
-    plan = schedule([label for label, _ in cells])
+    cpusets = {t: cpuset(t) for t in threads}
+    plan = schedule([label for label, _ in cells], threads=threads)
     print(f"machine: {json.dumps(state)}")
-    print(f"{len(plan)} runs: {ROUNDS} rounds x {len(cells)} labels x threads {THREADS}; cpusets {CPUSET}; "
+    print(f"{len(plan)} runs: {ROUNDS} rounds x {len(cells)} labels x threads {tuple(threads)}; cpusets {cpusets}; "
           f"{N_WARMUP} warm-up + {N_TEST} test utterances each")
-    for r, label, t in plan[:len(cells) * len(THREADS)]:
+    for r, label, t in plan[:len(cells) * len(threads)]:
         print(f"  round {r}: {label} T={t}")
     print("  ... (rounds 1 and 2 rotate the order)")
     if problems:
@@ -235,7 +250,7 @@ def run_cells(a, cells, outs, problems, extra=None):
     for r, label, t in plan:
         env = dict(os.environ, OMP_NUM_THREADS=str(t), MKL_NUM_THREADS=str(t))
         load = os.getloadavg()[0]
-        subprocess.run(["taskset", "-c", CPUSET[t], sys.executable, __file__, "run-one", "--checkpoint", str(ckpt_of[label]),
+        subprocess.run(["taskset", "-c", cpusets[t], sys.executable, __file__, "run-one", "--checkpoint", str(ckpt_of[label]),
                         "--label", label, "--threads", str(t), "--round", str(r), "--out", str(runs),
                         "--loadavg", str(load)], env=env, check=True)
     records = [json.loads(l) for l in runs.read_text().splitlines() if l]
@@ -245,7 +260,7 @@ def run_cells(a, cells, outs, problems, extra=None):
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
-    protocol = {"device": "cpu", "threads": THREADS, "cpusets": CPUSET, "interop_threads": 1, "rounds": ROUNDS,
+    protocol = {"device": "cpu", "threads": tuple(threads), "cpusets": cpusets, "interop_threads": 1, "rounds": ROUNDS,
                 "warmup": f"{N_WARMUP} validation utterances", "test": f"first {N_TEST} test utterances",
                 "scales": [0.667, 1.0, 0.8], "seeds": "as the evaluation (base 2026, per test index)",
                 "model_time": "eval_harness.synthesize window (model forward)",
@@ -269,6 +284,8 @@ def main():
     h = sub.add_parser("historical")
     h.add_argument("--checkpoint", action="append", default=[], metavar="LABEL=PATH")
     h.add_argument("--eval-dir", type=pathlib.Path, required=True)
+    h.add_argument("--threads", type=int, nargs="+", default=list(THREADS),
+                   help="thread settings (default 1 2); other settings name the outputs historical-pair-rtf-t<T>*")
     h.add_argument("--execute", action="store_true")
     o = sub.add_parser("run-one")
     o.add_argument("--checkpoint", type=pathlib.Path, required=True)
