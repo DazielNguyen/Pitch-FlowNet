@@ -5,7 +5,7 @@
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
-  "commit": "ac6e68a",
+  "commit": "c89e9e8",
   "sha256": "b4e5e1fafea78474a65d4757ef3dcfb3cfee96a6fef5970515fc50026f8dc9c8",
   "command": "python tools/camera_ready/ablation8_analysis.py all --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --final-dir <WSL_DEV_HOME>/outputs-pfn-cr/final  (seed 2026, 10,000 resamples; env pfn-eval)",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation8-analysis-20261024.log"
@@ -514,36 +514,33 @@
    "sha256": "e12aa7e180eb85fbc70a517e5e1f3ede821637ec3bd0e4d76488605083094c3b"
   }
  ],
- "historical_pair_rtf": {
-  "tool": "tools/camera_ready/benchmark_rtf.py historical",
-  "commit": "5ff1c2b (committed after the run; the run used the identical file, sha256 below)",
-  "sha256": "7989e90d86a1d03d062816f31f6fee1e1658a56e3ba281bf8f250edb622ba4fb",
-  "command": "python tools/camera_ready/benchmark_rtf.py historical --checkpoint Historical-Full-1079=<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt --checkpoint Historical-Baseline-773=<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --execute  (env pfn-eval; tmux cr-rtf; 2026-10-28 02:59-03:09 +07)",
-  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-20261028-b.log",
-  "refused_launch_log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-20261028.log",
-  "checkpoints": "SHA-256 checked against manifests/checkpoint-manifest.json by the tool",
+ "final_statistics": {
+  "tool": "tools/camera_ready/ablation_final.py",
+  "commit": "c89e9e8",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation-final-20261028.log",
   "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-paper.md",
+    "sha256": "c5156cf1f9073e8cb68ec70393ca1ee0ba1e2790bcafad44a9d285520aa73d84"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-stats.csv",
+    "sha256": "d6ad5a5b3757fd8d897daa6e1d026ed53b6b0f4d11b569c34afe85e799a15653"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-stats.json",
+    "sha256": "f2d0ca261b7cedb3f224c920c9ee347edfd430e9b09b962e55eb2c25b5bdb399"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-tables.md",
+    "sha256": "ea97946177a94c3c2d30948938fe62c98f17580142a89ae5140d5ab43b07f176"
+   }
+  ],
+  "inputs_also": [
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-runs.jsonl",
     "sha256": "b28053b6fff4711ba6500eea74764228b0e47cd270cfdb7df7282c8f20ef61cd"
    },
-   {
-    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.csv",
-    "sha256": "94fc088471c468f2c743de9cc0d902cc61399904b530797b4c1a6cbd27a6f140"
-   },
-   {
-    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.json",
-    "sha256": "347b426f0b1f1b1355e118e323891c7114d551b75547aa379e088ef2319ac90c"
-   }
-  ]
- },
- "historical_pair_rtf_t12": {
-  "tool": "tools/camera_ready/benchmark_rtf.py historical --threads 12",
-  "commit": "7c08080 (committed after the run; the run used the identical file, sha256 below)",
-  "sha256": "2aae0c549d428de64a6d96509c36e00650ead56e271058d40a0453b560cc3b98",
-  "command": "python tools/camera_ready/benchmark_rtf.py historical --checkpoint Historical-Full-1079=<checkpoint> --checkpoint Historical-Baseline-773=<checkpoint> --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --threads 12 --execute  (same checkpoints as historical_pair_rtf; env pfn-eval; tmux cr-rtf; 2026-10-28 03:15-03:20 +07)",
-  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-t12-20261028.log",
-  "files": [
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12-runs.jsonl",
     "sha256": "2343b6b2deadac40a97ead33f46fe7dd94e0976e1178bde1e99c89e2dd37cada"
@@ -555,6 +552,14 @@
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-t12.json",
     "sha256": "bd173e11a85aa86b5622fdfa26da85188e19b444968ced7ead277b890f2c28cf"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.csv",
+    "sha256": "94fc088471c468f2c743de9cc0d902cc61399904b530797b4c1a6cbd27a6f140"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.json",
+    "sha256": "347b426f0b1f1b1355e118e323891c7114d551b75547aa379e088ef2319ac90c"
    }
   ]
  }
