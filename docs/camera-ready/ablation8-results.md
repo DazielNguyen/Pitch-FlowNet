@@ -17,7 +17,7 @@ The analysis was done on the PC on 2026-10-24.
 
 ## Summary
 
-**State on 2026-10-25.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded (section 9). Pitch control through the F0 conditioning (section 10) and the waveform F0 against the recordings (section 11) have been tested.
+**State on 2026-10-25.** All eight 200-epoch cells are trained and evaluated under the locked protocol, analysed, and benchmarked for CPU RTF. The long NoF0 audio has been traced to its duration predictor. The historical pair is reported as recorded, and its CPU RTF was measured again on 2026-10-28 (section 9). Pitch control through the F0 conditioning (section 10) and the waveform F0 against the recordings (section 11) have been tested.
 
 **Main numbers** (test split, 500 utterances; 95 % CIs from the paired bootstrap; Holm across 13 pairs):
 - **Full vs Baseline (200 epochs):**
@@ -33,6 +33,7 @@ The analysis was done on the PC on 2026-10-24.
 - **NoF0 synthesizes about 40 % more audio** than the other cells. This comes from the stochastic part of its duration predictor at `noise_scale_w` 0.8 (section 8). The checkpoint-selection metric cannot see it (section 7).
 - **Recommended system:** Full. NoVITS2 is a smaller and faster alternative with the same predicted naturalness within the test's resolution (section 6).
 - **Historical pair, as recorded:** Full 1079 against Baseline 773 gives WER 8.64 % vs 9.17 % (p = 0.115) and UTMOSv2 3.807 vs 3.366 (p = 1.6 × 10⁻⁷⁹). It is not comparable with the ablation (section 9).
+  - Timed again on 28/10 with the CPU protocol of section 5 (section 9): Full 0.0888 / 0.0579 and Baseline 0.0789 / 0.0514 at 1 / 2 threads, so Full is about 12.5 % slower. The recorded RTFs, 0.0568 vs 0.0559, have no recorded thread count.
 - **Pitch is not controllable through the F0 conditioning** (section 10).
   - Scaling the decoder's F0 input by ±2 semitones, with z, durations and noise fixed, moves the output pitch by only 0.008–0.023 semitones (slope 0.004–0.011). This holds in all four F = 1 cells and in the historical Full model.
   - The decoder uses the conditioning, since the waveform changes, but the pitch comes from the latent.
@@ -62,6 +63,7 @@ The analysis was done on the PC on 2026-10-24.
 | CPU RTF benchmark (T15) | `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`), tests `tests/camera_ready/test_benchmark_rtf.py` |
 | Duration diagnostics | `tools/camera_ready/duration_diag.py` (commit `c8d3144`), tests `tests/camera_ready/test_duration_diag.py`; results in `tests/duration-diag-20261024/` |
 | Historical pair, as recorded | `evaluation/eval_h_vs_baseline/` (in Git, sanitized copies) |
+| CPU RTF benchmark of the historical pair (28/10) | `tools/camera_ready/benchmark_rtf.py historical`, tests `tests/camera_ready/test_benchmark_rtf.py`; results `eval/historical-pair-rtf.{json,csv}`, `historical-pair-rtf-runs.jsonl` |
 | Pitch intervention (T14) | `tools/camera_ready/pitch_shift.py` (commit `524708f`), tests `tests/camera_ready/test_pitch_shift.py`; results in `tests/pitch-shift-20261025/` |
 | Waveform F0 (T13) | `tools/camera_ready/waveform_f0.py` (commit `ac6e68a`), tests `tests/camera_ready/test_waveform_f0.py`; results in `tests/waveform-f0-20261025/` |
 | Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}`, `ablation8-rtf.{csv,json}`, `ablation8-rtf-runs.jsonl` |
@@ -578,6 +580,33 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
   - F0 rows not recorded.
 - **The training differs:** 1,100 epochs on 2 GPUs with batch 2 × 16, against 200 epochs on 1 GPU with batch 16.
 - **Do not take** a difference between a historical number and an ablation number as an effect of any component.
+
+**CPU benchmark of the historical pair (2026-10-28, new measurement).** The recorded RTFs above (0.0568 and 0.0559) have no recorded thread count or device setting; the harness ran on the CPU with PyTorch's default threads. The author asked on 28/10 for the pair to be timed again with the protocol of section 5.
+- **Tool:** `tools/camera_ready/benchmark_rtf.py historical` (commit `5ff1c2b`; log `logs/rtf-historical-20261028-b.log`; files `eval/historical-pair-rtf.{json,csv}`, `historical-pair-rtf-runs.jsonl`, outside Git).
+  - Each checkpoint's file name and SHA-256 were checked against `manifests/checkpoint-manifest.json` before the run.
+  - A first launch at 02:48 was refused by the idle check (load average 1.14, left by a smoke run); its log is `logs/rtf-historical-20261028.log`.
+- **Protocol:** that of section 5:
+  - CPU, 1 and 2 threads pinned to vCPU 0 and to vCPUs 0 and 2, one interop thread;
+  - 10 validation utterances as warm-up, then the first 100 of the same 500 test sentences;
+  - three rounds with the order rotated, each cell in its own process.
+  - Run on the idle PC, 02:59–03:09 +07; load average 0.06 at the start, no other tmux session.
+- **Differences from the historical evaluation:**
+  - The checkpoints load through `evaluate_like_history.load_model` in "legacy" group semantics with a strict state dict, not through `load_from_checkpoint(strict=False)`.
+  - Synthesis is seeded as in the locked protocol, where the historical evaluation was unseeded.
+
+| Checkpoint | 1 thread: model RTF, median [min, max] | 1 thread: end-to-end | 2 threads: model RTF, median [min, max] | 2 threads: end-to-end | Audio of the 100 utterances | Lengths equal in all 6 runs |
+|---|---|---:|---|---:|---:|:-:|
+| Full, epoch 1079 | 0.0888 [0.0873, 0.0895] | 0.0889 | 0.0579 [0.0575, 0.0588] | 0.0580 | 599.4 s | yes |
+| Baseline, epoch 773 | 0.0789 [0.0772, 0.0803] | 0.0790 | 0.0514 [0.0509, 0.0521] | 0.0515 | 638.1 s | yes |
+
+- **Checks:** all 12 runs had 100 utterances, the requested thread count and affinity. The round-to-round range is at most 3.9 % of the median (Baseline, 1 thread).
+- **Full against Baseline:** Full is about 12.5 % slower at 1 thread and 12.6 % at 2 threads. The recorded values (0.0568 vs 0.0559, +1.6 %) do not show this gap; their thread count and machine state are not known.
+- **Two threads** give a 1.53× speed-up for both checkpoints, as in section 5.
+- **Against section 5:**
+  - The historical Full (0.0888 / 0.0579) is close to the 200-epoch Full (0.0880 / 0.0567).
+  - The historical Baseline (0.0789 / 0.0514) is slower than the 200-epoch Baseline (0.0682 / 0.0442).
+  - This is consistent with the historical baseline's decoder keeping Snake in its ResBlocks: `checkpoint-manifest.json` lists 36 decoder Snake parameters for epoch 773. The "strict" Baseline of the ablation has none. This was not profiled.
+  - The same caveat as above holds: training and evaluation differ, so these are timings of two different model versions, not an effect of any component.
 
 ## 10. Pitch control through the F0 conditioning (T14)
 

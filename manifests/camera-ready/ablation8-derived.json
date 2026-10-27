@@ -513,5 +513,28 @@
    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/final/PFN-Baseline-200ep-s1234/val_diagnostics.jsonl",
    "sha256": "e12aa7e180eb85fbc70a517e5e1f3ede821637ec3bd0e4d76488605083094c3b"
   }
- ]
+ ],
+ "historical_pair_rtf": {
+  "tool": "tools/camera_ready/benchmark_rtf.py historical",
+  "commit": "5ff1c2b (committed after the run; the run used the identical file, sha256 below)",
+  "sha256": "7989e90d86a1d03d062816f31f6fee1e1658a56e3ba281bf8f250edb622ba4fb",
+  "command": "python tools/camera_ready/benchmark_rtf.py historical --checkpoint Historical-Full-1079=<WSL_DEV_HOME>/01_Baseline_BigVgan_VITS2_FO/lightning_logs/version_2/checkpoints/best-epoch=1079-val_loss_mel=19.2943.ckpt --checkpoint Historical-Baseline-773=<WSL_DEV_HOME>/02_Baseline_VanillaVITS/lightning_logs/version_0/checkpoints/best-epoch=773-val_loss_mel=20.2158.ckpt --eval-dir <WSL_DEV_HOME>/outputs-pfn-cr/eval --execute  (env pfn-eval; tmux cr-rtf; 2026-10-28 02:59-03:09 +07)",
+  "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-20261028-b.log",
+  "refused_launch_log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/rtf-historical-20261028.log",
+  "checkpoints": "SHA-256 checked against manifests/checkpoint-manifest.json by the tool",
+  "files": [
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf-runs.jsonl",
+    "sha256": "b28053b6fff4711ba6500eea74764228b0e47cd270cfdb7df7282c8f20ef61cd"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.csv",
+    "sha256": "94fc088471c468f2c743de9cc0d902cc61399904b530797b4c1a6cbd27a6f140"
+   },
+   {
+    "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/historical-pair-rtf.json",
+    "sha256": "347b426f0b1f1b1355e118e323891c7114d551b75547aa379e088ef2319ac90c"
+   }
+  ]
+ }
 }
