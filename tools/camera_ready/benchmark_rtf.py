@@ -1,12 +1,20 @@
 """RTF benchmark of the eight ablation checkpoints on the CPU with 1 and 2 threads (T15, protocol agreed on 2026-10-24).
 
     python tools/camera_ready/benchmark_rtf.py plan --final-dir <CR_OUTPUTS>/final --eval-dir <CR_OUTPUTS>/eval [--execute]
+    python tools/camera_ready/benchmark_rtf.py historical --checkpoint Historical-Full-1079=<ckpt> \
+        --checkpoint Historical-Baseline-773=<ckpt> --eval-dir <CR_OUTPUTS>/eval [--execute]
     (internal) python tools/camera_ready/benchmark_rtf.py run-one --checkpoint <ckpt> --label L --threads T --round R --out <jsonl>
 
 Without --execute, plan only checks the inputs and the machine and prints the schedule. With --execute it runs every
 (round, label, threads) cell in its own process, pinned with taskset, and writes <eval-dir>/ablation8-rtf-runs.jsonl,
 ablation8-rtf.json and ablation8-rtf.csv. It stops when the machine is not idle (load average >= 1, a tmux session
 other than its own cr-rtf, or GPU work), when a checkpoint does not match final/<run_id>/SHA256SUMS, or when an output file exists.
+
+historical does the same for the paper's historical pair (Full epoch 1079, Baseline epoch 773; added 2026-10-28).
+Each checkpoint must have the file name and SHA-256 recorded in manifests/checkpoint-manifest.json; the outputs are
+<eval-dir>/historical-pair-rtf-runs.jsonl, historical-pair-rtf.json and historical-pair-rtf.csv. The checkpoints load
+through evaluate_like_history.load_model in "legacy" group semantics, strictly, not through the historical harness's
+load_from_checkpoint(strict=False).
 
 Protocol:
   - CPU only; torch.set_num_threads(T), set_num_interop_threads(1), OMP/MKL threads T; T = 1 pinned to vCPU 0,
@@ -43,6 +51,11 @@ ROUNDS = 3
 N_TEST, N_WARMUP = 100, 10
 LANGUAGE = "en-us"
 SESSION = "cr-rtf"                 # the benchmark's own tmux session, allowed by the idle check
+CHECKPOINT_MANIFEST = ROOT / "manifests" / "checkpoint-manifest.json"
+HISTORICAL = {                     # label -> checkpoint file name in checkpoint-manifest.json
+    "Historical-Full-1079": "best-epoch=1079-val_loss_mel=19.2943.ckpt",
+    "Historical-Baseline-773": "best-epoch=773-val_loss_mel=20.2158.ckpt",
+}
 
 
 def round_order(labels, r):
@@ -145,6 +158,44 @@ def idle_problems(state):
     return problems
 
 
+def historical_cells(pairs, manifest=CHECKPOINT_MANIFEST, sha256=None):
+    """(label, checkpoint) for the historical pair from LABEL=PATH arguments, and the problems found: a label other
+    than the two of HISTORICAL, a missing label, a file name other than the recorded one, or a SHA-256 other than
+    the one checkpoint-manifest.json records for that file."""
+    if sha256 is None:
+        import ablation8_analysis as A
+        sha256 = A.sha256
+    recorded = {e["file"]: e["sha256"] for e in json.loads(pathlib.Path(manifest).read_text())["checkpoints"]}
+    problems, given = [], {}
+    for item in pairs:
+        label, _, path = item.partition("=")
+        if label not in HISTORICAL:
+            problems.append(f"unknown label {label!r}; expected {', '.join(HISTORICAL)}")
+            continue
+        given[label] = pathlib.Path(path)
+    problems += [f"missing --checkpoint {label}=<path>" for label in HISTORICAL if label not in given]
+    cells = []
+    for label, ckpt in given.items():
+        if ckpt.name != HISTORICAL[label]:
+            problems.append(f"{label}: file {ckpt.name} is not {HISTORICAL[label]}")
+        elif not ckpt.is_file():
+            problems.append(f"{label}: {ckpt} does not exist")
+        elif sha256(ckpt) != recorded.get(ckpt.name):
+            problems.append(f"{label}: {ckpt} SHA-256 differs from {pathlib.Path(manifest).name}")
+        cells.append((label, ckpt))
+    return cells, problems
+
+
+def cmd_historical(a):
+    cells, problems = historical_cells(a.checkpoint)
+    outs = [a.eval_dir / f for f in ("historical-pair-rtf-runs.jsonl", "historical-pair-rtf.json", "historical-pair-rtf.csv")]
+    recorded = {e["file"]: e["sha256"] for e in json.loads(CHECKPOINT_MANIFEST.read_text())["checkpoints"]}
+    extra = {"checkpoints": {label: {"file": ckpt.name, "sha256": recorded.get(ckpt.name)} for label, ckpt in cells},
+             "loading": "evaluate_like_history.load_model, legacy group semantics, strict state dict",
+             "seeds": "the locked protocol's (base 2026, per test index); the historical evaluation was unseeded"}
+    run_cells(a, cells, outs, problems, extra)
+
+
 def cmd_plan(a):
     import ablation8_analysis as A
     problems, cells = [], []
@@ -157,7 +208,12 @@ def cmd_plan(a):
             problems.append(f"{ckpt}: SHA-256 differs from SHA256SUMS")
         cells.append((label, ckpt))
     outs = [a.eval_dir / f for f in ("ablation8-rtf-runs.jsonl", "ablation8-rtf.json", "ablation8-rtf.csv")]
-    problems += [f"exists: {p}" for p in outs if p.exists()]
+    run_cells(a, cells, outs, problems)
+
+
+def run_cells(a, cells, outs, problems, extra=None):
+    """Check the outputs and the machine, print the schedule, and with --execute run it and write the outputs."""
+    problems = list(problems) + [f"exists: {p}" for p in outs if p.exists()]
     state = machine_state()
     problems += idle_problems(state)
     plan = schedule([label for label, _ in cells])
@@ -189,13 +245,15 @@ def cmd_plan(a):
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
+    protocol = {"device": "cpu", "threads": THREADS, "cpusets": CPUSET, "interop_threads": 1, "rounds": ROUNDS,
+                "warmup": f"{N_WARMUP} validation utterances", "test": f"first {N_TEST} test utterances",
+                "scales": [0.667, 1.0, 0.8], "seeds": "as the evaluation (base 2026, per test index)",
+                "model_time": "eval_harness.synthesize window (model forward)",
+                "e2e_time": "phonemization + tensors + model forward + numpy conversion",
+                "placement_note": "WSL vCPUs are scheduled by Hyper-V; P-core/E-core placement is not controlled"}
+    protocol.update(extra or {})
     outs[1].write_text(json.dumps({
-        "protocol": {"device": "cpu", "threads": THREADS, "cpusets": CPUSET, "interop_threads": 1, "rounds": ROUNDS,
-                     "warmup": f"{N_WARMUP} validation utterances", "test": f"first {N_TEST} test utterances",
-                     "scales": [0.667, 1.0, 0.8], "seeds": "as the evaluation (base 2026, per test index)",
-                     "model_time": "eval_harness.synthesize window (model forward)",
-                     "e2e_time": "phonemization + tensors + model forward + numpy conversion",
-                     "placement_note": "WSL vCPUs are scheduled by Hyper-V; P-core/E-core placement is not controlled"},
+        "protocol": protocol,
         "start": start, "end": {"end_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "machine": machine_state()},
         "results": rows}, indent=1) + "\n")
     print(f"wrote {outs[0]}, {outs[1]}, {outs[2]}")
@@ -208,6 +266,10 @@ def main():
     p.add_argument("--final-dir", type=pathlib.Path, required=True)
     p.add_argument("--eval-dir", type=pathlib.Path, required=True)
     p.add_argument("--execute", action="store_true")
+    h = sub.add_parser("historical")
+    h.add_argument("--checkpoint", action="append", default=[], metavar="LABEL=PATH")
+    h.add_argument("--eval-dir", type=pathlib.Path, required=True)
+    h.add_argument("--execute", action="store_true")
     o = sub.add_parser("run-one")
     o.add_argument("--checkpoint", type=pathlib.Path, required=True)
     o.add_argument("--label", required=True)
@@ -216,7 +278,7 @@ def main():
     o.add_argument("--out", type=pathlib.Path, required=True)
     o.add_argument("--loadavg", type=float, default=None)
     a = ap.parse_args()
-    cmd_plan(a) if a.cmd == "plan" else cmd_run_one(a)
+    {"plan": cmd_plan, "historical": cmd_historical, "run-one": cmd_run_one}[a.cmd](a)
 
 
 if __name__ == "__main__":

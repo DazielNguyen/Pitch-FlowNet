@@ -1,5 +1,8 @@
-"""The RTF benchmark's schedule, idle checks and aggregation (no model is run)."""
+"""The RTF benchmark's schedule, idle checks, historical-pair checks and aggregation (no model is run)."""
 import importlib.util
+import json
+import pathlib
+import tempfile
 import unittest
 
 from _common import REPO
@@ -29,6 +32,45 @@ class IdleChecks(unittest.TestCase):
         self.assertIn("cr-eval-x", p[1])
         idle = {"loadavg": (0.2, 0.1, 0.0), "tmux_sessions": ["cr-rtf"], "gpus": ["0, 0, 4", "1, 3, 1600"]}
         self.assertEqual(B.idle_problems(idle), [])
+
+
+class HistoricalCells(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        d = pathlib.Path(self.tmp.name)
+        self.full = d / B.HISTORICAL["Historical-Full-1079"]
+        self.base = d / B.HISTORICAL["Historical-Baseline-773"]
+        for p in (self.full, self.base):
+            p.write_bytes(b"x")
+        self.manifest = d / "checkpoint-manifest.json"
+        self.manifest.write_text(json.dumps({"checkpoints": [{"file": self.full.name, "sha256": "f"},
+                                                             {"file": self.base.name, "sha256": "b"}]}))
+        self.sha = {self.full: "f", self.base: "b"}.get
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def cells(self, *pairs):
+        return B.historical_cells(list(pairs), manifest=self.manifest, sha256=self.sha)
+
+    def test_matching_pair(self):
+        cells, problems = self.cells(f"Historical-Full-1079={self.full}", f"Historical-Baseline-773={self.base}")
+        self.assertEqual(problems, [])
+        self.assertEqual(dict(cells), {"Historical-Full-1079": self.full, "Historical-Baseline-773": self.base})
+
+    def test_refusals(self):
+        _, p = self.cells(f"Historical-Full-1079={self.base}", f"Other={self.full}")
+        self.assertTrue(any("is not" in x for x in p))                       # wrong file for the label
+        self.assertTrue(any("unknown label" in x for x in p))
+        self.assertTrue(any("missing --checkpoint Historical-Baseline-773" in x for x in p))
+        self.sha = {self.full: "changed", self.base: "b"}.get
+        _, p = self.cells(f"Historical-Full-1079={self.full}", f"Historical-Baseline-773={self.base}")
+        self.assertEqual(len(p), 1)
+        self.assertIn("SHA-256 differs", p[0])
+
+    def test_labels_match_the_tracked_manifest(self):
+        files = {e["file"] for e in json.loads(B.CHECKPOINT_MANIFEST.read_text())["checkpoints"]}
+        self.assertTrue(set(B.HISTORICAL.values()) <= files)
 
 
 class Summary(unittest.TestCase):
