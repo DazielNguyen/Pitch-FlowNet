@@ -48,7 +48,7 @@
 - **Interactions are strong:** B×V is −0.231 [−0.247, −0.216].
 
 **Pitch (sections F0 and Pitch intervention):**
-- **The F0 conditioning does not steer the waveform pitch.** A requested ±2 semitones moves the output pitch by only 0.4–1.1 % of the request (slope 0.0043–0.0114), in all F0 models including 1079.
+- **The F0 conditioning does not steer the waveform pitch** (answer to Reviewer 1 in "Response to Reviewer 1"). The decoder uses it: the waveform changes when it is scaled or removed. A requested ±2 semitones moves the output pitch by only 0.4–1.1 % of the request (slope 0.0043–0.0114), in all F0 models including 1079.
 - **The F0 group does not bring the waveform pitch closer to the recordings.** Alone it adds +56.9 cents of RMSE. 1079 and 773 do not differ: +1.0 cents [−5.6, +7.5], p (Holm) 1.0.
 
 **Durations:**
@@ -562,6 +562,36 @@ The numbers below are from Tables F2, X2 and X3 and the appendix tables A (Holm 
   - shifting the latent;
   - larger shifts;
   - the quality of the shifted audio.
+
+### Response to Reviewer 1: does the decoder use the F0 conditioning?
+
+**Question.** Does the decoder use the F0 it receives, and does that F0 set the pitch of the output?
+
+**Test.** The intervention above (T14), with the existing checkpoints:
+- only the decoder's F0 input is changed: scaled by ±2 semitones, or removed;
+- the latent z, the durations and the noise are held fixed by the evaluation's per-utterance seeds;
+- the pitch is measured on the output waveform (harvest), on 100 test utterances.
+
+**Answer, in two parts:**
+- **The decoder uses the conditioning.** Changing it changes the waveform: the median relative RMS difference from s = 0 is 0.09–0.22 for ±2 semitones, and 0.59–0.90 when the conditioning is removed.
+- **The conditioning does not set the pitch.**
+  - A requested ±2 semitones moves the output pitch by 0.008–0.023 semitones: slope 0.0043–0.0114, with every 95 % BCa CI inside 0.0041–0.0120.
+  - Removing the conditioning moves the pitch by −0.009 to −0.423 semitones.
+  - By the bands fixed before the run, the pitch is not controllable through the conditioning in any of the five models. That includes PitchFlowNet 1079: slope 0.0114 [0.0109, 0.0120].
+- **The waveform F0 against the recordings agrees (P13):**
+  - the F0 group does not bring the waveform pitch closer to the recordings;
+  - PitchFlowNet 1079 and Piper 773 do not differ: +1.0 cents [−5.6, +7.5], p (Holm) 1.0. This is not equivalence.
+
+**What this test does not show:**
+- the effect of larger shifts, or of shifting the latent;
+- the perceptual quality of the shifted audio;
+- whether the conditioning helps through another route. The F0 group's UTMOSv2 gain with BigVGAN and VITS2 is a predicted score, from one seed per cell.
+
+**Suggested response text** (for the author to adapt):
+
+*"We tested whether the decoder uses the F0 conditioning by intervening on it in the trained checkpoints. With the latent, the durations and the noise held fixed, we scaled the decoder's F0 input by ±2 semitones or removed it, and measured the pitch of the output waveform on 100 test utterances. The conditioning changes the waveform (median relative RMS difference 0.09–0.22 for ±2 semitones, 0.59–0.90 when removed), but the output pitch moves by only 0.008–0.023 semitones for a requested ±2 semitones (slope 0.0114 [0.0109, 0.0120] for PitchFlowNet). The decoder therefore uses the F0 signal, but the pitch of the output is not controlled by it."*
+
+If this text is used, any sentence of the manuscript that presents the F0 branch as controlling pitch has to change to match. That is the author's decision; the manuscript is not edited here.
 
 ## The long audio of NoF0
 
