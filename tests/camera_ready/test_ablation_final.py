@@ -56,6 +56,19 @@ class PaperTables(unittest.TestCase):
         self.assertEqual(md.count("\\begin{tabular}"), 2)
 
 
+class F0Tables(unittest.TestCase):
+    def test_units_and_sections(self):
+        self.assertAlmostEqual(F.CENTS_PER_LN, 1731.234, places=3)
+        f0 = {"predictor_metric": [{"model": "PFN-Full-200ep-best", "protocol": "p", "rmse_ln": 0.5, "rmse_cents": 0.5 * F.CENTS_PER_LN,
+                                    "corr": 0.2, "source": "s"}],
+              "main_historical_evaluation_f0": [None, None],
+              "waveform": {"PFN-Full-200ep-best": {m: {"mean": 1.0, "ci95": [0.5, 1.5], "n": 3} for m in ("rmse_cents", "corr_logf0", "vde", "gpe")}}}
+        md = F.f0_tables(f0)
+        self.assertIn("| Full | p | 0.5000 | 866 | 0.2000 | `s` |", md)
+        self.assertIn("F0-b.", md)
+        self.assertIn("[None, None]", md)
+
+
 class Params(unittest.TestCase):
     def test_inference_definition(self):
         z = lambda *s: torch.zeros(*s)

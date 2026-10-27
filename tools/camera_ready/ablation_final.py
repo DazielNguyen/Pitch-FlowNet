@@ -21,6 +21,7 @@ Outputs: <eval-dir>/ablation-final-stats.{json,csv}, ablation-final-tables.md (e
 import argparse
 import csv
 import json
+import math
 import pathlib
 import sys
 
@@ -83,6 +84,61 @@ def inference_params(state_dict):
             "fp32_bytes": int(sum(v.numel() * 4 for v in tensors.values()))}
 
 
+CENTS_PER_LN = 1200.0 / math.log(2.0)      # one natural-log unit of F0 in cents
+# historical records of the F0-predictor metric of the 1079 checkpoint (Piper 773 has no F0 predictor)
+HIST_F0 = [("PitchFlowNet-1079, historical run f0_configH_v2", ROOT / "evaluation/eval_h_vs_baseline/f0_configH_v2/summary.sanitized.json"),
+           ("PitchFlowNet-1079, historical run eval_f0_ablation_E_vs_H", ROOT / "evaluation/other/eval_f0_ablation_E_vs_H/summary.sanitized.json")]
+
+
+def f0_results(eval_dir, cells, t13_records):
+    """(a) the F0-predictor metric of eval_harness.collect_f0_pairs, one pooled value per model, as recorded;
+    (b) the waveform F0 of T13, per-utterance means with BCa CIs."""
+    import numpy as np
+    import ablation8_analysis as A
+    pred = []
+    for label, d in cells.items():
+        s = d["summary"]
+        if A.CELLS[label][2]:
+            pred.append({"model": label, "protocol": "locked (200 epochs), the 500 test rows, seeded",
+                         "rmse_ln": s["f0_rmse"], "rmse_cents": s["f0_rmse"] * CENTS_PER_LN, "corr": s["f0_corr"],
+                         "source": f"eval/{label}/summary.json"})
+    for name, path in HIST_F0:
+        for c in json.loads(path.read_text())["checkpoints"]:
+            if "1079" in c["checkpoint"]:
+                pred.append({"model": name, "protocol": "historical, rows not recorded, unseeded",
+                             "rmse_ln": c["f0_rmse"], "rmse_cents": c["f0_rmse"] * CENTS_PER_LN, "corr": c["f0_corr"],
+                             "source": str(path.relative_to(ROOT))})
+    hist_main = json.loads((HIST_DIR / "summary.sanitized.json").read_text())["checkpoints"]
+    wave = {}
+    by = {}
+    for r in t13_records:
+        by.setdefault(r["label"], {})[r["utterance"]] = r["dtw"]
+    for label, u in by.items():
+        row = {}
+        for metric in ("rmse_cents", "corr_logf0", "vde", "gpe"):
+            v = [u[i][metric] if u[i][metric] is not None else np.nan for i in sorted(u)]
+            s = paired_stats(v, [0.0] * len(v))
+            row[metric] = {"mean": s["diff"], "ci95": s["ci95"], "n": s["n"]}
+        wave[label] = row
+    return {"predictor_metric": pred, "main_historical_evaluation_f0": [c["f0_rmse"] for c in hist_main], "waveform": wave}
+
+
+def f0_tables(f0):
+    short = lambda l: l.replace("PFN-", "").replace("-200ep-best", "").replace("Historical-", "Hist. ")
+    out = ["\n#### F0-a. F0-predictor metric (eval_harness.collect_f0_pairs; one pooled value per model, no CI)\n",
+           "| Model | Protocol | RMSE (ln Hz) | RMSE (cents) | Pearson r (log-F0) | Source |", "|---|---|---:|---:|---:|---|"]
+    for r in f0["predictor_metric"]:
+        out.append(f"| {short(r['model'])} | {r['protocol']} | {r['rmse_ln']:.4f} | {r['rmse_cents']:.0f} | {r['corr']:.4f} | `{r['source']}` |")
+    out.append(f"\nThe main historical evaluation (`evaluation/eval_h_vs_baseline/summary.json`) has f0_rmse = "
+               f"{f0['main_historical_evaluation_f0']} for its two checkpoints: it did not compute the metric.\n")
+    out += ["\n#### F0-b. Waveform F0 against the recordings (T13, DTW; mean over 500 utterances [95 % BCa CI])\n",
+            "| Model | F0 RMSE (cents) | log-F0 corr | VDE | GPE |", "|---|---|---|---|---|"]
+    for label, r in f0["waveform"].items():
+        c = lambda m, n: f"{r[m]['mean']:.{n}f} [{r[m]['ci95'][0]:.{n}f}, {r[m]['ci95'][1]:.{n}f}]"
+        out.append(f"| {short(label)} | {c('rmse_cents', 1)} | {c('corr_logf0', 3)} | {c('vde', 3)} | {c('gpe', 3)} |")
+    return "\n".join(out) + "\n"
+
+
 def read_rows(path):
     with open(path, encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))
@@ -143,6 +199,7 @@ def main():
         for r in json.loads((a.eval_dir / f).read_text())["results"]:
             rtf.setdefault(r["label"], {})[str(r["threads"])] = {k: r[k] for k in ("model_corpus_rtf_median", "model_corpus_rtf_min",
                                                                                      "model_corpus_rtf_max", "e2e_corpus_rtf_median")}
+    f0 = f0_results(a.eval_dir, cells, rec)
     # parameter check of the historical pair
     from piper_train.camera_ready.ckpt_io import load_checkpoint
     params = {label: {**inference_params(load_checkpoint(p)["state_dict"]), "manuscript_M": PAPER_PARAMS_M[label]}
@@ -152,7 +209,7 @@ def main():
                       "families": {"H": "main pair, WER/UTMOSv2/MCD, Holm m=3", "A": "ablation, 13 pairs, Holm within metric",
                                    "P13": "waveform F0 (DTW), 6 comparisons, Holm within metric", "P14": "slopes, descriptive"},
                       "note": "families fixed after the results existed"},
-           "comparisons": rows, "p14_slopes": p14, "rtf": rtf, "historical_params": params}
+           "comparisons": rows, "p14_slopes": p14, "rtf": rtf, "historical_params": params, "f0": f0}
     (a.eval_dir / "ablation-final-stats.json").write_text(json.dumps(doc, indent=1) + "\n")
     fields = ["family", "comparison", "metric", "n", "mean_off", "mean_on", "diff", "ci_low", "ci_high", "d_z", "p_raw", "p_holm", "holm_m"]
     with open(a.eval_dir / "ablation-final-stats.csv", "w", newline="", encoding="utf-8") as f:
@@ -160,7 +217,7 @@ def main():
         w.writeheader()
         for r in rows:
             w.writerow({**{k: r.get(k) for k in fields}, "ci_low": r["ci95"][0], "ci_high": r["ci95"][1]})
-    (a.eval_dir / "ablation-final-tables.md").write_text(tables(rows, p14, rtf, params))
+    (a.eval_dir / "ablation-final-tables.md").write_text(tables(rows, p14, rtf, params) + f0_tables(f0))
     (a.eval_dir / "ablation-final-paper.md").write_text(paper_tables(rows))
     print(f"{len(rows)} comparisons; wrote ablation-final-stats.json/.csv, ablation-final-tables.md and ablation-final-paper.md")
 
