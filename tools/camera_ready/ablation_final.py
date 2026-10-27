@@ -15,7 +15,8 @@ results existed:
   P14  pitch intervention (T14): slope per model, with a BCa CI; descriptive, no test.
 RTF has no test: three benchmark rounds per cell, median and range. The inference parameter count of the historical
 pair is recomputed from the checkpoints (weights_only) under the manuscript's definition.
-Outputs: <eval-dir>/ablation-final-stats.{json,csv} and <eval-dir>/ablation-final-tables.md.
+Outputs: <eval-dir>/ablation-final-stats.{json,csv}, ablation-final-tables.md (every table) and ablation-final-paper.md
+(the tables for the paper, in Markdown and LaTeX).
 """
 import argparse
 import csv
@@ -160,7 +161,71 @@ def main():
         for r in rows:
             w.writerow({**{k: r.get(k) for k in fields}, "ci_low": r["ci95"][0], "ci_high": r["ci95"][1]})
     (a.eval_dir / "ablation-final-tables.md").write_text(tables(rows, p14, rtf, params))
-    print(f"{len(rows)} comparisons; wrote ablation-final-stats.json/.csv and ablation-final-tables.md")
+    (a.eval_dir / "ablation-final-paper.md").write_text(paper_tables(rows))
+    print(f"{len(rows)} comparisons; wrote ablation-final-stats.json/.csv, ablation-final-tables.md and ablation-final-paper.md")
+
+
+# the comparisons of the paper's ablation table: leave-one-out from Full, add-one from Baseline, and Full vs Baseline
+PAPER_ROWS = [("w/o BigVGAN (leave-one-out)", "B: PFN-NoBigVGAN-200ep-best -> PFN-Full-200ep-best", -1),
+              ("w/o VITS2 (leave-one-out)", "V: PFN-NoVITS2-200ep-best -> PFN-Full-200ep-best", -1),
+              ("w/o F0 (leave-one-out)", "F: PFN-NoF0-200ep-best -> PFN-Full-200ep-best", -1),
+              ("+ BigVGAN (add-one)", "B: PFN-Baseline-200ep-best -> PFN-Baseline-BigVGAN-200ep-best", 1),
+              ("+ VITS2 (add-one)", "V: PFN-Baseline-200ep-best -> PFN-Baseline-VITS2-200ep-best", 1),
+              ("+ F0 (add-one)", "F: PFN-Baseline-200ep-best -> PFN-Baseline-F0-200ep-best", 1),
+              ("Full vs Baseline", "BVF: PFN-Baseline-200ep-best -> PFN-Full-200ep-best", 1)]
+
+
+def paper_tables(rows):
+    """Markdown and LaTeX of the main pair and of the ablation contrasts, from the computed rows only.
+    A sign of -1 reports a leave-one-out row as (ablated - Full), the change from removing the component."""
+    get = {(r["comparison"], r["metric"]): r for r in rows}
+    fmt = {"utmos": (1.0, 3), "wer": (100.0, 2), "mcd": (1.0, 3)}
+
+    def cell(r, metric, sign, tex):
+        k, nd = fmt[metric]
+        d, lo, hi = sign * r["diff"] * k, sign * r["ci95"][0] * k, sign * r["ci95"][1] * k
+        lo, hi = min(lo, hi), max(lo, hi)
+        p = r["p_holm"]
+        ps = (f"{p:.1e}" if p < 1e-3 else f"{p:.3f}")
+        if tex and "e" in ps:
+            m, e = ps.split("e")
+            ps = f"${m}\\times10^{{{int(e)}}}$"
+        return f"{d:+.{nd}f} [{lo:+.{nd}f}, {hi:+.{nd}f}]", ps
+
+    out = ["#### Table F1. PitchFlowNet vs Piper (historical evaluation, 500 test utterances)\n",
+           "| Metric | Piper | PitchFlowNet | Diff [95 % BCa CI] | d_z | p (Wilcoxon) | p (Holm, m = 3) |", "|---|---:|---:|---|---:|---:|---:|"]
+    tex1 = ["\\begin{tabular}{lrrcrrr}", "\\toprule",
+            "Metric & Piper & PitchFlowNet & $\\Delta$ [95\\% BCa CI] & $d_z$ & $p$ & $p_{\\mathrm{Holm}}$ \\\\", "\\midrule"]
+    for metric, name, tname in (("utmos", "UTMOSv2", "UTMOSv2"), ("wer", "WER (%)", "WER (\\%)"), ("mcd", "MCD", "MCD")):
+        r = get[("Piper-773 -> PitchFlowNet-1079", metric)]
+        k, nd = fmt[metric]
+        ci, ph = cell(r, metric, 1, False)
+        _, pht = cell(r, metric, 1, True)
+        praw = f"{r['p_raw']:.1e}" if r["p_raw"] < 1e-3 else f"{r['p_raw']:.3f}"
+        out.append(f"| {name} | {r['mean_off']*k:.{nd}f} | {r['mean_on']*k:.{nd}f} | {ci} | {r['d_z']:+.3f} | {praw} | {ph} |")
+        prawt = praw if "e" not in praw else f"${praw.split('e')[0]}\\times10^{{{int(praw.split('e')[1])}}}$"
+        tex1.append(f"{tname} & {r['mean_off']*k:.{nd}f} & {r['mean_on']*k:.{nd}f} & {ci} & {r['d_z']:+.3f} & {prawt} & {pht} \\\\")
+    tex1 += ["\\bottomrule", "\\end{tabular}"]
+    out += ["", "```latex", *tex1, "```", "",
+            "#### Table F2. Ablation contrasts (200 epochs, 500 test utterances; Holm across the 13 pairs within each metric)\n",
+            "Leave-one-out rows give ablated − Full (the change when the component is removed); add-one rows give with − without.\n",
+            "| Contrast | ΔUTMOSv2 [95 % CI] | p (Holm) | ΔWER pp [95 % CI] | p (Holm) | ΔMCD [95 % CI] | p (Holm) |",
+            "|---|---|---:|---|---:|---|---:|"]
+    tex2 = ["\\begin{tabular}{lcccccc}", "\\toprule",
+            "Contrast & $\\Delta$UTMOSv2 & $p_{\\mathrm{Holm}}$ & $\\Delta$WER (pp) & $p_{\\mathrm{Holm}}$ & $\\Delta$MCD & $p_{\\mathrm{Holm}}$ \\\\",
+            "\\midrule"]
+    for name, comp, sign in PAPER_ROWS:
+        cells, tcells = [], []
+        for metric in ("utmos", "wer", "mcd"):
+            ci, ph = cell(get[(comp, metric)], metric, sign, False)
+            cit, pht = cell(get[(comp, metric)], metric, sign, True)
+            cells += [ci, ph]
+            tcells += [cit, pht]
+        out.append(f"| {name} | " + " | ".join(cells) + " |")
+        tex2.append(f"{name} & " + " & ".join(tcells) + " \\\\")
+    tex2 += ["\\bottomrule", "\\end{tabular}"]
+    out += ["", "```latex", *tex2, "```", ""]
+    return "\n".join(out) + "\n"
 
 
 def _p(x):

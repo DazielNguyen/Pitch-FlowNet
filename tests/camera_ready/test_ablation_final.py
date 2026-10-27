@@ -41,6 +41,21 @@ class PairedStats(unittest.TestCase):
         self.assertAlmostEqual(rows[2]["p_holm"], 0.04)
 
 
+class PaperTables(unittest.TestCase):
+    def test_leave_one_out_sign_and_rows(self):
+        rows = []
+        for metric in ("utmos", "wer", "mcd"):
+            rows.append({"comparison": "Piper-773 -> PitchFlowNet-1079", "metric": metric, "mean_off": 1.0, "mean_on": 2.0,
+                         "diff": 1.0, "ci95": [0.5, 1.5], "d_z": 1.0, "p_raw": 1e-5, "p_holm": 3e-5})
+            for _, comp, _ in F.PAPER_ROWS:
+                rows.append({"comparison": comp, "metric": metric, "diff": 0.3, "ci95": [0.1, 0.5], "p_holm": 0.02})
+        md = F.paper_tables(rows)
+        self.assertIn("| w/o BigVGAN (leave-one-out) | -0.300 [-0.500, -0.100] | 0.020 |", md)
+        self.assertIn("| + BigVGAN (add-one) | +0.300 [+0.100, +0.500] | 0.020 |", md)
+        self.assertIn("\\times10^{-5}", md)
+        self.assertEqual(md.count("\\begin{tabular}"), 2)
+
+
 class Params(unittest.TestCase):
     def test_inference_definition(self):
         z = lambda *s: torch.zeros(*s)
