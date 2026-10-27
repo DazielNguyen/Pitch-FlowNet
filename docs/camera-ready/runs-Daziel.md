@@ -305,3 +305,21 @@ bash tools/camera_ready/launch_eval.sh --split test --threads 4 --execute "PFN-B
   - **Run:** `tools/camera_ready/pitch_shift.py` (commit `524708f`), 17:25–17:37, 100 test utterances, into `tests/pitch-shift-20261025/`.
   - **Reproduction checks:** passed (durations 100/100; WAV bytes 100/100 where the evaluation WAVs exist).
   - **Result:** not controllable (`ablation8-results.md`, section 10).
+- **Update 2026-10-25 19:00: waveform F0 against the recordings (T13), protocol agreed with the author before the run.**
+  - **Smoke run:** 5 utterances, into `tests/waveform-f0-smoke-20261025/`.
+  - **Run:** `tools/camera_ready/waveform_f0.py` (commit `ac6e68a`), 17:57–18:35, 500 test utterances × 10 models, into `tests/waveform-f0-20261025/` (1.4 GB).
+  - **Checks:** durations 500/500 for the eight cells; WAV bytes 500/500 where available; reference self-check 0 cents.
+  - **Result:** `ablation8-results.md`, section 11.
+- **Update 2026-10-28 03:15: CPU RTF of the historical pair, on the author's request.**
+  - **Why:** the recorded RTFs of the paper's pair (Full 1079: 0.0568, Baseline 773: 0.0559) have no recorded thread count.
+  - **Tool:** `benchmark_rtf.py historical` (commit `5ff1c2b`), added for this run on branch `PFN-Daziel-28102026` of the Windows clone (tests `tests/camera_ready/test_benchmark_rtf.py`, 6/6 passed). It checks both checkpoints against `manifests/checkpoint-manifest.json` and otherwise keeps the protocol of 24/10.
+  - **Commands:**
+    - a dry run, then one smoke run of `run-one` per checkpoint at 2 threads into `/tmp` (not kept): Full 0.0588, Baseline 0.0521;
+    - a first `--execute` at 02:48 was refused by the idle check (load average 1.14 after the smoke runs; `logs/rtf-historical-20261028.log`);
+    - `benchmark_rtf.py historical --execute` in tmux `cr-rtf`, 02:59:13 → 03:09:54, exit 0, 12 runs (`logs/rtf-historical-20261028-b.log`).
+  - **Machine:** the run used the built `monotonic_align` extension copied from the WSL clone into the Windows clone (git-ignored; `core.pyx` identical). A hidden `wsl.exe sleep infinity` kept WSL alive and was stopped afterwards.
+  - **Result:** `ablation8-results.md`, section 9: Full 0.0888 / 0.0579, Baseline 0.0789 / 0.0514 at 1 / 2 threads. The synthesized lengths were identical across the six runs of each checkpoint.
+- **Update 2026-10-28 03:25: the historical pair at 12 threads, on the author's request.**
+  - **Tool:** `benchmark_rtf.py historical` gained `--threads` (commit `7c08080`) (12 threads pinned to vCPUs 0, 2, …, 22, one per virtual core); tests 7/7 passed.
+  - **Run:** dry run, then `--threads 12 --execute` in tmux `cr-rtf`, 03:15:48 → 03:19:47, exit 0, 6 runs (`logs/rtf-historical-t12-20261028.log`). Load average 0.00 at the start; WSL kept alive by a hidden `wsl.exe sleep infinity`, stopped afterwards.
+  - **Result:** `ablation8-results.md`, section 9: Full 0.0509, Baseline 0.0460 (model RTF, median of three rounds). Lengths identical across the three runs of each checkpoint.
