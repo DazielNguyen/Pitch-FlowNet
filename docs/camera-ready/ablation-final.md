@@ -147,6 +147,71 @@ MCD = (10·√2 / ln 10) · (1/|P|) · Σ_{(i,j)∈P} ‖ ẑ_syn,i − ẑ_ref,
 - report 3.830 as recorded, or 3.831 from the seeded locked protocol, and say which;
 - the Ground Truth WER (6.67 %) exists only from the 2026-09-24 run.
 
+## F0: predictor log-F0 and waveform pitch
+
+**Two different F0 measurements exist.** They answer different questions and must not be mixed:
+
+| | **(a) F0-predictor metric** | **(b) Waveform F0** (T13) |
+|---|---|---|
+| What is evaluated | the **F0 predictor's output**: the log-F0 it predicts per input token, before any synthesis | the **pitch of the synthesized waveform** |
+| Level | **input token**: the `phoneme_ids` with the interleaved pad tokens and BOS/EOS, pooled over all tokens of all utterances | **frame**: harvest F0 at 5 ms, taken at the MFCC frames (11.6 ms) along the DTW path, per utterance |
+| Reference | the cached frame F0 of the recording (WORLD DIO + StoneMask at hop 256, unvoiced frames filled by log-linear interpolation), **averaged over the segments given by the model's own predicted durations** (SDP, noise_w 0.8) | harvest F0 (60–600 Hz) of the normalised reference audio, aligned by MFCC-DTW as the MCD |
+| Voicing | none: the reference is continuous (no unvoiced frames) | voiced in both (RMSE, offset, correlation); VDE, GPE, FFE for voicing and gross errors |
+| Unit | RMSE in **natural-log Hz** (1 unit = 1,731 cents); Pearson r of log-F0 | RMSE and offset in **cents**; Pearson r of log-F0; VDE, GPE, FFE as fractions |
+| Statistic | **one pooled value per model**; no per-utterance values, so **no CI and no test** | per-utterance values; BCa CIs; Wilcoxon with Holm (P13) |
+| Models | F = 1 only (it needs the predictor) | all ten |
+| Protocol | the locked protocol (`eval-protocol.md`) for the 200-epoch cells. The historical 1079 runs also computed it, on rows that were not recorded | supplementary, after the results; protocol agreed on 25/10 |
+| Code | `piper_train/eval_harness.py`, `collect_f0_pairs` | `tools/camera_ready/waveform_f0.py` |
+
+**Caveats of (a), read from the code:**
+1. **The reference carries duration error.** The reference segments come from the predicted durations, not from the alignment of the recording. A duration error therefore shifts every later segment of the utterance, and the metric mixes duration and F0 errors. The function's docstring says "the same projection used during training via MAS", but training uses the MAS durations, so it is not the same projection.
+2. **Pad tokens count.** About half of the tokens are the interleaved pad tokens, and BOS/EOS are included.
+3. **Some tokens get a placeholder reference.** When the predicted durations run past the recording's frames, the remaining tokens get the reference 1 Hz (log 0), an extreme value.
+4. **No voicing.** The reference is interpolated through unvoiced and silent frames.
+5. **One pooled number per model,** so there is no CI and no test.
+6. **The historical values do not compare with the locked ones.** The historical runs (0.34 ln Hz, r = 0.33) used unrecorded rows and unseeded durations, after 1,100 epochs.
+
+**(a) Results.** `eval/ablation-final-stats.json` → `f0.predictor_metric`.
+
+| Model | Protocol | RMSE (ln Hz) | RMSE (cents) | Pearson r (log-F0) | Source |
+|---|---|---:|---:|---:|---|
+| Full | locked (200 epochs), the 500 test rows, seeded | 0.5399 | 935 | 0.1861 | `eval/PFN-Full-200ep-best/summary.json` |
+| NoVITS2 | locked (200 epochs), the 500 test rows, seeded | 0.5827 | 1009 | 0.1992 | `eval/PFN-NoVITS2-200ep-best/summary.json` |
+| NoBigVGAN | locked (200 epochs), the 500 test rows, seeded | 0.4813 | 833 | 0.1784 | `eval/PFN-NoBigVGAN-200ep-best/summary.json` |
+| Baseline-F0 | locked (200 epochs), the 500 test rows, seeded | 0.6200 | 1073 | 0.1923 | `eval/PFN-Baseline-F0-200ep-best/summary.json` |
+| PitchFlowNet-1079, historical run f0_configH_v2 | historical, rows not recorded, unseeded | 0.3420 | 592 | 0.3320 | `evaluation/eval_h_vs_baseline/f0_configH_v2/summary.sanitized.json` |
+| PitchFlowNet-1079, historical run eval_f0_ablation_E_vs_H | historical, rows not recorded, unseeded | 0.3411 | 591 | 0.3337 | `evaluation/other/eval_f0_ablation_E_vs_H/summary.sanitized.json` |
+
+- **The paper's main evaluation computed no F0 metric:** `evaluation/eval_h_vs_baseline/summary.json` has `f0_rmse = null` for both 773 and 1079.
+- **Piper 773 has no F0 predictor,** so (a) does not exist for it.
+
+**(b) Results.** `eval/ablation-final-stats.json` → `f0.waveform`. Mean over 500 utterances, with the 95 % BCa CI:
+
+| Model | F0 RMSE (cents) | log-F0 corr | VDE | GPE |
+|---|---|---|---|---|
+| Full | 439.1 [432.4, 445.9] | 0.338 [0.323, 0.353] | 0.159 [0.154, 0.163] | 0.372 [0.363, 0.381] |
+| NoF0 | 445.9 [439.7, 452.2] | 0.352 [0.337, 0.366] | 0.162 [0.158, 0.166] | 0.372 [0.364, 0.380] |
+| NoVITS2 | 451.1 [444.2, 457.9] | 0.339 [0.324, 0.353] | 0.157 [0.153, 0.161] | 0.375 [0.366, 0.383] |
+| NoBigVGAN | 448.0 [440.8, 455.4] | 0.361 [0.346, 0.377] | 0.156 [0.152, 0.161] | 0.388 [0.379, 0.397] |
+| Baseline-BigVGAN | 451.9 [445.4, 458.7] | 0.350 [0.335, 0.365] | 0.158 [0.154, 0.162] | 0.388 [0.379, 0.396] |
+| Baseline-VITS2 | 447.7 [441.2, 454.4] | 0.356 [0.340, 0.371] | 0.160 [0.156, 0.164] | 0.381 [0.372, 0.389] |
+| Baseline-F0 | 513.0 [505.0, 521.2] | 0.316 [0.300, 0.332] | 0.168 [0.164, 0.172] | 0.432 [0.422, 0.441] |
+| Baseline | 456.1 [449.6, 462.8] | 0.339 [0.324, 0.354] | 0.160 [0.156, 0.164] | 0.395 [0.386, 0.404] |
+| Hist. Baseline-773 | 451.6 [444.9, 458.4] | 0.374 [0.359, 0.389] | 0.155 [0.151, 0.159] | 0.385 [0.376, 0.394] |
+| Hist. Full-1079 | 452.6 [445.4, 459.6] | 0.369 [0.353, 0.384] | 0.155 [0.151, 0.160] | 0.380 [0.371, 0.390] |
+
+- The paired comparisons of (b) are table P13 in the appendix.
+
+**Reading:**
+- **The two RMSEs are not the same quantity.** (a), 833–1073 cents in the 200-epoch cells, is far larger than (b), 439–513 cents. The reason is (a)'s construction: duration-driven segments, pad tokens and an interpolated reference. A smaller (a) does not mean a more accurate pitch.
+- **(a) says nothing about the waveform.** On (b), the F = 1 cells are not closer to the recordings than the F = 0 cells (P13). Scaling the predicted F0 does not move the output pitch (P14).
+- **The manuscript (draft of 2026-09-24) reports neither (a) nor (b),** so it has no F0 sentence to correct.
+- **Sentences corrected in this repository** (this commit):
+  - `experiment-plan.md`, "Evaluation": it listed waveform F0 and the pitch-shift test as part of the locked evaluation. It now says that the lock kept the historical metrics only, and that T13, T14 and T15 were added later.
+  - `ablation8-results.md`, sections 2, 4, 6 and 9: the F0 RMSE there is now named as the F0-predictor metric in ln Hz and distinguished from the waveform pitch.
+- **Not changed:** `eval-protocol.md` stays as locked. Its row "F0 predictor metric" is correct but brief; this section gives the full definition.
+- **If the paper reports F0 numbers,** use (b) for pitch accuracy and state its definition. Report (a) only as a property of the predictor, with caveats 1–3.
+
 ## Claims of the abstract and conclusion, checked
 
 The claims are from `evidence/manuscript/final/main_draft.tex`, the draft of 2026-09-24 on this machine. A later draft may differ.

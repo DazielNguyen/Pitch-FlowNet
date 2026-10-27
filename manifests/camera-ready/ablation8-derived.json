@@ -560,7 +560,7 @@
  },
  "final_statistics": {
   "tool": "tools/camera_ready/ablation_final.py",
-  "commit": "c89e9e8",
+  "commit": "ac6a72c",
   "log": "<WSL_DEV_HOME>/outputs-pfn-cr/logs/ablation-final-20261028.log",
   "files": [
    {
@@ -573,11 +573,11 @@
    },
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-stats.json",
-    "sha256": "f2d0ca261b7cedb3f224c920c9ee347edfd430e9b09b962e55eb2c25b5bdb399"
+    "sha256": "c8e62a661e491e9085208907d8761571363458ecd7166be663dea0621644f60b"
    },
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/ablation-final-tables.md",
-    "sha256": "ea97946177a94c3c2d30948938fe62c98f17580142a89ae5140d5ab43b07f176"
+    "sha256": "19b7cdcbd4f76a66f8e6181d7e503cfc2783dcda500408aee16ce474dd83f4b4"
    }
   ],
   "inputs_also": [
