@@ -104,7 +104,9 @@ def list_files(exclude_text: str):
         f.write(exclude_text)
         tmp = f.name
     try:
-        out = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", f"--exclude-from={tmp}"],
+        local = ROOT / ".git/info/exclude"      # per-clone excludes, never tracked
+        extra = [f"--exclude-from={local}"] if local.is_file() else []
+        out = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", f"--exclude-from={tmp}", *extra],
                              cwd=ROOT, capture_output=True, check=True).stdout
     finally:
         Path(tmp).unlink()
@@ -184,7 +186,8 @@ def write_core_manifest(originals):
     entries = []
     for e in json.loads(full.read_text(encoding="utf-8"))["entries"]:
         d = e["destination"]
-        if d.startswith(("datasets/raw/", "datasets/processed/")):
+        if d.startswith(("datasets/raw/", "datasets/processed/")) or (d.startswith("history/")
+                                                                    and not d.startswith("history/environment/")):
             continue
         e = {k: (sanitize_text(v)[0] if isinstance(v, str) else v) for k, v in e.items()}
         if d in originals:
@@ -195,7 +198,8 @@ def write_core_manifest(originals):
             e["git"] = {"status": "local_only"}
         entries.append(e)
     doc = {"source": "manifests/file-manifest.json (local only; it also lists every dataset file)",
-           "excluded": "datasets/raw/ and datasets/processed/ (summarised in manifests/dataset-manifest.json)",
+           "excluded": "datasets/raw/ and datasets/processed/ (summarised in manifests/dataset-manifest.json); "
+                       "history/ apart from history/environment/ (kept on the workstation)",
            "entries": entries}
     (ROOT / "manifests/file-manifest-core.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n",
                                                            encoding="utf-8", newline="\n")
