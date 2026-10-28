@@ -1,4 +1,4 @@
-"""Duration diagnostics of the eight ablation checkpoints (author's OK, 2026-10-24). No audio is written.
+"""Duration diagnostics of the eight ablation checkpoints (2026-10-24). No audio is written.
 
     python tools/camera_ready/duration_diag.py --final-dir <CR_OUTPUTS>/final --eval-dir <CR_OUTPUTS>/eval \
            --out <CR_OUTPUTS>/tests/duration-diag-<YYYYMMDD>

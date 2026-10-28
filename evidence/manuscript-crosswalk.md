@@ -70,7 +70,7 @@ This file compares the manuscript's statements with stored records, item by item
 | WER 9.17% / 8.64% | `evaluation/eval_h_vs_baseline/summary.json`: 0.091710 / 0.086383. Recomputed from the per-sentence CSVs (CR) | MATCH |
 | UTMOSv2 3.366 / 3.807 | 3.3656 / 3.8070 (same files) | MATCH |
 | RTF 0.0559 / 0.0568 | 0.05591 / 0.05681 (same files) | MATCH |
-| Params 15.66 M / 17.21 M; size 62.80 / 69.00 MB | Baseline inference path 15,664,667 (REC: 2026-09-23 audit, `history/prior-audits-2026-09-23/question2_parameter_counts…`). Full-model value and byte sizes are in the same audit files; not re-derived here | PARTIAL (later audit, not a run record) |
+| Params 15.66 M / 17.21 M; size 62.80 / 69.00 MB | Baseline inference path 15,664,667 (REC: 2026-09-23 audit, kept locally). Full-model value and byte sizes are in the same audit files; not re-derived here | PARTIAL (later audit, not a run record) |
 | Ground truth WER 6.67%, UTMOSv2 3.830 | `evaluation/ground-truth/eval_pitchflownet_500_gt/gt_wer_utmos_summary.json` (2026-09-24, CR): 0.066694 / 3.8301 | MATCH |
 | Paired two-sided Wilcoxon; WER p = 0.115 | `summary.json` WER p 0.114604 (CR). UTMOS p 1.65e-79, reported as "< 0.001" | MATCH |
 | UTMOS diff +0.441, BCa CI [0.416, 0.468], dz 1.482; WER diff −0.533 pp, BCa [−1.318, 0.232], dz −0.061; BCa 20,000 resamples, seed 1234 | **No script or output found** in the scanned scope (EdgeTTS, `<WSL_DEV_HOME>`, `paper_revisions`, `Compact`). The mean differences follow from the stored means (3.8070 − 3.3656 = 0.441; 8.638 − 9.171 = −0.533 pp) | MISSING (BCa/dz computation record) |

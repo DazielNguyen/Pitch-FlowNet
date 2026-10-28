@@ -1,6 +1,6 @@
 # Evaluation protocol: camera-ready (T16), locked on 2026-10-21
 
-**Decision of the author (21/10).** Evaluate exactly as the historical evaluation did, and add no new metric. This page fixes that protocol before any new test-set result.
+**Decision (21/10).** Evaluate exactly as the historical evaluation did, and add no new metric. This page fixes that protocol before any new test-set result.
 - The historical pair (Baseline epoch 773, Full epoch 1079) and every 200-epoch ablation run are evaluated with it.
 - **Tool:** `tools/camera_ready/evaluate_like_history.py`, in the separate environment `pfn-eval`.
 - **Launcher:** `tools/camera_ready/launch_eval.sh`, dry run by default.
@@ -48,8 +48,8 @@ The inline RTF depends on what else the machine runs. RTF numbers for the paper 
 
 ## Order
 
-1. The historical pair (773, 1079) and `PFN-Full-275ep-s1234` (best, epoch 188): on the CPU of MardeusPC on 21/10.
+1. The historical pair (773, 1079) and `PFN-Full-275ep-s1234` (best, epoch 188): on the CPU of Machine B on 21/10.
 2. Each 200-epoch run when it is finalized.
 3. `compare` for the main pair and for the ablation contrasts.
 
-Results stay outside Git, in `$CR_OUTPUTS/eval/<label>/` on each machine (layout and labels: `runbook-MardeusPC.md`, **Output layout**). Only summaries derived from them are added to the repository later, with their hashes.
+Results stay outside Git, in `$CR_OUTPUTS/eval/<label>/` on each machine. Only summaries derived from them are added to the repository later, with their hashes.

@@ -27,7 +27,7 @@ Training ran under WSL in `<WSL_DEV_HOME>/PitchFlowNet/src/python` with the cond
   - TensorBoard events: the validation value at the selected epochs equals the file name; the audio examples are identical.
   - `eval_h_vs_baseline/summary.json`, which names both checkpoints and gives every evaluation number in the paper's table.
 - **Direct artifacts:** static scans of the checkpoints (no unpickling) for epoch, global step and module name groups.
-- **Located through earlier assistant audits:** the 2026-09-23 audits in `history/prior-audits-2026-09-23` point to the same checkpoints. Their conclusions are not used as evidence.
+- **Located through earlier audits:** the audits of 2026-09-23 (kept locally) point to the same checkpoints. Their conclusions are not used as evidence.
 
 **Not this paper:**
 - the journal's Parallel-IR / Sequential-IR models (epochs 1386 / 1442);

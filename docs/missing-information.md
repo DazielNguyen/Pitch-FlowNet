@@ -13,7 +13,7 @@
 | CPU thread / batch settings for timing | RTF claim | Not recorded. The i7-14700 CPU is an author statement. |
 | GPU model in run records | Hardware claim | The run records do not name GPUs. The current system record lists the workstation GPUs. |
 | Run-time split file | Split claim | None was written. The split is reconstructed and corroborated (`datasets/splits/`). |
-| Parameter counts and weight sizes as run-time records | Model-size table | Only the 2026-09-23 assistant audit (`history/prior-audits-2026-09-23/question2_*`). |
+| Parameter counts and weight sizes as run-time records | Model-size table | Only a later audit of the checkpoints (2026-09-23, kept locally). The camera-ready recomputation of the inference parameters is in `docs/camera-ready/ablation-final.md`. |
 | Complete matched ablations | Ablation claims | Config E is incomplete (clip 0.5, stopped at epoch 508). Config H-773 stopped after about 2 minutes. |
 | Preprocessing run record beyond `preprocess.log` | Data-processing claims | The preprocessing code that ran on 2026-07-01 was not snapshotted. Candidate code is in `historical-candidates`. |
 | WSL `<WSL_DEV_HOME>/BanhmiTTS/preprocessed` (22 GB) and run checkpoints | BanhmiTTS port | Catalogued only; this is not the evaluated pair. |

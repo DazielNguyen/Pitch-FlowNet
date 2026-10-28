@@ -27,6 +27,23 @@ history/prior-audits-2026-09-23/PitchFlowNet_Conference_Draft_2026-09-24.txt
 # 11 MB log of the BanhmiTTS port; not one of the paper's runs (catalogued in manifests/file-manifest-core.json)
 runs/candidates/BanhmiTTS-port/full-config-h-cython-mas-batch16-20260714/train.log
 
+# Local working files: tool settings, internal notes and machine logs (kept on the workstation only)
+/tools/hooks/
+/docs/setup-status.md
+/docs/transfer.md
+/docs/camera-ready/PROMPT-*.md
+/docs/camera-ready/PRIORITY.md
+/docs/camera-ready/PLAN.md
+/docs/camera-ready/eta.md
+/docs/camera-ready/preflight*.md
+/docs/camera-ready/runbook-*.md
+/docs/camera-ready/runs-*.md
+/docs/camera-ready/data-sync.md
+/history/*
+!/history/environment/
+/tools/build_pitchflownet_record*.py
+/manifests/camera-ready/commit-map-*.json
+
 # Build outputs, environments and caches
 __pycache__/
 *.pyc
@@ -124,15 +141,6 @@ code/current-source/home-dev-BanhmiTTS-port/src/python/banhmi_tts/model/monotoni
 /evidence/derived/tensorboard_event_scan.json
 /history/environment/edgetts-env-conda-list_2026-10-12.txt
 /history/environment/system_2026-10-12.txt
-/history/prior-audits-2026-09-23/audit_question2_sources.py
-/history/prior-audits-2026-09-23/audit_question3.py
-/history/prior-audits-2026-09-23/audit_question6.py
-/history/prior-audits-2026-09-23/context_PitchFlowNet_2026-09-23.md
-/history/prior-audits-2026-09-23/pruning_checkpoint_metadata_2026-09-23.json
-/history/prior-audits-2026-09-23/question2_checkpoint_shapes_2026-09-23.json
-/history/prior-audits-2026-09-23/question2_parameter_counts_2026-09-23.json
-/history/prior-audits-2026-09-23/question2_sources_2026-09-23.json
-/history/prior-audits-2026-09-23/question3_audit_2026-09-23.json
 /runs/baseline/02_baseline_train.log
 /runs/candidates/home-dev-root/baseline_run.log
 /runs/candidates/home-dev-root/baseline_train.log
@@ -154,5 +162,4 @@ code/current-source/home-dev-BanhmiTTS-port/src/python/banhmi_tts/model/monotoni
 /runs/candidates/home-dev-root/train_bigvgan.sh
 /runs/full/01_Baseline_BigVgan_VITS2_FO_train.log
 /runs/full/train_h.log
-/tools/build_pitchflownet_record.py
 # END sanitized originals

@@ -1,6 +1,6 @@
 # Experiment plan: camera-ready ablation (SOICT 2026, paper 4478)
 
-**Status.** All decisions below were taken by the author before any test-set result. None was based on validation results.
+**Status.** All decisions below were taken before any test-set result. None was based on validation results.
 
 | Date | Decision |
 |---|---|
@@ -8,15 +8,15 @@
 | 2026-10-21 | Extended to all eight group combinations |
 | 2026-10-21 | Budget lowered from 275 to **200 epochs per run**, so that all eight fit |
 
-**Outcome (24/10).** The ablation is done: all eight cells were trained for 200 epochs and evaluated with the locked protocol (`eval-protocol.md`). They were analysed on the PC: `ablation8-results.md`, with the hashes of every source and derived file in `manifests/camera-ready/ablation8-derived.json`.
+**Outcome (24/10).** The ablation is done: all eight cells were trained for 200 epochs and evaluated with the locked protocol (`eval-protocol.md`). They were analysed on Machine A: `ablation8-results.md`, with the hashes of every source and derived file in `manifests/camera-ready/ablation8-derived.json`.
 
-**Analysis choices made after the test results existed.** They come from the author's task of 24/10; they are not decisions of this plan:
+**Analysis choices made after the test results existed.** They come from the analysis plan of 24/10; they are not decisions of this plan:
 - the 13 paired comparisons: the 12 cube edges and Full vs Baseline;
 - the Holm correction within each metric;
 - the paired bootstrap CIs;
 - the factorial effects and the Shapley attribution.
 
-**RTF (T15).** The CPU benchmark of the eight checkpoints ran on 24/10 (`ablation8-results.md`, section 5). Its protocol was agreed with the author on that day, after the test results existed:
+**RTF (T15).** The CPU benchmark of the eight checkpoints ran on 24/10 (`ablation8-results.md`, section 5). Its protocol was fixed on that day, after the test results existed:
 - 1 and 2 threads;
 - 100 test utterances;
 - three rounds.
@@ -79,7 +79,7 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 
 **The Full reference.**
 - It had started on 20/10 with the 275-epoch config and was at epoch 168 when the budget changed.
-- On 21/10 it was interrupted once, right after the epoch-168 checkpoint, and resumed with `--stop-after-epochs 200`. Details in `runs-MardeusPC.md`.
+- On 21/10 it was interrupted once, right after the epoch-168 checkpoint, and resumed with `--stop-after-epochs 200`.
 - Its run directory, run ID and config file keep the 275-epoch names, so its records stay consistent. Its best checkpoint is chosen among epochs 0–199, like every other run.
 - By the argument above, it is equivalent to `PFN-Full-200ep`.
 
@@ -91,24 +91,24 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 ## Devices and schedule
 
 **Speed so far:**
-- The RTX 5070 runs about 9.5 min per epoch (`PFN-Full`, 20–21/10), against 13.2 min in the pilot (`eta.md`). So a 200-epoch run takes about 32 h, plus interruptions.
+- The RTX 5070 runs about 9.5 min per epoch (`PFN-Full`, 20–21/10), against 13.2 min in the pilot. So a 200-epoch run takes about 32 h, plus interruptions.
 - The RTX 4070 Ti speed is measured in the first epoch of its runs.
 
 | GPU | Runs, in order | Estimated end |
 |---|---|---|
-| MardeusPC, RTX 5070 | `PFN-Full` (to epoch 200) → `PFN-NoF0` → `PFN-Baseline-VITS2` → `PFN-Baseline-F0` | ≈ 21/10 10:30 → ≈ 22/10 19:00 → ≈ 24/10 03:00 → ≈ 25/10 11:00 |
-| PC, RTX 4070 Ti #0 | `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN` | ≈ 22/10 22:00 → ≈ 24/10 06:00, if it starts ≈ 21/10 14:00 |
-| PC, RTX 4070 Ti #1 | `PFN-NoVITS2` → `PFN-Baseline` | same |
+| Machine B, RTX 5070 | `PFN-Full` (to epoch 200) → `PFN-NoF0` → `PFN-Baseline-VITS2` → `PFN-Baseline-F0` | ≈ 21/10 10:30 → ≈ 22/10 19:00 → ≈ 24/10 03:00 → ≈ 25/10 11:00 |
+| Machine A, RTX 4070 Ti #0 | `PFN-NoBigVGAN` → `PFN-Baseline-BigVGAN` | ≈ 22/10 22:00 → ≈ 24/10 06:00, if it starts ≈ 21/10 14:00 |
+| Machine A, RTX 4070 Ti #1 | `PFN-NoVITS2` → `PFN-Baseline` | same |
 
-**Actual ends** (`runs-MardeusPC.md`, `runs-Daziel.md`):
+**Actual ends:**
 - RTX 5070: Full 21/10 10:08, NoF0 22/10 17:18, Baseline-VITS2 23/10 18:27, Baseline-F0 24/10 16:24.
-- PC GPU 0: NoBigVGAN 23/10 00:12, Baseline-BigVGAN 23/10 23:09.
-- PC GPU 1: NoVITS2 22/10 23:16, Baseline 23/10 20:20.
-- The PC started on 22/10 01:33, not on 21/10.
+- Machine A GPU 0: NoBigVGAN 23/10 00:12, Baseline-BigVGAN 23/10 23:09.
+- Machine A GPU 1: NoVITS2 22/10 23:16, Baseline 23/10 20:20.
+- Machine A started on 22/10 01:33, not on 21/10.
 
 **Capacity.**
-- All eight runs should end by about 25/10 11:00. That leaves about 57 h for evaluation and reserve before 27/10 evening; the PC GPUs are free for evaluation from about 24/10.
-- If the PC starts later, `PFN-Baseline-F0` may move to whichever GPU is free first.
+- All eight runs should end by about 25/10 11:00. That leaves about 57 h for evaluation and reserve before 27/10 evening; the GPUs of Machine A are free for evaluation from about 24/10.
+- If Machine A starts later, `PFN-Baseline-F0` may move to whichever GPU is free first.
 - Never shorten a run to fit; every run keeps 200 epochs.
 
 **GPU types.**
@@ -118,9 +118,9 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 
 **Constraints:**
 - Each run uses one GPU and runs in its own tmux session. One run per GPU.
-- On the PC, a dedicated environment is used. Nothing of the other project is touched, and nothing starts before its GPUs are free.
-- Every launch needs the author's OK of the exact command.
-- The watchdog only resumes after the known CUDA error and never starts a new run (`runbook-MardeusPC.md`).
+- On Machine A, a dedicated environment is used. Nothing of the other project is touched, and nothing starts before its GPUs are free.
+- Every launch command is reviewed before it runs.
+- The watchdog only resumes after the known CUDA error and never starts a new run (`tools/camera_ready/auto_resume.sh`).
 
 ## Estimand and limits
 
@@ -148,12 +148,12 @@ So the first 200 epochs of a 275-epoch run are the same training as a 200-epoch 
 - RTF with declared threads and batch.
 
 **What was locked and run instead.**
-- **The lock of 21/10.** The author locked the evaluation as the historical one, with no new metric (`eval-protocol.md`). It has:
+- **The lock of 21/10.** The evaluation was locked as the historical one, with no new metric (`eval-protocol.md`). It has:
   - WER, as the mean and median of the per-utterance WER (no corpus WER);
   - UTMOSv2;
   - MCD;
   - the F0-predictor metric. This is a phoneme-level log-F0 RMSE and correlation of the predictor, not a waveform F0 metric.
-- **The other three items were done later, as supplementary analyses** outside the lock. Each protocol was agreed with the author before its run (`ablation8-results.md`):
+- **The other three items were done later, as supplementary analyses** outside the lock. Each protocol was fixed before its run (`ablation8-results.md`):
   - waveform F0 against the recordings (T13, section 11). It measured RMSE and offset in cents, the log-F0 correlation, VDE, GPE and FFE, with MFCC-DTW alignment;
   - the pitch-shift test (T14, section 10);
   - the CPU RTF benchmark with declared threads and batch 1 (T15, section 5; `ablation-final.md`, Measurement conditions).

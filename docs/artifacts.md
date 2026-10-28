@@ -8,14 +8,15 @@ Large and private material stays on the training workstation, in the same folder
 
 | Group | Local path | Size | Why it is not tracked |
 |---|---|---:|---|
-| Processed dataset: normalised audio, linear spectrograms, F0 tensors | `datasets/processed/data_preprocessed` | about 22 GB (39,302 files) | Size; derived data, licence open |
+| Processed dataset: normalised audio, linear spectrograms, F0 tensors | `datasets/processed/data_preprocessed` | about 22 GB (39,302 files) | Size; derived data |
 | LJ Speech as used | `datasets/raw/home-dev-data` | about 3.6 GB (13,111 files) | Size; available from the dataset's site |
-| Selected checkpoints (epochs 773 and 1079) | `runs/*/…/checkpoints/` | 1.72 GB (2 files) | Size; distribution terms open |
+| Selected checkpoints (epochs 773 and 1079) | `runs/*/…/checkpoints/` | 1.72 GB (2 files) | Size; not distributed |
 | TensorBoard events | `runs/**/events.out.tfevents.*` | about 4 GB (5 files) | Size; file names carry the host name |
 | Generated evaluation WAVs | `evaluation/**.wav` | about 0.4 GB | Model outputs; release not reviewed |
 | Silero VAD model | `code/**/norm_audio/models/silero_vad.onnx` | small | Third-party model file; obtain upstream |
 | Git bundle of EdgeTTS (all refs) | `history/private/` | 0.24 GB | Private history; not scanned for secrets |
 | Manuscript drafts, author notes, one draft copy | `evidence/manuscript/`, `history/notes/`, `history/prior-audits-2026-09-23/PitchFlowNet_Conference_Draft_2026-09-24.txt` | small | Unpublished; contact details |
+| Working notes and earlier audits | `history/` (apart from `history/environment/`), `docs/camera-ready/` run notes | small | Internal working material |
 | BanhmiTTS-port training log | `runs/candidates/BanhmiTTS-port/…/train.log` | 11 MB | Size; not one of the paper's runs |
 | Originals of sanitized files | beside each `*.sanitized.*` copy | small | Machine paths |
 | Full manifests | `manifests/file-manifest.json`, `SHA256SUMS` | 34 MB, 9 MB | Size (every dataset file is listed) |
@@ -37,7 +38,3 @@ To use the local copies, choose one of these and **do not edit the copied origin
 **Load checkpoints only with care:**
 - They are Lightning pickles. Their hparams contain `PosixPath` objects.
 - The record itself only scanned their pickle opcodes (`tools/scan_checkpoints_static.py`). It never unpickled them.
-
-## Moving the data
-
-`docs/transfer.md` describes per-group archives and hash checks for moving the data to another machine without an external service.

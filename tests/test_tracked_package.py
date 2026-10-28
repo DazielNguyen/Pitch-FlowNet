@@ -34,8 +34,8 @@ class SanitizeRules(unittest.TestCase):
         '"C:\\\\Users\\\\alice\\\\anaconda3"': '"<WINDOWS_USER_HOME>\\\\anaconda3"',
         "c:/users/alice/x": "<WINDOWS_USER_HOME>/x",
         "\\\\wsl.localhost\\Ubuntu-24.04\\home\\dev\\runs": "<WSL_DEV_HOME>\\runs",
-        "Temp/claude/c--Users-alice-OneDrive-Documents-Repository-FPT-Graduation-Project/abc":
-            "Temp/claude/<WINDOWS_WORKSPACE_SLUG>/abc",
+        "Temp/cache/c--Users-alice-OneDrive-Documents-Repository-FPT-Graduation-Project/abc":
+            "Temp/cache/<WINDOWS_WORKSPACE_SLUG>/abc",
         "events.out.tfevents.1783117787.DESKTOP-ABC1234.5513.0": "events.out.tfevents.1783117787.<WORKSTATION>.5513.0",
     }
 

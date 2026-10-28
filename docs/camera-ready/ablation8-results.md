@@ -5,7 +5,7 @@
 - V = VITS2;
 - F = F0.
 
-The analysis was done on the PC on 2026-10-24.
+The analysis was done on Machine A on 2026-10-24.
 - **No new score.** Nothing was trained, synthesized, transcribed or re-scored for it. Every number below comes from the evaluation files written under the locked protocol (`eval-protocol.md`) and from the run records.
 - **Main result of the paper.** It is still the historical pair (Baseline epoch 773, Full epoch 1079). These eight runs are a separate, budget-matched ablation at 200 epochs and one seed per cell.
 - **Scope of the conclusions.** They hold for this budget only; they are not results at the historical 1,100-epoch budget.
@@ -68,11 +68,10 @@ The analysis was done on the PC on 2026-10-24.
 | Waveform F0 (T13) | `tools/camera_ready/waveform_f0.py` (commit `ac6e68a`), tests `tests/camera_ready/test_waveform_f0.py`; results in `tests/waveform-f0-20261025/` |
 | Derived files | `eval/ablation8-check.json`, `ablation8-table.{csv,md}`, `ablation8-pairs.{csv,json}`, `ablation8-effects.{csv,json}`, `ablation8-cost.{csv,json}`, `ablation8-rtf.{csv,json}`, `ablation8-rtf-runs.jsonl` |
 | Hashes of every source and derived file | `manifests/camera-ready/ablation8-derived.json` (in Git) |
-| Import of the four MardeusPC runs | `runs-Daziel.md`, "Import from MardeusPC" |
 
 **Labels and training machines:**
-- MardeusPC, RTX 5070: `PFN-Full-200ep-best` (run `PFN-Full-275ep-s1234`, ended at epoch 200), `PFN-NoF0`, `PFN-Baseline-VITS2`, `PFN-Baseline-F0`.
-- The PC, RTX 4070 Ti: `PFN-NoBigVGAN`, `PFN-NoVITS2`, `PFN-Baseline-BigVGAN`, `PFN-Baseline`.
+- Machine B, RTX 5070: `PFN-Full-200ep-best` (run `PFN-Full-275ep-s1234`, ended at epoch 200), `PFN-NoF0`, `PFN-Baseline-VITS2`, `PFN-Baseline-F0`.
+- Machine A, RTX 4070 Ti: `PFN-NoBigVGAN`, `PFN-NoVITS2`, `PFN-Baseline-BigVGAN`, `PFN-Baseline`.
 
 Each run was evaluated on the machine that trained it.
 
@@ -117,7 +116,7 @@ No model, optimiser, data or seed setting differs.
   - four `CUDA error: unknown error` interruptions, two of them resumed by the watchdog;
   - one stop for the budget change.
 - `PFN-NoF0` had 4 attempts, with 3 watchdog resumes. The other six runs had one attempt each.
-- Resume was checked to reproduce an uninterrupted run on the CPU (`test_train_cpu.py`, PLAN O1) and in the GPU pilot (`eta.md`). On the GPU it is not bit-exact, because training is not deterministic there.
+- Resume was checked to reproduce an uninterrupted run on the CPU (`test_train_cpu.py`) and in the GPU pilot. On the GPU it is not bit-exact, because training is not deterministic there.
 
 ## 2. The eight models
 
@@ -156,7 +155,7 @@ Reference test audio (the 500 raw WAVs of the split, header durations): 3256.2 s
 - **Test:** two-sided Wilcoxon signed-rank with SciPy defaults, so zero differences are dropped, as in `compare`.
   - For WER and UTMOSv2 the p-values equal those of `compare-*.json` (checked for all 26).
   - MCD is not in `compare`, so the tool tests it with the same call.
-- **Holm correction** within each metric across the 13 pairs. It was specified in the author's task of 24/10, **after all eight evaluations existed**, so it was not fixed in advance.
+- **Holm correction** within each metric across the 13 pairs. It was specified in the analysis plan of 24/10, **after all eight evaluations existed**, so it was not fixed in advance.
 - **Median WER difference:** it is 0.00 for every pair, because most sentences have the same WER in both models.
 
 #### WER, percentage points
@@ -348,7 +347,7 @@ What this means:
 | Baseline | 0 | 0 | 0 | 16,425,780 | 23,663,797 | 70,410,929 | 845,892,176 |
 
 **Training cost**, per machine; RTX 5070 and RTX 4070 Ti times are **not** comparable with each other. Within a machine they are indicative only:
-- the two PC runs on each pair of GPUs shared the CPU;
+- the two Machine A runs on each pair of GPUs shared the CPU;
 - on the RTX 5070, evaluations and other runs sometimes ran beside a training run;
 - that GPU also drives the display.
 
@@ -371,9 +370,9 @@ Columns:
 
 **Inference cost, recorded inline.** The recorded `mean_rtf` was measured inline during evaluation, on two different machines that were not idle. It is **indicative only and not reportable as RTF.**
 
-**Inference cost, CPU benchmark (T15).** All eight best checkpoints were measured on the PC, idle, on 2026-10-24 20:31–21:12 +07, with `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`; log `logs/rtf-ablation8-20261024.log`). Files: `eval/ablation8-rtf.{json,csv}`, `ablation8-rtf-runs.jsonl`.
+**Inference cost, CPU benchmark (T15).** All eight best checkpoints were measured on Machine A, idle, on 2026-10-24 20:31–21:12 +07, with `tools/camera_ready/benchmark_rtf.py` (commit `a67caf3`; log `logs/rtf-ablation8-20261024.log`). Files: `eval/ablation8-rtf.{json,csv}`, `ablation8-rtf-runs.jsonl`.
 
-Protocol (agreed with the author on 24/10):
+Protocol (fixed on 24/10, before the run):
 - **Threads:** CPU only, 1 and 2 threads, one interop thread.
   - The process was pinned with `taskset` to vCPU 0 (1 thread) and to vCPUs 0 and 2 (2 threads).
   - Under WSL, Hyper-V schedules the vCPUs on host cores, so P-core or E-core placement was not controlled.
@@ -509,7 +508,7 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 - So this is not a general effect of removing F0.
 - With one seed per cell, a run-specific outcome cannot be separated from an interaction of F with B and V.
 
-### Duration diagnostics (run on 24/10 after the author's OK)
+### Duration diagnostics (run on 24/10)
 
 **How they ran.**
 - Tool: `tools/camera_ready/duration_diag.py` (commit `c8d3144`), 2026-10-24 22:10–22:19 +07, CPU.
@@ -597,7 +596,7 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
   - CPU, 1 and 2 threads pinned to vCPU 0 and to vCPUs 0 and 2, one interop thread;
   - 10 validation utterances as warm-up, then the first 100 of the same 500 test sentences;
   - three rounds with the order rotated, each cell in its own process.
-  - Run on the idle PC, 02:59–03:09 +07; load average 0.06 at the start, no other tmux session.
+  - Run on Machine A, idle, 02:59–03:09 +07; load average 0.06 at the start, no other tmux session.
 - **Differences from the historical evaluation:**
   - The checkpoints load through `evaluate_like_history.load_model` in "legacy" group semantics with a strict state dict, not through `load_from_checkpoint(strict=False)`.
   - Synthesis is seeded as in the locked protocol, where the historical evaluation was unseeded.
@@ -611,7 +610,7 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 - **Full against Baseline:** Full is about 12.5 % slower at 1 thread and 12.6 % at 2 threads. The recorded values (0.0568 vs 0.0559, +1.6 %) do not show this gap; their thread count and machine state are not known.
 - **Two threads** give a 1.53× speed-up for both checkpoints, as in section 5.
 
-**Twelve threads (added on the author's request, 03:15:49–03:19:47 +07).** Same tool with `--threads 12` (commit `7c08080`; log `logs/rtf-historical-t12-20261028.log`; files `eval/historical-pair-rtf-t12.{json,csv}`, `historical-pair-rtf-t12-runs.jsonl`). The 12 threads were pinned to vCPUs 0, 2, …, 22, the first vCPU of each of the 12 virtual cores (vCPUs 2k and 2k + 1 are siblings). Load average 0.00 at the start.
+**Twelve threads (added later, 03:15:49–03:19:47 +07).** Same tool with `--threads 12` (commit `7c08080`; log `logs/rtf-historical-t12-20261028.log`; files `eval/historical-pair-rtf-t12.{json,csv}`, `historical-pair-rtf-t12-runs.jsonl`). The 12 threads were pinned to vCPUs 0, 2, …, 22, the first vCPU of each of the 12 virtual cores (vCPUs 2k and 2k + 1 are siblings). Load average 0.00 at the start.
 
 | Checkpoint | 12 threads: model RTF, median [min, max] | 12 threads: end-to-end | Speed-up over 1 thread | Over 2 threads | Lengths equal in all 3 runs |
 |---|---|---:|---:|---:|:-:|
@@ -635,7 +634,7 @@ Read-only analysis of the files above (per-sentence `audio_duration_sec`, the ra
 - They do not show the pitch of the waveform, or that the decoder uses its F0 conditioning.
 - This test asks whether changing the F0 that the decoder receives changes the pitch of the output.
 
-**Protocol.** Agreed with the author on 2026-10-25 before any run. It is a supplementary analysis, outside the protocol locked on 21/10.
+**Protocol.** Fixed on 2026-10-25 before any run. It is a supplementary analysis, outside the protocol locked on 21/10.
 - **Tool:** `tools/camera_ready/pitch_shift.py`, commit `524708f`.
 - **Intervention:** a hook on `dec.forward` scales the decoder's F0 input by 2^(s/12) for s = −2, 0, +2 semitones, or removes it ("off").
   - With the evaluation's per-utterance seeds, the latent z, the durations and the noise are identical in every condition.
@@ -689,7 +688,7 @@ All values are in semitones. Every model used 100 of 100 utterances.
 
 **Question.** How close is the pitch of the synthesized waveform to the pitch of the recording of the same sentence, and does the F0 group bring it closer? Review 1 asks for waveform F0 metrics.
 
-**Protocol.** Agreed with the author on 2026-10-25 before the run. It is a supplementary analysis, outside the protocol locked on 21/10.
+**Protocol.** Fixed on 2026-10-25 before the run. It is a supplementary analysis, outside the protocol locked on 21/10.
 - **Tool:** `tools/camera_ready/waveform_f0.py`, commit `ac6e68a`.
 - **Models:** the eight cells (best checkpoints) and the historical pair (773, 1079).
 - **Audio:** the 500 test utterances, synthesized with the evaluation's seeds and scales.
@@ -799,7 +798,7 @@ All values are in semitones. Every model used 100 of 100 utterances.
 - **Multiplicity:** the six comparisons are corrected within each metric, not across the metrics.
 - **No pitch range:** pitch range (for example the spread of log-F0 per utterance) was not in the protocol and was not measured.
 
-## Draft text for the author
+## Draft text for the manuscript
 
 Proposals only. The manuscript is not edited here. Each number has its source above.
 
