@@ -165,7 +165,7 @@ python tools/check_tracked_package.py                  # repository integrity
 ## Citation
 
 ```bibtex
-@inproceedings{pitchflownet2026,
+@inproceedings{pitchflownet,
   title     = {PitchFlowNet: An Empirical Study of Architectural Integration in Single-Stage Text-to-Speech},
   author    = {Trần, Hoàng Tuấn Hưng and Nguyễn, Văn Anh Duy and Trần, Huỳnh Bảo Minh and Hồ, Lê Minh Toàn},
   booktitle = {Proceedings of the International Symposium on Information and Communication Technology (SOICT 2026)},
