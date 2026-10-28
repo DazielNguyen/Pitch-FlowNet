@@ -1,4 +1,4 @@
-"""Diagnose the resume continuity check (PLAN O1) on the CPU, in deterministic mode.
+"""Diagnose the resume continuity check on the CPU, in deterministic mode.
 
     python tools/camera_ready/resume_diagnostic.py [--threads 1] [--output report.json]
 

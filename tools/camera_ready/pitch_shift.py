@@ -1,4 +1,4 @@
-"""Pitch intervention test (T14; protocol agreed with the author on 2026-10-25, before any run).
+"""Pitch intervention test (T14; protocol fixed on 2026-10-25, before any run).
 
     python tools/camera_ready/pitch_shift.py --final-dir <CR_OUTPUTS>/final --eval-dir <CR_OUTPUTS>/eval \
            --out <CR_OUTPUTS>/tests/pitch-shift-<YYYYMMDD> [--limit 100] [--workers 8]

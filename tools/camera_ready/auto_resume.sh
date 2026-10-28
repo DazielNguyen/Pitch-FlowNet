@@ -6,7 +6,7 @@
 #
 # --stop-after-epochs N is passed to every resume, for a run that must end at epoch N (e.g. PFN-Full-275ep ended at 200).
 #
-# Standing permission of the author (2026-10-21) for this one failure: on MardeusPC the display GPU resets
+# Scope (fixed on 2026-10-21): this one failure only. On Machine B (RTX 5070) the display GPU resets
 # (Windows LiveKernelEvent 141) and a run can die with "CUDA error: unknown error". Every <interval> seconds:
 #   - the run's tmux session cr-<run_id> is alive               -> nothing to do;
 #   - its newest launch log ends with "# exit 0"                -> the run is finished: finalize_run.sh archives its best and
@@ -14,7 +14,7 @@
 #   - it ends with a non-zero exit and the CUDA unknown error   -> wait 60 s, check CUDA with a small matmul,
 #     then resume_train.sh --execute (which checks last.ckpt); at most --max-resumes times in total;
 #   - anything else (another error, a damaged last.ckpt, a failed CUDA check, the limit reached)
-#                                                                -> stop and leave it to the author.
+#                                                                -> stop and leave it to the operator.
 # Each decision is written to $CR_OUTPUTS/logs/watchdog-<run_id>.log; each automatic resume is also appended to
 # the run's checkpoint_ledger.jsonl. It never uses --fallback, never restarts from scratch, never starts a 2nd copy.
 set -uo pipefail

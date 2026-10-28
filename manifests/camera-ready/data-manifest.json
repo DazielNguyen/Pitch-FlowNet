@@ -1,7 +1,7 @@
 {
  "schema": "camera-ready data manifest v1",
  "created": "2026-10-19",
- "note": "Data needed by the camera-ready runs. None of it is in Git. Hashes were read on the PC on 2026-10-19 unless stated. <WSL_DEV_HOME> is the home directory of the WSL account that holds the data.",
+ "note": "Data needed by the camera-ready runs. None of it is in Git. Hashes were read on Machine A on 2026-10-19 unless stated. <WSL_DEV_HOME> is the home directory of the WSL account that holds the data.",
  "items": [
   {
    "id": "dataset_jsonl",

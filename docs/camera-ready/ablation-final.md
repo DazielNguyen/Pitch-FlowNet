@@ -10,7 +10,7 @@
   - Table F1 for the main result;
   - Table F2 for the ablation;
   - the appendix tables below them.
-- **No new score:** nothing was trained, synthesized or re-scored for this page; T13, T14, T15 and the duration diagnostics were run earlier, each with the author's agreement. Every number is computed from per-sentence files that exist, by `tools/camera_ready/ablation_final.py` (commit `f343ca3`; the X tables are also in `eval/ablation-final-extra.md`).
+- **No new score:** nothing was trained, synthesized or re-scored for this page; T13, T14, T15 and the duration diagnostics were run earlier, each under a protocol fixed before its run. Every number is computed from per-sentence files that exist, by `tools/camera_ready/ablation_final.py` (commit `f343ca3`; the X tables are also in `eval/ablation-final-extra.md`).
 - **The manuscript:** it is not edited here. Proposed wording is in the last section.
 
 **Reading the numbers:**
@@ -109,7 +109,7 @@ The main pair and the ablation were trained and evaluated under different protoc
 | Training | 1,100 epochs, 2 × RTX 4070 Ti, DDP, batch 16 per GPU (32), bf16, seed 1234 (hparams; `evidence/manuscript-crosswalk.md`) | 200 epochs = 156,400 G updates, 1 GPU (RTX 5070 or RTX 4070 Ti), batch 16, bf16, seeds 1234 / 1234 / 2026 (`experiment-plan.md`) |
 | Checkpoint | minimum validation mel loss: epochs 773 and 1079. The selection under DDP is UNRESOLVED in the crosswalk | minimum `val_mel_l1_global` on the 100 validation utterances: epochs 188–199 |
 | Evaluation record | the historical evaluation, `evaluation/eval_h_vs_baseline/` | the protocol locked on 21/10 (`eval-protocol.md`), `eval/<label>/` |
-| CPU of the quality evaluation | Intel Core i7-14700 (manuscript) | Intel Core i7-14700 for the four PC cells; Intel Core i5-14400F for the four MardeusPC cells (`preflight-MardeusPC.md`) |
+| CPU of the quality evaluation | Intel Core i7-14700 (manuscript) | Intel Core i7-14700 for the four Machine A cells; Intel Core i5-14400F for the four Machine B cells |
 | Threads | **not recorded**. The harness sets none, so the PyTorch default applied; it is 12 in that environment today, but this is not proven for the run | **4** (`torch.set_num_threads(4)`, `threads` in every `protocol.json`) |
 | Batch | 1: one utterance per synthesis call (`eval_harness.synthesize`) | 1, the same call |
 | Synthesis | noise 0.667, length 1.0, noise_w 0.8, **unseeded** | the same scales, **seeded per utterance**: (2026 × 1,000,003 + i) mod 2³¹ |
@@ -129,7 +129,7 @@ The main pair and the ablation were trained and evaluated under different protoc
 
 | Item | Setting |
 |---|---|
-| Machine | the PC: **Intel Core i7-14700**, Windows 11 Pro, WSL 2 (Ubuntu 24.04.4, kernel 6.18.33.1). WSL exposes 24 vCPUs as 12 virtual cores × 2, with 62.8 GiB RAM. The GPUs are present but not used (`device: cpu`) |
+| Machine | Machine A: **Intel Core i7-14700**, Windows 11 Pro, WSL 2 (Ubuntu 24.04.4, kernel 6.18.33.1). WSL exposes 24 vCPUs as 12 virtual cores × 2, with 62.8 GiB RAM. The GPUs are present but not used (`device: cpu`) |
 | Threads | **1, 2 and 12** intra-op threads; 1 interop thread; `OMP_NUM_THREADS` and `MKL_NUM_THREADS` set to the same count |
 | Pinning | `taskset` to vCPU 0 (1 thread), vCPUs 0 and 2 (2 threads), vCPUs 0, 2, …, 22 (12 threads): one vCPU per virtual core. Hyper-V schedules the vCPUs on host cores, so P-core or E-core placement is **not controlled** |
 | Batch | **1**: one utterance per call, no padding |
@@ -339,7 +339,7 @@ Full vs Baseline & +0.575 [+0.546, +0.604] & $6.7\times10^{-80}$ & +0.54 [-0.41,
 **Measurement, Table F2:**
 - the locked protocol of 21/10, applied to the 200-epoch checkpoints;
 - CPU synthesis, batch 1, **4 threads**;
-- Intel Core i7-14700 (the PC cells) or i5-14400F (the MardeusPC cells); the scores do not depend on the CPU, and the reference UTMOSv2 is identical per sentence on both machines;
+- Intel Core i7-14700 (the Machine A cells) or i5-14400F (the Machine B cells); the scores do not depend on the CPU, and the reference UTMOSv2 is identical per sentence on both machines;
 - synthesis and UTMOSv2 seeded per utterance;
 - `pfn-eval` with the package versions above.
 - **Do not compare with Table F1:** it is a different protocol.
@@ -525,7 +525,7 @@ The numbers below are from Tables F2, X2 and X3 and the appendix tables A (Holm 
 
 **Question.** Does changing the F0 that the decoder receives change the pitch of the output?
 
-**Protocol.** Agreed with the author on 2026-10-25 before the run; supplementary, outside the locked protocol.
+**Protocol.** Fixed on 2026-10-25 before the run; supplementary, outside the locked protocol.
 - **Tool:** `tools/camera_ready/pitch_shift.py`, commit `524708f`.
 - **Intervention:** a hook on `dec.forward` scales the decoder's F0 input by 2^(s/12) for s = −2, 0, +2 semitones, or removes it ("off").
   - With the evaluation's per-utterance seeds, the latent z, the durations and the noise are identical in every condition.
@@ -587,11 +587,11 @@ The numbers below are from Tables F2, X2 and X3 and the appendix tables A (Holm 
 - the perceptual quality of the shifted audio;
 - whether the conditioning helps through another route. The F0 group's UTMOSv2 gain with BigVGAN and VITS2 is a predicted score, from one seed per cell.
 
-**Suggested response text** (for the author to adapt):
+**Suggested response text** (to adapt):
 
 *"We tested whether the decoder uses the F0 conditioning by intervening on it in the trained checkpoints. With the latent, the durations and the noise held fixed, we scaled the decoder's F0 input by ±2 semitones or removed it, and measured the pitch of the output waveform on 100 test utterances. The conditioning changes the waveform (median relative RMS difference 0.09–0.22 for ±2 semitones, 0.59–0.90 when removed), but the output pitch moves by only 0.008–0.023 semitones for a requested ±2 semitones (slope 0.0114 [0.0109, 0.0120] for PitchFlowNet). The decoder therefore uses the F0 signal, but the pitch of the output is not controlled by it."*
 
-If this text is used, any sentence of the manuscript that presents the F0 branch as controlling pitch has to change to match. That is the author's decision; the manuscript is not edited here.
+If this text is used, any sentence of the manuscript that presents the F0 branch as controlling pitch has to change to match. The manuscript is not edited here.
 
 ## The long audio of NoF0
 
@@ -607,7 +607,7 @@ Median ratio 1.402; 10th–90th percentile 1.252–1.565; share of sentences mor
 - so NoF0 speaks more slowly throughout; it does not add pauses.
 - **A possible effect on quality:** within NoF0, the more stretched sentences score lower on UTMOSv2 (r = −0.24). This is a plausible contributor to its low UTMOSv2, not a tested cause.
 
-**Duration diagnostics** (run on 24/10 with the author's OK).
+**Duration diagnostics** (run on 24/10).
 - **Tool:** `tools/camera_ready/duration_diag.py`, commit `c8d3144`. Results: `tests/duration-diag-20261024/`.
 - **What ran:** only the text encoder and the duration predictor, and for the validation part the posterior encoder, the flow and MAS. No audio was written.
 - **Check:** with noise_w 0.8 and the evaluation's seeds, every best checkpoint reproduced the evaluation's durations, 500 of 500.
@@ -889,14 +889,14 @@ Suggested caption: *"Model-inference RTF on an Intel Core i7-14700 CPU (WSL 2), 
 
 **Notes on the appendix tables:**
 - **RTF:**
-  - It is the model-only RTF on the idle PC (WSL, Intel Core i7-14700). Threads are declared, pinned one per virtual core; the placement on P-cores or E-cores is not controlled.
+  - It is the model-only RTF on Machine A, idle (WSL, Intel Core i7-14700). Threads are declared, pinned one per virtual core; the placement on P-cores or E-cores is not controlled.
   - It is the median over three rounds; the 8 cells used 100 test utterances.
   - No test is applied: three rounds give no sentence-level pairing.
   - The two historical values recorded in the paper (0.0559, 0.0568) have no recorded thread count. They are not in this table.
 - **P13 numbers:** they use the historical pair synthesized with seeds (T13). They are not the historical evaluation.
 - **Source of every number:** `eval/ablation-final-stats.json`.
 
-## Draft text for the author
+## Draft text for the manuscript
 
 Proposals only. Every number has its row above.
 

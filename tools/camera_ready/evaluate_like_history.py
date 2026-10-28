@@ -24,7 +24,7 @@ Four things differ from the historical runs, and each is recorded in protocol.js
   4. UTMOSv2 scoring is seeded per utterance: its predict() takes a random crop of the audio
      (utmosv2/dataset/_utils.py, np.random.randint), so the same audio scored twice differed by up to ~0.18;
      numpy, random and torch are seeded before each call (default num_repetitions=1, as historically).
-The test split is used only when the author has locked the protocol (docs/camera-ready/eval-protocol.md).
+The test split is used only once the protocol is locked (docs/camera-ready/eval-protocol.md).
 """
 import argparse
 import csv

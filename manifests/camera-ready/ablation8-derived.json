@@ -1,7 +1,7 @@
 {
  "schema": "camera-ready derived-file manifest v1",
  "created": "2026-10-24",
- "machine": "the PC (2 x RTX 4070 Ti), WSL account <WSL_DEV_HOME>",
+ "machine": "Machine A (2 x RTX 4070 Ti), WSL account <WSL_DEV_HOME>",
  "note": "None of these files is in Git. The derived files come only from the listed sources; nothing was synthesized or re-scored. The checkpoints themselves are covered by each final/<run_id>/SHA256SUMS.",
  "tool": {
   "path": "tools/camera_ready/ablation8_analysis.py",
@@ -14,7 +14,7 @@
   "path": "tools/camera_ready/evaluate_like_history.py",
   "commit": "f773be2",
   "sha256": "314c79cccbcafad335358b7386523269bb8e89aa8af204422e13d82980788c72",
-  "note": "compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json was written on MardeusPC (22/10) and imported; the other twelve were written on the PC on 24/10 (<WSL_DEV_HOME>/outputs-pfn-cr/logs/compare-ablation8-20261024.log)",
+  "note": "compare-PFN-Full-200ep-best_PFN-NoF0-200ep-best.json was written on Machine B (22/10) and imported; the other twelve were written on Machine A on 24/10 (<WSL_DEV_HOME>/outputs-pfn-cr/logs/compare-ablation8-20261024.log)",
   "files": [
    {
     "path": "<WSL_DEV_HOME>/outputs-pfn-cr/eval/compare-PFN-Baseline-200ep-best_PFN-Baseline-BigVGAN-200ep-best.json",

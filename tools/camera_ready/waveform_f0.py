@@ -1,4 +1,4 @@
-"""Waveform F0 against the recordings (T13; protocol agreed with the author on 2026-10-25, before any run).
+"""Waveform F0 against the recordings (T13; protocol fixed on 2026-10-25, before any run).
 
     python tools/camera_ready/waveform_f0.py --final-dir <CR_OUTPUTS>/final --eval-dir <CR_OUTPUTS>/eval \
            --out <CR_OUTPUTS>/tests/waveform-f0-<YYYYMMDD> [--limit 0] [--workers 8]
